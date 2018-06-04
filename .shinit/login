@@ -1,0 +1,22 @@
+# $Id$
+# Common login session shell startup script
+#
+
+   [ -n "${HOME}" ]							\
+&& [ "x`pwd`" != "x${HOME}" ] && {	# cd to HOME if != cwd
+	   cd "${HOME}" 2>/dev/null					\
+	&& { echo "current working directory != \$HOME (${HOME:-<unset>}), changed"; }\
+	|| { echo "unable to cd to \$HOME (${HOME:-<unset>})"; };
+};
+
+#
+# If there's a login script for this host, source it.
+[ -z "${_HNAME}" ] && _HNAME="`hostname`" && _HNAME="${_HNAME%%.*}";
+for _SCRIPT in								\
+"${HOME}"/.shinit/login.common						\
+"${HOME}"/.shinit/login."${_HNAME}"					\
+"${HOME}"/.login."${_HNAME}";
+do	[ -r "${_SCRIPT}" ] && . "${_SCRIPT}";
+done;	unset _SCRIPT _HNAME;
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

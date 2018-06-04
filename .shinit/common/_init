@@ -1,0 +1,30 @@
+# $Id$
+# Startup script sequence stub initialising
+#	* _UID to either the value of the environment variable UID or the output
+#	  of id (1) to mitigate non SuS-conforming sh(1)ells et al,
+#	* _SNAME to an uniquely identifying name corresponding to the
+#	  /operating system name/ as printed by uname (1),
+#	* a failsafe which (1) replica sought to indicate presence or absence
+#	  of the supplied command via either a successful or false exit status
+#	  code.  Implemented as which (1) appears not to have made it into any
+#	  of the numerous POSIX, SuS, XPG, [ ... ] standards wrt. sh (1) and
+#	  related commands,
+#	* and then some. <- this in particular
+#
+# All of the above are subsequently cleaned up by `999.sname'.
+#
+
+   [ "0" = "${UID}" ]							\
+|| [ "xroot" = "x${USER}" ] || [ "xtoor" = "x${USER}" ] && _suser=0;
+_suser() { return ${_suser:-1}; };
+_which() { command -v "$@" >|/dev/null 2>&1; };
+_dirname() { echo "/${1%/*}"; }; _basename() { echo "/${1%##*/}"; };
+
+_SNAME="`uname -s`" ; _SNAME="${_SNAME:-(unknown)}";
+_sname() { [ "x${1}" = "x${_SNAME}" ] && return || return 1 ; };
+
+_USER="${USER:-`id -un 2>/dev/null`}";
+_which hostname && _HNAME="`hostname 2>/dev/null`" && _HNAME="${_HNAME%%.*}";
+_HNAME="${_HNAME:-<UNKNOWN>}";
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

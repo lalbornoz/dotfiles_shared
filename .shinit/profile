@@ -1,0 +1,86 @@
+# $Id$
+#	Common shell session startup script for any conforming Bourne sh (1)
+# and/or derivative thereof (from hereafter denominated as `sh (1)') shell.
+#
+#	Primarily prepares a minimal environment, sources the applicable
+# set of common and shell-specific initialization scripts, and lastly
+# invokes the generic login script if sh (1) was invoked as a login shell.
+#
+# N.B.	* The `ENV' parameter is set accordingly to point to the location
+#	  of this script (`profile') so as to properly set up non-login
+#	  shell sessions aswell as login shells.
+#
+#	* Restrictions {may,should} apply for non-suid shells, refer to the
+#	  relevant man(1)ual pages for your particular implementation in case
+#	  of doubt (this should hold true for most sufficiently modern systems.)
+#
+
+# Bail out in case of a non-interactive sh (1) (for now.)
+case $- in *i*) ;;  *) return;; esac
+
+# Inhibit sh (1) from sourcing this script more than once (e.g. due
+# to the `ENV' shell parameter being set up to point to the latter
+# in case of a login shell.)
+[ -n "${_PROFILE_SOURCED}" ] && { unset _PROFILE_SOURCED; return; };
+_PROFILE_SOURCED=1
+
+# Fall back to default values for some vital variables.
+[ -z "${HOME}" ] && { HOME="`pwd`"; export HOME; };
+[ -z "${TERM}" ] && { TERM="unknown"; export TERM; };
+[ -z "${PATH}" ] && { PATH="/bin:/sbin:/usr/bin:/usr/sbin"; export PATH; };
+
+# Attempt to guess the shell type (or fall back to Bourne sh (1).)
+if [ -n "${ZSH_NAME}" ]; then		_SHELL="zsh";
+elif [ -n "${BASH}" ]; then		_SHELL="bash";
+elif [ -n "${KSH_VERSION}" ]; then
+	if [ -z "${KSH_VERSION##@\(#\)PD KSH*}" ]; then
+					_SHELL="pdksh";
+	else				_SHELL="ksh";
+	fi
+else					_SHELL="sh";
+fi
+
+# XXX
+. "${HOME}/.shinit/common/_init";
+
+#
+# Prepare the list of and source both shell-specific aswell as
+# initialization scripts common to any kind of Bourne-compatible
+# and/or derived interpreter.
+#  Order of execution is done SysV-style by prepending each script
+# file with an (hopefully) unique, 3-digit number followed by a
+# period (`.'); refer to .shinit/{common,<shellname>/ for
+# details.)
+#
+
+_SCRIPTS="${HOME}/.shinit/common"                        # common/minimal set
+_SCRIPTS="${_SCRIPTS} ${_SHELL:+${HOME}/.shinit/${_SHELL}}"  # shell-specific
+for _DIR in ${_SCRIPTS}
+do
+	[ -x "${_DIR}" ] && {
+		for _SCRIPT in "${_DIR}"/[0-9][0-9][0-9].*; do
+			[ -r "${_SCRIPT}" ] && { . "${_SCRIPT}" ; }; done
+	};
+done
+
+#
+# Source the generic login script in case of a login shell
+# session according to the program name sh (1) was invoked with
+# (i.e. its first argument / argv[0],) unless the particular
+# kind of sh (1) takes care of this on itself.
+#
+
+case "${_SHELL}" in
+	zsh|bash) ;;
+	*) [ "${0##-}" != "${0}" ] && {
+		. "${HOME}/.shinit/login"; };
+	;;
+esac
+
+# Keep the shell parameter namespace free of internally used data.
+unset _SHELL _SCRIPTS _DIR _SCRIPT
+
+# XXX
+. "${HOME}/.shinit/common/_fini";
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

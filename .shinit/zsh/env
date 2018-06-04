@@ -1,0 +1,14 @@
+# $Id$
+# Principal Zsh-specific startup/environmental preparation script,
+# sourced directly after the global startup script
+#
+
+#
+# Turn off some options set by default when Zsh is not specifically directed
+# to emulate any other shell/conform to POSIX sh (1) behaviour which might
+# produce unexpected results.
+set +o nomatch;		# Don't stop evaluating if no matches
+			# for a glob were found
+set -o sh_word_split;	# Emulate the Bourne sh(1) wrt. field splitting
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=zsh

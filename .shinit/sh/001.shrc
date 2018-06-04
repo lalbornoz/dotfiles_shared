@@ -1,0 +1,24 @@
+# $Id$
+# XXX
+#
+
+export __HNAME="`hostname -s`" ;
+
+#
+# Hack to update the current working directory in the shell prompting
+# string whenever necessitated by changing it via the cd (1) builtin.
+cd() {
+	command cd "$@" || return 1; _c_pwd="${PWD}";
+	[ 0 -eq $# ] || [ "x${HOME}" = "x${1}" ] && { _c_pwd="~"; };
+	PS1="${LOGNAME:+${LOGNAME}@}${__HNAME}:(${_c_pwd})> ${OPS1}";
+	unset _c_pwd;
+};
+
+#
+# NetBSD's [a]sh (1) as of 5.1-RELEASE (histedit.c,v 1.41) implements
+# support for file name tab completion from the command line editor,
+# attempt to silently it if available.
+_lopt="`set -o`"; [ -z "${_lopt##*tabcomplete*}" ] && set -o tabcomplete;
+unset _lopt;
+
+# vim:ts=8 sw=8 tw=80 noexpandtab foldmethod=marker filetype=sh 

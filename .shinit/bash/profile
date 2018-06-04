@@ -1,0 +1,10 @@
+# $Id$
+# Bourne Again SHell-specific login shell startup script
+#
+
+#
+# Emulate the common sh(1) behaviour by manually sourcing
+# both the profile aswell as the login script.
+. "${HOME}/.shinit/profile"; . "${HOME}/.shinit/login";
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

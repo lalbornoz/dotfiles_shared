@@ -1,0 +1,7 @@
+# $Id$
+# [cf. `001.sname']
+#
+
+unset _suser _USER _UID _SNAME _HNAME; unset -f _suser _which _dirname _basename _sname;
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

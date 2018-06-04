@@ -1,0 +1,33 @@
+# $Id$
+# Common set of commands to execute upon logout
+#
+ 
+#
+# {reset,clear}(1) the shells' ctty regardless of its {type,kind} or
+# the presence of e.g. the `SSH_CLIENT' and/or `DISPLAY' environment
+# variable{,s}.
+reset 2>/dev/null; clear 2>/dev/null;
+
+# [attempt to] zero out some histfiles in ${HOME}
+for _FILE in				\
+	.bash_history			\
+	.gdb_history			\
+	.history			\
+	.lesshst			\
+	.local/share/recently-used.xbel	\
+	recently-used			\
+	.python_history			\
+	.sqlite_history			\
+	.thumbnails			\
+	.utop-history			\
+	.viminfo			\
+	.wget-hsts;
+do	if [ -f "${HOME}/${_FILE}" ]; then
+		rm -rf "${HOME}/${_FILE}";
+		ln -sf /dev/null "${HOME}/${_FILE}";
+	elif [ -d "${HOME}/${_FILE}" ]; then
+		rm -rf "${HOME}/${_FILE}";
+	fi;
+done;	unset _FILE;
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

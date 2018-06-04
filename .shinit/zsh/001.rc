@@ -1,0 +1,48 @@
+# $Id$
+# Zsh-specific shell options and parameters
+#
+
+# Completion
+set -o glob_complete		# Cycle through <Tab>-completed results of a
+				# matching glob pattern.
+
+# Expansion and Globbing
+set -o nobad_pattern		# Don't reject invalid patterns
+set -o bare_glob_qual		# Interpret glob qualifier postfixes enclosed in
+				# parantheses, ...
+set -o extended_glob		# ..., the Zsh-specific set of ``extended''
+				# ([#~^]) meta-characters, ...
+set -o ksh_glob			# ..., aswell as the Korn Shell-style pattern
+				# grouping prefixes ([@*+?!].)
+set -o glob_subst		# Treat characters resulting from {parameter
+				# expansion,command substitution} as being eligible
+				# for further globbing substitutions, excluding
+				# brace expansion{,s}.
+set -o mark_dirs		# Append a slash to matched directories.
+set -o numeric_glob_sort	# Sort numerically if only numerical file names
+				# were matched.
+set +o nomatch			# Do not print an error If a pattern for filename
+				# generation has no matches.
+
+# History
+set +o extended_history		# Don't save entered commands' corresponding
+				# {UNIX,POSIX} timestamp to the histfile.
+set +o bang_hist		# Disable history expansion.
+
+# Input/Output
+set +o clobber			# Require [!|] postfix to overwrite existing files
+				# with the redirecting operators.
+set -o interactive_comments	# Allow comments in interactive shell sessions.
+set -o print_exit_value		# Show non-zero exit values.
+set -o rc_quotes		# Permit use of '' inside of '...'.
+
+# Scripts and Functions
+set -o c_bases			# Output C-style hexadecimal numbers (0x...).
+
+# Zle
+set +o beep			# Don't emit bell beeps at all.
+
+# Shell-internal parameters
+unset HISTFILE SAVEHIST		# Don't save the command history at all.
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=zsh 

@@ -1,0 +1,4 @@
+[hosts_dotfiles]
+#user@somewhere.			ansible_host=somewhere.			ansible_ssh_user=somewhere
+
+# vim:filetype=cfg

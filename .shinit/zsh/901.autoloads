@@ -1,0 +1,7 @@
+# $Id$
+# Zsh autoloads
+#
+
+autoload -U zmv
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=zsh

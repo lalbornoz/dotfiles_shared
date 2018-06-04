@@ -1,0 +1,13 @@
+# $Id$
+# ctty (`controlling teletype') {re,}initialisation
+#
+
+_which tset && {			# Initialise TERM{,CAP}
+	export `tset -sIQ` ; } >|/dev/null 2>&1
+
+case "${TERM}" in			# Correct ERASE character
+[abmEwxX][tT]erm*|putty|screen*)	stty erase  ;;
+*)					stty erase  ;;
+esac
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

@@ -1,0 +1,65 @@
+#
+# Common platform-independent aliases and subr
+#
+
+#
+# Aliases
+#
+
+if _which tmux; then
+	alias tmux="env TERM=xterm-256color tmux -2";
+fi;
+alias cp="cp -i"
+alias df="df -h"
+alias du="du -sch"
+if _which gcc; then
+	alias gcc="gcc -Wall -std=gnu99 -O0 -g"	# hzu is a fucking twat
+fi;
+if _which hexdump; then
+	alias hd="hexdump -C"
+fi;
+alias j="jobs"
+alias jd="jobs -ld"
+alias jobs="jobs -l"
+alias mv="mv -i"
+if _which pastebin.py; then
+	alias pastebin="pastebin.py -e 1D";
+fi;
+alias rm="rm -i"
+
+#
+# Subroutines
+#
+
+if _which diff; then
+	mdiff() { for _fname in "$@"; do diff -Nru "${_fname}.orig" "${_fname}"; done };
+fi;
+if ! _which ps2 && _which grep; then
+	ps2() { command ps "${@}" | command grep -v "\[[^]]*\]\$"; };
+fi;
+if _which awk openssl; then
+	randpw() {
+		_rp_len="${1:-22}";
+		openssl rand -base64 "${_rp_len}"				|\
+		awk "{lines = lines \$0} END {print substr(lines, 0, ${_rp_len})}";
+		unset _rp_len;
+	};
+fi;
+if ! _which tac && _which sed; then
+	tac() { sed -n '1!G;$p;h;'; };
+fi;
+if _which whois && [ "${_SNAME%BSD}" = "${_SNAME}" ]; then
+	whois() {
+		if [ "x${1}" = "x-m" ]; then
+			shift; command whois -h whois.radb.net "$@";
+		else
+			command whois "$@";
+		fi;
+	};
+fi;
+
+if _which curl; then
+	sprunge() { curl -F "sprunge=<-" http://sprunge.us; };
+fi;
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

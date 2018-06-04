@@ -1,0 +1,23 @@
+---
+- stat: path=".irssi"
+  name: Get file stat(2)us of remote irssi dotdir
+  register: stat_result
+- name: Pull user- and host-local irssi dotdir
+  synchronize:
+    dest: "../dotfiles_private/{{ansible_ssh_user}}@{{ansible_host}}/.irssi/"
+    group: no
+    mode: pull
+    owner: no
+    rsync_opts:
+      - "--exclude=away.log"
+      - "--exclude=logs"
+    src: ".irssi/"
+    use_ssh_args: yes
+  register: synchronize_irssi
+  when: stat_result.stat.exists
+- local_action: command hostname
+  register: hostname
+  when: synchronize_irssi.changed
+- local_action: shell cd "../dotfiles_private/{{ansible_ssh_user}}@{{ansible_host}}" && git add .irssi && [ $(git status --porcelain .irssi | wc -l) -gt 0 ] && git commit -m "Automatic irssi dotdir pull from {{ansible_ssh_user}}@{{ansible_host}} to ${USER}@{{hostname.stdout_lines[0]}}." .irssi || exit 0
+  name: Commit to Git repository
+  when: synchronize_irssi.changed

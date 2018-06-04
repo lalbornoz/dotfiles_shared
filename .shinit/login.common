@@ -1,0 +1,50 @@
+#
+# Catch-all sh (1) login shell script sourced on every host prior to
+# per-hostname (specific) scripts
+#
+
+# Don't permit other users to write (1) to this terminal.
+if [ -x "`which mesg 2>/dev/null`" ]; then
+	mesg n 2>/dev/null;
+fi;
+
+# Drop a fortune cookie and relevant system diagnostics/information.
+if [ -x "`which fortune 2>/dev/null`" ]; then
+	fortune -s; echo;
+fi;
+if [ -x "`which uname 2>/dev/null`" ]; then
+	uname -mnrsv;
+fi;
+if [ -x "`which uptime 2>/dev/null`" ]; then
+	uptime;
+fi;
+
+#
+# Print the `TODO' file if present and the sender message headers
+# (`From') for any recently arrived, unread mail.
+if [ -r "${HOME}/TODO" ]; then
+	printf "\nTODO:\n"; cat "${HOME}/TODO";
+fi;
+if [ -x "`which from 2>/dev/null`" ]; then
+	from;
+fi;
+
+#
+# Display lines from the calendar (1) file{,s} with dates up to
+# 4 days ahead given the presence of a calendar (1) dotfile in HOME.
+if [ -r "${HOME}/.calendar" -a -x "`which calendar 2>/dev/null`" ]; then
+	printf "\nUpcoming calendar (1) reminders:\n";
+	calendar -l 4 -f "${HOME}/.calendar";
+fi;
+
+# Print listing of the five (5) last logins for the current user.
+if [ -x "`which last 2>/dev/null`" ]; then
+	last -5 "${USER}";
+fi;
+
+# Print faillog records.
+if [ -x "`which faillog 2>/dev/null`" ]; then
+	faillog;
+fi;
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

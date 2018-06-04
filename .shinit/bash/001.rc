@@ -1,0 +1,10 @@
+# $Id$
+# Bourne Again SHell-specific initialisation
+#
+
+alias hc='history -c; clear'		# Aliases
+PS1='\u@\h:(\w)> \$ '			# Prompt string{,s}
+set +B;					# {}
+set +H;					# !
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

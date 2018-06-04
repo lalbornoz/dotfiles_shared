@@ -1,0 +1,50 @@
+# $Id$
+# Fixups and local additions to various location path [environment] variables
+#
+
+# {{{
+   [ -x "${HOME}/.local/man" ]						\
+&& _sname "FreeBSD" && {		# XXX
+	[ -z "${MANPATH}" ] && _which manpath && { MANPATH="`manpath`" ; };
+	[ "x${MANPATH##$HOME/.local/man}" = "x${MANPATH}" ] && {
+		MANPATH="${HOME}/.local/man${MANPATH:+:$MANPATH}" ; };
+	export MANPATH;
+};	#|| _sname "OpenBSD" && { alias man="man -m ${HOME}/.local/man" ; };
+# }}}
+
+if [ -n "${ZSH_VERSION}" ]; then
+	# cf. .shinit/zsh/001.rc
+	set +o nomatch;
+fi;
+
+#
+# Multiple search path additions and fixups
+for _path_fixups in								\
+		/usr/games:PATH							\
+		/usr/local/bin:PATH						\
+		/usr/local/sbin:PATH						\
+		/usr/pkg/bin:PATH						\
+		/usr/pkg/sbin:PATH						\
+		${HOME}/bin:PATH						\
+		${HOME}/.local/bin:PATH						\
+		${HOME}/.local/sbin:PATH					\
+		${HOME}/.local/lib:LD_LIBRARY_PATH				\
+		${HOME}/.local/lib32:LD_LIBRARY_PATH				\
+		${HOME}/.local/lib64:LD_LIBRARY_PATH				\
+		${HOME}/.local/libdata/perl5/site_perl:PERL5LIB			\
+		${HOME}/.local/lib/perl5/site_perl:PERL5LIB			\
+		${HOME}/.local/lib/perl5:PERL5LIB				\
+		${HOME}/.local/lib/python/site-packages:PYTHONPATH		\
+		${HOME}/.local/lib/python[0-9.]*/site-packages:PYTHONPATH	\
+		/usr/local/lib/python:PYTHONPATH				\
+		/usr/local/lib/python[0-9.]*/site-packages:PYTHONPATH;
+do	_path_fixup="$(echo ${_path_fixups%:*})";
+	_vname="${_path_fixups##*:}";
+	[ -d "${_path_fixup}" ] || continue;
+	_vval="$(eval echo \"\$\{${_vname}\}\")";
+	if [ "${_vval#*${_path_fixup}*}" = "${_vval}" ]; then
+		export "${_vname}=${_path_fixup}${_vval:+:$_vval}";
+	fi;
+done;	unset _path_fixup _vname _vval;
+
+# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh

@@ -1,0 +1,1 @@
+.shinit/bash/profile
