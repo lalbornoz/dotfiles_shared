@@ -11,12 +11,14 @@ process_irssi() {
 			".irssi/"						\
 			"../dotfiles_private/${_uname}@${_hname}/.irssi/"	\
 			"--exclude=away.log --exclude=logs";
-  		printf "[1mCommit to Git repository[0m: [4m${_uname}@${_hname}[0m\n";
-		(cd "../dotfiles_private/${_uname}@${_hname}"			\
-		 && git add .irssi						\
-		 && [ $(git status --porcelain .irssi | wc -l) -gt 0 ]		\
-		 && git commit							\
-			-m "Automatic irssi dotdir pull from ${_uname}@${_hname} to ${USER}@$(hostname -f)." .irssi || exit 0);
+		if [ "${_nflag}" -eq 0 ]; then
+			printf "[1mCommit to Git repository[0m: [4m${_uname}@${_hname}[0m\n";
+			(cd "../dotfiles_private/${_uname}@${_hname}"			\
+			 && git add .irssi						\
+			 && [ $(git status --porcelain .irssi | wc -l) -gt 0 ]		\
+			 && git commit							\
+				-m "Automatic irssi dotdir pull from ${_uname}@${_hname} to ${USER}@$(hostname -f)." .irssi || exit 0);
+		fi;
 	fi;
 };
 
