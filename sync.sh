@@ -46,7 +46,13 @@ main() {
 	n) _nflag=1; ;;
 	t) _tflag="${OPTARG}"; ;;
 	x) _xflag=1; set -o xtrace; ;;
-	*) echo "usage: ${0} [-h] [-H host..] [-l] [-n] [-t tag..] [-x]" >&2; exit 0; ;;
+	*) echo "usage: ${0} [-h] [-H host..] [-n] [-t tag..] [-x]" >&2;
+	   echo "       -h.......: show this screen" >&2;
+	   echo "       -H host..: limit by hostname" >&2;
+	   echo "       -n.......: perform dry run" >&2;
+	   echo "       -t tag...: limit by tag" >&2;
+	   echo "       -x.......: enable xtrace debugging" >&2;
+	   exit 0; ;;
 	esac; done;
 	for _script_fname in $(set +o noglob; echo tasks/*.sh); do
 		. "${_script_fname}";
