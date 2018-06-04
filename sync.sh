@@ -14,29 +14,30 @@ lsearch() {
 };
 
 rsync_pull() {
-	local _uname="${1}" _hname="${2}" _src="${3}" _dest="${4:-}";
+	local _nflag="${1:-}" _uname="${2}" _hname="${3}" _src="${4}" _dest="${5:-}" _rsync_args_extra="${6:-}";
 	rsync	-aHiPve ssh		\
 		--delete		\
-		--exclude=away.log	\
-		--exclude=logs		\
 		--no-group		\
 		--no-owner		\
+		${_rsync_args_extra}	\
+		${_nflag:+-n}		\
 		"${_uname}@${_hname}:${_src}" "${_dest}";
 };
 
 rsync_push() {
-	local _uname="${1}" _hname="${2}" _src="${3}" _dest="${4:-}";
+	local _nflag="${1:-}" _uname="${2}" _hname="${3}" _src="${4}" _dest="${5:-}" _rsync_args_extra="${6:-}";
 	[ -z "${_src}" ] && { echo "error: melp?"; exit 1; };
 	rsync	-aHiPve ssh		\
 		--delete		\
-		--exclude=.irssi	\
 		--no-group		\
 		--no-owner		\
+		${_rsync_args_extra}	\
+		${_nflag:+-n}		\
 		${_src} "${_uname}@${_hname}:${_dest}";
 };
 
 main() {
-	local	_Hflag="" _lflag="" _nflag=0 _tflag="" _xflag=0		\
+	local	_Hflag="" _lflag="" _nflag="" _tflag="" _xflag=0	\
 		_fun="" _funs="" _hname="" _hosts_line="" _opt=""	\
 		_script_fname="" _uname="";
 	while getopts hH:lnt:x _opt; do
@@ -44,7 +45,7 @@ main() {
 	H) _Hflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
 	l) _lflag=1; ;;
 	n) _nflag=1; ;;
-	t) _tflag="${OPTARG}"; ;;
+	t) _tflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
 	x) _xflag=1; set -o xtrace; ;;
 	*) echo "usage: ${0} [-h] [-H host..] [-n] [-t tag..] [-x]" >&2;
 	   echo "       -h.......: show this screen" >&2;
@@ -78,10 +79,8 @@ main() {
 				if [ -n "${_Hflag}" ]			\
 				&& ! lsearch "${_Hflag}" "${_hname}"; then
 					continue;
-				elif [ "${_nflag}" -eq 1 ]; then
-					echo "${_fun}" "${_uname}" "${_hname}" "${_tflag}";
 				else
-					"${_fun}" "${_uname}" "${_hname}" "${_tflag}";
+					"${_fun}" "${_uname}" "${_hname}" "${_tflag}" "${_nflag}";
 				fi;
 			fi;
 		done < "./hosts";
