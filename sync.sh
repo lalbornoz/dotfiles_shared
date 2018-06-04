@@ -3,7 +3,7 @@
 
 lsearch() {
 	local _list="${1}" _litem="${2}";
-	set -- "${_list}";
+	set -- ${_list};
 	while [ ${#} -gt 0 ]; do
 		if [ "${1}" = "${_litem}" ]; then
 			return 0;
@@ -36,8 +36,18 @@ rsync_push() {
 };
 
 main() {
-	local	_hflag="" _lflag="" _nflag=0 _xflag=0 _tags="${@}"	\
-		_fun="" _funs="" _hname="" _hosts_line="" _script_fname="" _uname="";
+	local	_Hflag="" _lflag="" _nflag=0 _tflag="" _xflag=0		\
+		_fun="" _funs="" _hname="" _hosts_line="" _opt=""	\
+		_script_fname="" _uname="";
+	while getopts hH:lnt:x _opt; do
+	case "${_opt}" in
+	H) _Hflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
+	l) _lflag=1; ;;
+	n) _nflag=1; ;;
+	t) _tflag="${OPTARG}"; ;;
+	x) _xflag=1; set -o xtrace; ;;
+	*) echo "usage: ${0} [-h] [-H host..] [-l] [-n] [-t tag..] [-x]" >&2; exit 0; ;;
+	esac; done;
 	for _script_fname in $(set +o noglob; echo tasks/*.sh); do
 		. "${_script_fname}";
 		_fun="${_script_fname##*/}";
@@ -45,8 +55,8 @@ main() {
 		_funs="${_funs:+${_funs} }${_fun}";
 	done;
 	for _fun in ${_funs}; do
-		if [ -n "${_tags}" ]					\
-		&& ! lsearch "${_tags}" "${_fun#process_}"; then
+		if [ -n "${_tflag}" ]					\
+		&& ! lsearch "${_tflag}" "${_fun#process_}"; then
 			continue;
 		else
 			eval echo "\${${_fun}_legend}";
@@ -59,7 +69,14 @@ main() {
 			_uname="${_hosts_line%%@*}"; _hname="${_hosts_line##*@}";
 			if [ -n "${_uname}" ]				\
 			&& [ -n "${_hname}" ]; then
-				"${_fun}" "${_uname}" "${_hname}" "${_tags}";
+				if [ -n "${_Hflag}" ]			\
+				&& ! lsearch "${_Hflag}" "${_hname}"; then
+					continue;
+				elif [ "${_nflag}" -eq 1 ]; then
+					echo "${_fun}" "${_uname}" "${_hname}" "${_tflag}";
+				else
+					"${_fun}" "${_uname}" "${_hname}" "${_tflag}";
+				fi;
 			fi;
 		done < "./hosts";
 	done;
