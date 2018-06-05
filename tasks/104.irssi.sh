@@ -11,7 +11,7 @@ process_irssi() {
 			".irssi/"						\
 			"../dotfiles_private/${_uname}@${_hname}/.irssi/"	\
 			"--exclude=away.log --exclude=logs";
-		if [ "${_nflag}" -eq 0 ]; then
+		if [ "${_nflag:-0}" -eq 0 ]; then
 			printf "[1mCommit to Git repository[0m: [4m${_uname}@${_hname}[0m\n";
 			(cd "../dotfiles_private/${_uname}@${_hname}"			\
 			 && git add .irssi						\
