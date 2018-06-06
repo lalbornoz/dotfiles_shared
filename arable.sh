@@ -13,6 +13,11 @@ lsearch() {
 	done; return 1;
 };
 
+msgf() {
+	local _fmt="${1}"; shift;
+	printf "%s >>> ${_fmt}\n" "$(date +"%d-%^b-%Y %H:%M:%S")" "${@}";
+};
+
 rsync_pull() {
 	local _nflag="${1:-}" _uname="${2}" _hname="${3}" _src="${4}" _dest="${5:-}" _rsync_args_extra="${6:-}";
 	rsync	-aHiPve ssh		\
@@ -66,7 +71,7 @@ main() {
 		&& ! lsearch "${_tflag}" "${_fun#process_}"; then
 			continue;
 		else
-			eval echo "\${${_fun}_legend}";
+			msgf "[35;4m--- %s ---[0m" "$(eval echo "\${${_fun}_legend}")";
 		fi;
 		while read _hosts_line; do
 			if [ -z "${_hosts_line}" ]			\
