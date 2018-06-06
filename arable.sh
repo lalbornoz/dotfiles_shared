@@ -42,13 +42,12 @@ rsync_push() {
 };
 
 main() {
-	local	_Fflag="" _Hflag="" _lflag="" _nflag="" _tflag="" _xflag=0	\
+	local	_Fflag="" _Hflag="" _nflag="" _tflag="" _xflag=0	\
 		_fun="" _funs="" _hname="" _hosts_line="" _opt="" _script_fname="" _uname="";
-	while getopts hF:H:lnt:x _opt; do
+	while getopts hF:H:nt:x _opt; do
 	case "${_opt}" in
 	F) _Fflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
 	H) _Hflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
-	l) _lflag=1; ;;
 	n) _nflag=1; ;;
 	t) _tflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
 	x) _xflag=1; set -o xtrace; ;;
