@@ -12,7 +12,8 @@ process_local() {
 			-name '.*' -not -name '.*.sw[op]'		\
 			-printf '%p ')"
 		rsync_push "${_nflag}" "${_uname}" "${_hname}"		\
-			"${_src}" "" "--exclude=.irssi";
+			"${_src}" ""					\
+			"--exclude=.irssi --exclude=.ssh/agent --exclude=.ssh/known_hosts";
 	fi;
 };
 

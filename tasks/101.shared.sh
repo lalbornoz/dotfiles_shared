@@ -12,7 +12,8 @@ process_shared() {
 		-not -name '.git*' -not -name '.*.sw[op]'	\
 		-printf '%P ')"
 	rsync_push "${_nflag}" "${_uname}" "${_hname}"		\
-		"${_src}" "" "--exclude=.irssi";
+		"${_src}" ""					\
+		"--exclude=.irssi --exclude=.ssh/agent --exclude=.ssh/known_hosts";
 };
 
 # vim:foldmethod=marker sw=8 ts=8 tw=120
