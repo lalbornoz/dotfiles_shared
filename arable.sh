@@ -69,7 +69,7 @@ main() {
 		_fun="${_script_fname##*/}";
 		_fun="${_fun#*.}"; _fun="process_${_fun%%.sh}";
 		_funs="${_funs:+${_funs} }${_fun}";
-	done;
+	done; shift $((${OPTIND}-1));
 	for _fun in ${_funs}; do
 		if [ -n "${_tflag}" ]						\
 		&& ! lsearch "${_tflag}" "${_fun#process_}"; then
