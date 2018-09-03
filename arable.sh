@@ -41,11 +41,33 @@ rsync_push() {
 		${_src} "${_uname}@${_hname}:${_dest}";
 };
 
+list_all() {
+	local _hname="" _hosts_line="" _script_fname="" _tag="" _uname="":
+
+	printf "[1mHosts:[0m\n";
+	while read _hosts_line; do
+		if [ -z "${_hosts_line}" ]	\
+		|| [ "${_hosts_line#\#}" != "${_hosts_line}" ]; then
+			continue;
+		fi;
+		_uname="${_hosts_line%%@*}"; _hname="${_hosts_line##*@}";
+		printf "${_uname}@[4m${_hname}[0m\n";
+	done < "./hosts" | sort -t@ -k2; printf "\n";
+
+	printf "[1mTags:[0m";
+	for _script_fname in $(set +o noglob; echo tasks/*.sh); do
+		_tag="${_script_fname##*/}";
+		_tag="${_tag#*.}"; _tag="${_tag%%.sh}";
+		printf " ${_tag}";
+	done; printf "\n";
+};
+
 usage() {
-	echo "usage: ${0} [-h] [-F host..] [-H host..] [-n] [-t tag..] [-x]" >&2;
+	echo "usage: ${0} [-h] [-F host..] [-H host..] [-l] [-n] [-t tag..] [-x]" >&2;
 	echo "       -h.......: show this screen" >&2;
 	echo "       -F host..: filter by hostname (processed after -H)" >&2;
 	echo "       -H host..: limit by hostname" >&2;
+	echo "       -l.......: list hosts & tags and exit" >&2;
 	echo "       -n.......: perform dry run" >&2;
 	echo "       -t tag...: limit by tag" >&2;
 	echo "       -x.......: enable xtrace debugging" >&2;
@@ -54,11 +76,12 @@ usage() {
 main() {
 	local	_Fflag="" _Hflag="" _nflag="" _tflag="" _xflag=0	\
 		_fun="" _funs="" _hname="" _hosts_line="" _opt="" _script_fname="" _uname="";
-	while getopts hF:H:nt:x _opt; do
+	while getopts hF:H:lnt:x _opt; do
 	case "${_opt}" in
 	F) _Fflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
 	h) usage; exit 0; ;;
 	H) _Hflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
+	l) list_all; exit 0; ;;
 	n) _nflag=1; ;;
 	t) _tflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
 	x) _xflag=1; set -o xtrace; ;;
