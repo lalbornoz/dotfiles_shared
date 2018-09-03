@@ -80,6 +80,12 @@ esac
 # Keep the shell parameter namespace free of internally used data.
 unset _SHELL _SCRIPTS _DIR _SCRIPT
 
+#
+# If there's a profile for this host, source it.
+[ -z "${_TMP_HNAME}" ] && _TMP_HNAME="`hostname`" && _TMP_HNAME="${_TMP_HNAME%%.*}";
+[ -r "${HOME}/.profile.${_TMP_HNAME}" ] && . "${HOME}/.profile.${_TMP_HNAME}";
+unset _TMP_HNAME;
+
 # XXX
 . "${HOME}/.shinit/common/_fini";
 
