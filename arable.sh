@@ -63,8 +63,9 @@ list_all() {
 };
 
 usage() {
-	echo "usage: ${0} [-h] [-F host..] [-H host..] [-l] [-n] [-t tag..] [-x]" >&2;
+	echo "usage: ${0} [-h] [-c] [-F host..] [-H host..] [-l] [-n] [-t tag..] [-x]" >&2;
 	echo "       -h.......: show this screen" >&2;
+	echo "       -c.......: continue on soft failure" >&2;
 	echo "       -F host..: filter by hostname (processed after -H)" >&2;
 	echo "       -H host..: limit by hostname" >&2;
 	echo "       -l.......: list hosts & tags and exit" >&2;
@@ -74,10 +75,12 @@ usage() {
 };
 
 main() {
-	local	_Fflag="" _Hflag="" _nflag="" _tflag="" _xflag=0	\
-		_fun="" _funs="" _hname="" _hosts_line="" _opt="" _script_fname="" _uname="";
-	while getopts hF:H:lnt:x _opt; do
+	local	_cflag="" _Fflag="" _Hflag="" _nflag="" _tflag="" _xflag=0	\
+		_fun="" _funs="" _hname="" _hosts_line="" _opt="" _rc=""	\
+		_script_fname="" _uname="";
+	while getopts chF:H:lnt:x _opt; do
 	case "${_opt}" in
+	c) _cflag=1; ;;
 	F) _Fflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
 	h) usage; exit 0; ;;
 	H) _Hflag="$(echo "${OPTARG}" | sed 's/,/ /g')"; ;;
@@ -116,7 +119,17 @@ main() {
 				&& lsearch "${_Fflag}" "${_hname}"; then
 					continue;
 				fi;
-				"${_fun}" "${_uname}" "${_hname}" "${_tflag}" "${_nflag}";
+				set +o errexit;
+				(set -o errexit;
+				 "${_fun}" "${_uname}" "${_hname}" "${_tflag}" "${_nflag}"); _rc="${?}";
+				set -o errexit;
+				if [ "${_rc:-1}" -ne 0 ]; then
+					if [ "${_cflag:-0}" -eq 0 ]; then
+						exit "${_rc}";
+					else
+						msgf "[31m(ignoring soft failure due to -c)[0m";
+					fi;
+				fi;
 			fi;
 		done < "./hosts";
 	done;
