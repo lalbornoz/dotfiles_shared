@@ -52,10 +52,10 @@ list_all() {
 		fi;
 		_uname="${_hosts_line%%@*}"; _hname="${_hosts_line##*@}";
 		printf "${_uname}@[4m${_hname}[0m\n";
-	done < "./hosts" | sort -t@ -k2; printf "\n";
+	done < "assets/hosts" | sort -t@ -k2; printf "\n";
 
 	printf "[1mTags:[0m";
-	for _script_fname in $(set +o noglob; echo tasks/*.sh); do
+	for _script_fname in $(set +o noglob; echo assets/tasks/*.sh); do
 		_tag="${_script_fname##*/}";
 		_tag="${_tag#*.}"; _tag="${_tag%%.sh}";
 		printf " ${_tag}";
@@ -90,7 +90,7 @@ main() {
 	x) _xflag=1; set -o xtrace; ;;
 	*) usage; exit 1; ;;
 	esac; done;
-	for _script_fname in $(set +o noglob; echo tasks/*.sh); do
+	for _script_fname in $(set +o noglob; echo assets/tasks/*.sh); do
 		. "${_script_fname}";
 		_fun="${_script_fname##*/}";
 		_fun="${_fun#*.}"; _fun="process_${_fun%%.sh}";
@@ -131,7 +131,7 @@ main() {
 					fi;
 				fi;
 			fi;
-		done < "./hosts";
+		done < "assets/hosts";
 	done;
 };
 

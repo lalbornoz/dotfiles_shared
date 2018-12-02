@@ -1,0 +1,24 @@
+Sync tasks, arable.sh:
+1)  Administrative tasks (one-time & continuously, both w/ {daily,weekly,monthly} backup archives, Git integration & email reports:)
+	{abbad{,-vpn00},fr01,lucio-vm}.*..: periodically check for software updates (Python script)
+	{abbad{,-vpn00},fr01,lucio-vm}.*..: restrict access to {/run/utmp,/var/log/{b,w}tmp} and /var/log/{fail,last}log ({last,users,w,wall,who,write,...}(1))
+2)  Applications to deploy (one-time) & update (continuously, email reports)
+	lucio-{laptop,pc}.local...........: app to check for app updates (XXX)
+	lucio-{laptop,pc}.local...........: Cygwin (w/ SSH!,) Firefox, foobar2000, Office 2013, Thunderbird, Visual Studio Code
+	lucio-phone.local.................: Aard 2, AccuWeather, Calendar, CamScanner, ColorNote, Compass, Contacts, Contacts Import, F-Droid, Firefox, Firefox Klar, Hacker's Keyboard, IP Webcam, JuiceSSH, K-9 Mail, Kiwix, microG, Plumble Free, Quran, Snapchat, Yalp Store
+	lucio-phone.local.................: app to view PDFs (XXX)
+3)  Data to synchronise to deploy (one-time & continuously, both w/ {daily,weekly,monthly} backup archives, Git integration & email reports)
+	abbad.sandngz.net.................: bots from /home/_{bint,seeblog}
+	{abbad{,-vpn00},fr01}.*...........: IRC logs from /home/lucio, /var/log
+	lucio-{laptop,pc}.local...........: Firefox, foobar2000, Office 2013 templates, Thunderbird, Visual Studio Code
+	lucio-{laptop,pc}.local...........: Cygwin dotfiles (w/ .ssh!,) Git repositories
+	lucio-pc.local....................: get rid of ~/Documents - {Backups archive,Repositories/hosts_backup}
+	lucio-phone.local.................: Aard 2, Calendar, Contacts, Firefox, Firefox Klar, JuiceSSH, K-9 Mail, Kiwix
+4)  {abbad{,-vpn00},fr01,lucio-vm}.*..: conf.local.*/etc/iptables/rules.v[46]: sync & finish
+	Restrict {IN,OUT}PUT ICMP traffic in ip{,6}tables (only permit 0, 3 (conditionally,) 8 (conditionally,) 11, 12)
+	Global/absolute parallel connection and PPS rate limits in {FORWARD,INPUT,OUTPUT}
+	Rate limit/restrict OUTPUT traffic in ip{,6}tables (particularly TCP RST)
+	Rate limit/restrict --ctstate ESTABLISHED,RELATED traffic in general
+	Synchronise ip6tables(8) ruleset w/ iptables(8) ruleset
+	Use tc(8) on {abbad{,-vpn00},fr01,ishbiliya}.
+	Finish NDP rules in ip6tables(8) ruleset
