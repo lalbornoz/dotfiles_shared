@@ -13,7 +13,7 @@ process_local() {
 			-printf '%p ')"
 		rsync_push "${_nflag}" "${_uname}" "${_hname}"		\
 			"${_src}" ""					\
-			"--exclude=.irssi --exclude=.ssh/keys --exclude=.ssh/known_hosts";
+			"--exclude=.irssi --exclude=.ssh/private --exclude=.ssh/known_hosts";
 	fi;
 };
 

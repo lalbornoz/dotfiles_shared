@@ -26,7 +26,7 @@ if [ -r "${HOME}/TODO" ]; then
 	printf "\nTODO:\n"; cat "${HOME}/TODO";
 fi;
 if [ -x "`which from 2>/dev/null`" ]; then
-	from;
+	from 2>/dev/null;
 fi;
 
 #
