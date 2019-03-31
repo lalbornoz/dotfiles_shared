@@ -1,3 +1,7 @@
+"
+" TODO hotkeys for :{GitGutterEnable,GhcMod{Check,Lint,Type,...}{,Async},InteroOpen,Neomake}
+"
+
 execute pathogen#infect()
 
 "
@@ -62,6 +66,7 @@ let g:filesearch_autodismiss_on_select = 0
 				" Selecting an entry with <CR> will not close the catalog
 let g:filesearch_viewport_split_policy = "B"
 				" Horizontal bottom (full screen width)
+let g:gitgutter_enabled = 0
 let g:LargeFile = 10		" The minimum size of a file needed for it to be
 				" considered as a "LargeFile", in megabytes
 let g:netrw_banner = 0		" Suppress the [netrw] banner
@@ -69,6 +74,8 @@ let g:netrw_browse_split = 0	" When browsing, <cr> will open the file by re-usin
 let g:netrw_dirhistmax = 0	" Suppress [netrw] history
 let g:netrw_liststyle = 3	" Set the default listing style [to] tree style listing
 let g:netrw_winsize = 25	" Specify initial size of new windows
+let g:SuperTabMappingBackward = '<S-C-t>'
+let g:SuperTabMappingForward = '<C-t>'
 
 "
 " UNIX is atrocious crusader garbage built on horribly inadequate abstractions mappings
@@ -105,9 +112,9 @@ map <F8> :close<cr>
 "
 " File system/OS interaction mappings
 "
+map <C-_> :source Session.vim
 map <C-\> :mks!<cr>
 map <C-i> :new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read! 
-map <C-p> :source Session.vim
 map <F9> "zyiw:exe "Man ".@z.""<cr>
 map <F10> :Fsglob /
 map <F11> :Fsgrep /
