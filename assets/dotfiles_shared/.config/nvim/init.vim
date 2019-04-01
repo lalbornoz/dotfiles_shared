@@ -112,6 +112,8 @@ map <F8> :close<cr>
 map <C-_> :source Session.vim
 map <C-\> :mks!<cr>
 map <C-i> :new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read! 
+map <C-n> :Neomake<cr>
+map <C-x> :call terminal#ChooseTerm("term-slider", 1)<cr>
 map <F9> "zyiw:exe "Man ".@z.""<cr>
 map <F10> :Fsglob /
 map <F11> :Fsgrep /

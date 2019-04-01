@@ -1,0 +1,72 @@
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/ctrlp.vim"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/ghcmod-vim"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/ghcmod-vim
+	url = https://github.com/eagletmt/ghcmod-vim
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/haskell-vim"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/haskell-vim
+	url = https://github.com/neovimhaskell/haskell-vim
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/intero-neovim"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/intero-neovim
+	url = https://github.com/parsonsmatt/intero-neovim
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/LargeFile"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/LargeFile
+	url = https://github.com/vim-scripts/LargeFile
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/nerdtree"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/neomake"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/neomake
+	url = https://github.com/neomake/neomake
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/peaksea"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/peaksea
+	url = https://github.com/vim-scripts/peaksea
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/supertab"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/supertab
+	url = https://github.com/ervandew/supertab
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/vim-filesearch"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/vim-filesearch
+	url = https://github.com/jeetsukumaran/vim-filesearch
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/vim-fugitive"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/vim-gitgutter"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/vim-man"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/vim-man
+	url = https://github.com/vim-utils/vim-man
+[submodule "assets/dotfiles_shared/.config/nvim/bundle/vim-ripgrep"]
+	path = assets/dotfiles_shared/.config/nvim/bundle/vim-ripgrep
+	url = https://github.com/jremmen/vim-ripgrep
+[submodule "assets/dotfiles_shared/.vim/bundle/ctrlp.vim"]
+	path = assets/dotfiles_shared/.vim/bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim
+[submodule "assets/dotfiles_shared/.vim/bundle/LargeFile"]
+	path = assets/dotfiles_shared/.vim/bundle/LargeFile
+	url = https://github.com/vim-scripts/LargeFile
+[submodule "assets/dotfiles_shared/.vim/bundle/nerdtree"]
+	path = assets/dotfiles_shared/.vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "assets/dotfiles_shared/.vim/bundle/peaksea"]
+	path = assets/dotfiles_shared/.vim/bundle/peaksea
+	url = https://github.com/vim-scripts/peaksea
+[submodule "assets/dotfiles_shared/.vim/bundle/supertab"]
+	path = assets/dotfiles_shared/.vim/bundle/supertab
+	url = https://github.com/ervandew/supertab
+[submodule "assets/dotfiles_shared/.vim/bundle/vim-filesearch"]
+	path = assets/dotfiles_shared/.vim/bundle/vim-filesearch
+	url = https://github.com/jeetsukumaran/vim-filesearch
+[submodule "assets/dotfiles_shared/.vim/bundle/vim-fugitive"]
+	path = assets/dotfiles_shared/.vim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "assets/dotfiles_shared/.vim/bundle/vim-gitgutter"]
+	path = assets/dotfiles_shared/.vim/bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "assets/dotfiles_shared/.vim/bundle/vim-man"]
+	path = assets/dotfiles_shared/.vim/bundle/vim-man
+	url = https://github.com/vim-utils/vim-man
+[submodule "assets/dotfiles_shared/.vim/bundle/vim-ripgrep"]
+	path = assets/dotfiles_shared/.vim/bundle/vim-ripgrep
+	url = https://github.com/jremmen/vim-ripgrep
