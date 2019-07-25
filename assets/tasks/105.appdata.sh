@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-process_appdata_legend="%%APPDATA%% subdirectories";
+process_appdata_legend="%APPDATA% subdirectories";
 
 process_appdata() {
 	local	_uname="${1}" _hname="${2}" _tags="${3}" _nflag="${4}";
