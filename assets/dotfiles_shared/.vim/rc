@@ -44,6 +44,7 @@ set wildmode=longest,list,full	" Completion mode [for] wildcard expansion in the
 "
 " Automatic Vim options
 "
+autocmd FileType gitcommit set textwidth=0
 autocmd FileType netrw setl bufhidden=wipe
 autocmd WinLeave * set nocursorline nocursorcolumn
 autocmd WinEnter * set cursorline cursorcolumn
