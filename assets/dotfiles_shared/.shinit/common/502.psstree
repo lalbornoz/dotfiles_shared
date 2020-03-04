@@ -1,0 +1,36 @@
+_sname "Linux" &&\
+psstree() {
+	local	_pid="${1}" _type="${2:-pss}" _cur=0 _max=0 _output="" _pid_child="" _pids="" _pss="";
+	if [ "x${_pid}" = "x-I" ]; then
+		shift; _pid="${1}"; _type="${2:-pss}";
+		if _pids="$(pgrep -P "${_pid}")"\
+		&& [ -n "${_pids}" ]; then
+			for _pid_child in ${_pids}; do
+				psstree -I "${_pid_child}" "${_type}";
+			done;
+		fi;
+		if _pss="$(ps -ho "${_type}" -p "${_pid}")"\
+		&& [ -n "${_pss}" ]; then
+			: $((PSSTREE_PSS+=${_pss}));
+		fi;
+	elif [ "x${_pid}" = "x-l" ]; then
+		shift; _pid="${1}"; _type="${2:-pss}";
+		while ps -p "${_pid}" >/dev/null 2>&1; do
+			_output="$(psstree "${_pid}" "${_type}")";
+			_cur="$(set -- ${_output}; printf "%s" "${1}")";
+			if [ "x$(printf "%s > %s\n" "${_cur}" "${_max}" | bc)" = "x1" ]; then
+				_max="${_cur}"; printf "%s\n" "${_output}";
+			fi;
+		done;
+		printf "${_max}\n";
+	elif [ -z "${_pid}" ]; then
+		echo "usage: ${0##*/} pid" >&2;
+	else
+		local PSSTREE_PSS=0;
+		psstree -I "${_pid}" "${_type}";
+		PSSTREE_PSS="$(printf "scale=2\n%d/1024.0\n" "${PSSTREE_PSS}" | bc)";
+		printf "%s MB\n" "${PSSTREE_PSS}";
+	fi;
+};
+
+# vim:ts=8 sw=8 tw=0 noexpandtab filetype=sh
