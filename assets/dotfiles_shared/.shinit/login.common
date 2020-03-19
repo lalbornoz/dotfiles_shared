@@ -47,4 +47,9 @@ if [ -x "`which faillog 2>/dev/null`" ]; then
 	faillog;
 fi;
 
+# Force sane stty settings.
+if [ -x "`which stty 2>/dev/null`" ]; then
+	stty sane;
+fi;
+
 # vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
