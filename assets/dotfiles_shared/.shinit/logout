@@ -18,6 +18,7 @@ for _FILE in				\
 	recently-used			\
 	.python_history			\
 	.sqlite_history			\
+	.tclsh-history			\
 	.thumbnails			\
 	.utop-history			\
 	.viminfo			\
