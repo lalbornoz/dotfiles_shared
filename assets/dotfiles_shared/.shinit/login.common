@@ -43,7 +43,8 @@ if [ -x "`which last 2>/dev/null`" ]; then
 fi;
 
 # Print faillog records.
-if [ -x "`which faillog 2>/dev/null`" ]; then
+if [ -x "`which faillog 2>/dev/null`" ]\
+&& [ -r /var/log/faillog ]; then
 	faillog;
 fi;
 
