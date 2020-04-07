@@ -38,7 +38,8 @@ if [ -r "${HOME}/.calendar" -a -x "`which calendar 2>/dev/null`" ]; then
 fi;
 
 # Print listing of the five (5) last logins for the current user.
-if [ -x "`which last 2>/dev/null`" ]; then
+if [ -x "`which last 2>/dev/null`" ]\
+&& [ -r /var/log/lastlog ]; then
 	last -5 "${USER}";
 fi;
 
