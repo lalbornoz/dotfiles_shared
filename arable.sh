@@ -13,6 +13,20 @@ lsearch() {
 	done; return 1;
 };
 
+mode_push() {
+	local _nflag="${1:-0}" _uname="${2}" _hname="${3}" _mode="";
+	if [ -e "../dotfiles_private/${_uname}@${_hname%.}/.directory_mode" ]\
+	&& _mode="$(cat "../dotfiles_private/${_uname}@${_hname%.}/.directory_mode")"\
+	&& [ -n "${_mode}" ]; then
+		msgf "[90mSetting remote directory mode to %s.[0m\n" "${_mode}";
+		if [ "${_nflag:-0}" -eq 0 ]; then
+			ssh -l "${_uname}" "${_hname}" "chmod ${_mode} .";
+		else
+			echo ssh -l "${_uname}" "${_hname}" "chmod ${_mode} .";
+		fi;
+	fi;
+};
+
 msgf() {
 	local _fmt="${1}"; shift;
 	printf "%s >>> ${_fmt}\n" "$(date +"%d-%^b-%Y %H:%M:%S")" "${@}";
@@ -76,8 +90,8 @@ usage() {
 
 main() {
 	local	_cflag="" _Fflag="" _Hflag="" _nflag="" _tflag="" _xflag=0	\
-		_fun="" _funs="" _hname="" _hosts_line="" _opt="" _rc=""	\
-		_script_fname="" _uname="";
+		_fun="" _funs="" _hname="" _hosts_line="" _hosts_lines=""	\
+		_opt="" _rc="" _script_fname="" _uname="";
 	while getopts chF:H:lnt:x _opt; do
 	case "${_opt}" in
 	c) _cflag=1; ;;
@@ -103,6 +117,7 @@ main() {
 		else
 			msgf "[35;4m--- %s ---[0m" "$(eval echo "\${${_fun}_legend}")";
 		fi;
+		_hosts_lines="";
 		while read _hosts_line; do
 			if [ -z "${_hosts_line}" ]				\
 			|| [ "${_hosts_line#\#}" != "${_hosts_line}" ]; then
@@ -119,19 +134,22 @@ main() {
 				&& lsearch "${_Fflag}" "${_hname}"; then
 					continue;
 				fi;
-				set +o errexit;
-				(set -o errexit;
-				 "${_fun}" "${_uname}" "${_hname}" "${_tflag}" "${_nflag}"); _rc="${?}";
-				set -o errexit;
-				if [ "${_rc:-1}" -ne 0 ]; then
-					if [ "${_cflag:-0}" -eq 0 ]; then
-						exit "${_rc}";
-					else
-						msgf "[31m(ignoring soft failure due to -c)[0m";
-					fi;
-				fi;
+				_hosts_lines="${_hosts_lines:+${_hosts_lines} }${_hosts_line}";
 			fi;
 		done < "assets/hosts";
+		for _hosts_line in ${_hosts_lines}; do
+			_uname="${_hosts_line%%@*}"; _hname="${_hosts_line##*@}";
+			set +o errexit;
+			("${_fun}" "${_uname}" "${_hname}" "${_tflag}" "${_nflag}"); _rc="${?}";
+			set -o errexit;
+			if [ "${_rc:-1}" -ne 0 ]; then
+				if [ "${_cflag:-0}" -eq 0 ]; then
+					exit "${_rc}";
+				else
+					msgf "[31m(ignoring soft failure due to -c)[0m";
+				fi;
+			fi;
+		done;
 	done;
 };
 

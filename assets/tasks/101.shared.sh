@@ -13,6 +13,7 @@ process_shared() {
 	rsync_push "${_nflag}" "${_uname}" "${_hname}"			\
 		"assets/dotfiles_shared/" ""				\
 		--include-from=assets/dotfiles_shared/.RSYNC_INCLUDE_FROM;
+	mode_push "${_nflag}" "${_uname}" "${_hname}";
 };
 
 # vim:foldmethod=marker sw=8 ts=8 tw=120
