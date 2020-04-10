@@ -2,12 +2,21 @@
 # Zsh-specific prompt strings
 #
 
+_shorten_ifTooLong() {
+	local _string_long="${1}";
+	if [ "${#_string_long}" -gt 15 ]; then
+		printf "%s.." "${_string_long:0:15}";
+	else
+		printf "%s" "${_string_long}";
+	fi;
+};
+
 _shorten_path_ifTooLong() {
 	local _path_long="$(print -Pn "%~")";
-	if [ ${#_path_long} -gt 15 ]; then
-		echo "${_path_long}" | sed 's,/\([^/]\{1\,3\}\)[^/]\+,/\1..,g';
+	if [ "${#_path_long}" -gt 25 ]; then
+		printf "..%s" "${_path_long:$((${#_path_long} - 25))}";
 	else
-		echo "${_path_long}";
+		printf "%s" "${_path_long}";
 	fi;
 };
 
@@ -20,11 +29,11 @@ case "${TERM}" in
 	#	to preexec() in the positional parameters.
 [abmEwxX][tT]erm*|putty*)
 		precmd()  { print -Pn "]0;%n@%m:$(_shorten_path_ifTooLong)$\a"; }
-		preexec() { set -- "${2}"; print -Pn "]0;%n@%m:$(_shorten_path_ifTooLong)$ "; print -n "${(q)1}\a"; }
+		preexec() { set -- "${2}"; print -Pn "]0;%n@%m:$(_shorten_path_ifTooLong)$ "; print -n "$(_shorten_ifTooLong "${(q)1}")\a"; }
 		;;
 
 screen*)	precmd() { print -PnR "k%n@%m:$(_shorten_path_ifTooLong)$\\"; }
-		preexec() { set -- "${2}"; print -PnR "k%n@%m:$(_shorten_path_ifTooLong)$ "; print -n "${(q)1}\\"; }
+		preexec() { set -- "${2}"; print -PnR "k%n@%m:$(_shorten_path_ifTooLong)$ "; print -n "$(_shorten_ifTooLong "${(q)1}")\\"; }
 		;;
 
 *)		;;
