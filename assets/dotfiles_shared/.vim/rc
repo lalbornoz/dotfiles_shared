@@ -27,13 +27,12 @@ set incsearch nohlsearch	" Incremental search, no match highlighting
 set modeline			" Parse {vi{,m}, ex} (1) modelines
 set mouse=a			" Enable the use of the mouse for all modes
 set nobackup nowritebackup	" Don't write backups for existing files
-set nosmartindent nocindent	" Disable {C, Smart} indenting
+set nocindent nosmartindent	" Disable {C, Smart} indenting
 set nowrap			" Don't wrap long lines
 set number			" Show line numbers
-"set scrolloff=999 		" Keep cursor line in the middle of screen when searching
 set showcmd			" Show (partial) command in the last line
+set noexpandtab sw=8 ts=8	" No VT, shift width, tab stops
 set t_Co=256			" Force 256 colour terminal
-set ts=8 sw=8 noexpandtab	" Tab stops, shift width, no VT
 set tw=125			" Maximum width of text that is being inserted
 set noundofile			" Do not automatically saves undo history
 set viminfo=""			" Neither read nor write /viminfo/ file
@@ -41,17 +40,17 @@ set virtualedit=block		" Allow virtual editing in Visual block mode
 set wildmode=longest,list,full	" Completion mode [for] wildcard expansion in the command-line
 " }}}
 " {{{ [Options ] Autocommands
-autocmd FileType gitcommit set textwidth=0
-autocmd FileType netrw setl bufhidden=wipe
-autocmd WinLeave * set nocursorline nocursorcolumn
-autocmd WinEnter * set cursorline cursorcolumn
+autocmd	FileType gitcommit	set textwidth=0
+autocmd	FileType netrw		setl bufhidden=wipe
+autocmd	WinEnter *		set cursorcolumn cursorline
+autocmd	WinLeave *		set nocursorcolumn nocursorline
 " }}}
-" {{{ [Options ] Conditional default Vim
-if has("folding") | set foldmethod=marker commentstring=/*\ %s\ */ | endif
-if has("statusline") | set ruler | set rulerformat=%15(%l,%c%V\ %P%) | endif
-if has("syntax") | syntax on | colors peaksea | set background=dark | endif
+" {{{ [Options ] Conditionals
+if has("folding")	| set foldmethod=marker commentstring=/*\ %s\ */	| endif
+if has("statusline")	| set ruler | set rulerformat=%15(%l,%c%V\ %P%)		| endif
+if has("syntax")	| syntax on | colors peaksea | set background=dark	| endif
 " }}}
-" {{{ [Options ] Plugin
+" {{{ [Options ] Plugins
 let g:filesearch_autodismiss_on_select = 0
 				" Selecting an entry with <CR> will not close the catalog
 let g:filesearch_viewport_split_policy = "B"
@@ -59,6 +58,7 @@ let g:filesearch_viewport_split_policy = "B"
 let g:gitgutter_enabled = 0
 let g:LargeFile = 10		" The minimum size of a file needed for it to be
 				" considered as a "LargeFile", in megabytes
+let g:lsp_diagnostics_echo_cursor = 1
 let g:netrw_banner = 0		" Suppress the [netrw] banner
 let g:netrw_browse_split = 0	" When browsing, <cr> will open the file by re-using the same window
 let g:netrw_dirhistmax = 0	" Suppress [netrw] history
@@ -66,47 +66,43 @@ let g:netrw_liststyle = 3	" Set the default listing style [to] tree style listin
 let g:netrw_winsize = 25	" Specify initial size of new windows
 " }}}
 
-" {{{ [Mappings] UNIX is atrocious crusader garbage built on horribly inadequate abstractions
-map <Esc>[11~ <F1>
-map <Esc>[12~ <F2>
-map <Esc>[13~ <F3>
-map <Esc>[14~ <F4>
-" }}}
-" {{{ [Mappings] Git
-map <C-e> :GitGutterToggle<cr>
-map <F1> :Gcommit
-map <F2> :Gdiff<cr>
-map <F3> :Gpush
-map <F4> :Gstatus<cr>
-" }}}
-" {{{ [Mappings] Tab & window
-map <C-h> :tabprev<cr>
-map <C-j> :wincmd j<cr>
-map <C-k> :wincmd k<cr>
-map <C-l> :tabnext<cr>
-map <C-m> :tabm 
-map <C-o> :wincmd l<cr>
-map <C-y> :wincmd h<cr>
-
-map <F5> :new<cr>
-map <F6> :vnew<cr>
-map <F7> :tabnew<cr>
-map <F8> :close<cr>
+" {{{ [Mappings] Autocomplete & LSP
+inoremap <expr> <CR>	pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
+inoremap <expr> <Tab>	"\<Tab>"
+inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<S-Tab>"
 " }}}
 " {{{ [Mappings] File system/OS interaction
-map <C-_> :source Session.vim
-map <C-\> :mks!<cr>
-map <C-i> :new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read! 
-map <F9> "zyiw:exe "Man ".@z.""<cr>
-map <F10> :Fsglob /
-map <F11> :Fsgrep /
-map <F12> :NERDTreeToggle<cr>
+map <C-i>		:new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read!
 " }}}
-" {{{ [Mappings] Autocomplete & LSP
-inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
-inoremap <expr> <Tab>   "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-n>" : "\<S-Tab>"
+" {{{ [Mappings] Function keys
+map <Esc>[11~		<F1>
+map <Esc>[12~		<F2>
+map <Esc>[13~		<F3>
+map <Esc>[14~		<F4>
+
+map <F1>		:LspPeekDeclaration<cr>
+map <F2>		:LspPeekDefinition<cr>
+map <F3>		:LspDeclaration<cr>
+map <F4>		:LspDefinition<cr>
+
+map <F5>		:new<cr>
+map <F6>		:vnew<cr>
+map <F7>		:tabnew<cr>
+map <F8>		:close<cr>
+
+map <F9>		:make<cr>
+map <F10>		"zyiw:exe "Man ".@z.""<cr>
+map <F11>		:Fsgrep /
+map <F12>		:NERDTreeToggle<cr>
+" }}}
+" {{{ [Mappings] Tab & window management
+map <C-h>		:tabprev<cr>
+map <C-j>		:wincmd j<cr>
+map <C-k>		:wincmd k<cr>
+map <C-l>		:tabnext<cr>
+map <C-m>		:tabm
+map <C-o>		:wincmd l<cr>
+map <C-y>		:wincmd h<cr>
 " }}}
 
-" vim:fileencoding=utf-8 filetype=vim
-" vim:noexpandtab sw=8 ts=8 tw=120
+" vim:filetype=vim noexpandtab sw=8 ts=8 tw=120
