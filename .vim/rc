@@ -82,8 +82,8 @@ map <Esc>[14~		<F4>
 
 map <F1>		:LspPeekDeclaration<cr>
 map <F2>		:LspPeekDefinition<cr>
-map <F3>		:LspDeclaration<cr>
-map <F4>		:LspDefinition<cr>
+map <F3>		:leftabove LspDeclaration<cr>
+map <F4>		:leftabove LspDefinition<cr>
 
 map <F5>		:new<cr>
 map <F6>		:vnew<cr>
