@@ -1,5 +1,6 @@
 execute pathogen#infect()
 
+" {{{ [Options ] Nocompatible
 "
 " This is a special kind of option, because when it's set or reset, other
 " options are also changed as a side effect.  CAREFUL: Setting or resetting
@@ -15,10 +16,8 @@ execute pathogen#infect()
 " file, nor for a file given with the |-u| argument).
 "
 set nocompatible
-
-"
-" Default Vim options
-"
+" }}}
+" {{{ [Options ] Defaults
 filet on | filet plugin on	" Enable file type detection, load plugin files
 set bs=2			" Backspace over indent,eol,start
 set cursorcolumn cursorline	" Highlight the screen {column,line} of the cursor
@@ -40,25 +39,19 @@ set noundofile			" Do not automatically saves undo history
 set viminfo=""			" Neither read nor write /viminfo/ file
 set virtualedit=block		" Allow virtual editing in Visual block mode
 set wildmode=longest,list,full	" Completion mode [for] wildcard expansion in the command-line
-
-"
-" Automatic Vim options
-"
+" }}}
+" {{{ [Options ] Autocommands
 autocmd FileType gitcommit set textwidth=0
 autocmd FileType netrw setl bufhidden=wipe
 autocmd WinLeave * set nocursorline nocursorcolumn
 autocmd WinEnter * set cursorline cursorcolumn
-
-"
-" Conditional default Vim options
-"
+" }}}
+" {{{ [Options ] Conditional default Vim
 if has("folding") | set foldmethod=marker commentstring=/*\ %s\ */ | endif
 if has("statusline") | set ruler | set rulerformat=%15(%l,%c%V\ %P%) | endif
 if has("syntax") | syntax on | colors peaksea | set background=dark | endif
-
-"
-" Plugin options
-"
+" }}}
+" {{{ [Options ] Plugin
 let g:filesearch_autodismiss_on_select = 0
 				" Selecting an entry with <CR> will not close the catalog
 let g:filesearch_viewport_split_policy = "B"
@@ -71,29 +64,22 @@ let g:netrw_browse_split = 0	" When browsing, <cr> will open the file by re-usin
 let g:netrw_dirhistmax = 0	" Suppress [netrw] history
 let g:netrw_liststyle = 3	" Set the default listing style [to] tree style listing
 let g:netrw_winsize = 25	" Specify initial size of new windows
-let g:SuperTabMappingBackward = '<S-C-t>'
-let g:SuperTabMappingForward = '<C-t>'
+" }}}
 
-"
-" UNIX is atrocious crusader garbage built on horribly inadequate abstractions mappings
-"
+" {{{ [Mappings] UNIX is atrocious crusader garbage built on horribly inadequate abstractions
 map <Esc>[11~ <F1>
 map <Esc>[12~ <F2>
 map <Esc>[13~ <F3>
 map <Esc>[14~ <F4>
-
-"
-" Git mappings
-"
+" }}}
+" {{{ [Mappings] Git
 map <C-e> :GitGutterToggle<cr>
 map <F1> :Gcommit
 map <F2> :Gdiff<cr>
 map <F3> :Gpush
 map <F4> :Gstatus<cr>
-
-"
-" Tab & window mappings
-"
+" }}}
+" {{{ [Mappings] Tab & window
 map <C-h> :tabprev<cr>
 map <C-j> :wincmd j<cr>
 map <C-k> :wincmd k<cr>
@@ -106,10 +92,8 @@ map <F5> :new<cr>
 map <F6> :vnew<cr>
 map <F7> :tabnew<cr>
 map <F8> :close<cr>
-
-"
-" File system/OS interaction mappings
-"
+" }}}
+" {{{ [Mappings] File system/OS interaction
 map <C-_> :source Session.vim
 map <C-\> :mks!<cr>
 map <C-i> :new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read! 
@@ -117,6 +101,12 @@ map <F9> "zyiw:exe "Man ".@z.""<cr>
 map <F10> :Fsglob /
 map <F11> :Fsgrep /
 map <F12> :NERDTreeToggle<cr>
+" }}}
+" {{{ [Mappings] Autocomplete & LSP
+inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
+inoremap <expr> <Tab>   "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-n>" : "\<S-Tab>"
+" }}}
 
 " vim:fileencoding=utf-8 filetype=vim
 " vim:noexpandtab sw=8 ts=8 tw=120
