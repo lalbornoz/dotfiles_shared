@@ -3,7 +3,7 @@
 	url = https://github.com/kien/ctrlp.vim
 [submodule "assets/dotfiles_shared/.vim/bundle/LargeFile"]
 	path = assets/dotfiles_shared/.vim/bundle/LargeFile
-	url = https://github.com/vim-scripts/LargeFile
+	url = https://github.com/lalbornoz/LargeFile
 [submodule "assets/dotfiles_shared/.vim/bundle/nerdtree"]
 	path = assets/dotfiles_shared/.vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree
