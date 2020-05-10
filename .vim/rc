@@ -124,6 +124,10 @@ map <S-F10>		:new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read!
 map <F11>		:Fsgrep /
 map <F12>		:NERDTreeToggle<cr>
 " }}}
+" {{{ [Mappings] Git
+map <C-e>		:Gdiffsplit<cr>
+map <C-i>		:Gstatus<cr>
+" }}}
 " {{{ [Mappings] Tab & window management
 map <C-h>		:tabprev<cr>
 map <C-j>		:wincmd j<cr>
