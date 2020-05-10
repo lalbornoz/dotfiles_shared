@@ -7,7 +7,9 @@ execute pathogen#infect()
 " this option can have a lot of unexpected effects: Mappings are interpreted
 " in another way, undo behaves differently, etc.  If you set this option in
 " your vimrc file, you should probably put it at the very start.
+"
 " [ ... ]
+"
 " When a |vimrc| or |gvimrc| file is found while Vim is starting up, this option
 " is switched off, and all options that have not been modified will be set to
 " the Vim defaults.  Effectively, this means that when a |vimrc| or |gvimrc|
@@ -18,32 +20,34 @@ execute pathogen#infect()
 set nocompatible
 " }}}
 " {{{ [Options ] Defaults
-filet on | filet plugin on	" Enable file type detection, load plugin files
-set bs=2			" Backspace over indent,eol,start
-set cursorcolumn cursorline	" Highlight the screen {column,line} of the cursor
-set encoding=utf-8		" Global UTF-8 character encoding
-set ignorecase			" Ignore case when searching
-set incsearch nohlsearch	" Incremental search, no match highlighting
-set modeline			" Parse {vi{,m}, ex} (1) modelines
-set mouse=a			" Enable the use of the mouse for all modes
-set nobackup nowritebackup	" Don't write backups for existing files
-set nocindent nosmartindent	" Disable {C, Smart} indenting
-set nowrap			" Don't wrap long lines
-set number			" Show line numbers
-set showcmd			" Show (partial) command in the last line
-set noexpandtab sw=8 ts=8	" No VT, shift width, tab stops
-set t_Co=256			" Force 256 colour terminal
-set tw=125			" Maximum width of text that is being inserted
-set noundofile			" Do not automatically saves undo history
-set viminfo=""			" Neither read nor write /viminfo/ file
-set virtualedit=block		" Allow virtual editing in Visual block mode
-set wildmode=longest,list,full	" Completion mode [for] wildcard expansion in the command-line
+filet on | filet plugin on			" Enable file type detection, load plugin files
+set bs=2					" Backspace over indent,eol,start
+set cursorcolumn cursorline			" Highlight the screen {column,line} of the cursor
+set encoding=utf-8				" Global UTF-8 character encoding
+set ignorecase					" Ignore case when searching
+set incsearch nohlsearch			" Incremental search, no match highlighting
+set modeline					" Parse {vi{,m}, ex} (1) modelines
+set mouse=a					" Enable the use of the mouse for all modes
+set nobackup nowritebackup			" Don't write backups for existing files
+set nocindent nosmartindent			" Disable {C, Smart} indenting
+set nowrap					" Don't wrap long lines
+set number					" Show line numbers
+set showcmd					" Show (partial) command in the last line
+set noexpandtab sw=8 ts=8			" No VT, shift width, tab stops
+set t_Co=256					" Force 256 colour terminal
+set tw=125					" Maximum width of text that is being inserted
+set noundofile					" Do not automatically saves undo history
+set viminfo=""					" Neither read nor write /viminfo/ file
+set virtualedit=block				" Allow virtual editing in Visual block mode
+set wildmode=longest,list,full			" Completion mode [for] wildcard expansion in the command-line
 " }}}
 " {{{ [Options ] Autocommands
-autocmd	FileType gitcommit	set textwidth=0
-autocmd	FileType netrw		setl bufhidden=wipe
-autocmd	WinEnter *		set cursorcolumn cursorline
-autocmd	WinLeave *		set nocursorcolumn nocursorline
+autocmd	FileType	gitcommit	set	textwidth=0
+autocmd	FileType	netrw		setl	bufhidden=wipe
+autocmd QuickFixCmdPost	[^l]* nested	cwindow
+autocmd QuickFixCmdPost	   l* nested	lwindow
+autocmd	WinEnter	*		set	cursorcolumn cursorline
+autocmd	WinLeave	*		set	nocursorcolumn nocursorline
 " }}}
 " {{{ [Options ] Conditionals
 if has("folding")	| set foldmethod=marker commentstring=/*\ %s\ */	| endif
@@ -51,47 +55,72 @@ if has("statusline")	| set ruler | set rulerformat=%15(%l,%c%V\ %P%)		| endif
 if has("syntax")	| syntax on | colors peaksea | set background=dark	| endif
 " }}}
 " {{{ [Options ] Plugins
-let g:filesearch_autodismiss_on_select = 0
-				" Selecting an entry with <CR> will not close the catalog
-let g:filesearch_viewport_split_policy = "B"
-				" Horizontal bottom (full screen width)
-let g:gitgutter_enabled = 0
-let g:LargeFile = 10		" The minimum size of a file needed for it to be
-				" considered as a "LargeFile", in megabytes
+let g:filesearch_autodismiss_on_select = 0	" Selecting an entry with <CR> will not close the catalog
+let g:filesearch_viewport_split_policy = "B"	" Horizontal bottom (full screen width)
+let g:LargeFile = 10				" The minimum size of a file needed for it to be
+						" considered as a "LargeFile", in megabytes
 let g:lsp_diagnostics_echo_cursor = 1
-let g:netrw_banner = 0		" Suppress the [netrw] banner
-let g:netrw_browse_split = 0	" When browsing, <cr> will open the file by re-using the same window
-let g:netrw_dirhistmax = 0	" Suppress [netrw] history
-let g:netrw_liststyle = 3	" Set the default listing style [to] tree style listing
-let g:netrw_winsize = 25	" Specify initial size of new windows
+"let g:lsp_log_file = expand('$HOME/.vim/lsp.log')
+"let g:lsp_log_verbose = 1
+let g:netrw_banner = 0				" Suppress the [netrw] banner
+let g:netrw_browse_split = 0			" When browsing, <cr> will open the file by re-using the same window
+let g:netrw_dirhistmax = 0			" Suppress [netrw] history
+let g:netrw_liststyle = 3			" Set the default listing style [to] tree style listing
+let g:netrw_winsize = 25			" Specify initial size of new windows
 " }}}
 
 " {{{ [Mappings] Autocomplete & LSP
-inoremap <expr> <CR>	pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
+inoremap <expr> <cr>	pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
 inoremap <expr> <Tab>	"\<Tab>"
 inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<S-Tab>"
 " }}}
-" {{{ [Mappings] File system/OS interaction
-map <C-i>		:new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read!
-" }}}
-" {{{ [Mappings] Function keys
+" {{{ [Mappings] Function key aliases
 map <Esc>[11~		<F1>
 map <Esc>[12~		<F2>
 map <Esc>[13~		<F3>
 map <Esc>[14~		<F4>
+map <Esc>[15~		<F5>
+map <Esc>[17~		<F6>
+map <Esc>[18~		<F7>
+map <Esc>[19~		<F8>
+map <Esc>[20~		<F9>
+map <Esc>[21~		<F10>
+map <Esc>[23~		<F11>
+map <Esc>[24~		<F12>
 
+map <Esc>[25~		<S-F3>
+map <Esc>[26~		<S-F4>
+map <Esc>[28~		<S-F5>
+map <Esc>[29~		<S-F6>
+map <Esc>[31~		<S-F7>
+map <Esc>[32~		<S-F8>
+map <Esc>[33~		<S-F9>
+map <Esc>[34~		<S-F10>
+" }}}
+" {{{ [Mappings] Function keys
+" LSP function hotkeys
 map <F1>		:LspPeekDeclaration<cr>
 map <F2>		:LspPeekDefinition<cr>
-map <F3>		:leftabove LspDeclaration<cr>
-map <F4>		:leftabove LspDefinition<cr>
+map <F3>		:LspDeclaration<cr>
+map <S-F3>		:leftabove LspDeclaration<cr>
+map <F4>		:LspDefinition<cr>
+map <S-F4>		:leftabove LspDefinition<cr>
+map <F5>		:LspReferences<cr>
+map <S-F5>		:LspWorkspaceSymbol<cr>
 
-map <F5>		:new<cr>
-map <F6>		:vnew<cr>
-map <F7>		:tabnew<cr>
-map <F8>		:close<cr>
+" Buffer, tab & window management function hotkeys
+map <F6>		:new<cr>
+map <S-F6>		:vnew<cr>
+map <F7>		:close<cr>
+map <S-F7>		:tabnew<cr>
+map <F8>		:bp<cr>
+map <S-F8>		:bn<cr>
 
-map <F9>		:make<cr>
+" Build, filesystem & OS integration function hotkeys
+map <F9>		:silent make\|redraw!\|cc<cr>
+map <S-F9>		:cwindow<cr>
 map <F10>		"zyiw:exe "Man ".@z.""<cr>
+map <S-F10>		:new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read!
 map <F11>		:Fsgrep /
 map <F12>		:NERDTreeToggle<cr>
 " }}}
@@ -100,7 +129,6 @@ map <C-h>		:tabprev<cr>
 map <C-j>		:wincmd j<cr>
 map <C-k>		:wincmd k<cr>
 map <C-l>		:tabnext<cr>
-map <C-m>		:tabm
 map <C-o>		:wincmd l<cr>
 map <C-y>		:wincmd h<cr>
 " }}}

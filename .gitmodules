@@ -25,9 +25,6 @@
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
-[submodule ".vim/bundle/vim-gitgutter"]
-	path = .vim/bundle/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter
 [submodule ".vim/bundle/vim-lsp"]
 	path = .vim/bundle/vim-lsp
 	url = https://github.com/prabirshrestha/vim-lsp
