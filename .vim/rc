@@ -74,6 +74,7 @@ let g:netrw_winsize = 25			" Specify initial size of new windows
 inoremap <expr> <cr>	pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
 inoremap <expr> <Tab>	"\<Tab>"
 inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<S-Tab>"
+map <C-t>		:LspHover<cr>
 " }}}
 " {{{ [Mappings] Function key aliases
 map <Esc>[11~		<F1>
