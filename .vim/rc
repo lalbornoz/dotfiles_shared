@@ -63,6 +63,7 @@ let g:LargeFile = 10				" The minimum size of a file needed for it to be
 let g:lsp_diagnostics_echo_cursor = 1
 "let g:lsp_log_file = expand('$HOME/.vim/lsp.log')
 "let g:lsp_log_verbose = 1
+let g:lsp_settings = {'clangd': {'cmd': ['clangd', '--background-index', '--pch-storage=memory']}}
 let g:netrw_banner = 0				" Suppress the [netrw] banner
 let g:netrw_browse_split = 0			" When browsing, <cr> will open the file by re-using the same window
 let g:netrw_dirhistmax = 0			" Suppress [netrw] history
