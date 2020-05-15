@@ -59,11 +59,24 @@ if has("syntax")	| syntax on | colors gruvbox | set background=dark	| endif
 let g:filesearch_autodismiss_on_select = 0	" Selecting an entry with <CR> will not close the catalog
 let g:filesearch_viewport_split_policy = "B"	" Horizontal bottom (full screen width)
 let g:LargeFile = 10				" The minimum size of a file needed for it to be
-						" considered as a "LargeFile", in megabytes
+let g:lightline = {
+	\ 'active': {
+	\	'right': [ [ 'lineinfo_full' ],
+	\		   [ 'percent' ],
+	\		   [ 'fileformat', 'fileencoding', 'filetype' ] ]
+	\ },
+	\ 'component': {
+	\	'lineinfo_full': '%l,%c%V/%L %P'
+	\ },
+	\ }
 let g:lsp_diagnostics_echo_cursor = 1
 "let g:lsp_log_file = expand('$HOME/.vim/lsp.log')
 "let g:lsp_log_verbose = 1
-let g:lsp_settings = {'clangd': {'cmd': ['clangd', '--background-index', '--pch-storage=memory']}}
+let g:lsp_settings = {
+	\ 'clangd': {
+	\	'cmd': [ 'clangd', '--background-index', '--pch-storage=memory' ]
+	\ }
+	\ }
 let g:netrw_banner = 0				" Suppress the [netrw] banner
 let g:netrw_browse_split = 0			" When browsing, <cr> will open the file by re-using the same window
 let g:netrw_dirhistmax = 0			" Suppress [netrw] history
@@ -77,6 +90,10 @@ inoremap <expr> <Tab>	"\<Tab>"
 inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<S-Tab>"
 map <C-t>		:LspHover<cr>
 " }}}
+" {{{ [Mappings] Editing functions
+map <C-g>		:set invwrap<cr>
+map <C-x>		:syntax on<cr>
+" # }}}
 " {{{ [Mappings] Function key aliases
 map <Esc>[11~		<F1>
 map <Esc>[12~		<F2>
@@ -128,7 +145,8 @@ map <F11>		:Fsgrep /
 map <F12>		:NERDTreeToggle<cr>
 " }}}
 " {{{ [Mappings] Git
-map <C-e>		:Gdiffsplit<cr>
+map <C-e>		:Ghdiffsplit<cr>
+map <C-f>		:new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<cr>1G
 map <C-i>		:Gstatus<cr>
 " }}}
 " {{{ [Mappings] Tab & window management
