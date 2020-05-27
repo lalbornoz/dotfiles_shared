@@ -87,7 +87,7 @@ if 0
 	let g:lsp_log_file = expand('$HOME/.vim/lsp.log')
 	let g:lsp_log_verbose = 1
 endif
-if 0 && executable('pyls')
+if executable('pyls')
     au User lsp_setup call lsp#register_server({
         \ 'name':	'pyls',
         \ 'cmd':	{server_info->['pyls', '--verbose', '--log-file', expand('$HOME/.vim/pyls.log')]},
