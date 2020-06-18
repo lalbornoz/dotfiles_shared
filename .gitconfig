@@ -1,6 +1,8 @@
 [alias]
         cba = !git commit --amend --reset-author
-        pushall = !git remote | xargs -L1 git push --all
+	pullall = !git pull --all
+	pushall = !git remote | xargs -L1 git push --all
+	wgetam = "!wgetam() { wget -qO- \"${1}\" | git am -s; }; wgetam"
 [commit]
 	verbose = True
 [credential]
