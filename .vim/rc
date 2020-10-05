@@ -45,6 +45,7 @@ set wildmode=longest,list,full			" Completion mode [for] wildcard expansion in t
 " {{{ [Options ] Autocommands
 autocmd	FileType	gitcommit	set	textwidth=0
 autocmd	FileType	netrw		setl	bufhidden=wipe
+autocmd	FileType	perl		syntax	off
 autocmd QuickFixCmdPost	[^l]* nested	cwindow
 autocmd QuickFixCmdPost	   l* nested	lwindow
 autocmd	WinEnter	*		set	cursorcolumn cursorline
