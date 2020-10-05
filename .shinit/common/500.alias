@@ -59,7 +59,7 @@ if _which whois && [ "${_SNAME%BSD}" = "${_SNAME}" ]; then
 fi;
 
 if _which curl; then
-	sprunge() { curl -F "sprunge=<-" http://sprunge.us; };
+	paste0x0() { curl -F"file=@${*}" https://0x0.st; };
 fi;
 
 # vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
