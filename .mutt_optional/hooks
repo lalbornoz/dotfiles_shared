@@ -1,0 +1,12 @@
+#
+# Hooks
+#
+
+#
+#    hook	regex	command
+#
+
+# Collapse threads upon entering a mail box folder.
+folder-hook	.	'push <collapse-all>'
+
+# vim:ft=muttrc foldmethod=marker noexpandtab sw=8 ts=8 tw=80

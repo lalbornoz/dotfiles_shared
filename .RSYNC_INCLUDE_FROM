@@ -9,6 +9,7 @@
 + .gdbinit
 + .gitconfig
 - .irssi/***
+- .mutt_optional/***
 + .profile
 + .shinit/***
 - .ssh/***
