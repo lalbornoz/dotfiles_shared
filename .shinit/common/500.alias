@@ -13,7 +13,7 @@ alias cp="cp -i"
 alias df="df -h"
 alias du="du -sch"
 if _which gcc; then
-	alias gcc="gcc -Wall -std=gnu99 -O0 -g"	# hzu is a fucking twat
+	alias gcc="gcc -Wall -std=gnu11 -O0 -g";
 fi;
 if _which hexdump; then
 	alias hd="hexdump -C"
