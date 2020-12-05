@@ -64,6 +64,7 @@ if has("syntax")	| syntax on | colors gruvbox | set background=dark	| endif
 " }}}
 " {{{ [Options ] Plugins
 let g:filesearch_autodismiss_on_select = 0	" Selecting an entry with <CR> will not close the catalog
+let g:filesearch_split_size = 9			" Height of the Filesearch window in any horizontal splitting mode
 let g:filesearch_viewport_split_policy = "B"	" Horizontal bottom (full screen width)
 let g:buffergator_suppress_keymaps = 1		" Do not automatically map <Leader> keys
 let g:LargeFile = 10				" The minimum size of a file needed for it to be
@@ -161,20 +162,22 @@ map <F11>		:<C-U>BuffergatorToggle<cr>
 map <F12>		:<C-U>NERDTreeToggle<cr>
 " }}}
 " {{{ [Mappings] Leader key sequences (buffers, commands & macros, calculator, Git)
-map <Leader>;		@q
-map <Leader><Tab>	:<C-U>TmuxNavigateDown<cr>
-map <Leader>a		:<C-U>bp<cr>
-map <Leader>c		:<C-U>Calc<cr>
-map <Leader>C		:<C-U>cwindow<cr>
-map <Leader>d		:<C-U>Ghdiffsplit<cr>
-map <Leader>f		:<C-U>bn<cr>
+map <Leader>-		:<C-U>resize -3<cr>|		" Decrease current window height by 3
+map <Leader>;		@q|				" Execute contents of register q
+map <Leader>+		:<C-U>resize +3<cr>|		" Increase current window height by 3
+map <Leader><Tab>	:<C-U>TmuxNavigateDown<cr>|	" Navigate to tmux pane beneath current
+map <Leader>a		:<C-U>bp<cr>|			" Go to previous buffer in buffer list
+map <Leader>c		:<C-U>Calc<cr>|			" Open calculator window
+map <Leader>C		:<C-U>cwindow<cr>|		" Toggle the QuickFix window given recognised errors
+map <Leader>d		:<C-U>Ghdiffsplit<cr>|		" Diff against direct ancestors, split horizontally
+map <Leader>f		:<C-U>bn<cr>|			" Go to next buffer in buffer list
 map <Leader>h		:<C-U>let x = systemlist("sed -ne '/^map/!d' -e '/map <[eE]sc>/d' -e 'p' ~/.vimrc")\|call setbufvar(winbufnr(popup_dialog(x, #{ highlight: 'WildMenu', time: 2500 } )), '&filetype', 'vim')<cr><cr>
 map <Leader>l		:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<cr>1G
 map <Leader>p		J<Esc>:s/\t/ /g<cr>:s/ \+/ /g<cr>:s/( /(/<cr>:s/ \* / */g<cr>:s/$/;/<cr>
-map <Leader>s		:<C-U>Gstatus<cr>
-map <Leader>v		:<C-U>source ~/.vimrc<cr>
-map <Leader>w		:<C-U>set invwrap<cr>
-map <Leader>x		:<C-U>syntax on<cr>
+map <Leader>s		:<C-U>Git<cr>|			" Bring up summary window akin to git-status
+map <Leader>v		:<C-U>source ~/.vimrc<cr>|	" Reload Vim configuration file
+map <Leader>w		:<C-U>set invwrap<cr>|		" Toggle wrapping of lines longer than window width
+map <Leader>x		:<C-U>syntax on<cr>|		" Reset syntax highlighting
 " }}}
 " {{{ [Mappings] Tab & window management
 map <C-h>		:<C-U>tabprev<cr>|		" Go to previous tab page w/ wraparound
