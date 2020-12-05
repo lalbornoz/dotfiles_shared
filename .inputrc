@@ -1,0 +1,19 @@
+
+# {{{ Gdb bindings
+$if Gdb
+"\e[11~": "dashboard assembly\n"	# <F1>
+"\e[12~": "dashboard breakpoints\n"	# <F2>
+"\e[13~": "dashboard expressions\n"	# <F3>
+"\e[14~": "dashboard history\n"		# <F4>
+"\e[15~": "dashboard memory\n"		# <F5>
+"\e[17~": "dashboard registers\n"	# <F6>
+"\e[18~": "dashboard source\n"		# <F7>
+"\e[19~": "dashboard stack\n"		# <F8>
+"\e[20~": "dashboard threads\n"		# <F9>
+"\e[21~": "dashboard variables\n"	# <F10>
+"\e[23~": "dashboard\n"			# <F11>
+"\e[24~": "help dashboard\n"		# <F12>
+$endif
+# }}}
+
+# vim:tw=0
