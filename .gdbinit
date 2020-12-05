@@ -21,5 +21,6 @@ set		print		array-indexes	on
 set		print		pretty		on
 set		python		print-stack	full
 set		verbose		off
+source ~/.gdbinit.dashboard
 
 # vim:foldmarker=[[[,]]]
