@@ -10,6 +10,12 @@
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim
+[submodule ".vim/bundle/gruvbox"]
+	path = .vim/bundle/gruvbox
+	url = https://github.com/morhetz/gruvbox/
+[submodule ".vim/bundle/lightline.vim"]
+	path = .vim/bundle/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
 [submodule ".vim/bundle/LargeFile"]
 	path = .vim/bundle/LargeFile
 	url = https://github.com/lalbornoz/LargeFile
@@ -19,6 +25,9 @@
 [submodule ".vim/bundle/peaksea"]
 	path = .vim/bundle/peaksea
 	url = https://github.com/vim-scripts/peaksea
+[submodule ".vim/bundle/vim-buffergator"]
+	path = .vim/bundle/vim-buffergator
+	url = https://github.com/jeetsukumaran/vim-buffergator
 [submodule ".vim/bundle/vim-filesearch"]
 	path = .vim/bundle/vim-filesearch
 	url = https://github.com/jeetsukumaran/vim-filesearch
@@ -34,12 +43,12 @@
 [submodule ".vim/bundle/vim-man"]
 	path = .vim/bundle/vim-man
 	url = https://github.com/vim-utils/vim-man
-[submodule ".vim/bundle/lightline.vim"]
-	path = .vim/bundle/lightline.vim
-	url = https://github.com/itchyny/lightline.vim
-[submodule ".vim/bundle/gruvbox"]
-	path = .vim/bundle/gruvbox
-	url = https://github.com/morhetz/gruvbox/
+[submodule ".vim/bundle/vim-tmux-navigator"]
+	path = .vim/bundle/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
 [submodule ".vim/bundle/vim-visual-multi"]
 	path = .vim/bundle/vim-visual-multi
 	url = https://github.com/mg979/vim-visual-multi
+[submodule ".vim/bundle/VimCalc3"]
+	path = .vim/bundle/VimCalc3
+	url = https://github.com/fedorenchik/VimCalc3
