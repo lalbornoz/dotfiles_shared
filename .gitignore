@@ -1,1 +1,9 @@
+**/.gnupg*/*~
+**/.gnupg*/gnupg_spawn_agent_sentinel.lock
+**/.gnupg*/.#lk*
+**/.gnupg*/random_seed
+**/.gnupg*/S.gpg-agent
+**/.ssh/agent.env
+**/.ssh/known_hosts
+**/__pycache__/
 *.sw[op]
