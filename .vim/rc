@@ -178,13 +178,15 @@ map <Leader>x		:<C-U>syntax on<cr>
 " }}}
 " {{{ [Mappings] Tab & window management
 map <C-h>		:<C-U>tabprev<cr>|		" Go to previous tab page w/ wraparound
+map <C-i>		:<C-U>wincmd s<cr>|		" Split current window in two
 map <C-j>		:<C-U>wincmd j<cr>|		" Move to 1st window below current
 map <C-k>		:<C-U>wincmd k<cr>|		" Move to 1st window above current
 map <C-l>		:<C-U>tabnext<cr>|		" Go to next tab page w/ wraparound
 map <C-o>		:<C-U>wincmd l<cr>|		" Move to 1st window right of current
-map <C-s>		:<C-U>wincmd s<cr>|		" Split current window in two
 map <C-t>		:<C-U>wincmd T<cr>|		" Move window to new tab page
 map <C-y>		:<C-U>wincmd h<cr>|		" Move to 1st window left of current
 " }}}
+
+if exists("~/.vim/rc.local") | source ~/.vim/rc.local | endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
