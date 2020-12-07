@@ -1,0 +1,55 @@
+#
+# metamail capabilities file
+# RFC 1524 MUA MIME per-type handling configuration file
+#
+# References:
+# Sun, 23 Oct 2011 18:47:01 +0200 [1] RFC 822 -- STANDARD FOR THE FORMAT OF ARPA INTERNET TEXT MESSAGES <http://www.w3.org/Protocols/rfc822/>
+# Sun, 23 Oct 2011 18:47:01 +0200 [2] RFC 1524 -- A User Agent Configuration Mechanism For Multimedia Mail Format Information <http://tools.ietf.org/html/rfc1524>
+# Sun, 23 Oct 2011 18:47:01 +0200 [3] mailcap - metamail capabilities file <mailcap (5)>
+#
+# {{{ On mutt(1), as per muttrc(5):
+#	implicit_autoview [ ... ]
+#	If set to "yes", mutt will look for a mailcap entry
+#	with the copiousoutput  flag  set  for  every  MIME
+#	attachment  it  doesn't  have  an  internal  viewer
+#	defined for.  If such an entry is found, mutt  will
+#	use the viewer defined in that entry to convert the
+#	body part to text form.
+# }}}
+# {{{ On less(1):
+#	Do note that less (1) paginating commands shall remain part of the
+#	respective /view-command/ lines due to Mutt lacking a separate
+#	tunable distinguishing between MIME attachment content and message
+#	body paging; this is particularly necessary given a platform such as
+#	OpenBSD [as of 4.5] where UTF-8 locale(7)s or Unicode support in
+#	any other form is unlikely to ever be completed.
+#	[less(1) implements its own character {set,encoding} handling.]
+# }}}
+#
+
+#
+# content-type		;	view-command			;?	flag[s]?
+#
+
+# ps2ascii (1) -- Ghostscript translator from PostScript or PDF to ASCII
+application/postscript	;	ps2ascii %s			;	copiousoutput
+
+# zipinfo (1) -- list detailed information about a ZIP archive
+# gzip, gunzip, gzcat (1) -- compress and expand data (deflate mode)
+# tar (1) -- tape archiver
+application/zip		;	zipinfo %s			;	copiousoutput
+application/x-gunzip	;	gzcat				;	copiousoutput
+application/x-gzip	;	gunzip -c %s | tar tvf -	;	copiousoutput
+application/gzip	;	gunzip -c %s | tar tvf -	;	copiousoutput
+application/x-tar-gz	;	gunzip -c %s | tar tvf -	;	copiousoutput
+application/x-tar	;	tar tvzf %s			;	copiousoutput
+application/x-tgz	;	tar tvzf %s			;	copiousoutput
+
+# links (1) -- lynx-like alternative character mode WWW browser
+text/htm		;	links -force-html -dump %s | env LESSCHARSET=utf-8 less
+text/html		;	links -force-html -dump %s | env LESSCHARSET=utf-8 less
+
+# diff (1) -- differential file and directory comparator
+text/x-patch		;	cat %s				;	copiousoutput
+
+# vim:ft=mailcap foldmethod=marker noexpandtab sw=8 ts=8 tw=80

@@ -1,0 +1,152 @@
+# $Id$
+# muttrc (5) for arab@hawa.arabs.ps. running Mutt v1.5.20 (2009-06-14) on Debian/i386 GNU/Linux v6.0.3 (Squeeze) (APT)
+# 	-- Configuration file for the Mutt Mail User Agent
+#
+# Additionally tested on:
+# * Mutt v1.5.18, v1.5.20 on FreeBSD/i386 v7.1-RELEASE (ports)
+# * Mutt v1.5.18, v1.5.20 on OpenBSD/i386 v4.5 (ports)
+# * Mutt v1.5.18, v1.5.20 on NetBSD/i386 v5.1-RELEASE (pkgsrc)
+#
+# References:
+# Sun, 23 Oct 2011 18:45:14 +0200 [1] The Mutt E-Mail Client <http://www.mutt.org/>
+#
+#
+# Object colourizing commands for /Co#8/ terminals; local additions to the
+# muttrc (5) for arab@hawa.arabs.ps.
+#
+#
+# * On the format of the below commands, as per muttrc(5):
+#	Valid  objects  are: attachment, body, bold, header, hdrdefault,
+#	index, indicator, markers,  message,  normal,  quoted,  quotedN,
+#	search, signature, status, tilde, tree, underline.  The body and
+#	header objects allow you to restrict the colorization to a regu-
+#	lar  expression.  The index object permits you to select colored
+#	messages by pattern.
+#
+#	object		foreground	background	[  regexp ]
+#	index		foreground	background	[  pattern ]
+#
+# {{{ http://avalon.hoffentlich.net/~heipei/tmp/mutt_color_256
+#	# colors: white black green magenta blue cyan yellow red color254 colorx
+#
+#	color normal 		color252	color233
+#	color error 		red		color233
+#	color tilde 		color245	color233
+#	color message 		yellow		color233
+#	color markers 		yellow		color233
+#	color attachment 	color221	color233
+#	color search 		color48		color240	# how to hilite search patterns in the pager
+#	color status 		color42		color237
+#	color indicator 	white		color88
+#
+#	# Index
+#	color tree         	color124	color233		# arrow in threads
+#	color index             color178    	color233	"~N~p"	# message to myself (new)
+#	color index             color172    	color233	"~p"	# message to myself
+#	color index 		color130        color233 	"~Q"	# messages replied to
+#	color index		color70		color233	"~P" 	# message from myself
+#	color index 		color220	color233 	~N	# new
+#	color index 		color240	color233 	~O	# old
+#	color index 		color91		color233 	~T	# tagged
+#	color index 		color238	color233 	"~D"	# deleted
+#	color index 		cyan		color233 	~F	# flagged
+#
+#	color header		color74		color233	"^From"
+#	color header		color124	color233	"^Date"
+#	color header		color166	color233	"^(Subject)"
+#	color header		color244	color233	"^(To|Reply-To|Cc|Bcc):"
+#	color header		color245	color233	"^(X-Original-To):"
+#	color header		color96		color233	"^(User-Agent|X-Editor|X-Mailer):"
+#	color header 		cyan	   	color233	"^Organization:"
+#
+#	# Body
+#	color quoted 		color24		color233
+#	color quoted1     	green   	color233
+#	color quoted2     	yellow  	color233
+#	color quoted3     	red		color233
+#	color signature 	color238	color233
+#	color bold        	green  		color233
+#	color underline   	yellow 		color233
+#	color normal       	white  		color233
+#	color body 		cyan 		color233 	"(finger|ftp|http|news|telnet)://[^ >]*"
+#	color body 		cyan 		color233 	"<URL:[^ ]*>"
+#	color body 		cyan 		color233 	"www\\.[-.a-z0-9]+\\.[a-z][a-z][a-z]?([-_./~a-z0-9]+)?"
+#	color body 		white 		color233	"https://[^ >]*"
+#	color body 		cyan 		color233   	"ftp://[^ ]*"
+#	color body 		green 		color233 	"[[:alnum:]][-+.#_[:alnum:]]*@[-+.[:alnum:]]*[[:alnum:]]"
+#	color body 		brightred   	color233 	"mailto: *[^ ]+\(\\?subject=[^ ]+\)?"
+#	color body              color178	color233        "[*][Gg]*[*]"
+#	color body              color178	color233        "<[Bb][Gg]>"
+#	color body              color178	color233        "[;:][-o][)/(|]"
+#	color body              color178	color233        "[;:][)(|]"
+#	color body              color178	color233        "[*]?((N)?ACK|CU|LOL|SCNR|BRB|BTW|CWYL|FWIW|vbg|GD&R|HTH|HTHBE|IMHO|IMNSHO|IRL|RTFM|ROTFL|ROFL|YMMV)[*]?"
+#	color body              color178	color233	"[ ][*][^*]*[*][ ]?"
+#	color body              color178	color233	"[ ]?[*][^*]*[*][ ]"
+#	#color body 		brightred	color233	"(BAD signature)"
+#	#color body 		green		color233	"(Good signature)"
+#	color body 		yellow		color88		"(rwth|RWTH)"
+#	color body  		yellow		color88		"(heipei|hackvalue|Jojo|Gilger|Johannes)"
+#
+#	color hdrcolor254 color238 color233
+#	color body blue color233 "(ftp|http)://\w[^ ]+[^.]" # point out URLs
+#	color body color128 color233 '[-.+\w]+@[-.\w]+[^.]' # e-mail addresses
+#	color underline brightgreen color233
+# }}}
+#
+
+color	attachment	brightwhite	default
+color	bold		white		default
+color	hdrdefault	default		default
+color	indicator	brightyellow	default
+color	markers		brightwhite	red
+color	message		brightred	default
+color	quoted		green		default
+color	signature	brightblue	default
+color	search		white		brightblue
+color	status		brightwhite	blue
+color	tilde		brightblue	default
+color	tree		red		default
+color	underline	red		default
+color	error		brightred	black
+
+# {{{ Index colours
+# Expressed hierarchy: ~O -> ~N -> ~v -> ~D
+color	index		brightred	default		~O	# Old
+color	index		brightwhite	default		~N	# New
+color	index		brightyellow	blue		~v	# Collapsed thread
+color	index		brightblack	default		~D	# Deleted
+# }}}
+# {{{ Message header field colours
+# Hilight certain header fields.
+color	header		brightgreen	default		"^From(:| ) "
+color	header		brightgreen	default		"^To(:| ) "
+color	header		brightgreen	default		"^Subject(:| ) "
+color	header		brightgreen	default		"^Date(:| ) "
+color	header		brightblack	default		"^Message-Id(:| ) "
+color	header		red		default		"^X-[^ ]+: "
+# }}}
+# {{{ In-message body {colourizing,hilighting}
+# {HTTP,FTP} location, explicitely specified via an URL
+# or as per /(ftp|http)\./ prefix, ie.:
+#  o <http://...>, <https://...>, <ftp://...>
+#  o <URL:[ ... ]>
+#  o ftp.[ ... ], www.[ ... ]
+color	body		brightwhite	default		"(<?)((http(s?)|ftp)://[^ ]+|URL:[^ >]+)(>?)|(ftp|www)\\.[^ ]+"
+
+# `mailto:' UR{L,I}
+color	body		brightblue	default		"mailto:[^ ]+"
+
+# {Shell,Environment} variable names
+color	body		green		default		"\\$([a-zA-Z][-_a-zA-Z0-9]+|[0-9][0-9,]+)"
+
+# man(1)ual page notation
+color	body		green		default		"[-_a-zA-Z0-9]+\\([0-9][a-z]?\\)"
+
+# Instream encoded {emphatization,italicization} and FULLCAPS, ie.:
+#  o _[ ... ]_
+#  o /[ ... ]/
+#  o /[ ... ]*
+color	body		brightred	default		"\\<(_[^ ]+_|/[^ ]+/|\\*[^*]+\\*|[A-Z]{5,})\\>"
+# }}}
+
+# vim:ft=muttrc foldmethod=marker noexpandtab sw=8 ts=8 tw=80

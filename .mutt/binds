@@ -1,0 +1,38 @@
+#
+# Macros and key binds
+# N.B.	<kill-line> might(?) be required for /macro/ sequences to behave
+#	as expected.
+#
+
+#
+# [generic]
+#
+macro	generic		,r		":source $HOME/.muttrc"<enter>			Reload\ muttrc(5)
+
+#
+# [index,pager] Sidebar
+#
+bind	index,pager	<Down>		sidebar-next
+bind	index,pager	\CE		sidebar-open
+bind	index,pager	<Up>		sidebar-prev
+macro	index,pager	B		":toggle sidebar_visible"<enter>		Toggle\ sidebar\ visibility
+
+#
+# [index]
+#
+macro	index		<Esc>B		!"vim\ $HOME/.mutt/rc<enter>:"source $HOME/.mutt/rc"<enter>\
+											Edit\ and\ reload\ muttrc(5)
+macro	index		<Esc>B		!"vim\ $HOME/.mutt/colours$my_colours.rc"<enter>:"source $HOME/.mutt/colours$my_colours.rc"<enter>\
+											Edit\ and\ reload\ colours
+
+bind	index		,<space>	collapse-thread
+bind	index		,v		collapse-all
+macro	index		.a		l~A<enter><collapse-all>			Show\ all\ messages
+macro	index		.n		l~N<enter><collapse-all>			Show\ only\ new\ messages
+macro	index		.N		<buffy-list>					List\ mailboxes\ with\ new\ mail
+macro	index		c		"<shell-escape>calcurse<enter>"
+bind	index		x		sync-mailbox
+macro	index		S		"<tag-prefix><save-message>=Junk<enter>\
+					:set delete=yes<enter><sync-mailbox>:set delete=no<enter>"
+
+# vim:ft=muttrc foldmethod=marker noexpandtab sw=8 ts=8 tw=0
