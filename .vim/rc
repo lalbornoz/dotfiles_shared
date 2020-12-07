@@ -79,10 +79,11 @@ let g:lightline = {
 	\ },
 	\ }
 let g:netrw_banner = 0				" Suppress the [netrw] banner
-let g:netrw_browse_split = 0			" When browsing, <cr> will open the file by re-using the same window
+let g:netrw_browse_split = 0			" When browsing, <CR> will open the file by re-using the same window
 let g:netrw_dirhistmax = 0			" Suppress [netrw] history
 let g:netrw_liststyle = 3			" Set the default listing style [to] tree style listing
 let g:netrw_winsize = 25			" Specify initial size of new windows
+let g:tmux_navigator_no_mappings = 1		" Custom tmux-navigator Key Bindings
 " }}}
 " {{{ [Options ] Plugins (LSP)
 let g:lsp_diagnostics_echo_cursor = 1
@@ -106,90 +107,92 @@ endif
 " }}}
 
 " {{{ [Mappings] Function key aliases
-map <Esc>[11~		<F1>
-map <Esc>[12~		<F2>
-map <Esc>[13~		<F3>
-map <Esc>[14~		<F4>
-map <Esc>[15~		<F5>
-map <Esc>[17~		<F6>
-map <Esc>[18~		<F7>
-map <Esc>[19~		<F8>
-map <Esc>[20~		<F9>
-map <Esc>[21~		<F10>
-map <Esc>[23~		<F11>
-map <Esc>[24~		<F12>
-
-map <Esc>[25~		<S-F3>
-map <Esc>[26~		<S-F4>
-map <Esc>[28~		<S-F5>
-map <Esc>[29~		<S-F6>
-map <Esc>[31~		<S-F7>
-map <Esc>[32~		<S-F8>
-map <Esc>[33~		<S-F9>
-map <Esc>[34~		<S-F10>
+map <Esc>[11~		<F1>|		" Function key pseudo-mapping
+map <Esc>[12~		<F2>|		" Function key pseudo-mapping
+map <Esc>[13~		<F3>|		" Function key pseudo-mapping
+map <Esc>[14~		<F4>|		" Function key pseudo-mapping
+map <Esc>[15~		<F5>|		" Function key pseudo-mapping
+map <Esc>[17~		<F6>|		" Function key pseudo-mapping
+map <Esc>[18~		<F7>|		" Function key pseudo-mapping
+map <Esc>[19~		<F8>|		" Function key pseudo-mapping
+map <Esc>[20~		<F9>|		" Function key pseudo-mapping
+map <Esc>[21~		<F10>|		" Function key pseudo-mapping
+map <Esc>[23~		<F11>|		" Function key pseudo-mapping
+map <Esc>[24~		<F12>|		" Function key pseudo-mapping
+map <Esc>[25~		<S-F3>|		" Function key pseudo-mapping
+map <Esc>[26~		<S-F4>|		" Function key pseudo-mapping
+map <Esc>[28~		<S-F5>|		" Function key pseudo-mapping
+map <Esc>[29~		<S-F6>|		" Function key pseudo-mapping
+map <Esc>[31~		<S-F7>|		" Function key pseudo-mapping
+map <Esc>[32~		<S-F8>|		" Function key pseudo-mapping
+map <Esc>[33~		<S-F9>|		" Function key pseudo-mapping
+map <Esc>[34~		<S-F10>|	" Function key pseudo-mapping
 " }}}
 "
 " {{{ [Mappings] Autocomplete & LSP
-inoremap <expr> <cr>	pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
-inoremap <expr> <Tab>	"\<Tab>"
+inoremap <expr>    <CR>	pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
+inoremap <expr>   <Tab>	"\<Tab>"
 inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<S-Tab>"
 " }}}
 " {{{ [Mappings] Function keys
 " LSP & QuickFix function hotkeys
-map <F1>		:<C-U>LspPeekDeclaration<cr>
-map <F2>		:<C-U>LspPeekDefinition<cr>
-map <F3>		:<C-U>LspDeclaration<cr>
-map <S-F3>		:<C-U>leftabove LspDeclaration<cr>
-map <F4>		:<C-U>LspDefinition<cr>
-map <S-F4>		:<C-U>leftabove LspDefinition<cr>
-map <F5>		:<C-U>LspReferences<cr>
-map <S-F5>		:<C-U>LspWorkspaceSymbol<cr>
-map <F6>		:<C-U>LspHover<cr>
-map <S-F6>		:<C-U>silent make\|redraw!\|cc<cr>
+noremap <silent>   <F1>	:<C-U>LspPeekDeclaration<CR>
+noremap <silent>   <F2>	:<C-U>LspPeekDefinition<CR>
+noremap <silent>   <F3>	:<C-U>LspDeclaration<CR>
+noremap <silent> <S-F3>	:<C-U>leftabove LspDeclaration<CR>
+noremap <silent>   <F4>	:<C-U>LspDefinition<CR>
+noremap <silent> <S-F4>	:<C-U>leftabove LspDefinition<CR>
+noremap <silent>   <F5>	:<C-U>LspReferences<CR>
+noremap          <S-F5>	:<C-U>LspWorkspaceSymbol<CR>
+noremap <silent>   <F6>	:<C-U>LspHover<CR>
+noremap <silent> <S-F6>	:<C-U>silent make\|redraw!\|cc<CR>
 
 " Tab & window management function hotkeys
-map <F7>		:<C-U>new<cr>
-map <S-F7>		:<C-U>vnew<cr>
-map <F8>		:<C-U>tabnew<cr>
-map <S-F8>		:<C-U>close<cr>
+noremap <silent>   <F7>	:<C-U>new<CR>|			" Create new window
+noremap <silent> <S-F7>	:<C-U>vnew<CR>|			" Create new vertically split window
+noremap <silent>   <F8>	:<C-U>tabnew<CR>|		" Open a new tab page
+noremap <silent> <S-F8>	:<C-U>close<CR>|		" Close current tab/window
 
 " Buffer, filesystem & OS integration function hotkeys
-map <F9>		:<C-U>Man 
-map <S-F9>		"zyiw:exe "Man ".@z.""<cr>
-map <F10>		:<C-U>Fsgrep /
-map <S-F10>		:<C-U>new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read!
-map <F11>		:<C-U>BuffergatorToggle<cr>
-map <F12>		:<C-U>NERDTreeToggle<cr>
+noremap            <F9>	:<C-U>Man |			" Display manual page prompt
+noremap <silent> <S-F9>	"zyiw:exe "Man ".@z.""<CR>|	" Display manual page from current word
+noremap           <F10>	:<C-U>Fsgrep /|			" Search filesystem prompt
+noremap         <S-F10>	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read!|	" Read from program prompt into new window
+noremap <silent>  <F11>	:<C-U>BuffergatorToggle<CR>|	" Toggle Buffergator window
+noremap <silent>  <F12>	:<C-U>NERDTreeToggle<CR>|	" Toggle NERDTree window
 " }}}
 " {{{ [Mappings] Leader key sequences (buffers, commands & macros, calculator, Git)
-map <Leader>-		:<C-U>resize -3<cr>|		" Decrease current window height by 3
-map <Leader>;		@q|				" Execute contents of register q
-map <Leader>+		:<C-U>resize +3<cr>|		" Increase current window height by 3
-map <Leader><Tab>	:<C-U>TmuxNavigateDown<cr>|	" Navigate to tmux pane beneath current
-map <Leader>a		:<C-U>bp<cr>|			" Go to previous buffer in buffer list
-map <Leader>c		:<C-U>Calc<cr>|			" Open calculator window
-map <Leader>C		:<C-U>cwindow<cr>|		" Toggle the QuickFix window given recognised errors
-map <Leader>d		:<C-U>Ghdiffsplit<cr>|		" Diff against direct ancestors, split horizontally
-map <Leader>f		:<C-U>bn<cr>|			" Go to next buffer in buffer list
-map <Leader>h		:<C-U>let x = systemlist("sed -ne '/^map/!d' -e '/map <[eE]sc>/d' -e 'p' ~/.vimrc")\|call setbufvar(winbufnr(popup_dialog(x, #{ highlight: 'WildMenu', time: 2500 } )), '&filetype', 'vim')<cr><cr>
-map <Leader>l		:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<cr>1G
-map <Leader>p		J<Esc>:s/\t/ /g<cr>:s/ \+/ /g<cr>:s/( /(/<cr>:s/ \* / */g<cr>:s/$/;/<cr>
-map <Leader>s		:<C-U>Git<cr>|			" Bring up summary window akin to git-status
-map <Leader>v		:<C-U>source ~/.vimrc<cr>|	" Reload Vim configuration file
-map <Leader>w		:<C-U>set invwrap<cr>|		" Toggle wrapping of lines longer than window width
-map <Leader>x		:<C-U>syntax on<cr>|		" Reset syntax highlighting
+noremap <silent> <Leader>-	:<C-U>resize -3<CR>|		" Decrease current window height by 3
+noremap <silent> <Leader>;	@q|				" Execute contents of register q
+noremap <silent> <Leader>+	:<C-U>resize +3<CR>|		" Increase current window height by 3
+noremap <silent> <Leader><Tab>	:<C-U>TmuxNavigateDown<CR>|	" Navigate to tmux pane beneath current
+noremap <silent> <Leader>a	:<C-U>bp<CR>|			" Go to previous buffer in buffer list
+noremap <silent> <Leader>c	:<C-U>Calc<CR>|			" Open calculator window
+noremap <silent> <Leader>C	:<C-U>cwindow<CR>|		" Toggle the QuickFix window given recognised errors
+noremap <silent> <Leader>d	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
+noremap          <Leader>e	:!|				" Filter through program prompt
+noremap          <Leader>E	:<C-U>r!|			" Read from program prompt
+noremap <silent> <Leader>f	:<C-U>bn<CR>|			" Go to next buffer in buffer list
+noremap <silent> <Leader>h	:<C-U>let x = systemlist("sed -ne '/^[[:alpha:]]\\+map/!d' -e '/\\s\\+.*pseudo-mapping$/!p' ~/.vimrc")\|call setbufvar(winbufnr(popup_dialog(x, #{ highlight: 'WildMenu', time: 4500 } )), '&filetype', 'vim')<CR>
+noremap <silent> <Leader>l	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<CR>1G|	" Print Git log into new window
+noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>| " Convert to prototype noremap <silent> <Leader>s :<C-U>Git<CR>| " Bring up summary window akin to git-status
+noremap <silent> <Leader>v	:<C-U>source ~/.vimrc<CR>|	" Reload Vim configuration file
+noremap <silent> <Leader>V	:<C-U>tabnew\|e ~/.vimrc<CR>|	" Edit Vim configuration file in new window
+noremap <silent> <Leader>w	:<C-U>set invwrap<CR>|		" Toggle wrapping of lines longer than window width
+noremap <silent> <Leader>x	:<C-U>syntax on<CR>|		" Reset syntax highlighting
 " }}}
-" {{{ [Mappings] Tab & window management
-map <C-h>		:<C-U>tabprev<cr>|		" Go to previous tab page w/ wraparound
-map <C-i>		:<C-U>wincmd s<cr>|		" Split current window in two
-map <C-j>		:<C-U>wincmd j<cr>|		" Move to 1st window below current
-map <C-k>		:<C-U>wincmd k<cr>|		" Move to 1st window above current
-map <C-l>		:<C-U>tabnext<cr>|		" Go to next tab page w/ wraparound
-map <C-o>		:<C-U>wincmd l<cr>|		" Move to 1st window right of current
-map <C-t>		:<C-U>wincmd T<cr>|		" Move window to new tab page
-map <C-y>		:<C-U>wincmd h<cr>|		" Move to 1st window left of current
+" {{{ [Mappings] Tab, tmux(1) & window management
+noremap <silent>  <C-h>	:<C-U>tabprev<CR>|		" Go to previous tab page w/ wraparound
+noremap <silent>  <C-i>	:<C-U>wincmd s<CR>|		" Split current window in two
+noremap <silent>  <C-j>	:<C-U>TmuxNavigateDown<CR>|	" Move to 1st tmux pane or Vim window below current
+noremap <silent>  <C-k>	:<C-U>TmuxNavigateUp<CR>|	" Move to 1st tmux pane or Vim window above current
+noremap <silent>  <C-l>	:<C-U>tabnext<CR>|		" Go to next tab page w/ wraparound
+noremap <silent>  <C-o>	:<C-U>wincmd l<CR>|		" Move to 1st window right of current
+noremap <silent>  <C-t>	:<C-U>wincmd T<CR>|		" Move window to new tab page
+noremap <silent>  <C-y>	:<C-U>wincmd h<CR>|		" Move to 1st window left of current
 " }}}
 
+"insert date
 if exists("~/.vim/rc.local") | source ~/.vim/rc.local | endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
