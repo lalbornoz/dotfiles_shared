@@ -1,6 +1,6 @@
 execute pathogen#infect()
 
-" {{{ [Options ] Nocompatible
+" {{{ [General ] nocompatible, abbreviations, and commands
 "
 " This is a special kind of option, because when it's set or reset, other
 " options are also changed as a side effect.  CAREFUL: Setting or resetting
@@ -18,11 +18,36 @@ execute pathogen#infect()
 " file, nor for a file given with the |-u| argument).
 "
 set nocompatible
+
+cnoreabbrev W		w|			" Abbreviate w as W
+filet on | filet plugin on|			" Enable file type detection, load plugin files
 " }}}
+" {{{ [Mappings] Function key aliases
+map <Esc>[11~		<F1>|			" Function key pseudo-mapping
+map <Esc>[12~		<F2>|			" Function key pseudo-mapping
+map <Esc>[13~		<F3>|			" Function key pseudo-mapping
+map <Esc>[14~		<F4>|			" Function key pseudo-mapping
+map <Esc>[15~		<F5>|			" Function key pseudo-mapping
+map <Esc>[17~		<F6>|			" Function key pseudo-mapping
+map <Esc>[18~		<F7>|			" Function key pseudo-mapping
+map <Esc>[19~		<F8>|			" Function key pseudo-mapping
+map <Esc>[20~		<F9>|			" Function key pseudo-mapping
+map <Esc>[21~		<F10>|			" Function key pseudo-mapping
+map <Esc>[23~		<F11>|			" Function key pseudo-mapping
+map <Esc>[24~		<F12>|			" Function key pseudo-mapping
+map <Esc>[25~		<S-F3>|			" Function key pseudo-mapping
+map <Esc>[26~		<S-F4>|			" Function key pseudo-mapping
+map <Esc>[28~		<S-F5>|			" Function key pseudo-mapping
+map <Esc>[29~		<S-F6>|			" Function key pseudo-mapping
+map <Esc>[31~		<S-F7>|			" Function key pseudo-mapping
+map <Esc>[32~		<S-F8>|			" Function key pseudo-mapping
+map <Esc>[33~		<S-F9>|			" Function key pseudo-mapping
+map <Esc>[34~		<S-F10>|		" Function key pseudo-mapping
+" }}}
+
 " {{{ [Options ] Defaults
-filet on | filet plugin on			" Enable file type detection, load plugin files
-let g:VM_leader=';'
-let mapleader=';'
+let g:VM_leader=';'				" Set Visual-Multi (VM) leader
+let mapleader=';'				" Set mapping leader string
 set bs=2					" Backspace over indent,eol,start
 set cursorcolumn cursorline			" Highlight the screen {column,line} of the cursor
 set encoding=utf-8				" Global UTF-8 character encoding
@@ -44,30 +69,20 @@ set viminfo=""					" Neither read nor write /viminfo/ file
 set virtualedit=block				" Allow virtual editing in Visual block mode
 set wildmode=longest,list,full			" Completion mode [for] wildcard expansion in the command-line
 " }}}
-" {{{ [Options ] Autocommands and abbreviations
-autocmd	FileType	gitcommit	set	textwidth=0
-autocmd	FileType	netrw		setl	bufhidden=wipe
-autocmd	FileType	perl		syntax	off
-autocmd QuickFixCmdPost	[^l]* nested	cwindow
-autocmd QuickFixCmdPost	   l* nested	lwindow
-autocmd	WinEnter	*		set	cursorcolumn cursorline
-autocmd	WinLeave	*		set	nocursorcolumn nocursorline
-cnoreabbrev W		w
-" }}}
-" {{{ [Options ] Conditionals
-if has("folding")	| set foldmethod=marker commentstring=/*\ %s\ */	| endif
-if has("quickfix")	| set errorformat^=%+G/tmp/%.%# |
-			  set errorformat^=%+GMakefile:%\\d%#:\ recipe\ %.%#\ failed |
-			  endif
-if has("statusline")	| set ruler | set rulerformat=%15(%l,%c%V\ %P%)		| endif
-if has("syntax")	| syntax on | colors gruvbox | set background=dark	| endif
-" }}}
 " {{{ [Options ] Plugins
+let g:buffergator_suppress_keymaps = 1		" Do not automatically map <Leader> keys
 let g:filesearch_autodismiss_on_select = 0	" Selecting an entry with <CR> will not close the catalog
 let g:filesearch_split_size = 9			" Height of the Filesearch window in any horizontal splitting mode
 let g:filesearch_viewport_split_policy = "B"	" Horizontal bottom (full screen width)
-let g:buffergator_suppress_keymaps = 1		" Do not automatically map <Leader> keys
 let g:LargeFile = 10				" The minimum size of a file needed for it to be
+let g:netrw_banner = 0				" Suppress the [netrw] banner
+let g:netrw_browse_split = 0			" When browsing, <CR> will open the file by re-using the same window
+let g:netrw_dirhistmax = 0			" Suppress [netrw] history
+let g:netrw_liststyle = 3			" Set the default listing style [to] tree style listing
+let g:netrw_winsize = 25			" Specify initial size of new windows
+let g:tmux_navigator_no_mappings = 1		" Custom tmux-navigator Key Bindings
+" }}}
+" {{{ [Options ] Plugins: lightline.vim
 let g:lightline = {
 	\ 'active': {
 	\	'right': [ [ 'lineinfo_full' ],
@@ -78,74 +93,77 @@ let g:lightline = {
 	\	'lineinfo_full': '%l,%c%V/%L %P'
 	\ },
 	\ }
-let g:netrw_banner = 0				" Suppress the [netrw] banner
-let g:netrw_browse_split = 0			" When browsing, <CR> will open the file by re-using the same window
-let g:netrw_dirhistmax = 0			" Suppress [netrw] history
-let g:netrw_liststyle = 3			" Set the default listing style [to] tree style listing
-let g:netrw_winsize = 25			" Specify initial size of new windows
-let g:tmux_navigator_no_mappings = 1		" Custom tmux-navigator Key Bindings
 " }}}
-" {{{ [Options ] Plugins (LSP)
-let g:lsp_diagnostics_echo_cursor = 1
+" {{{ [Options ] Plugins: LSP
+let g:lsp_diagnostics_echo_cursor = 1		" Echo of diagnostic error for current line to status
 let g:lsp_settings = {
 	\ 'clangd': {
 	\	'cmd': ['clangd', '--background-index', '--pch-storage=memory']
 	\ }
 	\ }
-
-if 0
-	let g:lsp_log_file = expand('$HOME/.vim/lsp.log')
-	let g:lsp_log_verbose = 1
-endif
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name':	'pyls',
-        \ 'cmd':	{server_info->['pyls', '--verbose', '--log-file', expand('$HOME/.vim/pyls.log')]},
-        \ 'whitelist':	['python'],
-        \ })
-endif
 " }}}
-
-" {{{ [Mappings] Function key aliases
-map <Esc>[11~		<F1>|		" Function key pseudo-mapping
-map <Esc>[12~		<F2>|		" Function key pseudo-mapping
-map <Esc>[13~		<F3>|		" Function key pseudo-mapping
-map <Esc>[14~		<F4>|		" Function key pseudo-mapping
-map <Esc>[15~		<F5>|		" Function key pseudo-mapping
-map <Esc>[17~		<F6>|		" Function key pseudo-mapping
-map <Esc>[18~		<F7>|		" Function key pseudo-mapping
-map <Esc>[19~		<F8>|		" Function key pseudo-mapping
-map <Esc>[20~		<F9>|		" Function key pseudo-mapping
-map <Esc>[21~		<F10>|		" Function key pseudo-mapping
-map <Esc>[23~		<F11>|		" Function key pseudo-mapping
-map <Esc>[24~		<F12>|		" Function key pseudo-mapping
-map <Esc>[25~		<S-F3>|		" Function key pseudo-mapping
-map <Esc>[26~		<S-F4>|		" Function key pseudo-mapping
-map <Esc>[28~		<S-F5>|		" Function key pseudo-mapping
-map <Esc>[29~		<S-F6>|		" Function key pseudo-mapping
-map <Esc>[31~		<S-F7>|		" Function key pseudo-mapping
-map <Esc>[32~		<S-F8>|		" Function key pseudo-mapping
-map <Esc>[33~		<S-F9>|		" Function key pseudo-mapping
-map <Esc>[34~		<S-F10>|	" Function key pseudo-mapping
+" {{{ [General ] Feature-dependent: folding, quickfix, statusline, syntax
+if has("folding")	| set foldmethod=marker commentstring=/*\ %s\ */	| endif
+if has("quickfix")	| set errorformat^=%+G/tmp/%.%# |
+			  set errorformat^=%+GMakefile:%\\d%#:\ recipe\ %.%#\ failed |
+			  endif
+if has("statusline")	| set ruler | set rulerformat=%15(%l,%c%V\ %P%)		| endif
+if has("syntax")	| syntax on | colors gruvbox | set background=dark	| endif
 " }}}
+" {{{ [AutoCmds] FileType, QuickFix*, Win*
+autocmd	FileType	gitcommit	set	textwidth=0
+autocmd	FileType	netrw		setl	bufhidden=wipe
+autocmd	FileType	perl		syntax	off
+autocmd FileType	python		set	expandtab shiftwidth=4 tabstop=4
+
+autocmd QuickFixCmdPost	[^l]* nested	cwindow
+autocmd QuickFixCmdPost	   l* nested	lwindow
+
+autocmd	WinEnter	*		set	cursorcolumn cursorline
+autocmd	WinLeave	*		set	nocursorcolumn nocursorline
+" }}}
+" {{{ [AutoCmds] Plugins: LSP
 "
+" If $PYLSP_DEBUG is set in the environment , log LSP server output
+" verbosively to $HOME/.vim/lsp.log to aid LSP debugging.
+if has_key(environ(), "PYLSP_DEBUG") && executable('pyls')
+	function Pylsp_debug_set()
+		let g:lsp_log_file = expand('$HOME/.vim/lsp.log')
+		let g:lsp_log_verbose = 1
+		au User lsp_setup call lsp#register_server({
+			\ 'name':	'pyls',
+			\ 'cmd':	{server_info->['pyls', '--verbose', '--log-file', expand('$HOME/.vim/pyls.log')]},
+			\ 'whitelist':	['python'],
+			\ })
+	endfunction
+	silent au FileType python call Pylsp_debug_set()
+endif
+" }}}
+
 " {{{ [Mappings] Autocomplete & LSP
-inoremap <expr>    <CR>	pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
-inoremap <expr>   <Tab>	"\<Tab>"
-inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<S-Tab>"
+inoremap <expr>    <CR>	pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"|	" Close LSP autocomplete window, if open
+inoremap <expr>   <Tab>	"\<Tab>"|							" Unbind <Tab> from LSP autocomplete
+inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<S-Tab>"|				" Execute or advance LSP autocomplete
 " }}}
 " {{{ [Mappings] Function keys
 " LSP & QuickFix function hotkeys
-noremap <silent>   <F1>	:<C-U>LspPeekDeclaration<CR>
-noremap <silent>   <F2>	:<C-U>LspPeekDefinition<CR>
-noremap <silent>   <F3>	:<C-U>LspDeclaration<CR>
-noremap <silent> <S-F3>	:<C-U>leftabove LspDeclaration<CR>
-noremap <silent>   <F4>	:<C-U>LspDefinition<CR>
-noremap <silent> <S-F4>	:<C-U>leftabove LspDefinition<CR>
-noremap <silent>   <F5>	:<C-U>LspReferences<CR>
-noremap          <S-F5>	:<C-U>LspWorkspaceSymbol<CR>
-noremap <silent>   <F6>	:<C-U>LspHover<CR>
-noremap <silent> <S-F6>	:<C-U>silent make\|redraw!\|cc<CR>
+fun Lsp_decl_filetype()
+if &filetype == "c" || &filetype == "cpp"
+	noremap <silent> <F2>	:<C-U>LspPeekDeclaration<CR>|	" Peek LSP declaration (C/C++ only)
+	noremap <silent> <F3>	:<C-U>LspDeclaration<CR>|	" Go to LSP declaration (C/C++ only)
+else
+	noremap <silent> <F2>	:<C-U>LspPreviousError<CR>|	" Go to previous LSP error in file (non-C/C++)
+	noremap <silent> <F3>	:<C-U>LspNextError<CR>|		" Go to next LSP error in file (non-C/C++)
+endif
+endfun | au FileType * call Lsp_decl_filetype()
+noremap <silent>   <F1>	:<C-U>LspPeekDefinition<CR>|		" Peek LSP definition
+noremap <silent> <S-F3>	:<C-U>LspPreviousDiagnostic<CR>|	" Go to previous LSP diagnostic in file
+noremap <silent>   <F4>	:<C-U>LspDefinition<CR>|		" Go to LSP definition
+noremap <silent> <S-F4>	:<C-U>LspNextDiagnostic<CR>|		" Go to next LSP diagnostic in file
+noremap <silent>   <F5>	:<C-U>LspReferences<CR>|		" Find all LSP references
+noremap          <S-F5>	:<C-U>LspWorkspaceSymbol<CR>|		" Search and show LSP workspace symbols
+noremap <silent>   <F6>	:<C-U>LspHover<CR>|			" Get LSP hover information & display in preview-window
+noremap <silent> <S-F6>	:<C-U>silent make\|redraw!<CR>|	" Run make, open QuickFix window & redraw
 
 " Tab & window management function hotkeys
 noremap <silent>   <F7>	:<C-U>new<CR>|			" Create new window
@@ -161,38 +179,54 @@ noremap         <S-F10>	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile noswap
 noremap <silent>  <F11>	:<C-U>BuffergatorToggle<CR>|	" Toggle Buffergator window
 noremap <silent>  <F12>	:<C-U>NERDTreeToggle<CR>|	" Toggle NERDTree window
 " }}}
-" {{{ [Mappings] Leader key sequences (buffers, commands & macros, calculator, Git)
+" {{{ [Mappings] Leader key sequences
+noremap <silent> <Leader><Tab>	:<C-U>bn<CR>|			" Go to next buffer in buffer list
+noremap <silent> <Leader><S-Tab>	:<C-U>bp<CR>|		" Go to previous buffer in buffer list
 noremap <silent> <Leader>-	:<C-U>resize -3<CR>|		" Decrease current window height by 3
 noremap <silent> <Leader>;	@q|				" Execute contents of register q
 noremap <silent> <Leader>+	:<C-U>resize +3<CR>|		" Increase current window height by 3
-noremap <silent> <Leader><Tab>	:<C-U>TmuxNavigateDown<CR>|	" Navigate to tmux pane beneath current
-noremap <silent> <Leader>a	:<C-U>bp<CR>|			" Go to previous buffer in buffer list
-noremap <silent> <Leader>c	:<C-U>Calc<CR>|			" Open calculator window
-noremap <silent> <Leader>C	:<C-U>cwindow<CR>|		" Toggle the QuickFix window given recognised errors
-noremap <silent> <Leader>d	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
-noremap          <Leader>e	:!|				" Filter through program prompt
-noremap          <Leader>E	:<C-U>r!|			" Read from program prompt
-noremap <silent> <Leader>f	:<C-U>bn<CR>|			" Go to next buffer in buffer list
-noremap <silent> <Leader>h	:<C-U>let x = systemlist("sed -ne '/^[[:alpha:]]\\+map/!d' -e '/\\s\\+.*pseudo-mapping$/!p' ~/.vimrc")\|call setbufvar(winbufnr(popup_dialog(x, #{ highlight: 'WildMenu', time: 4500 } )), '&filetype', 'vim')<CR>
+noremap <silent> <Leader>c	:<C-U>cwindow<CR>|		" Toggle the QuickFix window given recognised errors
+noremap <silent> <Leader>C	:<C-U>Calc<CR>|			" Open calculator window
+noremap <silent> <Leader>d	:<C-U>:r!env LC_ALL=C date<CR>									" Insert date (LC_ALL=C)
+noremap <silent> <Leader>D	:<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>					" Insert date in RFC 2822/5322 format
+noremap <silent> <Leader>i	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
+noremap          <Leader>f	:%!|				" Filter through program prompt
+noremap          <Leader>F	:<C-U>r!|			" Read from program prompt
 noremap <silent> <Leader>l	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<CR>1G|	" Print Git log into new window
-noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>| " Convert to prototype noremap <silent> <Leader>s :<C-U>Git<CR>| " Bring up summary window akin to git-status
-noremap <silent> <Leader>v	:<C-U>source ~/.vimrc<CR>|	" Reload Vim configuration file
+noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>|			" Convert to prototype
+noremap		 <Leader>r	:<C-U>redraw<CR>
+noremap <silent> <Leader>s	:<C-U>Git<CR>|											" Bring up summary window akin to git-status
+noremap		 <Leader>v	:<C-U>source ~/.vimrc\|exec "set filetype=" . &filetype<CR>|					" Reload Vim configuration file
 noremap <silent> <Leader>V	:<C-U>tabnew\|e ~/.vimrc<CR>|	" Edit Vim configuration file in new window
 noremap <silent> <Leader>w	:<C-U>set invwrap<CR>|		" Toggle wrapping of lines longer than window width
 noremap <silent> <Leader>x	:<C-U>syntax on<CR>|		" Reset syntax highlighting
 " }}}
+" {{{ [Mappings] Leader key sequences: help
+noremap <silent> <Leader>h	:<C-U>let x = systemlist("
+	\ sed -ne '/^[[:space:]]*[cilnostvx]\\?\\(nore\\)\\?m\\(ap\\)\\?/!d'
+	\      -e '/pseudo-mapping$/d'
+	\      -e 's/^[[:space:]]*\\(\\([cilnostvx]\\)\\?\\(nore\\)\\?m\\(ap\\)\\?\\)[[:space:]]\\+/\\2map /i'
+	\      -e 's/^\\(.\\?map\\) \\(\\(<[^>]\\+>\\)\\+[[:space:]]\\+\\)\\?\\([^[:space:]]\\+\\).*[[:space:]]\\(\".*$\\)/\\1 \\4 \\5/ip'
+	\		~/.vimrc") \|
+	\ call setbufvar(winbufnr(popup_dialog(x, #{
+	\	close: 'click', highlight: 'WildMenu', maxheight: 35, title: 'Mappings window (click to close)' }
+	\ )), '&filetype', 'vim')<CR>
+" }}}
 " {{{ [Mappings] Tab, tmux(1) & window management
+noremap <silent>  <C-g>	:<C-U>wincmd T<CR>|		" Move window to new tab page
 noremap <silent>  <C-h>	:<C-U>tabprev<CR>|		" Go to previous tab page w/ wraparound
-noremap <silent>  <C-i>	:<C-U>wincmd s<CR>|		" Split current window in two
 noremap <silent>  <C-j>	:<C-U>TmuxNavigateDown<CR>|	" Move to 1st tmux pane or Vim window below current
 noremap <silent>  <C-k>	:<C-U>TmuxNavigateUp<CR>|	" Move to 1st tmux pane or Vim window above current
 noremap <silent>  <C-l>	:<C-U>tabnext<CR>|		" Go to next tab page w/ wraparound
 noremap <silent>  <C-o>	:<C-U>wincmd l<CR>|		" Move to 1st window right of current
-noremap <silent>  <C-t>	:<C-U>wincmd T<CR>|		" Move window to new tab page
+noremap <silent>  <C-t>	:<C-U>wincmd s<CR>|		" Split current window in two
 noremap <silent>  <C-y>	:<C-U>wincmd h<CR>|		" Move to 1st window left of current
 " }}}
 
-"insert date
+" Source local additions to personal Vim initialisations file.
 if exists("~/.vim/rc.local") | source ~/.vim/rc.local | endif
+
+" If lightline.vim is present, reinitialise it (required as of last change: 2020/03/16 19:08:41).
+if exists("*lightline#init") | call lightline#init() | call lightline#colorscheme() | call lightline#update() | endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
