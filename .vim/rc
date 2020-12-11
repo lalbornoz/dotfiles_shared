@@ -180,6 +180,8 @@ noremap <silent>  <F11>	:<C-U>BuffergatorToggle<CR>|	" Toggle Buffergator window
 noremap <silent>  <F12>	:<C-U>NERDTreeToggle<CR>|	" Toggle NERDTree window
 " }}}
 " {{{ [Mappings] Leader key sequences
+map     <silent> <Leader><Down>	<Plug>(VM-Add-Cursor-Down)
+map     <silent> <Leader><Up>	<Plug>(VM-Add-Cursor-Up)
 noremap <silent> <Leader><Tab>	:<C-U>bn<CR>|			" Go to next buffer in buffer list
 noremap <silent> <Leader><S-Tab>	:<C-U>bp<CR>|		" Go to previous buffer in buffer list
 noremap <silent> <Leader>-	:<C-U>resize -3<CR>|		" Decrease current window height by 3
