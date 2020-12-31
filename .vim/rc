@@ -184,9 +184,11 @@ map     <silent> <Leader><Down>	<Plug>(VM-Add-Cursor-Down)
 map     <silent> <Leader><Up>	<Plug>(VM-Add-Cursor-Up)
 noremap <silent> <Leader><Tab>	:<C-U>bn<CR>|			" Go to next buffer in buffer list
 noremap <silent> <Leader><S-Tab>	:<C-U>bp<CR>|		" Go to previous buffer in buffer list
-noremap <silent> <Leader>-	:<C-U>resize -3<CR>|		" Decrease current window height by 3
+noremap <silent> <Leader>'	mx|				" Set mark x at cursor position
+noremap <silent> <Leader>#	'x|				" Jump to mark x in the current buffer
 noremap <silent> <Leader>;	@q|				" Execute contents of register q
-noremap <silent> <Leader>+	:<C-U>resize +3<CR>|		" Increase current window height by 3
+noremap <silent> <Leader>[	:<C-U>resize -3<CR>|		" Decrease current window height by 3
+noremap <silent> <Leader>]	:<C-U>resize +3<CR>|		" Increase current window height by 3
 noremap <silent> <Leader>c	:<C-U>cwindow<CR>|		" Toggle the QuickFix window given recognised errors
 noremap <silent> <Leader>C	:<C-U>Calc<CR>|			" Open calculator window
 noremap <silent> <Leader>d	:<C-U>:r!env LC_ALL=C date<CR>									" Insert date (LC_ALL=C)
