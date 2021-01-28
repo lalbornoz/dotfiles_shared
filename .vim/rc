@@ -19,7 +19,11 @@ execute pathogen#infect()
 "
 set nocompatible
 
+cnoreabbrev Q		q|			" Abbreviate q as Q
 cnoreabbrev W		w|			" Abbreviate w as W
+cnoreabbrev wQ		wq|			" Abbreviate wq as wQ
+cnoreabbrev Wq		wq|			" Abbreviate wq as Wq
+cnoreabbrev WQ		wq|			" Abbreviate wq as WQ
 filet on | filet plugin on|			" Enable file type detection, load plugin files
 filet plugin indent on
 " }}}
