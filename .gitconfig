@@ -7,5 +7,7 @@
 	verbose = True
 [credential]
 	helper = store
+[pull]
+	rebase = false
 [push]
 	default = simple
