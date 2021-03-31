@@ -4,6 +4,7 @@
 	pushall = !git remote | xargs -L1 git push --all
 	wgetam = "!wgetam() { wget -qO- \"${1}\" | git am -s; }; wgetam"
 [commit]
+	gpgsign = True
 	verbose = True
 [credential]
 	helper = store
