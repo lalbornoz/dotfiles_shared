@@ -124,8 +124,8 @@ autocmd	FileType	netrw		setl	bufhidden=wipe
 autocmd	FileType	perl		syntax	off
 autocmd FileType	python		set	expandtab shiftwidth=4 tabstop=4
 
-autocmd QuickFixCmdPost	[^l]* nested	cwindow
-autocmd QuickFixCmdPost	   l* nested	lwindow
+autocmd QuickFixCmdPost	[^l]* nested	cwindow | wincmd p
+autocmd QuickFixCmdPost	   l* nested	lwindow | wincmd p
 
 autocmd	WinEnter	*		set	cursorcolumn cursorline
 autocmd	WinLeave	*		set	nocursorcolumn nocursorline
@@ -146,6 +146,10 @@ if has_key(environ(), "PYLSP_DEBUG") && executable('pyls')
 	endfunction
 	silent au FileType python call Pylsp_debug_set()
 endif
+" }}}
+" {{{ [Commands] General
+command! -nargs=+ Cv vimgrep <args> % | wincmd p
+command! -nargs=+ Lv lvimgrep <args> % | wincmd p
 " }}}
 
 " {{{ [Mappings] Autocomplete & LSP
@@ -204,6 +208,7 @@ noremap <silent> <Leader>D	:<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z
 noremap <silent> <Leader>i	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
 noremap          <Leader>f	:%!|				" Filter through program prompt
 noremap          <Leader>F	:<C-U>r!|			" Read from program prompt
+noremap          <Leader>G	:Lv /|				" vimgrep into and switch to current window's location list
 noremap <silent> <Leader>l	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<CR>1G|	" Print Git log into new window
 noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>|			" Convert to prototype
 noremap		 <Leader>r	:<C-U>redraw<CR>
