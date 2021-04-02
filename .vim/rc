@@ -51,8 +51,8 @@ map <Esc>[34~		<S-F10>|		" Function key pseudo-mapping
 " }}}
 
 " {{{ [Options ] Defaults
-let g:VM_leader=';'				" Set Visual-Multi (VM) leader
-let mapleader=';'				" Set mapping leader string
+let g:VM_leader="'"				" Set Visual-Multi (VM) leader
+let mapleader="'"				" Set mapping leader string
 set bs=2					" Backspace over indent,eol,start
 set cursorcolumn cursorline			" Highlight the screen {column,line} of the cursor
 set encoding=utf-8				" Global UTF-8 character encoding
