@@ -202,10 +202,11 @@ noremap <silent> <Leader>;	@q|				" Execute contents of register q
 noremap <silent> <Leader>[	:<C-U>resize -3<CR>|		" Decrease current window height by 3
 noremap <silent> <Leader>]	:<C-U>resize +3<CR>|		" Increase current window height by 3
 noremap <silent> <Leader>c	:<C-U>cwindow<CR>|		" Toggle the QuickFix window given recognised errors
-noremap <silent> <Leader>C	:<C-U>Calc<CR>|			" Open calculator window
+noremap <silent> <Leader>C	:<C-U>Crunch<CR>|		" Open vim-crunch prompt
 noremap <silent> <Leader>d	:<C-U>:r!env LC_ALL=C date<CR>									" Insert date (LC_ALL=C)
 noremap <silent> <Leader>D	:<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>					" Insert date in RFC 2822/5322 format
-noremap <silent> <Leader>i	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
+noremap <silent> <Leader>i	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git diff<CR>1G|" Print Git diff into new window
+noremap <silent> <Leader>I	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
 noremap          <Leader>f	:%!|				" Filter through program prompt
 noremap          <Leader>F	:<C-U>r!|			" Read from program prompt
 noremap <silent> <Leader>l	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<CR>1G|	" Print Git log into new window
