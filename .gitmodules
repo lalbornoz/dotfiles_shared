@@ -52,3 +52,9 @@
 [submodule ".vim/bundle/rust.vim"]
 	path = .vim/bundle/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule ".vim/bundle/vim-selection"]
+	path = .vim/bundle/vim-selection
+	url = https://github.com/arecarn/vim-selection
+[submodule ".vim/bundle/vim-crunch"]
+	path = .vim/bundle/vim-crunch
+	url = https://github.com/arecarn/vim-crunch
