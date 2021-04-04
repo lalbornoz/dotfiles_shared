@@ -208,7 +208,6 @@ noremap <silent> <Leader>D	:<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z
 noremap <silent> <Leader>i	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
 noremap          <Leader>f	:%!|				" Filter through program prompt
 noremap          <Leader>F	:<C-U>r!|			" Read from program prompt
-noremap          <Leader>G	:Lv /|				" vimgrep into and switch to current window's location list
 noremap <silent> <Leader>l	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<CR>1G|	" Print Git log into new window
 noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>|			" Convert to prototype
 noremap		 <Leader>r	:<C-U>redraw<CR>
@@ -229,6 +228,9 @@ noremap <silent> <Leader>h	:<C-U>let x = systemlist("
 	\ call setbufvar(winbufnr(popup_dialog(x, #{
 	\	close: 'click', highlight: 'WildMenu', maxheight: 35, title: 'Mappings window (click to close)' }
 	\ )), '&filetype', 'vim')<CR>
+" }}}
+" {{{ [Mappings] Normal mode mappings
+nnoremap          <C-_>		:Lv /|			" vimgrep into and switch to current window's location list
 " }}}
 " {{{ [Mappings] Tab, tmux(1) & window management
 noremap <silent>  <C-g>	:<C-U>wincmd T<CR>|		" Move window to new tab page
