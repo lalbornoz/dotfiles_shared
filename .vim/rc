@@ -147,9 +147,25 @@ if has_key(environ(), "PYLSP_DEBUG") && executable('pyls')
 	silent au FileType python call Pylsp_debug_set()
 endif
 " }}}
+
 " {{{ [Commands] General
-command! -nargs=+ Cv vimgrep <args> % | wincmd p
-command! -nargs=+ Lv lvimgrep <args> % | wincmd p
+command! -nargs=+	Cv vimgrep <args> % | wincmd p
+command! -nargs=+	Lv lvimgrep <args> % | wincmd p
+" }}}
+" {{{ [Function] NewTmpCmd(cmdline, ...): execute cmdline in temporary buffer w/ optional &l:filetype=get(a:,1) and 1G
+function! NewTmpCmd(cmdline, ...)
+	new
+	let cursor_pos = getpos('.')
+	setlocal bufhidden=wipe buftype=nofile noswapfile
+	let filetype = get(a:, 1, "")
+	if filetype != ""
+		let &l:filetype = get(a:, 1, "")
+	endif
+	execute '0read!' a:cmdline
+	let cursor_pos[1] = 0
+	call setpos('.', cursor_pos)
+endfunction
+command! -nargs=+	CNewTmpCmd call NewTmpCmd('<args>')
 " }}}
 
 " {{{ [Mappings] Autocomplete & LSP
@@ -187,7 +203,7 @@ noremap <silent> <S-F8>	:<C-U>close<CR>|		" Close current tab/window
 noremap		   <F9>	:<C-U>Man |			" Display manual page prompt
 noremap <silent> <S-F9>	"zyiw:exe "Man ".@z.""<CR>|	" Display manual page from current word
 noremap		  <F10>	:<C-U>Fsgrep /|			" Search filesystem prompt
-noremap		<S-F10>	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile noswapfile\|0read!|	" Read from program prompt into new window
+noremap		<S-F10>	:<C-U>CNewTmpCmd |		" Read from program prompt into new window
 noremap <silent>  <F11>	:<C-U>BuffergatorToggle<CR>|	" Toggle Buffergator window
 noremap <silent>  <F12>	:<C-U>NERDTreeToggle<CR>|	" Toggle NERDTree window
 " }}}
@@ -205,11 +221,11 @@ noremap <silent> <Leader>c	:<C-U>cwindow<CR>|		" Toggle the QuickFix window give
 noremap <silent> <Leader>C	:<C-U>Crunch<CR>|		" Open vim-crunch prompt
 noremap <silent> <Leader>d	:<C-U>:r!env LC_ALL=C date<CR>									" Insert date (LC_ALL=C)
 noremap <silent> <Leader>D	:<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>					" Insert date in RFC 2822/5322 format
-noremap <silent> <Leader>i	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git diff<CR>1G|" Print Git diff into new window
+noremap <silent> <Leader>i	:<C-U>call NewTmpCmd("git diff", "git")<CR>\|zR|						" Print Git diff into new window
 noremap <silent> <Leader>I	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
 noremap          <Leader>f	:%!|				" Filter through program prompt
 noremap          <Leader>F	:<C-U>r!|			" Read from program prompt
-noremap <silent> <Leader>l	:<C-U>new\|setlocal bufhidden=wipe buftype=nofile filetype=git noswapfile\|0read!git log<CR>1G|	" Print Git log into new window
+noremap <silent> <Leader>l	:<C-U>call NewTmpCmd("git log", "git")<CR>|							" Print Git log into new window
 noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>|			" Convert to prototype
 noremap		 <Leader>r	:<C-U>redraw<CR>
 noremap <silent> <Leader>s	:<C-U>Git<CR>|											" Bring up summary window akin to git-status
