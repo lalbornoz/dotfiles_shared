@@ -46,9 +46,6 @@
 [submodule ".vim/bundle/vim-tmux-navigator"]
 	path = .vim/bundle/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
-[submodule ".vim/bundle/vim-visual-multi"]
-	path = .vim/bundle/vim-visual-multi
-	url = https://github.com/mg979/vim-visual-multi
 [submodule ".vim/bundle/rust.vim"]
 	path = .vim/bundle/rust.vim
 	url = https://github.com/rust-lang/rust.vim
