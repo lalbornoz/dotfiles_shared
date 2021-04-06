@@ -153,7 +153,7 @@ command! -nargs=+	Cv vimgrep <args> % | wincmd p
 command! -nargs=+	Lv lvimgrep <args> % | wincmd p
 " }}}
 " {{{ [Function] NewTmpCmd(cmdline, ...): execute cmdline in temporary buffer w/ optional &l:filetype=get(a:,1) and 1G
-function! NewTmpCmd(cmdline, ...)
+fun! NewTmpCmd(cmdline, ...) abort
 	new
 	let cursor_pos = getpos('.')
 	setlocal bufhidden=wipe buftype=nofile noswapfile
@@ -164,10 +164,19 @@ function! NewTmpCmd(cmdline, ...)
 	execute '0read!' a:cmdline
 	let cursor_pos[1] = 0
 	call setpos('.', cursor_pos)
-endfunction
+endfun
 command! -nargs=+	CNewTmpCmd call NewTmpCmd('<args>')
 " }}}
+" {{{ [Function] FilterP(cmdline[, line1, line2]): filter {entire file,visual range} w/ command line w/ tab-complete from favourites
+let FilterPList = ["sort", "sort | uniq", "fmt -w 75", "hexdump -C"]
 
+fun! FilterP(...) abort
+	exe get(a:, 2, 1) . "," . get(a:, 3, "$") . "!" . a:1
+endfun
+:exe "fun! FilterPCL(...) \n return g:FilterPList \n endfun"
+command! -complete=customlist,FilterPCL -nargs=+ FPC call FilterP("<args>")
+command! -complete=customlist,FilterPCL -nargs=+ -range FPCR call FilterP("<args>", <line1>, <line2>)
+" }}}
 " {{{ [Mappings] Autocomplete & LSP
 inoremap <expr>    <CR>	pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"|	" Close LSP autocomplete window, if open
 inoremap <expr>   <Tab>	"\<Tab>"|							" Unbind <Tab> from LSP autocomplete (pseudo-mapping)
@@ -175,7 +184,7 @@ inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<S-Tab>"|				" Execute or ad
 " }}}
 " {{{ [Mappings] Function keys
 " LSP & QuickFix function hotkeys
-fun Lsp_decl_filetype()
+fun! Lsp_decl_filetype()
 if &filetype == "c" || &filetype == "cpp"
 	noremap <silent> <F2>	:<C-U>LspPeekDeclaration<CR>|	" Peek LSP declaration (C/C++ only)
 	noremap <silent> <F3>	:<C-U>LspDeclaration<CR>|	" Go to LSP declaration (C/C++ only)
@@ -223,9 +232,11 @@ noremap <silent> <Leader>d	:<C-U>:r!env LC_ALL=C date<CR>									" Insert date 
 noremap <silent> <Leader>D	:<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>					" Insert date in RFC 2822/5322 format
 noremap <silent> <Leader>i	:<C-U>call NewTmpCmd("git diff", "git")<CR>\|zR|						" Print Git diff into new window
 noremap <silent> <Leader>I	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
-noremap          <Leader>f	:%!|				" Filter through program prompt
+nnoremap         <Leader>f	:FPC |				" Filter entire file through program w/ tab-complete from favourites prompt
+vnoremap         <Leader>f	:FPCR |				" Filter visual range through program w/ tab-complete from favourites prompt
 noremap          <Leader>F	:<C-U>r!|			" Read from program prompt
 noremap <silent> <Leader>l	:<C-U>call NewTmpCmd("git log", "git")<CR>|							" Print Git log into new window
+noremap <silent> <Leader>n	:<C-U>set invignorecase<CR>|	" Toggle case-sensitivity
 noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>|			" Convert to prototype
 noremap		 <Leader>r	:<C-U>redraw<CR>
 noremap <silent> <Leader>s	:<C-U>Git<CR>|											" Bring up summary window akin to git-status
