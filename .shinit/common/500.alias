@@ -17,6 +17,7 @@ if _which gcc; then
 fi;
 if _which hexdump; then
 	alias hd="hexdump -C"
+	alias hexdump="hexdump -C"
 fi;
 alias j="jobs"
 alias jd="jobs -ld"
