@@ -95,9 +95,10 @@ let g:lightline = {
 	\ 'active': {
 	\	'right': [ [ 'lineinfo_full' ],
 	\		   [ 'percent' ],
-	\		   [ 'fileformat', 'fileencoding', 'filetype' ] ]
+	\		   [ 'case', 'fileformat', 'fileencoding', 'filetype' ] ]
 	\ },
 	\ 'component': {
+	\	'case': '%{&ignorecase!=#1?"CASE":"cAsE"}',
 	\	'lineinfo_full': '%l,%c%V/%L %P'
 	\ },
 	\ }
@@ -152,8 +153,18 @@ endif
 command! -nargs=+	Cv vimgrep <args> % | wincmd p
 command! -nargs=+	Lv lvimgrep <args> % | wincmd p
 " }}}
-" {{{ [Function] NewTmpCmd(cmdline, ...): execute cmdline in temporary buffer w/ optional &l:filetype=get(a:,1) and 1G
-fun! NewTmpCmd(cmdline, ...) abort
+" {{{ [Function] FilterP(cmdline[, line1, line2]): filter {entire file,visual range} w/ command line w/ tab-complete from favourites
+let FilterPList = ["sort", "sort | uniq", "fmt -w 75", "hexdump -C"]
+
+fun! FilterP(...) abort
+	exe get(a:, 2, 1) . "," . get(a:, 3, "$") . "!" . a:1
+endfun
+:exe "fun! FilterPCL(...) \n return g:FilterPList \n endfun"
+command! -complete=customlist,FilterPCL -nargs=+ FPC call FilterP("<args>")
+command! -complete=customlist,FilterPCL -nargs=+ -range FPCR call FilterP("<args>", <line1>, <line2>)
+" }}}
+" {{{ [Function] ReadNewScratch(cmdline, ...): execute cmdline in temporary buffer w/ optional &l:filetype=get(a:,1) and 1G
+fun! ReadNewScratch(cmdline, ...) abort
 	new
 	let cursor_pos = getpos('.')
 	setlocal bufhidden=wipe buftype=nofile noswapfile
@@ -165,18 +176,9 @@ fun! NewTmpCmd(cmdline, ...) abort
 	let cursor_pos[1] = 0
 	call setpos('.', cursor_pos)
 endfun
-command! -nargs=+	CNewTmpCmd call NewTmpCmd('<args>')
+command! -nargs=+	CReadNewScratch call ReadNewScratch('<args>')
 " }}}
-" {{{ [Function] FilterP(cmdline[, line1, line2]): filter {entire file,visual range} w/ command line w/ tab-complete from favourites
-let FilterPList = ["sort", "sort | uniq", "fmt -w 75", "hexdump -C"]
 
-fun! FilterP(...) abort
-	exe get(a:, 2, 1) . "," . get(a:, 3, "$") . "!" . a:1
-endfun
-:exe "fun! FilterPCL(...) \n return g:FilterPList \n endfun"
-command! -complete=customlist,FilterPCL -nargs=+ FPC call FilterP("<args>")
-command! -complete=customlist,FilterPCL -nargs=+ -range FPCR call FilterP("<args>", <line1>, <line2>)
-" }}}
 " {{{ [Mappings] Autocomplete & LSP
 inoremap <expr>    <CR>	pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"|	" Close LSP autocomplete window, if open
 inoremap <expr>   <Tab>	"\<Tab>"|							" Unbind <Tab> from LSP autocomplete (pseudo-mapping)
@@ -212,7 +214,7 @@ noremap <silent> <S-F8>	:<C-U>close<CR>|		" Close current tab/window
 noremap		   <F9>	:<C-U>Man |			" Display manual page prompt
 noremap <silent> <S-F9>	"zyiw:exe "Man ".@z.""<CR>|	" Display manual page from current word
 noremap		  <F10>	:<C-U>Fsgrep /|			" Search filesystem prompt
-noremap		<S-F10>	:<C-U>CNewTmpCmd |		" Read from program prompt into new window
+noremap		<S-F10>	:<C-U>CReadNewScratch |		" Read from program prompt into new scratch window
 noremap <silent>  <F11>	:<C-U>BuffergatorToggle<CR>|	" Toggle Buffergator window
 noremap <silent>  <F12>	:<C-U>NERDTreeToggle<CR>|	" Toggle NERDTree window
 " }}}
@@ -228,20 +230,22 @@ noremap <silent> <Leader>[	:<C-U>resize -3<CR>|		" Decrease current window heigh
 noremap <silent> <Leader>]	:<C-U>resize +3<CR>|		" Increase current window height by 3
 noremap <silent> <Leader>c	:<C-U>cwindow<CR>|		" Toggle the QuickFix window given recognised errors
 noremap <silent> <Leader>C	:<C-U>Crunch<CR>|		" Open vim-crunch prompt
-noremap <silent> <Leader>d	:<C-U>:r!env LC_ALL=C date<CR>									" Insert date (LC_ALL=C)
-noremap <silent> <Leader>D	:<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>					" Insert date in RFC 2822/5322 format
-noremap <silent> <Leader>i	:<C-U>call NewTmpCmd("git diff", "git")<CR>\|zR|						" Print Git diff into new window
+noremap <silent> <Leader>d	:<C-U>:r!env LC_ALL=C date<CR>								" Insert date (LC_ALL=C)
+noremap <silent> <Leader>D	:<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>				" Insert date in RFC 2822/5322 format
+noremap <silent> <Leader>i	:<C-U>call ReadNewScratch("git diff", "git")<CR>\|zR|					" Print global Git diff into new scratch window
 noremap <silent> <Leader>I	:<C-U>Ghdiffsplit<CR>|		" Diff against direct ancestors, split horizontally
 nnoremap         <Leader>f	:FPC |				" Filter entire file through program w/ tab-complete from favourites prompt
 vnoremap         <Leader>f	:FPCR |				" Filter visual range through program w/ tab-complete from favourites prompt
 noremap          <Leader>F	:<C-U>r!|			" Read from program prompt
-noremap <silent> <Leader>l	:<C-U>call NewTmpCmd("git log", "git")<CR>|							" Print Git log into new window
+noremap <silent> <Leader>l	:<C-U>call ReadNewScratch("git log", "git")<CR>|					" Print Git log into new scratch window
 noremap <silent> <Leader>n	:<C-U>set invignorecase<CR>|	" Toggle case-sensitivity
-noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>|			" Convert to prototype
+noremap <silent> <Leader>p	J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>|		" Convert to prototype
 noremap		 <Leader>r	:<C-U>redraw<CR>
-noremap <silent> <Leader>s	:<C-U>Git<CR>|											" Bring up summary window akin to git-status
+noremap <silent> <Leader>s	:<C-U>Git<CR>|										" Bring up summary window akin to git-status
+noremap <silent> <Leader>t	:<C-U>terminal<CR>|		" Open a new terminal window
+noremap          <Leader>T	:<C-U>terminal |		" Open a new terminal window prompt
 noremap		 <Leader>u	<Plug>(VM-Visual-Cursors)|	" Create a column of cursors from visual mode
-noremap		 <Leader>v	:<C-U>source ~/.vimrc\|exec "set filetype=" . &filetype<CR>|					" Reload Vim configuration file
+noremap		 <Leader>v	:<C-U>source ~/.vimrc\|exec "set filetype=" . &filetype<CR>|				" Reload Vim configuration file
 noremap <silent> <Leader>V	:<C-U>tabnew\|e ~/.vimrc<CR>|	" Edit Vim configuration file in new window
 noremap <silent> <Leader>w	:<C-U>set invwrap<CR>|		" Toggle wrapping of lines longer than window width
 noremap <silent> <Leader>x	:<C-U>syntax on<CR>|		" Reset syntax highlighting
