@@ -16,9 +16,7 @@ if _which gcc; then
 	alias gcc="gcc -Wall -std=gnu11 -O0 -g";
 fi;
 if _which hexdump; then
-	if ! _which hd; then
-		alias hd="command hexdump -C"
-	fi;
+	alias hd="hexdump -C"
 	alias hexdump="hexdump -C"
 fi;
 alias j="jobs"
