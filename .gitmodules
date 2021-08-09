@@ -55,3 +55,12 @@
 [submodule ".vim/bundle/vim-crunch"]
 	path = .vim/bundle/vim-crunch
 	url = https://github.com/arecarn/vim-crunch
+[submodule ".vim/bundle/vim-quickui"]
+	path = .vim/bundle/vim-quickui
+	url = https://github.com/skywind3000/vim-quickui
+[submodule ".vim/bundle/vim-gutentags"]
+	path = .vim/bundle/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule ".vim/bundle/tagbar"]
+	path = .vim/bundle/tagbar
+	url = https://github.com/preservim/tagbar

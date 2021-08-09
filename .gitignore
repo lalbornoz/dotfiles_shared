@@ -7,3 +7,5 @@
 **/.ssh/known_hosts
 **/__pycache__/
 *.sw[op]
+TODO
+sync.log
