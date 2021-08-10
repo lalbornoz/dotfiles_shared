@@ -12,8 +12,6 @@
 	***/.directory_mode
 	***/.directory_optional
 	***/.shared_directory
-	.config/DiscogsMarketplaceBot/
-	.config/DiscogsMarketplaceBot.conf
 	.git/
 	.gitignore
 	.gitmodules
@@ -245,7 +243,7 @@ process_dotfiles_() {
 # {{{ process_irssi($_nflag, $_domain, $_hname, $_uname)
 process_irssi() {
 	local	_nflag="${1}" _domain="${2}" _hname="${3}" _uname="${4}"	\
-		_private_dname="../dotfiles_private/${2}/private/${4}@${3%.}/.irssi";
+		_private_dname="../dotfiles_private/${4}@${3%.}/.irssi";
 
 	if [ -e "${_private_dname}" ]; then
 		msgf -- "36" "Pull user- and host-local irssi dotdir: ";
@@ -254,10 +252,10 @@ process_irssi() {
 			"${_private_dname%/}/"					\
 			"" "--exclude=away.log --exclude=logs"			\
 			".irssi/";
-		if [ -z "${_nflag}" ]; then
+		if [ "${_nflag}" -eq 0 ]; then
 			msgf -- "36" "Commit to Git repository: ";
 			msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
-			(cd "${_private_dname}"					\
+			(cd "${_private_dname%/.irssi}"				\
 			 && git add .irssi					\
 			 && [ $(git status --porcelain .irssi | wc -l) -gt 0 ]	\
 			 && git commit						\
