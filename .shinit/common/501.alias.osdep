@@ -22,9 +22,8 @@ viptables() { _viptables; }; vip6tables() { _viptables 6; };
 
 #
 # grep (1) w/ --colour
-   _sname "FreeBSD" || _sname "NetBSD" || _sname "CYGWIN_NT-6.3-WOW64" ||\
-   _sname "CYGWIN_NT-6.3" \
-&& { _GREP_ARGS="-nE --colour=auto" ; }; alias grep="grep ${_GREP_ARGS:--nE}" ;
+alias cgrep="grep -nE";
+alias grep="grep -nE --color=auto";
 
 #
 # Coloured ls (1) output and default arguments
