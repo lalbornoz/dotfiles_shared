@@ -100,7 +100,7 @@ mode_push() {
 	&& _mode="$(cat "../dotfiles_private/${_uname}@${_hname%.}/.directory_mode")"\
 	&& [ -n "${_mode}" ]; then
 		msgf -- "90" "Setting remote directory mode to %s.\n" "${_mode}";
-		if [ -z "${_nflag}" ]; then
+		if [ "${_nflag}" -eq 0 ]; then
 			ssh -l "${_uname}" "${_hname}" "chmod ${_mode} .";
 		else
 			echo ssh -l "${_uname}" "${_hname}" "chmod ${_mode} .";
