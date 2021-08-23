@@ -15,7 +15,7 @@
 	.git/
 	.gitignore
 	.gitmodules
-	.irssi/
+	.irssi*/
 	.mutt/certificates
 	.ssh/known_hosts
 	.ssh/private/"};
@@ -243,23 +243,24 @@ process_dotfiles_() {
 # {{{ process_irssi($_nflag, $_domain, $_hname, $_uname)
 process_irssi() {
 	local	_nflag="${1}" _domain="${2}" _hname="${3}" _uname="${4}"	\
-		_private_dname="../dotfiles_private/${4}@${3%.}/.irssi";
+		_private_dname="../dotfiles_private/${4}@${3%.}";
 
-	if [ -e "${_private_dname}" ]; then
+	if [ "$(find "${_private_dname}" -maxdepth 1 -mindepth 1 -type d -name .irssi\* 2>/dev/null | wc -l)" -gt 0 ]; then
 		msgf -- "36" "Pull user- and host-local irssi dotdir: ";
 		msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
 		rsync_pull "${_nflag}" "${_uname}" "${_hname}"			\
 			"${_private_dname%/}/"					\
 			"" "--exclude=away.log --exclude=logs"			\
-			".irssi/";
+			".irssi*";
 		if [ "${_nflag}" -eq 0 ]; then
 			msgf -- "36" "Commit to Git repository: ";
 			msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
-			(cd "${_private_dname%/.irssi}"				\
-			 && git add .irssi					\
-			 && [ $(git status --porcelain .irssi | wc -l) -gt 0 ]	\
+			(set +o noglob;						\
+			 cd "${_private_dname}"					\
+			 && git add .irssi*					\
+			 && [ $(git status --porcelain .irssi* | wc -l) -gt 0 ]\
 			 && git commit						\
-				-m "Automatic irssi dotdir pull from ${_uname}@${_hname} to ${USER}@$(hostname -f)." .irssi || exit 0);
+				-m "Automatic irssi dotdir pull from ${_uname}@${_hname} to ${USER}@$(hostname -f)." .irssi* || exit 0);
 		fi;
 	fi;
 };
