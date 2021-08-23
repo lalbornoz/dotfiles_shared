@@ -226,7 +226,7 @@ process_dotfiles_() {
 			build_finish >>"${_include_fname}";
 			rsync_push "${_nflag}" "${_uname}" "${_hname}" "${_dst}"		\
 				"${_include_fname}" ""						\
-				"${_shared_dname}/" "${_private_dname}/";
+				"${_private_dname}/" "${_shared_dname}/";
 		else
 			build_finish >>"${_include_fname}";
 			rsync_push "${_nflag}" "${_uname}" "${_hname}" "${_dst}"		\
@@ -274,7 +274,7 @@ sync() {
 	n)	_nflag=1; ;;
 	t)	_tags="${OPTARG}"; ;;
 	x)	set -o xtrace; ;;
-	h|*)	printf "usage: %s [-h] [-l <fname>] [-n] [-t <tag>[ <tag>..]] [-x]\n" "${0}" >&2; return 2; ;;
+	h|*)	printf "usage: %s [-h] [-l <fname>] [-n] [-t <tag>[ <tag>..]] [-x] [--] [uname@hname [uname@hname..]]\n" "${0}" >&2; return 2; ;;
 	esac;
 	done; shift $((${OPTIND}-1));
 
