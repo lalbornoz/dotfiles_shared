@@ -1,30 +1,25 @@
-# $Id$
-# Startup script sequence stub initialising
-#	* _UID to either the value of the environment variable UID or the output
-#	  of id (1) to mitigate non SuS-conforming sh(1)ells et al,
-#	* _SNAME to an uniquely identifying name corresponding to the
-#	  /operating system name/ as printed by uname (1),
-#	* a failsafe which (1) replica sought to indicate presence or absence
-#	  of the supplied command via either a successful or false exit status
-#	  code.  Implemented as which (1) appears not to have made it into any
-#	  of the numerous POSIX, SuS, XPG, [ ... ] standards wrt. sh (1) and
-#	  related commands,
-#	* and then some. <- this in particular
-#
-# All of the above are subsequently cleaned up by `999.sname'.
-#
+# [see `_fini']
 
-   [ "0" = "${UID}" ]							\
-|| [ "xroot" = "x${USER}" ] || [ "xtoor" = "x${USER}" ] && _suser=0;
-_suser() { return ${_suser:-1}; };
-_which() { command -v "$@" >|/dev/null 2>&1; };
-_dirname() { echo "/${1%/*}"; }; _basename() { echo "/${1%##*/}"; };
+# _which(): does/do command/s exist?
+_which() { command -v "${@}" >|/dev/null 2>&1; };
 
-_SNAME="`uname -s`" ; _SNAME="${_SNAME:-(unknown)}";
-_sname() { [ "x${1}" = "x${_SNAME}" ] && return || return 1 ; };
-
-_USER="${USER:-`id -un 2>/dev/null`}";
-_which hostname && _HNAME="`hostname 2>/dev/null`" && _HNAME="${_HNAME%%.*}";
+# ${_HNAME}: short system DNS name or `<UNKNOWN>'
+_which hostname && _HNAME="$(hostname 2>/dev/null)" && _HNAME="${_HNAME%%.*}";
 _HNAME="${_HNAME:-<UNKNOWN>}";
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+# _suser(): is current user super-user?
+if [ "${UID}" = "0" ]\
+|| [ "x${USER}" = "xroot" ]\
+|| [ "x${USER}" = "xtoor" ]; then
+	_suser() { return 1; };
+else
+	_suser() { return 0; };
+fi;
+
+# ${_SNAME}: name of the implementation of the operating system or `'
+_SNAME="$(uname -s)"; _sname() { [ "x${1}" = "x${_SNAME}" ]; };
+
+# ${_USER}: effective user name or `'
+_USER="${USER:-$(id -un 2>/dev/null)}";
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

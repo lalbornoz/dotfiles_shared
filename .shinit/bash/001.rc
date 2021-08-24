@@ -1,10 +1,10 @@
-# $Id$
+#
 # Bourne Again SHell-specific initialisation
 #
 
-alias hc='history -c; clear'		# Aliases
-PS1='\u@\h:(\w)> \$ '			# Prompt string{,s}
-set +B;					# {}
-set +H;					# !
+alias hc="history -c; clear";	# Aliases
+PS1='\u@\h:(\w)> \$ ';		# Prompt string;
+set -o nobraceexpand;		# The shell does not performs brace expansion (sh(1) compatibility)
+set -o nohistexpand;		# Disable ! style history substitution (sh(1) compatibility)
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

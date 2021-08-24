@@ -1,4 +1,4 @@
-# $Id$
+#
 # Common set of commands to execute upon logout
 #
  
@@ -8,27 +8,34 @@
 # variable{,s}.
 reset 2>/dev/null; clear 2>/dev/null;
 
-# [attempt to] zero out some histfiles in ${HOME}
-for _FILE in				\
-	.bash_history			\
-	.gdb_history			\
-	.history			\
-	.lesshst			\
-	.local/share/recently-used.xbel	\
-	recently-used			\
-	.python_history			\
-	.sqlite_history			\
-	.tclsh-history			\
-	.thumbnails			\
-	.utop-history			\
-	.viminfo			\
-	.wget-hsts;
-do	if [ -f "${HOME}/${_FILE}" ]; then
-		rm -rf "${HOME}/${_FILE}";
-		ln -sf /dev/null "${HOME}/${_FILE}";
-	elif [ -d "${HOME}/${_FILE}" ]; then
-		rm -rf "${HOME}/${_FILE}";
-	fi;
-done;	unset _FILE;
+#
+# Attempt to zero out some histfiles in ${HOME}.
+shinit_zero_histfiles() {
+	local _histfile_fname="";
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+	for _histfile_fname in			\
+		.bash_history			\
+		.gdb_history			\
+		.history			\
+		.lesshst			\
+		.local/share/recently-used.xbel	\
+		.python_history			\
+		.sqlite_history			\
+		.tclsh-history			\
+		.thumbnails			\
+		.utop-history			\
+		.viminfo			\
+		.wget-hsts			\
+		recently-used			\
+		;
+	do	if [ -f "${HOME}/${_histfile_fname}" ]; then
+			rm -fr "${HOME}/${_histfile_fname}" 2>/dev/null;
+			ln -fs /dev/null "${HOME}/${_histfile_fname}" 2>/dev/null;
+		elif [ -d "${HOME}/${_histfile_fname}" ]; then
+			rm -fr "${HOME}/${_histfile_fname}" 2>/dev/null;
+		fi;
+	done;
+	unset -f shinit_zero_histfiles;
+}; shinit_zero_histfiles;
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

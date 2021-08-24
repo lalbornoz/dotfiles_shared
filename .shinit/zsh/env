@@ -1,4 +1,4 @@
-# $Id$
+#
 # Principal Zsh-specific startup/environmental preparation script,
 # sourced directly after the global startup script
 #
@@ -11,4 +11,4 @@ set +o nomatch;		# Don't stop evaluating if no matches
 			# for a glob were found
 set -o sh_word_split;	# Emulate the Bourne sh(1) wrt. field splitting
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=zsh
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

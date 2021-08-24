@@ -1,24 +1,20 @@
-# $Id$
-# XXX
 #
-
-export __HNAME="`hostname -s`" ;
 
 #
 # Hack to update the current working directory in the shell prompting
 # string whenever necessitated by changing it via the cd (1) builtin.
+SHINIT_HNAME="$(hostname -s 2>/dev/null)"; SHINIT_HNAME="${SHINIT_HNAME:-<UNKNOWN>}";
 cd() {
-	command cd "$@" || return 1; _c_pwd="${PWD}";
-	[ 0 -eq $# ] || [ "x${HOME}" = "x${1}" ] && { _c_pwd="~"; };
-	PS1="${LOGNAME:+${LOGNAME}@}${__HNAME}:(${_c_pwd})> ${OPS1}";
-	unset _c_pwd;
+	command cd "${@}" || return 1; local _c_pwd="${PWD}";
+	[ 0 -eq ${#} ] || [ "x${HOME}" = "x${1}" ] && { _c_pwd="~"; };
+	PS1="${LOGNAME:+${LOGNAME}@}${SHINIT_HNAME}:(${_c_pwd})> ${OPS1}";
 };
 
 #
 # NetBSD's [a]sh (1) as of 5.1-RELEASE (histedit.c,v 1.41) implements
-# support for file name tab completion from the command line editor,
-# attempt to silently it if available.
-_lopt="`set -o`"; [ -z "${_lopt##*tabcomplete*}" ] && set -o tabcomplete;
-unset _lopt;
+# support for file name tab completion from the command line editor.
+if _sname "NetBSD"; then
+	set -o tabcomplete;
+fi;
 
-# vim:ts=8 sw=8 tw=80 noexpandtab foldmethod=marker filetype=sh 
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

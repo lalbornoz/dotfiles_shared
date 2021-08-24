@@ -1,0 +1,8 @@
+#
+# Zsh autoloads
+#
+
+autoload -U regexp-replace;
+autoload -U zmv;
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

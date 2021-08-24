@@ -1,22 +1,32 @@
-# $Id$
+#
 # Common login session shell startup script
 #
 
-   [ -n "${HOME}" ]							\
-&& [ "x`pwd`" != "x${HOME}" ] && {	# cd to HOME if != cwd
-	   cd "${HOME}" 2>/dev/null					\
-	&& { echo "current working directory != \$HOME (${HOME:-<unset>}), changed"; }\
-	|| { echo "unable to cd to \$HOME (${HOME:-<unset>})"; };
-};
+#
+# Change working directory to ${HOME} if ${PWD} != ${HOME}.
+if [ -n "${HOME}" ]\
+&& [ "x${PWD}" != "x${HOME}" ]; then
+	if cd "${HOME}" 2>/dev/null; then
+		printf "current working directory != \$HOME (${HOME}), changed.\n";
+	else
+		printf "unable to cd to \$HOME (${HOME})\n";
+	fi;
+fi;
 
 #
 # If there's a login script for this host, source it.
-[ -z "${_HNAME}" ] && _HNAME="`hostname`" && _HNAME="${_HNAME%%.*}";
-for _SCRIPT in								\
-"${HOME}"/.shinit/login.common						\
-"${HOME}"/.shinit/login."${_HNAME}"					\
-"${HOME}"/.login."${_HNAME}";
-do	[ -r "${_SCRIPT}" ] && . "${_SCRIPT}";
-done;	unset _SCRIPT _HNAME;
+shinit_source_login_script_fname() {
+	local _script_fname="";
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+	for _script_fname in						\
+		"${HOME}/.shinit/login.common"				\
+		"${HOME}/.shinit/login.${_HNAME}"			\
+		"${HOME}/.login.${_HNAME}"				\
+		;
+	do	
+		[ -r "${_script_fname}" ] && . "${_script_fname}";
+	done;
+	unset -f shinit_source_login_script_fname;
+}; shinit_source_login_script_fname;
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

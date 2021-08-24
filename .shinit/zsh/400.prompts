@@ -1,4 +1,4 @@
-# $Id$
+#
 # Zsh-specific prompt strings
 #
 
@@ -44,4 +44,4 @@ PROMPT_PERCENT=yes;		# Expand '%'-prefixed escape
 PS1='%n@%m:(%2~)> %(!.#.$) ';	# Primary prompt string:
 				# /<user>@<hname>:(<path>)> {#,$} /
 
-# vim:filetype=sh
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

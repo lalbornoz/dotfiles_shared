@@ -3,55 +3,34 @@
 # per-hostname (specific) scripts
 #
 
-# Don't permit other users to write (1) to this terminal.
-if [ -x "`which mesg 2>/dev/null`" ]; then
-	mesg n 2>/dev/null;
-fi;
+_which() { command -v "${@}" >|/dev/null 2>&1; };
 
+#
+# Don't permit other users to write (1) to this terminal.
+_which mesg && mesg n 2>/dev/null;
+
+#
 # Drop a fortune cookie and relevant system diagnostics/information.
-if [ -x "`which fortune 2>/dev/null`" ]; then
-	fortune -s; echo;
-fi;
-if [ -x "`which uname 2>/dev/null`" ]; then
-	uname -mnrsv;
-fi;
-if [ -x "`which uptime 2>/dev/null`" ]; then
-	uptime;
-fi;
+_which fortune && { fortune -s; echo; };
+_which uname && uname -mnrsv;
+_which uptime && uptime;
 
 #
 # Print the `TODO' file if present and the sender message headers
 # (`From') for any recently arrived, unread mail.
-if [ -r "${HOME}/TODO" ]; then
-	printf "\nTODO:\n"; cat "${HOME}/TODO";
-fi;
-if [ -x "`which from 2>/dev/null`" ]; then
-	from 2>/dev/null;
-fi;
+[ -r "${HOME}/TODO" ] && { printf "\nTODO:\n"; cat "${HOME}/TODO"; };
+_which from && from 2>/dev/null;
 
 #
-# Display lines from the calendar (1) file{,s} with dates up to
-# 4 days ahead given the presence of a calendar (1) dotfile in HOME.
-if [ -r "${HOME}/.calendar" -a -x "`which calendar 2>/dev/null`" ]; then
-	printf "\nUpcoming calendar (1) reminders:\n";
-	calendar -l 4 -f "${HOME}/.calendar";
-fi;
+# Print listing of the five (5) last logins for the current user and
+# faillog records.
+_which last && [ -r /var/log/lastlog ] && last -5 "${USER}";
+_which faillog && [ -r /var/log/faillog ] && faillog;
 
-# Print listing of the five (5) last logins for the current user.
-if [ -x "`which last 2>/dev/null`" ]\
-&& [ -r /var/log/lastlog ]; then
-	last -5 "${USER}";
-fi;
-
-# Print faillog records.
-if [ -x "`which faillog 2>/dev/null`" ]\
-&& [ -r /var/log/faillog ]; then
-	faillog;
-fi;
-
+#
 # Force sane stty settings.
-if [ -x "`which stty 2>/dev/null`" ]; then
-	stty sane;
-fi;
+_which stty && stty sane;
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+unset -f _which;
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
