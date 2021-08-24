@@ -1,50 +1,42 @@
-# $Id$
-# Platform-dependent aliases and subr
+#
+# Platform-dependent aliases
 #
 
-# {{{ vipw(8)esque ip{6,}tables-{save,restore} (8) wrapper
-_viptables() {
-	_tmpf="`mktemp \"${TMPDIR:-/tmp}/iptables.XXXXX\"`" || return;
-	ip${1}tables-save >| "${_tmpf}" && while true; do
-		vim	-c "set nobk noswf nu"				\
-			-c "syntax on"					\
-			-c "set filetype=ipfilter" "${_tmpf}";
+# 
+# Coloured ls(1) output and default arguments
+case "${_SNAME}" in
+CYGWIN_NT-*|Linux|midipix)
+	alias ls="ls -Fh --color"; ;;		# {Cygwin,Linux,midipix} w/ GNU ls(1)
 
-		ip${1}tables-restore "${_tmpf}" && break || {
-			printf "re-edit? [y]: "; read yn;
-			[ "x${yn:-y}" = "xy" ] || break;
-		};
-	done; rm -f "${_tmpf}";
-};
+DragonFlyBSD|FreeBSD)
+	if _which gls; then
+		alias ls="gls -Fh --color";	# {DragonFly,Free}BSD w/ GNU ls(1)
+	else
+		# {fg,bg} pairs, / @ = | * b c U G t /o
+		export LSCOLORS="Exfxcxdxbxegedabagacad";
+		alias ls="ls -Fh -bGo";		# {DragonFly,Free}BSD w/ stock ls(1)
+	fi; ;;
 
-viptables() { _viptables; }; vip6tables() { _viptables 6; };
-# }}}
+NetBSD|OpenBSD)
+	if _which gls; then
+		alias ls="gls -Fh --color";	# {Net,Open}BSD w/ GNU ls(1)
+	else
+		alias ls="ls -Fh -o";		# {Net,Open}BSD w/ stock ls(1)
+	fi; ;;
+esac;
 
-#
-# grep (1) w/ --colour
-alias cgrep="grep -nE";
-alias grep="grep -nE --color=auto";
-
-#
-# Coloured ls (1) output and default arguments
-_sname "Linux" || _sname "CYGWIN_NT-6.3-WOW64" || _sname "CYGWIN_NT-6.3" && _LS_ARGS="--color" ;		# Linux w/ GNU ls (1)
-_sname "OpenBSD" || _sname "NetBSD" && {
-_which gls	&& { _LS="gls"; _LS_ARGS="--color" ; }			\
-		|| {  LS_ARGS="-o" ; }; };	# {Open, Net}BSD w/ GNU ls (1)
-_sname "FreeBSD" && {				# FreeBSD w/ stock ls (1)
-	# {fg,bg} pairs, / @ = | * b c U G t /o
-	export LSCOLORS="Exfxcxdxbxegedabagacad"; _LS_ARGS="-bGo" ; };
-
-alias ls="${_LS:-ls} ${LS_ARGS:--Fh}${_LS_ARGS:+ ${_LS_ARGS}}";
-alias la="ls -a"; alias ll="ls -la";
-
-unset _GREP_ARGS _LS LS_ARGS _LS_ARGS;
+alias la="ls -a";
+alias ll="ls -la";
 
 #
-# Helpful pkgsrc aliases
-[ -r /usr/pkgsrc/mk/checksum/distinfo.awk ] && 
-	alias distinfo="						\
-	awk	-f /usr/pkgsrc/mk/checksum/distinfo.awk -- 		\
-		-a SHA1 -a RMD160 -p SHA1" ;
+# Coloured grep (1) output and default arguments
+case "${_SNAME}" in
+CYGWIN_NT-*|Linux|midipix)			# {Cygwin,Linux,midipix} w/ GNU grep(1)
+	alias cgrep="grep -nE"; alias grep="grep -nE --color=auto"; ;;
+DragonFlyBSD|FreeBSD|NetBSD)			# {DragonFly,Free,Net}BSD w/ stock grep(1)
+	alias cgrep="grep -nE"; alias grep="grep -nE --color=auto"; ;;
+OpenBSD)					# OpenBSD w/ stock grep(1)
+	alias cgrep="grep -nE"; alias grep="grep -nE"; ;;
+esac;
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

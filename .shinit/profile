@@ -25,22 +25,21 @@ case $- in *i*) ;;  *) return;; esac
 _PROFILE_SOURCED=1
 
 # Fall back to default values for some vital variables.
-[ -z "${HOME}" ] && { HOME="`pwd`"; export HOME; };
+[ -z "${HOME}" ] && { HOME="$(pwd)"; export HOME; };
 [ -z "${TERM}" ] && { TERM="unknown"; export TERM; };
 [ -z "${PATH}" ] && { PATH="/bin:/sbin:/usr/bin:/usr/sbin"; export PATH; };
 
 # Attempt to guess the shell type (or fall back to Bourne sh (1).)
-if [ -n "${ZSH_NAME}" ]; then		_SHELL="zsh";
-elif [ -n "${BASH}" ]; then		_SHELL="bash";
+if [ -n "${ZSH_NAME}" ]; then				_SHELL="zsh";
+elif [ -n "${BASH}" ] && [ "x${0}" != "xsh" ]; then	_SHELL="bash";
 elif [ -n "${KSH_VERSION}" ]; then
 	if [ -z "${KSH_VERSION##@\(#\)PD KSH*}" ]; then
-					_SHELL="pdksh";
-	else				_SHELL="ksh";
+							_SHELL="pdksh";
+	else						_SHELL="ksh";
 	fi
-else					_SHELL="sh";
+else							_SHELL="sh";
 fi
 
-# XXX
 . "${HOME}/.shinit/common/_init";
 
 #
@@ -82,11 +81,10 @@ unset _SHELL _SCRIPTS _DIR _SCRIPT
 
 #
 # If there's a profile for this host, source it.
-[ -z "${_TMP_HNAME}" ] && _TMP_HNAME="`hostname`" && _TMP_HNAME="${_TMP_HNAME%%.*}";
+[ -z "${_TMP_HNAME}" ] && _TMP_HNAME="$(hostname)" && _TMP_HNAME="${_TMP_HNAME%%.*}";
 [ -r "${HOME}/.profile.${_TMP_HNAME}" ] && . "${HOME}/.profile.${_TMP_HNAME}";
 unset _TMP_HNAME;
 
-# XXX
 . "${HOME}/.shinit/common/_fini";
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

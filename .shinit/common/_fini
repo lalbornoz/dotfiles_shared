@@ -1,7 +1,6 @@
-# $Id$
-# [cf. `001.sname']
-#
+# [see `_init']
 
-unset _suser _USER _UID _SNAME _HNAME; unset -f _suser _which _dirname _basename _sname;
+unset _HNAME _SNAME _USER;
+unset -f _suser _which;
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

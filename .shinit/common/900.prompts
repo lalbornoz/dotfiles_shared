@@ -1,13 +1,14 @@
-# $Id$
-# Best-effort, minimal prompt strings, one of:
-#	* <user>@<hname>:(<pwd>)> <$|#> 
-#	* <user>@<UNKNOWN>:(<pwd>)> <$|#> 
-#	* <hname>:(<pwd>)> <$|#> 
-#	* (<pwd>)> <$|#> 
+#
+# One of:
+# * <user>@<hname>:(<pwd>)> <$|#> 
+# * <user>@\<UNKNOWN\>:(<pwd>)> <$|#> 
+# * <hname>:(<pwd>)> <$|#> 
+# * \<UNKNOWN\>:(<pwd>)> <$|#> 
 #
 
-   [ -z "${PS1}" ] || [ -n "${PS1%[\#\$] }" ] && { [ "x0" = "x${_UID}" ]\
-&& PS1='# ' || PS1='$ '; };		# {non,}-suid shell {$, #} prompt suffix
-OPS1="${PS1}"; PS1="${_USER:+${_USER}@}${_HNAME}:(${PWD})> ${OPS1}";
+case "${_UID}" in
+0)	PS1="${_USER:+${_USER}@}${_HNAME}:(${PWD})> \$ "; ;;
+*)	PS1="${_USER:+${_USER}@}${_HNAME}:(${PWD})> # "; ;;
+esac;
 
-# vim:ts=8 sw=8 noexpandtab filetype=sh 
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

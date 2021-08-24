@@ -1,4 +1,4 @@
-# $Id$
+#
 # Bourne Again SHell-specific login shell startup script
 #
 
@@ -7,4 +7,4 @@
 # both the profile aswell as the login script.
 . "${HOME}/.shinit/profile"; . "${HOME}/.shinit/login";
 
-# vim:ts=8 sw=8 tw=80 noexpandtab filetype=sh
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

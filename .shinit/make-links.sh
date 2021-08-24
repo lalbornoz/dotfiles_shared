@@ -1,44 +1,46 @@
 #!/bin/sh
-# $Id$
-# Creates the symbolic links necessary for each recognized
-# shell (currently: sh ksh zsh bash) to refer to the initialization
-# scripts in ${HOME}/.shinit during its startup sequence.
+#
+# Creates the symbolic links necessary for each recognised shell
+# (currently: bash, ksh, pdksh, sh, zsh) to utilise the initialisation
+# scripts in ${HOME}/.shinit/ during its startup sequence.
 #
 
-usage() { echo "usage: $0 sh|ksh|zsh|bash"; };
-[ -n $1 ] || { usage; exit 1; };
-[    $2 ] && { HOME="$2"; };
-[ -x "${HOME}/.shinit" ] || {
-	echo ".shinit non-existent, exiting"; exit 2; };
-
-cd "${HOME}"
- case "$1" in
-	sh)
-		ln -fs ".shinit/profile" ".profile"
+if ! [ -x "${HOME}/.shinit" ]; then
+	printf "${HOME}/.shinit non-existent, exiting\n" >&2; exit 2;
+else
+	if [ -n "${2-}" ]; then
+		cd "${2}";
+	else
+		cd "${HOME}";
+	fi;
+	case "${1:-}" in
+	bash)
+		ln -fs ".shinit/login"		".bash_login";
+		ln -fs ".shinit/logout"		".bash_logout";
+		ln -fs ".shinit/bash/profile"	".bash_profile";
+		ln -fs ".shinit/profile"	".bashrc";
 		;;
 
-	ksh)
+	sh)
+		ln -fs ".shinit/profile"	".profile";
+		;;
+
+	ksh|pdksh)
 		;;
 
 	zsh)
-		ln -fs ".shinit/zsh/env" ".zshenv"
-		ln -fs ".shinit/profile" ".zshrc"
-		ln -fs ".shinit/login" ".zlogin"
-		ln -fs ".shinit/logout" ".zlogout"
-		;;
-
-	bash)
-		ln -fs ".shinit/bash/profile" ".bash_profile"
-		ln -fs ".shinit/profile" ".bashrc"
-		ln -fs ".shinit/login" ".bash_login"
-		ln -fs ".shinit/logout" ".bash_logout"
+		ln -fs ".shinit/login"		".zlogin";
+		ln -fs ".shinit/logout"		".zlogout";
+		ln -fs ".shinit/zsh/env"	".zshenv";
+		ln -fs ".shinit/profile"	".zshrc";
 		;;
 
 	*)
-		echo "unknown shell"; usage;
+		printf "unknown or invalid shell \`%s'\n" "${1:-}" >&2;
+		printf "usage: %s bash|ksh|pdksh|sh|zsh" "${0}" >&2;
 		exit 3;
 		;;
- esac
-cd - >/dev/null
+	esac;
+fi;
 
-# vim:ts=8 sw=8 noexpandtab
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
