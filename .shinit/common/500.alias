@@ -12,9 +12,14 @@ alias mv="mv -i";
 alias rm="rm -i";
 
 _which gcc && alias gcc="gcc -Wall -std=gnu11 -O0 -g";
-_which hd && alias hd="hd -C"
-_which hexdump && alias hexdump="hexdump -C"
 _which tmux && alias tmux="env TERM=xterm-256color tmux -2";
+
+if _which hd; then
+	alias hd="command hd -C";
+elif _which hexdump; then
+	alias hd="command hexdump -C";
+fi;
+_which hexdump && alias hexdump="hexdump -C"
 
 if _which nvim; then
 	alias vi=nvim vim=nvim;
