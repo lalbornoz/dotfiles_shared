@@ -11,9 +11,9 @@ _HNAME="${_HNAME:-<UNKNOWN>}";
 if [ "${UID}" = "0" ]\
 || [ "x${USER}" = "xroot" ]\
 || [ "x${USER}" = "xtoor" ]; then
-	_suser() { return 1; };
-else
 	_suser() { return 0; };
+else
+	_suser() { return 1; };
 fi;
 
 # ${_SNAME}: name of the implementation of the operating system or `'
