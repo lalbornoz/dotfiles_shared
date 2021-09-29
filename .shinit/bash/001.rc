@@ -4,7 +4,7 @@
 
 alias hc="history -c; clear";	# Aliases
 PS1='\u@\h:(\w)> \$ ';		# Prompt string;
-set -o nobraceexpand;		# The shell does not performs brace expansion (sh(1) compatibility)
-set -o nohistexpand;		# Disable ! style history substitution (sh(1) compatibility)
+set +o braceexpand;		# The shell does not performs brace expansion (sh(1) compatibility)
+set +o histexpand;		# Disable ! style history substitution (sh(1) compatibility)
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
