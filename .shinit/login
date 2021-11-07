@@ -16,12 +16,14 @@ fi;
 #
 # If there's a login script for this host, source it.
 shinit_source_login_script_fname() {
-	local _script_fname="";
+	local _hname="" _script_fname="";
 
+	if command which hostname >/dev/null 2>&1; then
+		_hname="$(hostname 2>/dev/null)"; _hname="${_hname%%.*}";
+	fi;
 	for _script_fname in						\
 		"${HOME}/.shinit/login.common"				\
-		"${HOME}/.shinit/login.${_HNAME}"			\
-		"${HOME}/.login.${_HNAME}"				\
+		${_hname:+"${HOME}/.login.${_hname}"}			\
 		;
 	do	
 		[ -r "${_script_fname}" ] && . "${_script_fname}";
