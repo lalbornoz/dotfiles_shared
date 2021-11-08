@@ -2,12 +2,10 @@ let g:lightline = {
 	\ 'active': {
 	\	'right': [ [ 'lineinfo_full' ],
 	\		   [ 'percent' ],
-	\		   [ 'case', 'fileformat', 'fileencoding', 'filetype' ],
-	\		   [ 'gutentags' ] ]
+	\		   [ 'case', 'fileformat', 'fileencoding', 'filetype' ] ]
 	\ },
 	\ 'component': {
 	\	'case':			'%{&ignorecase!=#1?"CASE":"cAsE"}',
-	\	'gutentags':		'%{gutentags#statusline("[", "]")}',
 	\	'lineinfo_full':	'%l,%c%V/%L %P'
 	\ },
 	\ }
