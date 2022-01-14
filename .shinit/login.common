@@ -16,10 +16,8 @@ _which uname && uname -mnrsv;
 _which uptime && uptime;
 
 #
-# Print the `TODO' file if present and the sender message headers
-# (`From') for any recently arrived, unread mail.
+# Print the `TODO' file if present.
 [ -r "${HOME}/TODO" ] && { printf "\nTODO:\n"; cat "${HOME}/TODO"; };
-_which from && from 2>/dev/null;
 
 #
 # Print listing of the five (5) last logins for the current user and
