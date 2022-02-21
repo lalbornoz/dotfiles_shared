@@ -55,3 +55,6 @@
 [submodule ".vim/bundle/vim-quickui"]
 	path = .vim/bundle/vim-quickui
 	url = https://github.com/skywind3000/vim-quickui
+[submodule ".vim/bundle/vim-filesearch"]
+	path = .vim/bundle/vim-filesearch
+	url = https://github.com/lalbornoz/vim-filesearch
