@@ -2,6 +2,7 @@
 " Command abbreviations
 "
 
+cnoreabbrev E		 e|	" Abbreviate E as e
 cnoreabbrev Q		 q|	" Abbreviate q as Q
 cnoreabbrev W		 w|	" Abbreviate w as W
 cnoreabbrev wQ		wq|	" Abbreviate wq as wQ
