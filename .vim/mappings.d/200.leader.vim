@@ -23,6 +23,7 @@ call AddMapping("Leader", "Insert date (RFC 2822/2322)", "Insert date in RFC 282
 call AddNMapping("Leader", "Filter file...", "Filter entire file through program w/ tab-complete from favourites prompt", '', '<Leader>f', ':FPC ')
 call AddNMapping("Leader", "Filter range...", "Filter visual range through program w/ tab-complete from favourites prompt", '', '<Leader>f', ':FPCR ')
 call AddMapping("Leader", "Read from program...", "Read from program prompt", '', '<Leader>F', ':<C-U>r!')
+call AddMapping("Leader", "Toggle search match highlighting", '', '<silent>', '<Leader>h', ':<C-U>set invhlsearch<CR>')
 call AddMapping("Leader", "Print Git diff", "Print global Git diff into new scratch window", '<silent>', '<Leader>i', ':<C-U>call ReadNewScratch("git diff", "git")<CR>\|zR')
 call AddMapping("Leader", "Diff w/ horizontal split", "Diff against direct ancestors, split horizontally", '<silent>', '<Leader>I', ':<C-U>Ghdiffsplit<CR>')
 call AddMapping("Leader", "Print Git log", "Print Git log into new scratch window", '<silent>', '<Leader>l', ':<C-U>call ReadNewScratch("git log", "git")<CR>')
