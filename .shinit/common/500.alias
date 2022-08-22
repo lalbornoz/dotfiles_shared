@@ -21,9 +21,7 @@ elif _which hexdump; then
 fi;
 _which hexdump && alias hexdump="hexdump -C"
 
-if _which nvim; then
-	alias vi=nvim vim=nvim;
-elif _which vim; then
+if _which vim; then
 	alias vi=vim vim=vim;
 fi;
 
