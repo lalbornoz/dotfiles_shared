@@ -31,9 +31,6 @@
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
-[submodule ".vim/bundle/vim-lsp"]
-	path = .vim/bundle/vim-lsp
-	url = https://github.com/lalbornoz/vim-lsp
 [submodule ".vim/bundle/vim-lsp-settings"]
 	path = .vim/bundle/vim-lsp-settings
 	url = https://github.com/mattn/vim-lsp-settings
