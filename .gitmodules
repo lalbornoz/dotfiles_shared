@@ -55,3 +55,7 @@
 [submodule ".vim/bundle/vim-filesearch"]
 	path = .vim/bundle/vim-filesearch
 	url = https://github.com/lalbornoz/vim-filesearch
+[submodule ".vim/bundle/vim-lsp"]
+	path = .vim/bundle/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp
+	branch = master
