@@ -35,7 +35,8 @@ call AddMapping("Leader", "Open terminal...", "Open a new terminal window", '<si
 call AddMapping("Leader", "Open terminal tab...", "Open a new terminal tab", '', '<Leader>T', ':<C-U>tab terminal<CR>')
 call AddSeparator("Leader")
 call AddMapping("Leader", "Toggle line-wrap", "Toggle wrapping of lines longer than window width", '<silent>', '<Leader>w', ':<C-U>set invwrap<CR>')
-call AddMapping("Leader", "Reset syntax highlighting", '', '<silent>', '<Leader>x', ':<C-U>syntax on<CR>')
+call AddMapping("Leader", "Reset folding", '', '<silent>', '<Leader>x', ':<C-U>set foldmethod=marker<CR>')
+call AddMapping("Leader", "Reset syntax highlighting", '', '<silent>', '<Leader>y', ':<C-U>syntax on<CR>')
 call AddMapping("Leader", "Reload Vim configuration file", '', '<silent>', '<Leader>v', ':<C-U>source ~/.vimrc\|exec "set filetype=" . &filetype<CR>')
 call AddMapping("Leader", "Edit Vim configuration...", "Edit Vim configuration file in new window", '<silent>', '<Leader>V', ':<C-U>tabnew\|e ~/.vimrc<CR>')
 
