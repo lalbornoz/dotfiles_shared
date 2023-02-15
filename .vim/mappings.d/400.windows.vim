@@ -27,7 +27,7 @@ call AddMapping("Windows", "Move to tmux or Vim window below", "Move to 1st tmux
 call AddMapping("Windows", "Move to tmux or Vim window above", "Move to 1st tmux pane or Vim window above current", '<silent>', '<C-k>', ':<C-U>TmuxNavigateUp<CR>')
 call AddMapping("Windows", "Go to next tab page", "Go to next tab page w/ wraparound", '<silent>', '<C-l>', ':<C-U>tabnext<CR>')
 call AddSeparator("Windows")
-call AddMapping("Windows", "Move to window to right", "Move to 1st window right of current", '<silent>', '<C-o>', ':<C-U>wincmd l<CR>')
+call AddMapping("Windows", "Move to window to right", "Move to 1st window right of current", '<silent>', '<C-[>', ':<C-U>wincmd l<CR>')
 call AddMapping("Windows", "Split window", "Split current window in two", '<silent>', '<C-t>', ':<C-U>wincmd s<CR>')
 call AddMapping("Windows", "Move to window to left", "Move to 1st window left of current", '<silent>', '<C-y>', ':<C-U>wincmd h<CR>')
 call AddSeparator("Windows")
