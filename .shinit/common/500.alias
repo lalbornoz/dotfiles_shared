@@ -11,17 +11,17 @@ alias jobs="jobs -l";
 alias mv="mv -i";
 alias rm="rm -i";
 
-_which gcc && alias gcc="gcc -Wall -std=gnu11 -O0 -g";
-_which tmux && alias tmux="env TERM=xterm-256color tmux -2";
+_shinit_which gcc && alias gcc="gcc -Wall -std=gnu11 -O0 -g";
+_shinit_which tmux && alias tmux="env TERM=xterm-256color tmux -2";
 
-if _which hexdump; then
+if _shinit_which hexdump; then
 	alias hd="command hexdump -C";
 	alias hexdump="command hexdump -C"
-elif _which hd; then
+elif _shinit_which hd; then
 	alias hd="command hd -C";
 fi;
 
-if _which vim; then
+if _shinit_which vim; then
 	alias vi=vim vim=vim;
 fi;
 

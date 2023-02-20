@@ -3,17 +3,17 @@
 # per-hostname (specific) scripts
 #
 
-_which() { command -v "${@}" >|/dev/null 2>&1; };
+_lc_which() { command -v "${@}" >|/dev/null 2>&1; };
 
 #
 # Don't permit other users to write (1) to this terminal.
-_which mesg && mesg n 2>/dev/null;
+_lc_which mesg && mesg n 2>/dev/null;
 
 #
 # Drop a fortune cookie and relevant system diagnostics/information.
-_which fortune && { fortune -s; echo; };
-_which uname && uname -mnrsv;
-_which uptime && uptime;
+_lc_which fortune && { fortune -s; echo; };
+_lc_which uname && uname -mnrsv;
+_lc_which uptime && uptime;
 
 #
 # Print the `TODO' file if present.
@@ -22,13 +22,13 @@ _which uptime && uptime;
 #
 # Print listing of the five (5) last logins for the current user and
 # faillog records.
-_which last && [ -r /var/log/lastlog ] && last -5 "${USER}";
-_which faillog && [ -r /var/log/faillog ] && faillog;
+_lc_which last && [ -r /var/log/lastlog ] && last -5 "${USER}";
+_lc_which faillog && [ -r /var/log/faillog ] && faillog;
 
 #
 # Force sane stty settings.
-_which stty && stty sane;
+_lc_which stty && stty sane;
 
-unset -f _which;
+unset -f _lc_which;
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

@@ -7,8 +7,8 @@
 #
 
 case "${_UID}" in
-0)	PS1="${_USER:+${_USER}@}${_HNAME}:(${PWD})> \$ "; ;;
-*)	PS1="${_USER:+${_USER}@}${_HNAME}:(${PWD})> # "; ;;
+0)	PS1="${_shinit_USER:+${_shinit_USER}@}${_shinit_HNAME}:(${PWD})> \$ "; ;;
+*)	PS1="${_shinit_USER:+${_shinit_USER}@}${_shinit_HNAME}:(${PWD})> # "; ;;
 esac;
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

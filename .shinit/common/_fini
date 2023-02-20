@@ -1,6 +1,6 @@
 # [see `_init']
 
-unset _HNAME _SNAME _USER;
-unset -f _suser _which;
+unset _shinit_HNAME _shinit_SNAME _shinit_USER;
+unset -f _shinit_suser _shinit_which;
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8

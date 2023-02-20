@@ -2,16 +2,16 @@
 # Common platform-independent subroutines
 #
 
-if _which diff; then
+if _shinit_which diff; then
 	mdiff() { for _fname in "$@"; do diff -Nru "${_fname}.orig" "${_fname}"; done };
 fi;
-if _which curl; then
+if _shinit_which curl; then
 	paste0x0() { curl -F"file=@${*}" https://0x0.st; };
 fi;
-if ! _which ps2 && _which grep; then
+if ! _shinit_which ps2 && _shinit_which grep; then
 	ps2() { command ps "${@}" | command grep -v "\[[^]]*\]\$"; };
 fi;
-if _which awk openssl; then
+if _shinit_which awk openssl; then
 	randpw() {
 		_rp_len="${1:-22}";
 		openssl rand -base64 "${_rp_len}"				|\
@@ -19,10 +19,10 @@ if _which awk openssl; then
 		unset _rp_len;
 	};
 fi;
-if ! _which tac && _which sed; then
+if ! _shinit_which tac && _shinit_which sed; then
 	tac() { sed -n '1!G;$p;h;'; };
 fi;
-if _which whois && [ "${_SNAME%BSD}" = "${_SNAME}" ]; then
+if _shinit_which whois && [ "${_shinit_SNAME%BSD}" = "${_shinit_SNAME}" ]; then
 	whois() {
 		if [ "x${1}" = "x-m" ]; then
 			shift; command whois -h whois.radb.net "$@";

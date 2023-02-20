@@ -4,12 +4,12 @@
 
 # 
 # Coloured ls(1) output and default arguments
-case "${_SNAME}" in
+case "${_shinit_SNAME}" in
 CYGWIN_NT-*|Linux|midipix)
 	alias ls="ls -Fh --color"; ;;		# {Cygwin,Linux,midipix} w/ GNU ls(1)
 
 DragonFlyBSD|FreeBSD)
-	if _which gls; then
+	if _shinit_which gls; then
 		alias ls="gls -Fh --color";	# {DragonFly,Free}BSD w/ GNU ls(1)
 	else
 		# {fg,bg} pairs, / @ = | * b c U G t /o
@@ -18,7 +18,7 @@ DragonFlyBSD|FreeBSD)
 	fi; ;;
 
 NetBSD|OpenBSD)
-	if _which gls; then
+	if _shinit_which gls; then
 		alias ls="gls -Fh --color";	# {Net,Open}BSD w/ GNU ls(1)
 	else
 		alias ls="ls -Fh -o";		# {Net,Open}BSD w/ stock ls(1)
@@ -30,7 +30,7 @@ alias ll="ls -la";
 
 #
 # Coloured grep (1) output and default arguments
-case "${_SNAME}" in
+case "${_shinit_SNAME}" in
 CYGWIN_NT-*|Linux|midipix)			# {Cygwin,Linux,midipix} w/ GNU grep(1)
 	alias cgrep="grep -nE"; alias grep="grep -nE --color=auto"; ;;
 DragonFlyBSD|FreeBSD|NetBSD)			# {DragonFly,Free,Net}BSD w/ stock grep(1)

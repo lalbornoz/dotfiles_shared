@@ -4,10 +4,10 @@
 
 #
 # Local man(1) search path additions
-case "${_SNAME}" in
+case "${_shinit_SNAME}" in
 FreeBSD)
 	if [ -x "${HOME}/.local/man" ]; then
-		[ -z "${MANPATH}" ] && _which manpath && { MANPATH="$(manpath)"; };
+		[ -z "${MANPATH}" ] && _shinit_which manpath && { MANPATH="$(manpath)"; };
 		if [ "x${MANPATH##${HOME}/.local/man}" = "x${MANPATH}" ]; then
 			MANPATH="${HOME}/.local/man${MANPATH:+:$MANPATH}";
 		fi;
