@@ -1,25 +1,25 @@
 # [see `_fini']
 
-# _which(): does/do command/s exist?
-_which() { command -v "${@}" >|/dev/null 2>&1; };
+# _shinit_which(): does/do command/s exist?
+_shinit_which() { command -v "${@}" >|/dev/null 2>&1; };
 
-# ${_HNAME}: short system DNS name or `<UNKNOWN>'
-_which hostname && _HNAME="$(hostname 2>/dev/null)" && _HNAME="${_HNAME%%.*}";
-_HNAME="${_HNAME:-<UNKNOWN>}";
+# ${_shinit_HNAME}: short system DNS name or `<UNKNOWN>'
+_shinit_which hostname && _shinit_HNAME="$(hostname 2>/dev/null)" && _shinit_HNAME="${_shinit_HNAME%%.*}";
+_shinit_HNAME="${_shinit_HNAME:-<UNKNOWN>}";
 
-# _suser(): is current user super-user?
+# _shinit_suser(): is current user super-user?
 if [ "${UID}" = "0" ]\
 || [ "x${USER}" = "xroot" ]\
 || [ "x${USER}" = "xtoor" ]; then
-	_suser() { return 0; };
+	_shinit_suser() { return 0; };
 else
-	_suser() { return 1; };
+	_shinit_suser() { return 1; };
 fi;
 
-# ${_SNAME}: name of the implementation of the operating system or `'
-_SNAME="$(uname -s)"; _sname() { [ "x${1}" = "x${_SNAME}" ]; };
+# ${_shinit_SNAME}: name of the implementation of the operating system or `'
+_shinit_SNAME="$(uname -s)"; _sname() { [ "x${1}" = "x${_shinit_SNAME}" ]; };
 
-# ${_USER}: effective user name or `'
-_USER="${USER:-$(id -un 2>/dev/null)}";
+# ${_shinit_USER}: effective user name or `'
+_shinit_USER="${USER:-$(id -un 2>/dev/null)}";
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
