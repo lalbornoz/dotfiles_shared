@@ -24,7 +24,7 @@ map <Esc>[17;2~		<S-F6>|		" Function key pseudo-mapping
 map <Esc>[18;2~		<S-F7>|		" Function key pseudo-mapping
 map <Esc>[19;2~		<S-F8>|		" Function key pseudo-mapping
 map <Esc>[20;2~		<S-F9>|		" Function key pseudo-mapping
-map <Esc>[21;2~		<S-F11>|	" Function key pseudo-mapping
+map <Esc>[21;2~		<S-F10>|	" Function key pseudo-mapping
 map <Esc>[23;2~		<S-F11>|	" Function key pseudo-mapping
 map <Esc>[24;2~		<S-F12>|	" Function key pseudo-mapping
 
