@@ -6,7 +6,9 @@ bindkey '^H'		vi-backward-delete-char;	# <BS>
 bindkey '^[[3~'		delete-char-or-list;		# <DEL>
 bindkey '^[[B'		down-line-or-history;		# <DOWN>
 bindkey '^[[4~'		end-of-line;			# <END>
+bindkey '^[Oq'		end-of-line;			# <END>
 bindkey '^[[1~'		beginning-of-line;		# <HOME>
+bindkey '^[Ow'		beginning-of-line;		# <HOME>
 bindkey '^[[2~'		yank;				# <INS>
 bindkey '^[[6~'		down-line-or-history;		# <PGDOWN>
 bindkey '^[[5~'		up-line-or-history;		# <PGUP>
