@@ -4,6 +4,7 @@ let g:lightline = {
 	\		   [ 'percent' ],
 	\		   [ 'case', 'fileformat', 'fileencoding', 'filetype' ] ]
 	\ },
+	\ 'colorscheme': 'roarie',
 	\ 'component': {
 	\	'case':			'%{&ignorecase!=#1?"CASE":"cAsE"}',
 	\	'lineinfo_full':	'%l,%c%V/%L %P'
