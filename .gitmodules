@@ -55,3 +55,6 @@
 [submodule ".vim/bundle/vim-lsp"]
 	path = .vim/bundle/vim-lsp
 	url = https://github.com/lalbornoz/vim-lsp
+[submodule ".vim/bundle/vim-greppie"]
+	path = .vim/bundle/vim-greppie
+	url = https://github.com/lalbornoz/vim-greppie
