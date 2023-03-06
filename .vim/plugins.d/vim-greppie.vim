@@ -1,5 +1,6 @@
 map <Enter>	<Plug>(OpenGrepResult)
 map o		<Plug>(OpenGrepResult)
+map O		<Plug>(OpenGrepResultCloseQuickfix)
 map <Alt>o	<Plug>(OpenGrepResultCloseQuickfix)
 map s		<Plug>(OpenGrepResultSplit)
 map <Alt>s	<Plug>(OpenGrepResultSplitCloseQuickfix)
