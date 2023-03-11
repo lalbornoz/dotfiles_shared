@@ -2,7 +2,7 @@
 " [Mappings] Leader key sequences and menu mappings
 "
 
-call AddMenu("Leader")
+call AddMenu("Leader", 300)
 call AddMapping("Leader", "Next buffer", "Go to next buffer in buffer list", '<silent>', '<Leader><Tab>', ':<C-U>bn<CR>')
 call AddMapping("Leader", "Previous buffer", "Go to previous buffer in buffer list", '<silent>', '<Leader><S-Tab>', ':<C-U>bp<CR>')
 call AddSeparator("Leader")

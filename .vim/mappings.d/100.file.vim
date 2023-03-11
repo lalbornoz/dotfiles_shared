@@ -2,7 +2,7 @@
 " [Mappings] File menu mappings
 "
 
-call AddMenu("File")
+call AddMenu("File", 100)
 call AddMapping("File", "Display manual page...", 'Display manual page...', '', '<F9>', ':<C-U>Man ')
 call AddMapping("File", "Display manual page", "Display manual page from current word", '<silent>', '<S-F9>', '"zyiw:exe "Man ".@z.""<CR>')
 call AddMapping("File", "Grep...", 'Grep...', '', '<F10>', ':<C-U>Grep ')

@@ -4,8 +4,8 @@
 
 let g:menus = {}
 
-" {{{ fun! AddMapping_(menu, title, type, descr, silent, lhs, rhs)
-fun! AddMapping_(menu, title, type, descr, silent, lhs, rhs)
+" {{{ fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs)
+fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs)
 	let l:map_line = [a:type]
 
 	if len(a:silent) > 0
@@ -16,13 +16,17 @@ fun! AddMapping_(menu, title, type, descr, silent, lhs, rhs)
 	else
 		let l:descr = a:descr
 	endif
-	let g:menus[a:menu] += [{
-		\ 'descr': l:descr,
-		\ 'lhs': a:lhs,
-		\ 'rhs': a:rhs,
-		\ 'silent': a:silent,
-		\ 'title': a:title,
-		\ }]
+
+	if a:noaddfl == 0
+		let g:menus[a:menu]['items'] += [{
+			\ 'descr': l:descr,
+			\ 'lhs': a:lhs,
+			\ 'rhs': a:rhs,
+			\ 'silent': a:silent,
+			\ 'title': a:title,
+			\ }]
+	endif
+
 	let l:map_line += [a:lhs, a:rhs]
 	execute join(l:map_line, ' ')
 endfun
@@ -30,37 +34,45 @@ endfun
 
 " {{{ fun! AddMapping(menu, title, descr, silent, lhs, rhs)
 fun! AddMapping(menu, title, descr, silent, lhs, rhs)
-	return AddMapping_(a:menu, a:title, 'noremap', a:descr, a:silent, a:lhs, a:rhs)
+	return AddMapping_(0, a:menu, a:title, 'noremap', a:descr, a:silent, a:lhs, a:rhs)
 endfun
 " }}}
 " {{{ fun! AddIMapping(menu, title, descr, silent, lhs, rhs)
 fun! AddIMapping(menu, title, descr, silent, lhs, rhs)
-	return AddMapping_(a:menu, a:title, 'inoremap', a:descr, a:silent, a:lhs, a:rhs)
+	return AddMapping_(0, a:menu, a:title, 'inoremap', a:descr, a:silent, a:lhs, a:rhs)
+endfun
+" }}}
+" {{{ fun! AddINVOMapping(menu, title, descr, silent, lhs, rhs)
+fun! AddINVOMapping(menu, title, descr, silent, lhs, rhs)
+	call AddMapping_(0, a:menu, a:title, 'noremap', a:descr, a:silent, a:lhs, a:rhs)
+	return AddMapping_(1, a:menu, a:title, 'inoremap', a:descr, a:silent, a:lhs, a:rhs)
 endfun
 " }}}
 " {{{ fun! AddNMapping(menu, title, descr, silent, lhs, rhs)
 fun! AddNMapping(menu, title, descr, silent, lhs, rhs)
-	return AddMapping_(a:menu, a:title, 'nnoremap', a:descr, a:silent, a:lhs, a:rhs)
+	return AddMapping_(0, a:menu, a:title, 'nnoremap', a:descr, a:silent, a:lhs, a:rhs)
 endfun
 " }}}
 " {{{ fun! AddTMapping(menu, title, descr, silent, lhs, rhs)
 fun! AddTMapping(menu, title, descr, silent, lhs, rhs)
-	return AddMapping_(a:menu, a:title, 'tnoremap', a:descr, a:silent, a:lhs, a:rhs)
+	return AddMapping_(0, a:menu, a:title, 'tnoremap', a:descr, a:silent, a:lhs, a:rhs)
 endfun
 " }}}
 " {{{ fun! AddVMapping(menu, title, descr, silent, lhs, rhs)
 fun! AddVMapping(menu, title, descr, silent, lhs, rhs)
-	return AddMapping_(a:menu, a:title, 'vnoremap', a:descr, a:silent, a:lhs, a:rhs)
+	return AddMapping_(0, a:menu, a:title, 'vnoremap', a:descr, a:silent, a:lhs, a:rhs)
 endfun
 " }}}
-" {{{ fun! AddMenu(title)
-fun! AddMenu(title)
-	let g:menus[a:title] = []
+" {{{ fun! AddMenu(title, priority)
+fun! AddMenu(title, priority)
+	let g:menus[a:title] = {}
+	let g:menus[a:title]['items'] = []
+	let g:menus[a:title]['priority'] = a:priority
 endfun
 " }}}
 " {{{ fun! AddSeparator(menu)
 fun! AddSeparator(menu)
-	let g:menus[a:menu] += [{
+	let g:menus[a:menu]['items'] += [{
 		\ 'descr': '',
 		\ 'lhs': '',
 		\ 'rhs': '',
@@ -69,12 +81,26 @@ fun! AddSeparator(menu)
 		\ }]
 endfun
 " }}}
+" {{{ fun! SortMenus(lhs, rhs)
+fun! SortMenus(lhs, rhs)
+  let lhs_item = g:menus[a:lhs]
+  let rhs_item = g:menus[a:rhs]
+  if lhs_item['priority'] < rhs_item['priority']
+    return -1
+  elseif lhs_item['priority'] > rhs_item['priority']
+    return 1
+  else
+    return 0
+  endif
+endfun
+" }}}
 " {{{ fun! InstallMenus()
 fun! InstallMenus()
 	call quickui#menu#reset()
-	for l:menu in keys(g:menus)
+	let menu_keys = sort(keys(g:menus), function("SortMenus"))
+	for l:menu in menu_keys
 		let l:menu_items = []
-		for l:menu_item in g:menus[l:menu]
+		for l:menu_item in g:menus[l:menu]['items']
 			let l:keys = l:menu_item['lhs']
 			let l:keys = substitute(l:keys, '<Leader>', g:mapleader, '')
 			let l:keys = substitute(l:keys, '<', '\\<', '')

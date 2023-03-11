@@ -2,7 +2,7 @@
 " [Mappings] LSP (C/C++, Python, Rust); sh menu mappings
 "
 
-call AddMenu("LSP")
+call AddMenu("LSP", 400)
 
 " LSP & QuickFix function hotkeys
 fun! Lsp_decl_filetype()
