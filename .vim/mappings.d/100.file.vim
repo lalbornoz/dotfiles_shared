@@ -3,8 +3,8 @@
 "
 
 call AddMenu("File")
-call AddNMapping("File", "Go to previous word", 'Go to previous word', '', '<Ctrl><Left>', 'B')
-call AddNMapping("File", "Go to next word", 'Go to next word', '', '<Ctrl><Right>', 'W')
+call AddNMapping("File", "Go to previous word", 'Go to previous word', '', '<Ctrl><Left>', 'b')
+call AddNMapping("File", "Go to next word", 'Go to next word', '', '<Ctrl><Right>', 'w')
 call AddNMapping("File", "Go to previous section", 'Go to previous section', '', '<Ctrl><Up>', '[[')
 call AddNMapping("File", "Go to next section", 'Go to next section', '', '<Ctrl><Down>', ']]')
 call AddNMapping("File", "Go to previous cursor position", 'Go to previous cursor position in jump list', '', '<Shift><Left>', '<C-O>')
