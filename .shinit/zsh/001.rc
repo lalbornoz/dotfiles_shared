@@ -45,4 +45,11 @@ set +o beep;			# Don't emit bell beeps at all.
 # Shell-internal parameters
 unset HISTFILE SAVEHIST;	# Don't save the command history at all.
 
+#
+# <https://www.zsh.org/mla/workers/2022/msg00814.html>
+# <https://www.zsh.org/mla/workers/2022/msg00815.html>
+#
+export RSYNC_OLD_ARGS=1;
+export RSYNC_PROTECT_ARGS=0;
+
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
