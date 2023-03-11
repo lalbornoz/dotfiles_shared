@@ -32,16 +32,6 @@ elseif &filetype == "python" || &filetype == "rust"
 	call AddMapping("LSP", "Display hover information", "Get hover information & display in preview-window (C/C++, Python, Rust)", '<silent>', '<F6>', ':<C-U>LspHover<CR>')
 	call AddMapping("LSP", "Build...", "Run make, open QuickFix window & redraw (C/C++, Python, Rust)", '<silent>', '<S-F6>', ':<C-U>silent make\|redraw!<CR>')
 	call InstallMenus()
-elseif &filetype == "sh"
-	call AddMapping("LSP", "Peek definition", "Peek definition in hover window (sh only)", '<silent>', '<F1>', ':<C-U>let x = systemlist("
-		\ for FNAME in $(find -name \\*.sh -or -name \\*.subr); do
-		\	sed -ne ''/^[^ ]\\+() {$/s/ {$//p'' \"${FNAME}\";
-		\ done") \|
-		\ call setbufvar(winbufnr(popup_dialog(x, #{
-		\	close: ''click'', highlight: ''WildMenu'', maxheight: 35, title: ''Peek definition window (click to close)'' }
-		\ )), ''&filetype'', ''sh'')<CR>')
-	call AddMapping("LSP", "vimgrep subroutines", "vimgrep subroutines into and switch to current window's location list (sh only)", '<silent>', '<S-F5>', ':<C-U>Lv /^[a-zA-Z0-9_]\+() {/<CR>')
-	call InstallMenus()
 endif
 endfun | silent au FileType * call Lsp_decl_filetype()
 
