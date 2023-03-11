@@ -13,30 +13,30 @@ map <Esc>[1;3B		<Alt><Down>
 map <Esc>[1;3C		<Alt><Right>
 map <Esc>[1;3D		<Alt><Left>
 
-map <Esc>[1;4A		<Shift><Alt><Up>
-map <Esc>[1;4B		<Shift><Alt><Down>
-map <Esc>[1;4C		<Shift><Alt><Right>
-map <Esc>[1;4D		<Shift><Alt><Left>
+map <Esc>[1;4A		<Alt><Shift><Up>
+map <Esc>[1;4B		<Alt><Shift><Down>
+map <Esc>[1;4C		<Alt><Shift><Right>
+map <Esc>[1;4D		<Alt><Shift><Left>
 
 map <Esc>[1;5A		<Ctrl><Up>
 map <Esc>[1;5B		<Ctrl><Down>
 map <Esc>[1;5C		<Ctrl><Right>
 map <Esc>[1;5D		<Ctrl><Left>
 
-map <Esc>[1;6A		<Shift><Ctrl><Up>
-map <Esc>[1;6B		<Shift><Ctrl><Down>
-map <Esc>[1;6C		<Shift><Ctrl><Right>
-map <Esc>[1;6D		<Shift><Ctrl><Left>
+map <Esc>[1;6A		<Ctrl><Shift><Up>
+map <Esc>[1;6B		<Ctrl><Shift><Down>
+map <Esc>[1;6C		<Ctrl><Shift><Right>
+map <Esc>[1;6D		<Ctrl><Shift><Left>
 
 map <Esc>[1;7A		<Ctrl><Alt><Up>
 map <Esc>[1;7B		<Ctrl><Alt><Down>
 map <Esc>[1;7C		<Ctrl><Alt><Right>
 map <Esc>[1;7D		<Ctrl><Alt><Left>
 
-map <Esc>[1;8A		<Shift><Ctrl><Alt><Up>
-map <Esc>[1;8B		<Shift><Ctrl><Alt><Down>
-map <Esc>[1;8C		<Shift><Ctrl><Alt><Right>
-map <Esc>[1;8D		<Shift><Ctrl><Alt><Left>
+map <Esc>[1;8A		<Ctrl><Alt><Shift><Up>
+map <Esc>[1;8B		<Ctrl><Alt><Shift><Down>
+map <Esc>[1;8C		<Ctrl><Alt><Shift><Right>
+map <Esc>[1;8D		<Ctrl><Alt><Shift><Left>
 " }}}
 " {{{ Function key pseudo-mappings
 map <Esc>[OP		<F1>
