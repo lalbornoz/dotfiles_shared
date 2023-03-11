@@ -110,7 +110,7 @@ fun! InstallMenus()
 			endif
 			let l:menu_items += [[l:title, ':call feedkeys("'. l:keys .'")', '']]
 		endfor
-		call quickui#menu#install(l:menu, l:menu_items, 10000)
+		call quickui#menu#install(l:menu, l:menu_items, g:menus[l:menu]['priority'])
 	endfor
 endfun
 " }}}
