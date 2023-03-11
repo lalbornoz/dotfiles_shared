@@ -38,6 +38,9 @@ map <Esc>[1;8B		<Ctrl><Alt><Shift><Down>
 map <Esc>[1;8C		<Ctrl><Alt><Shift><Right>
 map <Esc>[1;8D		<Ctrl><Alt><Shift><Left>
 " }}}
+" {{{ Fuck you Vim
+inoremap <Esc>[Z	<C-N>
+" }}}
 " {{{ Function key pseudo-mappings
 map <Esc>[OP		<F1>
 map <Esc>[OQ		<F2>
