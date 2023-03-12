@@ -38,9 +38,11 @@ map <Esc>[1;8B		<Ctrl><Alt><Shift><Down>
 map <Esc>[1;8C		<Ctrl><Alt><Shift><Right>
 map <Esc>[1;8D		<Ctrl><Alt><Shift><Left>
 " }}}
+"
 " {{{ Fuck you Vim
 inoremap <Esc>[Z	<C-N>
 " }}}
+"
 " {{{ Function key pseudo-mappings
 map <Esc>[OP		<F1>
 map <Esc>[OQ		<F2>
@@ -54,7 +56,8 @@ map <Esc>[20~		<F9>
 map <Esc>[21~		<F10>
 map <Esc>[23~		<F11>
 map <Esc>[24~		<F12>
-
+" }}}
+" {{{ <Shift> function key pseudo-mappings
 map <Esc>[1;2P		<S-F1>
 map <Esc>[1;2Q		<S-F2>
 map <Esc>[1;2R		<S-F3>
@@ -67,6 +70,62 @@ map <Esc>[20;2~		<S-F9>
 map <Esc>[21;2~		<S-F10>
 map <Esc>[23;2~		<S-F11>
 map <Esc>[24;2~		<S-F12>
+" }}}
+" {{{ <Alt> function key pseudo-mappings
+map <Esc>[1;3P		<Alt><F1>
+map <Esc>[1;3Q		<Alt><F2>
+map <Esc>[1;3R		<Alt><F3>
+map <Esc>[1;3S		<Alt><F4>
+map <Esc>[15;3~		<Alt><F5>
+map <Esc>[17;3~		<Alt><F6>
+map <Esc>[18;3~		<Alt><F7>
+map <Esc>[19;3~		<Alt><F8>
+map <Esc>[20;3~		<Alt><F9>
+map <Esc>[21;3~		<Alt><F10>
+map <Esc>[23;3~		<Alt><F11>
+map <Esc>[24;3~		<Alt><F12>
+" }}}
+" {{{ <Alt><Shift> function key pseudo-mappings
+map <Esc>[1;4P		<Alt><Shift><F1>
+map <Esc>[1;4Q		<Alt><Shift><F2>
+map <Esc>[1;4R		<Alt><Shift><F3>
+map <Esc>[1;4S		<Alt><Shift><F4>
+map <Esc>[15;4~		<Alt><Shift><F5>
+map <Esc>[17;4~		<Alt><Shift><F6>
+map <Esc>[18;4~		<Alt><Shift><F7>
+map <Esc>[19;4~		<Alt><Shift><F8>
+map <Esc>[20;4~		<Alt><Shift><F9>
+map <Esc>[21;4~		<Alt><Shift><F10>
+map <Esc>[23;4~		<Alt><Shift><F11>
+map <Esc>[24;4~		<Alt><Shift><F12>
+" }}}
+" {{{ <Ctrl> function key pseudo-mappings
+map <Esc>[1;5P		<Ctrl><F1>
+map <Esc>[1;5Q		<Ctrl><F2>
+map <Esc>[1;5R		<Ctrl><F3>
+map <Esc>[1;5S		<Ctrl><F4>
+map <Esc>[15;5~		<Ctrl><F5>
+map <Esc>[17;5~		<Ctrl><F6>
+map <Esc>[18;5~		<Ctrl><F7>
+map <Esc>[19;5~		<Ctrl><F8>
+map <Esc>[20;5~		<Ctrl><F9>
+map <Esc>[21;5~		<Ctrl><F10>
+map <Esc>[23;5~		<Ctrl><F11>
+map <Esc>[24;5~		<Ctrl><F12>
+" }}}
+" {{{ <Ctrl><Shift> function key pseudo-mappings
+map <Esc>[1;6P		<Ctrl><Shift><F1>
+map <Esc>[1;6Q		<Ctrl><Shift><F2>
+map <Esc>[1;6R		<Ctrl><Shift><F3>
+map <Esc>[1;6S		<Ctrl><Shift><F4>
+map <Esc>[15;6~		<Ctrl><Shift><F5>
+map <Esc>[17;6~		<Ctrl><Shift><F6>
+map <Esc>[18;6~		<Ctrl><Shift><F7>
+map <Esc>[19;6~		<Ctrl><Shift><F8>
+map <Esc>[20;6~		<Ctrl><Shift><F9>
+map <Esc>[21;6~		<Ctrl><Shift><F10>
+map <Esc>[23;6~		<Ctrl><Shift><F11>
+map <Esc>[24;6~		<Ctrl><Shift><F12>
 " }}}
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
