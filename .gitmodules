@@ -58,3 +58,6 @@
 [submodule ".vim/bundle/vim-greppie"]
 	path = .vim/bundle/vim-greppie
 	url = https://github.com/lalbornoz/vim-greppie
+[submodule ".vim/bundle/vim-dispatch"]
+	path = .vim/bundle/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
