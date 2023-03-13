@@ -6,6 +6,7 @@ let g:VM_leader="'"		" Set Visual-Multi (VM) leader
 let mapleader="'"		" Set mapping leader string
 
 set bs=2			" Backspace over indent,eol,start
+set cinoptions=(0,W8,m1		" Set cindent options
 set cursorcolumn cursorline	" Highlight the screen {column,line} of the cursor
 set encoding=utf-8		" Global UTF-8 character encoding
 set ignorecase			" Ignore case when searching
