@@ -8,6 +8,24 @@ let g:menus = {}
 fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs)
 	let l:map_line = [a:type]
 
+	let lhs_map = a:lhs
+	if has('gui_running')
+		let lhs_map = substitute(lhs_map, '^<Alt>\([a-z0-9]\)$', '<M-\1>', 'g')
+
+		let lhs_map = substitute(lhs_map, '^<Alt><Shift><\(Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Alt><\(Down\|Left\|Right\|Up\)>$', '<M-\1>', 'g')
+
+		let lhs_map = substitute(lhs_map, '^<Alt><Shift><\(F[0-9]\+\)>$', '<M-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Alt><\(F[0-9]\+\)>$', '<M-\1>', 'g')
+
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Shift><\(Down\|Left\|Right\|Up\)>$', '<C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><\(Down\|Left\|Right\|Up\)>$', '<C-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><Shift><\(Down\|Left\|Right\|Up\)>$', '<M-C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><\(Down\|Left\|Right\|Up\)>$', '<M-C-\1>', 'g')
+
+		let lhs_map = substitute(lhs_map, '^<Shift><\(Down\|Left\|Right\|Up\)>$', '<S-\1>', 'g')
+	endif
+
 	if len(a:silent) > 0
 		let l:map_line += ['<silent>']
 	endif
@@ -27,7 +45,7 @@ fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs)
 			\ }]
 	endif
 
-	let l:map_line += [a:lhs, a:rhs]
+	let l:map_line += [lhs_map, a:rhs]
 	execute join(l:map_line, ' ')
 endfun
 " }}}

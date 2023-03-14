@@ -2,6 +2,8 @@
 " [Mappings] Key aliases (assuming XTerm-compatible terminal)
 "
 
+if !has('gui_running')
+
 " {{{ Cursor keys w/ modifiers
 map <Esc>[1;2A		<Shift><Up>
 map <Esc>[1;2B		<Shift><Down>
@@ -38,11 +40,6 @@ map <Esc>[1;8B		<Ctrl><Alt><Shift><Down>
 map <Esc>[1;8C		<Ctrl><Alt><Shift><Right>
 map <Esc>[1;8D		<Ctrl><Alt><Shift><Left>
 " }}}
-"
-" {{{ Fuck you Vim
-inoremap <Esc>[Z	<C-N>
-" }}}
-"
 " {{{ Function key pseudo-mappings
 map <Esc>[OP		<F1>
 map <Esc>[OQ		<F2>
@@ -127,5 +124,7 @@ map <Esc>[21;6~		<Ctrl><Shift><F10>
 map <Esc>[23;6~		<Ctrl><Shift><F11>
 map <Esc>[24;6~		<Ctrl><Shift><F12>
 " }}}
+
+endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
