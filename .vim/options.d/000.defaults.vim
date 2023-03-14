@@ -9,6 +9,7 @@ set bs=2			" Backspace over indent,eol,start
 set cinoptions=(0,W8,m1		" Set cindent options
 set cursorcolumn cursorline	" Highlight the screen {column,line} of the cursor
 set encoding=utf-8		" Global UTF-8 character encoding
+set guioptions-=m		" Disable menu bar
 set ignorecase			" Ignore case when searching
 set incsearch nohlsearch	" Incremental search, no match highlighting
 set laststatus=2 noshowmode	" Last window always has status line, don't show mode in last line
