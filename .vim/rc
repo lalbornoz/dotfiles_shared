@@ -24,7 +24,6 @@ filet plugin indent on|		" Enable loading indent file for specific file types
 "
 for f in
 	\ glob("~/.vim/options.d/*.vim", 0, 1) +
-	\ glob("~/.vim/plugins.d/*.vim", 0, 1) +
 	\ glob("~/.vim/commands.d/*.vim", 0, 1) +
 	\ glob("~/.vim/mappings.d/*.vim", 0, 1) +
 	\ glob("~/.vim/quickui.d/*.vim", 0, 1) +
