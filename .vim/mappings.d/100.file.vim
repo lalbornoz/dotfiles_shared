@@ -15,10 +15,11 @@ call AddMapping("File", "Bgrep...", 'Grep in current buffer...', '', '<S-F10>', 
 call AddSeparator("File")
 if has('nvim')
 call AddMapping("File", "Open terminal...", "Open a new terminal window", '<silent>', '<F11>', ':<C-U>split term://$SHELL<CR>')
+call AddMapping("File", "Open terminal tab...", "Open a new terminal tab", '', '<Alt><F11>', ':<C-U>tabnew term://$SHELL<CR>')
 else
 call AddMapping("File", "Open terminal...", "Open a new terminal window", '<silent>', '<F11>', ':<C-U>terminal<CR>')
-endif
 call AddMapping("File", "Open terminal tab...", "Open a new terminal tab", '', '<Alt><F11>', ':<C-U>tab terminal<CR>')
+endif
 call AddSeparator("File")
 call AddMapping("File", "Toggle NerdTree", "Toggle NerdTree window", '<silent>', '<F12>', ':<C-U>NERDTreeToggle<CR>')
 call AddMapping("File", "Toggle Buffergator", "Toggle Buffergator window", '<silent>', '<S-F12>', ':<C-U>BuffergatorToggle<CR>')
