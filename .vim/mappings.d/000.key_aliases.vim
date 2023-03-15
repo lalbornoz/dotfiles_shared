@@ -4,6 +4,13 @@
 
 if !has('nvim') && !has('gui_running')
 
+" {{{ <https://github.com/vim/vim/issues/9009>
+" Enable modified arrow keys, see  :help xterm-modifier-keys
+execute "silent! set <xUp>=\<Esc>[@;*A"
+execute "silent! set <xDown>=\<Esc>[@;*B"
+execute "silent! set <xRight>=\<Esc>[@;*C"
+execute "silent! set <xLeft>=\<Esc>[@;*D"
+" }}}
 " {{{ Cursor keys w/ modifiers
 map <Esc>[1;2A		<Shift><Up>
 map <Esc>[1;2B		<Shift><Down>
@@ -40,6 +47,7 @@ map <Esc>[1;8B		<Ctrl><Alt><Shift><Down>
 map <Esc>[1;8C		<Ctrl><Alt><Shift><Right>
 map <Esc>[1;8D		<Ctrl><Alt><Shift><Left>
 " }}}
+
 " {{{ Function key pseudo-mappings
 map <Esc>[OP		<F1>
 map <Esc>[OQ		<F2>
