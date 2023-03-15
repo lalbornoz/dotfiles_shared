@@ -9,26 +9,27 @@ fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs)
 	let l:map_line = [a:type]
 
 	let lhs_map = a:lhs
-	if has('gui_running')
+	if has('nvim') || has('gui_running')
+		let lhs_map = substitute(lhs_map, '^<Alt><Shift><\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Alt><S-\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Alt><\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<M-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Alt><Shift>\([a-z0-9]\)$', '<M-S-\1>', 'g')
 		let lhs_map = substitute(lhs_map, '^<Alt>\([a-z0-9]\)$', '<M-\1>', 'g')
 
-		let lhs_map = substitute(lhs_map, '^<Alt><Shift><\(Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Alt><S-\(Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Alt><\(Down\|Left\|Right\|Up\)>$', '<M-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Shift><\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><S-\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<C-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Shift>\([a-z0-9]\)$', '<C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl>\([a-z0-9]\)$', '<C-\1>', 'g')
 
-		let lhs_map = substitute(lhs_map, '^<Alt><Shift><\(F[0-9]\+\)>$', '<M-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Alt><S-\(F[0-9]\+\)>$', '<M-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Alt><\(F[0-9]\+\)>$', '<M-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><Shift><\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<M-C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><S-\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<M-C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<M-C-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><Shift>\([a-z0-9]\)$', '<M-C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt>\([a-z0-9]\)$', '<M-C-\1>', 'g')
 
-		let lhs_map = substitute(lhs_map, '^<Ctrl><Shift><\(Down\|Left\|Right\|Up\)>$', '<C-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Ctrl><S-\(Down\|Left\|Right\|Up\)>$', '<C-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Ctrl><\(Down\|Left\|Right\|Up\)>$', '<C-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><Shift><\(Down\|Left\|Right\|Up\)>$', '<M-C-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><S-\(Down\|Left\|Right\|Up\)>$', '<M-C-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><\(Down\|Left\|Right\|Up\)>$', '<M-C-\1>', 'g')
-
-		let lhs_map = substitute(lhs_map, '^<Shift><\(Down\|Left\|Right\|Up\)>$', '<S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<S-\(Down\|Left\|Right\|Up\)>$', '<S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Shift><\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<S-\(F[0-9]\+\|Down\|Left\|Right\|Up\)>$', '<S-\1>', 'g')
 	endif
 
 	if len(a:silent) > 0

@@ -18,10 +18,17 @@ call AddMapping("Tabs", "Go to previous tab", "Go to previous tab page w/ wrapar
 call AddMapping("Tabs", "Go to next tab", "Go to next tab page w/ wraparound", '<silent>', '<Alt><Shift><Right>', ':<C-U>tabnext<CR>')
 call AddMapping("Tabs", "Go to next tab", "Go to next tab page w/ wraparound", '<silent>', '<C-h>', ':<C-U>tabnext<CR>')
 call AddSeparator("Tabs")
+if has('nvim')
+call AddTMapping("Tabs", "Go to previous tab (terminal)", "Go to previous tab page w/ wraparound (terminal job mode)", '<silent>', '<C-f>', '<C-\><C-n>:tabprev<CR>')
+call AddTMapping("Tabs", "Go to previous tab (terminal)", "Go to previous tab page w/ wraparound (terminal job mode)", '<silent>', '<Alt><Shift><Left>', '<C-\><C-n>:tabprev<CR>')
+call AddTMapping("Tabs", "Go to next tab (terminal)", "Go to next tab page w/ wraparound (terminal job mode)", '<silent>', '<C-h>', '<C-\><C-n>:tabnext<CR>')
+call AddTMapping("Tabs", "Go to next tab (terminal)", "Go to next tab page w/ wraparound (terminal job mode)", '<silent>', '<Alt><Shift><Right>', '<C-\><C-n>:tabnext<CR>')
+else
 call AddTMapping("Tabs", "Go to previous tab (terminal)", "Go to previous tab page w/ wraparound (terminal job mode)", '<silent>', '<C-f>', '<C-T>:tabprev<CR>')
 call AddTMapping("Tabs", "Go to previous tab (terminal)", "Go to previous tab page w/ wraparound (terminal job mode)", '<silent>', '<Alt><Shift><Left>', '<C-T>:tabprev<CR>')
 call AddTMapping("Tabs", "Go to next tab (terminal)", "Go to next tab page w/ wraparound (terminal job mode)", '<silent>', '<C-h>', '<C-T>:tabnext<CR>')
 call AddTMapping("Tabs", "Go to next tab (terminal)", "Go to next tab page w/ wraparound (terminal job mode)", '<silent>', '<Alt><Shift><Right>', '<C-T>:tabnext<CR>')
+endif
 call AddSeparator("Tabs")
 call AddMapping("Tabs", "Open a new tab page", '', '<silent>', '<F8>', ':<C-U>tabnew<CR>')
 call AddMapping("Tabs", "Close current tab", '', '<silent>', '<S-F8>', ':<C-U>close<CR>')

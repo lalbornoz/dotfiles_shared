@@ -19,8 +19,16 @@ call AddMapping("Windows", "Move to tmux or Vim window below", "Move to 1st tmux
 call AddMapping("Windows", "Move to window to left", "Move to 1st window left of current", '<silent>', '<Alt><Left>', ':<C-U>wincmd h<CR>')
 call AddMapping("Windows", "Move to window to right", "Move to 1st window right of current", '<silent>', '<Alt><Right>', ':<C-U>wincmd l<CR>')
 call AddSeparator("Windows")
+if has('nvim')
+call AddTMapping("Windows", "Move to tmux or Vim window above (terminal)", "Move to 1st tmux pane or Vim window above current (terminal job mode)", '<silent>', '<Alt><Up>', '<C-\><C-n>:TmuxNavigateUp<CR>')
+call AddTMapping("Windows", "Move to tmux or Vim window above (terminal)", "Move to 1st tmux pane or Vim window above current (terminal job mode)", '<silent>', '<C-k>', '<C-\><C-n>:TmuxNavigateUp<CR>')
+call AddTMapping("Windows", "Move to tmux or Vim window below (terminal)", "Move to 1st tmux pane or Vim window below current (terminal job mode)", '<silent>', '<Alt><Down>', '<C-\><C-n>:TmuxNavigateDown<CR>')
+call AddTMapping("Windows", "Move to tmux or Vim window below (terminal)", "Move to 1st tmux pane or Vim window below current (terminal job mode)", '<silent>', '<C-j>', '<C-\><C-n>:TmuxNavigateDown<CR>')
+call AddTMapping("Windows", "Switch to normal mode (terminal)", "Switch to normal mode (terminal job mode)", '<silent>', '<C-b>', '<C-\><C-n>N')
+else
 call AddTMapping("Windows", "Move to tmux or Vim window above (terminal)", "Move to 1st tmux pane or Vim window above current (terminal job mode)", '<silent>', '<C-k>', '<C-T>:TmuxNavigateUp<CR>')
 call AddTMapping("Windows", "Move to tmux or Vim window below (terminal)", "Move to 1st tmux pane or Vim window below current (terminal job mode)", '<silent>', '<C-j>', '<C-T>:TmuxNavigateDown<CR>')
 call AddTMapping("Windows", "Switch to normal mode (terminal)", "Switch to normal mode (terminal job mode)", '<silent>', '<C-b>', '<C-T>N')
+endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0

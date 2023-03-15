@@ -19,51 +19,51 @@ map <F23>	<S-F11>
 map <F24>	<S-F12>
 " }}}
 " {{{ <Alt> function key pseudo-mappings
-map <F49>	<Alt><F1>
-map <F50>	<Alt><F2>
-map <F51>	<Alt><F3>
-map <F52>	<Alt><F4>
-map <F53>	<Alt><F5>
-map <F54>	<Alt><F6>
-map <F55>	<Alt><F7>
-map <F56>	<Alt><F8>
-map <F57>	<Alt><F9>
-map <F58>	<Alt><F10>
-map <F59>	<Alt><F11>
-map <F60>	<Alt><F12>
+map <F49>	<M-F1>
+map <F50>	<M-F2>
+map <F51>	<M-F3>
+map <F52>	<M-F4>
+map <F53>	<M-F5>
+map <F54>	<M-F6>
+map <F55>	<M-F7>
+map <F56>	<M-F8>
+map <F57>	<M-F9>
+map <F58>	<M-F10>
+map <F59>	<M-F11>
+map <F60>	<M-F12>
 " }}}
 " {{{ <Alt><Shift> function key pseudo-mappings
-map <F61>	<Alt><Shift><F1>
-map <F62>	<Alt><Shift><F2>
-map <F63>	<Alt><Shift><F3>
+map <F61>	<M-S-F1>
+map <F62>	<M-S-F2>
+map <F63>	<M-S-F3>
 " }}}
 " {{{ <Ctrl> function key pseudo-mappings
-map <F25>	<Ctrl><F1>
-map <F26>	<Ctrl><F2>
-map <F27>	<Ctrl><F3>
-map <F28>	<Ctrl><F4>
-map <F29>	<Ctrl><F5>
-map <F30>	<Ctrl><F6>
-map <F31>	<Ctrl><F7>
-map <F32>	<Ctrl><F8>
-map <F33>	<Ctrl><F9>
-map <F34>	<Ctrl><F10>
-map <F35>	<Ctrl><F11>
-map <F36>	<Ctrl><F12>
+map <F25>	<C-F1>
+map <F26>	<C-F2>
+map <F27>	<C-F3>
+map <F28>	<C-F4>
+map <F29>	<C-F5>
+map <F30>	<C-F6>
+map <F31>	<C-F7>
+map <F32>	<C-F8>
+map <F33>	<C-F9>
+map <F34>	<C-F10>
+map <F35>	<C-F11>
+map <F36>	<C-F12>
 " }}}
 " {{{ <Ctrl><Shift> function key pseudo-mappings
-map <F37>	<Ctrl><Shift><F1>
-map <F38>	<Ctrl><Shift><F2>
-map <F39>	<Ctrl><Shift><F3>
-map <F40>	<Ctrl><Shift><F4>
-map <F41>	<Ctrl><Shift><F5>
-map <F42>	<Ctrl><Shift><F6>
-map <F43>	<Ctrl><Shift><F7>
-map <F44>	<Ctrl><Shift><F8>
-map <F45>	<Ctrl><Shift><F9>
-map <F46>	<Ctrl><Shift><F10>
-map <F47>	<Ctrl><Shift><F11>
-map <F48>	<Ctrl><Shift><F12>
+map <F37>	<C-S-F1>
+map <F38>	<C-S-F2>
+map <F39>	<C-S-F3>
+map <F40>	<C-S-F4>
+map <F41>	<C-S-F5>
+map <F42>	<C-S-F6>
+map <F43>	<C-S-F7>
+map <F44>	<C-S-F8>
+map <F45>	<C-S-F9>
+map <F46>	<C-S-F10>
+map <F47>	<C-S-F11>
+map <F48>	<C-S-F12>
 " }}}
 
 endif
