@@ -2,7 +2,7 @@
 " [Mappings] Key aliases (assuming XTerm-compatible terminal)
 "
 
-if !has('gui_running')
+if !has('nvim') && !has('gui_running')
 
 " {{{ Cursor keys w/ modifiers
 map <Esc>[1;2A		<Shift><Up>
