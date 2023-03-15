@@ -13,17 +13,22 @@ fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs)
 		let lhs_map = substitute(lhs_map, '^<Alt>\([a-z0-9]\)$', '<M-\1>', 'g')
 
 		let lhs_map = substitute(lhs_map, '^<Alt><Shift><\(Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Alt><S-\(Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
 		let lhs_map = substitute(lhs_map, '^<Alt><\(Down\|Left\|Right\|Up\)>$', '<M-\1>', 'g')
 
 		let lhs_map = substitute(lhs_map, '^<Alt><Shift><\(F[0-9]\+\)>$', '<M-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Alt><S-\(F[0-9]\+\)>$', '<M-S-\1>', 'g')
 		let lhs_map = substitute(lhs_map, '^<Alt><\(F[0-9]\+\)>$', '<M-\1>', 'g')
 
 		let lhs_map = substitute(lhs_map, '^<Ctrl><Shift><\(Down\|Left\|Right\|Up\)>$', '<C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><S-\(Down\|Left\|Right\|Up\)>$', '<C-S-\1>', 'g')
 		let lhs_map = substitute(lhs_map, '^<Ctrl><\(Down\|Left\|Right\|Up\)>$', '<C-\1>', 'g')
 		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><Shift><\(Down\|Left\|Right\|Up\)>$', '<M-C-S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><S-\(Down\|Left\|Right\|Up\)>$', '<M-C-S-\1>', 'g')
 		let lhs_map = substitute(lhs_map, '^<Ctrl><Alt><\(Down\|Left\|Right\|Up\)>$', '<M-C-\1>', 'g')
 
 		let lhs_map = substitute(lhs_map, '^<Shift><\(Down\|Left\|Right\|Up\)>$', '<S-\1>', 'g')
+		let lhs_map = substitute(lhs_map, '^<S-\(Down\|Left\|Right\|Up\)>$', '<S-\1>', 'g')
 	endif
 
 	if len(a:silent) > 0
