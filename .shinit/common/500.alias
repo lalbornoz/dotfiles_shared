@@ -27,5 +27,8 @@ fi;
 if _shinit_which nvim; then
 	alias nvi=nvim;
 fi;
+if _shinit_which nvim-qt; then
+	alias qnvi=nvim-qt qnvim=nvim-qt;
+fi;
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
