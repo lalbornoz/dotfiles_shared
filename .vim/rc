@@ -1,4 +1,8 @@
-execute pathogen#infect()
+if has('nvim')
+	execute pathogen#infect('bundle.nvim/{}')
+else
+	execute pathogen#infect('bundle/{}')
+endif
 
 "
 " This is a special kind of option, because when it's set or reset, other
