@@ -26,5 +26,9 @@ call AddMapping("File", "Open terminal tab...", "Open a new terminal tab", '', '
 endif
 call AddSeparator("File")
 call AddMapping("File", "Toggle NerdTree", "Toggle NerdTree window", '<silent>', '<F12>', ':<C-U>NERDTreeToggle<CR>')
+if has('nvim')
+call AddMapping("File", "Telescope buffers...", "Telescope buffers...", '<silent>', '<S-F12>', '<CMD>Telescope buffers<CR>')
+call AddMapping("File", "Telescope files...", "Telescope files...", '<silent>', '<Alt><F12>', '<CMD>Telescope find_files<CR>')
+endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
