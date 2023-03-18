@@ -64,3 +64,9 @@
 [submodule ".vim/bundle/fzf-lsp.nvim"]
 	path = .vim/bundle.nvim/fzf-lsp.nvim
 	url = https://github.com/gfanto/fzf-lsp.nvim
+[submodule ".vim/bundle.nvim/plenary.nvim"]
+	path = .vim/bundle.nvim/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule ".vim/bundle.nvim/telescope.nvim"]
+	path = .vim/bundle.nvim/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
