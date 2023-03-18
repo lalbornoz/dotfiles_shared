@@ -3,8 +3,7 @@
 "
 
 call AddMenu("Project", 300)
-call AddMapping("Project", "Peek definition", "Peek definition", '<silent>', '<F1>', ':<C-U>LspPeekDefinition<CR>')
-call AddMapping("Project", "Peek declaration", "Peek declaration", '<silent>', '<S-F1>', ':<C-U>LspPeekDeclaration<CR>')
+call AddMapping("Project", "Peek definition", "Peek definition", '<silent>', '<F1>', '<Cmd>lua require("goto-preview").goto_preview_definition()<CR>')
 call AddMapping("Project", "Go to definition", "Go to definition", '<silent>', '<F2>', ':<C-U>LspDefinition<CR>')
 call AddMapping("Project", "Go to declaration", "Go to declaration", '<silent>', '<S-F2>', ':<C-U>LspDeclaration<CR>')
 call AddSeparator("Project")

@@ -55,3 +55,6 @@
 [submodule ".vim/bundle.nvim/nvim-lspconfig"]
 	path = .vim/bundle.nvim/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
+[submodule ".vim/bundle.nvim/goto-preview"]
+	path = .vim/bundle.nvim/goto-preview
+	url = https://github.com/rmagatti/goto-preview
