@@ -4,6 +4,7 @@
 
 call AddMenu("File", 100)
 call AddIMapping("File", "Complete...", 'Complete...', '', '<S-Tab>', '', 1)
+call AddMapping("File", "Next buffer", "Go to next buffer in buffer list", '<silent>', '<Ctrl><Shift><Tab>', ':<C-U>bn<CR>')
 call AddIMapping("File", "Exit insert mode", 'Exit insert mode', '', '<C-Q>', '<Esc>')
 if has('nvim')
 call AddTMapping("File", "Exit terminal mode", 'Exit terminal mode', '', '<Esc>', '<C-\><C-n>')

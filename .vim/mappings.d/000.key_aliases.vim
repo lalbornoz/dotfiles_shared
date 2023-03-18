@@ -4,6 +4,8 @@
 
 if !has('nvim') && !has('gui_running')
 
+map <Esc>[1;5Z		<Ctrl><Shift><Tab>
+
 " {{{ <https://github.com/vim/vim/issues/9009>
 " Enable modified arrow keys, see  :help xterm-modifier-keys
 execute "silent! set <xUp>=\<Esc>[@;*A"
@@ -133,10 +135,6 @@ map <Esc>[23;6~		<Ctrl><Shift><F11>
 map <Esc>[24;6~		<Ctrl><Shift><F12>
 " }}}
 
-endif
-
-if has('nvim')
-	imap <S-Del> <Del>
 endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
