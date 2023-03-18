@@ -21,11 +21,11 @@ elif _shinit_which hd; then
 	alias hd="command hd -C";
 fi;
 
-if _shinit_which vim; then
-	alias vi=vim vim=vim;
-fi;
 if _shinit_which nvim; then
 	alias nvi=nvim;
+	alias vi=nvim vim=nvim;
+elif _shinit_which vim; then
+	alias vi=vim vim=vim;
 fi;
 if _shinit_which nvim-qt; then
 	alias qnvi=nvim-qt qnvim=nvim-qt;
