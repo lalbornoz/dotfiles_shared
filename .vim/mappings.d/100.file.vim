@@ -13,9 +13,13 @@ call AddMapping("File", "Display manual page...", 'Display manual page...', '', 
 call AddMapping("File", "Read from program...", "Read from program prompt into new scratch window", '', '<Alt><F9>', ':<C-U>CReadNewScratch ')
 call AddMapping("File", "Display manual page", "Display manual page from current word", '<silent>', '<S-F9>', '"zyiw:exe "Man ".@z.""<CR>')
 call AddSeparator("File")
+if has('nvim')
+call AddMapping("File", "Telescope live_grep...", "Telescope live_grep...", '<silent>', '<F10>', '<CMD>Telescope live_grep<CR>')
+else
 call AddMapping("File", "Grep...", 'Grep...', '', '<F10>', ':<C-U>Grep ')
 call AddMapping("File", "Rrep...", 'Recursive Grep...', '', '<Alt><F10>', ':<C-U>Rgrep ')
 call AddMapping("File", "Bgrep...", 'Grep in current buffer...', '', '<S-F10>', ':<C-U>Bgrep ')
+endif
 call AddSeparator("File")
 if has('nvim')
 call AddMapping("File", "Open terminal...", "Open a new terminal window", '<silent>', '<F11>', ':<C-U>split term://$SHELL<CR>')
