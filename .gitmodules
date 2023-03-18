@@ -52,3 +52,6 @@
 [submodule ".vim/bundle.nvim/telescope.nvim"]
 	path = .vim/bundle.nvim/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim
+[submodule ".vim/bundle.nvim/nvim-lspconfig"]
+	path = .vim/bundle.nvim/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
