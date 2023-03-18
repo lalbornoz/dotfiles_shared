@@ -26,6 +26,5 @@ call AddMapping("File", "Open terminal tab...", "Open a new terminal tab", '', '
 endif
 call AddSeparator("File")
 call AddMapping("File", "Toggle NerdTree", "Toggle NerdTree window", '<silent>', '<F12>', ':<C-U>NERDTreeToggle<CR>')
-call AddMapping("File", "Toggle Buffergator", "Toggle Buffergator window", '<silent>', '<S-F12>', ':<C-U>BuffergatorToggle<CR>')
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
