@@ -4,8 +4,8 @@
 
 call AddMenu("Project", 300)
 call AddMapping("Project", "Peek definition", "Peek definition", '<silent>', '<F1>', '<Cmd>lua require("goto-preview").goto_preview_definition()<CR>')
-call AddMapping("Project", "Go to definition", "Go to definition", '<silent>', '<F2>', ':<C-U>LspDefinition<CR>')
-call AddMapping("Project", "Go to declaration", "Go to declaration", '<silent>', '<S-F2>', ':<C-U>LspDeclaration<CR>')
+call AddMapping("Project", "Go to definition", "Go to definition", '<silent>', '<F2>', '<Cmd>lua vim.lsp.buf.definition()<CR>')
+call AddMapping("Project", "Go to declaration", "Go to declaration", '<silent>', '<S-F2>', '<Cmd>lua vim.lsp.buf.declaration()<CR>')
 call AddSeparator("Project")
 call AddMapping("Project", "Find all references", "Find all LSP references", '<silent>', '<F3>', ':<C-U>LspReferences<CR>')
 call AddMapping("Project", "Search document symbols...", "Search the symbols for the current document and navigate", '<silent>', '<S-F3>', ':<C-U>LspDocumentSymbolSearch<CR>')
