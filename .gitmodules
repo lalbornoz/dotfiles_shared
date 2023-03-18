@@ -62,5 +62,5 @@
 	path = .vim/bundle/fzf
 	url = https://github.com/junegunn/fzf
 [submodule ".vim/bundle/fzf-lsp.nvim"]
-	path = .vim/bundle/fzf-lsp.nvim
+	path = .vim/bundle.nvim/fzf-lsp.nvim
 	url = https://github.com/gfanto/fzf-lsp.nvim
