@@ -70,3 +70,12 @@
 [submodule ".vim/bundle.nvim/vim-vsnip"]
 	path = .vim/bundle.nvim/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip
+[submodule ".vim/bundle.nvim/cmp-path"]
+	path = .vim/bundle.nvim/cmp-path
+	url = https://github.com/hrsh7th/cmp-path
+[submodule ".vim/bundle.nvim/cmp-buffer"]
+	path = .vim/bundle.nvim/cmp-buffer
+	url = https://github.com/hrsh7th/cmp-buffer
+[submodule ".vim/bundle.nvim/cmp-cmdline"]
+	path = .vim/bundle.nvim/cmp-cmdline
+	url = https://github.com/hrsh7th/cmp-cmdline
