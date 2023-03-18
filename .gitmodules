@@ -1,9 +1,6 @@
 [submodule ".vim/bundle/async.vim"]
 	path = .vim/bundle/async.vim
 	url = https://github.com/prabirshrestha/async.vim
-[submodule ".vim/bundle/ctrlp.vim"]
-	path = .vim/bundle/ctrlp.vim
-	url = https://github.com/kien/ctrlp.vim
 [submodule ".vim/bundle/gruvbox"]
 	path = .vim/bundle/gruvbox
 	url = https://github.com/morhetz/gruvbox/
