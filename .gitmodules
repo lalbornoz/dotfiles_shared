@@ -79,3 +79,6 @@
 [submodule ".vim/bundle.nvim/cmp-cmdline"]
 	path = .vim/bundle.nvim/cmp-cmdline
 	url = https://github.com/hrsh7th/cmp-cmdline
+[submodule ".vim/bundle.nvim/cmp-git"]
+	path = .vim/bundle.nvim/cmp-git
+	url = https://github.com/hrsh7th/cmp-git
