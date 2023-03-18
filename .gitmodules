@@ -58,3 +58,15 @@
 [submodule ".vim/bundle.nvim/goto-preview"]
 	path = .vim/bundle.nvim/goto-preview
 	url = https://github.com/rmagatti/goto-preview
+[submodule ".vim/bundle.nvim/nvim-cmp"]
+	path = .vim/bundle.nvim/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp
+[submodule ".vim/bundle.nvim/cmp-vsnip"]
+	path = .vim/bundle.nvim/cmp-vsnip
+	url = https://github.com/hrsh7th/cmp-vsnip
+[submodule ".vim/bundle.nvim/cmp-nvim-lsp"]
+	path = .vim/bundle.nvim/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp
+[submodule ".vim/bundle.nvim/vim-vsnip"]
+	path = .vim/bundle.nvim/vim-vsnip
+	url = https://github.com/hrsh7th/vim-vsnip

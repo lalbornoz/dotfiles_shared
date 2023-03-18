@@ -6,7 +6,7 @@
 autocmd BufEnter *
 	\ if len(&omnifunc) == 0 |
 	\	inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<C-X>\<C-N>" |
-	\ else |
+	\ elseif !has('nvim') |
 	\	inoremap <expr> <S-Tab>	pumvisible() ? "\<C-n>" : "\<C-X>\<C-O>" |
 	\ endif
 
