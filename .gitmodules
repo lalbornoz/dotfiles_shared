@@ -55,15 +55,6 @@
 [submodule ".vim/bundle/vim-dispatch"]
 	path = .vim/bundle/vim-dispatch
 	url = https://github.com/tpope/vim-dispatch
-[submodule ".vim/bundle/fzf.vim"]
-	path = .vim/bundle/fzf.vim
-	url = https://github.com/junegunn/fzf.vim
-[submodule ".vim/bundle/fzf"]
-	path = .vim/bundle/fzf
-	url = https://github.com/junegunn/fzf
-[submodule ".vim/bundle/fzf-lsp.nvim"]
-	path = .vim/bundle.nvim/fzf-lsp.nvim
-	url = https://github.com/gfanto/fzf-lsp.nvim
 [submodule ".vim/bundle.nvim/plenary.nvim"]
 	path = .vim/bundle.nvim/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim
