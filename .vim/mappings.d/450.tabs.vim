@@ -2,7 +2,7 @@
 " [Mappings] Windows menu mappings
 "
 
-call AddMenu("Tabs", 350)
+call AddMenu("Tabs", 450)
 call AddMapping("Tabs", "Go to tab #1", '', '<silent>', '<Alt>1', '1gt')
 call AddMapping("Tabs", "Go to tab #2", '', '<silent>', '<Alt>2', '2gt')
 call AddMapping("Tabs", "Go to tab #3", '', '<silent>', '<Alt>3', '3gt')

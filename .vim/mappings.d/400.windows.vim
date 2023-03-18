@@ -2,7 +2,7 @@
 " [Mappings] Windows menu mappings
 "
 
-call AddMenu("Windows", 300)
+call AddMenu("Windows", 400)
 call AddMapping("Windows", "Create new window", '', '<silent>', '<F7>', ':<C-U>new<CR>')
 call AddMapping("Windows", "Create new vertically split window", '', '<silent>', '<S-F7>', ':<C-U>vnew<CR>')
 call AddMapping("Windows", "Close current window", '', '<silent>', '<S-F8>', ':<C-U>close<CR>')
