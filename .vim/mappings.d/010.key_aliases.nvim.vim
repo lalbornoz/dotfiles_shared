@@ -68,4 +68,8 @@ map <F48>	<C-S-F12>
 
 endif
 
+if has('nvim')
+	imap <S-Del> <Del>
+endif
+
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
