@@ -15,6 +15,9 @@ call AddMapping("File", "Display manual page", "Display manual page from current
 call AddSeparator("File")
 if has('nvim')
 call AddMapping("File", "Telescope live_grep...", "Telescope live_grep...", '<silent>', '<F10>', '<CMD>Telescope live_grep<CR>')
+call AddMapping("File", "Telescope live_grep --hidden...", "Telescope live_grep --hidden...", '<silent>', '<S-F10>', ':lua require("telescope.builtin").live_grep({ additional_args = function(opts) return { "--hidden" } end })<CR>')
+call AddMapping("File", "Telescope grep_string...", "Telescope grep_string...", '<silent>', '<Alt><F10>', '<CMD>Telescope grep_string<CR>')
+call AddMapping("File", "Telescope grep_string --hidden...", "Telescope grep_string --hidden...", '<silent>', '<Alt><S-F10>', ':lua require("telescope.builtin").grep_string({ additional_args = function(opts) return { "--hidden" } end })<CR>')
 else
 call AddMapping("File", "Grep...", 'Grep...', '', '<F10>', ':<C-U>Grep ')
 call AddMapping("File", "Rrep...", 'Recursive Grep...', '', '<Alt><F10>', ':<C-U>Rgrep ')
@@ -31,8 +34,9 @@ endif
 call AddSeparator("File")
 call AddMapping("File", "Toggle NerdTree", "Toggle NerdTree window", '<silent>', '<F12>', ':<C-U>NERDTreeToggle<CR>')
 if has('nvim')
-call AddMapping("File", "Telescope buffers...", "Telescope buffers...", '<silent>', '<S-F12>', '<CMD>Telescope buffers<CR>')
-call AddMapping("File", "Telescope files...", "Telescope files...", '<silent>', '<Alt><F12>', '<CMD>Telescope find_files<CR>')
+call AddMapping("File", "Telescope files...", "Telescope files...", '<silent>', '<S-F12>', '<CMD>Telescope find_files<CR>')
+call AddMapping("File", "Telescope files hidden=true...", "Telescope files hidden=true...", '<silent>', '<Alt><S-F12>', '<CMD>Telescope find_files hidden=true<CR>')
+call AddMapping("File", "Telescope buffers...", "Telescope buffers...", '<silent>', '<Alt><F12>', '<CMD>Telescope buffers<CR>')
 endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
