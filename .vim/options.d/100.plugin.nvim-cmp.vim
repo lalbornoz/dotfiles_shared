@@ -32,15 +32,6 @@ lua << EOF
 		})
 	})
 
-	-- Set configuration for specific filetype.
-	cmp.setup.filetype('gitcommit', {
-		sources = cmp.config.sources({
-			{ name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-		}, {
-			{ name = 'buffer' },
-		})
-	})
-
 	-- Set up lspconfig.
 	local capabilities = require('cmp_nvim_lsp').default_capabilities()
 	require('lspconfig')['clangd'].setup {
