@@ -11,6 +11,7 @@
 	***/.*.sw[op]
 	***/.directory_mode
 	***/.directory_optional
+	***/.empty_directory
 	***/.shared_directory
 	.git/
 	.gitignore
