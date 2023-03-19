@@ -33,7 +33,7 @@ endif
 call AddSeparator("File")
 call AddMapping("File", "Toggle NerdTree", "Toggle NerdTree window", '<silent>', '<F12>', ':<C-U>NERDTreeToggle<CR>')
 if has('nvim')
-call AddMapping("File", "Toggle sidebar", "Toggle sidebar", '<silent>', '<Ctrl><F12>', ':lua require("sidebar-nvim").toggle()<CR>')
+call AddMapping("File", "Toggle sidebar", "Toggle sidebar", '<silent>', '<Ctrl><F12>', ':lua require("sidebar-nvim").toggle({focus=true})<CR>')
 call AddMapping("File", "Telescope files...", "Telescope files...", '<silent>', '<S-F12>', '<Cmd>Telescope find_files<CR>')
 call AddMapping("File", "Telescope files hidden=true...", "Telescope files hidden=true...", '<silent>', '<Alt><S-F12>', '<Cmd>Telescope find_files hidden=true<CR>')
 call AddMapping("File", "Telescope buffers...", "Telescope buffers...", '<silent>', '<Alt><F12>', '<Cmd>Telescope buffers<CR>')
