@@ -73,3 +73,6 @@
 [submodule ".vim/bundle.nvim/cmp-buffer"]
 	path = .vim/bundle.nvim/cmp-buffer
 	url = https://github.com/hrsh7th/cmp-buffer
+[submodule ".vim/bundle.nvim/nvim-web-devicons"]
+	path = .vim/bundle.nvim/nvim-web-devicons
+	url = https://github.com/nvim-tree/nvim-web-devicons
