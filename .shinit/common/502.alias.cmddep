@@ -1,0 +1,49 @@
+#
+# Common platform-independent aliases
+#
+
+#
+# gcc
+#
+if _shinit_which gcc; then
+	alias gcc="gcc -Wall -std=gnu11 -O0 -g";
+fi;
+
+#
+# {hexdump,hd}
+#
+if _shinit_which hexdump; then
+	alias hd="command hexdump -C";
+	alias hexdump="command hexdump -C"
+elif _shinit_which hd; then
+	alias hd="command hd -C";
+fi;
+
+#
+# less
+#
+if _shinit_which less; then
+	alias less="less -R";
+fi;
+
+#
+# {,n}vim
+#
+if _shinit_which nvim; then
+	alias nvi=nvim;
+	alias vi=nvim vim=nvim;
+elif _shinit_which vim; then
+	alias vi=vim vim=vim;
+fi;
+if _shinit_which nvim-qt; then
+	alias qnvi=nvim-qt qnvim=nvim-qt;
+fi;
+
+#
+# tmux
+#
+if _shinit_which tmux; then
+	alias tmux="env TERM=xterm-256color tmux -2";
+fi;
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
