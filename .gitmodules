@@ -76,3 +76,6 @@
 [submodule ".vim/bundle.nvim/nvim-terminal.lua"]
 	path = .vim/bundle.nvim/nvim-terminal.lua
 	url = https://github.com/norcalli/nvim-terminal.lua
+[submodule ".vim/bundle.nvim/hex.nvim"]
+	path = .vim/bundle.nvim/hex.nvim
+	url = https://github.com/RaafatTurki/hex.nvim
