@@ -10,7 +10,6 @@ call AddMapping("Leader", "Set mark x", "Set mark x at cursor position", '<silen
 call AddMapping("Leader", "Execute register q", "Execute contents of register q", '<silent>', '<Leader>@', ':normal! @q<CR>')
 call AddMapping("Leader", "Jump to mark x", "Jump to mark x in the current buffer", '<silent>', '<Leader>~', "'x")
 call AddSeparator("Leader")
-call AddMapping("Leader", "Open vim-crunch...", "Open vim-crunch prompt", '<silent>', '<Leader>C', ':<C-U>Crunch<CR>')
 call AddMapping("Leader", "Insert date (LC_ALL=C)", '', '<silent>', '<Leader>d', ':<C-U>:r!env LC_ALL=C date<CR>')
 call AddMapping("Leader", "Insert date (RFC 2822/2322)", "Insert date in RFC 2822/5322 format", '<silent>', '<Leader>D', ':<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>')
 call AddMapping("Leader", "Open C/C++ source module header", '', '<silent>', '<Leader>H', ':<C-U>COpenHeader<CR>')
