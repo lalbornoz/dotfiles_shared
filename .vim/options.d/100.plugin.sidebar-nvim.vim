@@ -15,6 +15,15 @@ lua << EOF
 		symbols = { icon = "ƒ", },
 		update_interval = 1000,
 	})
+
+	local git = require("sidebar-nvim.builtin.git")
+	git.bindings["<Enter>"] = git.bindings["e"]
+
+	local diagnostics = require("sidebar-nvim.builtin.diagnostics")
+	diagnostics.bindings["<Enter>"] = diagnostics.bindings["e"]
+
+	local symbols = require("sidebar-nvim.builtin.symbols")
+	symbols.bindings["<Enter>"] = symbols.bindings["e"]
 EOF
 endif
 
