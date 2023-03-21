@@ -19,6 +19,7 @@ call AddSeparator("File")
 if has('nvim')
 call AddMapping("File", "Telescope live_grep...", "Telescope live_grep...", '<silent>', '<F10>', ':lua require("telescope").extensions.menufacture.live_grep()<CR>')
 call AddMapping("File", "Telescope grep_string...", "Telescope grep_string...", '<silent>', '<S-F10>', ':lua require("telescope").extensions.menufacture.grep_string()<CR>')
+call AddMapping("File", "Telescope live_grep buffer...", "Telescope live_grep buffer...", '<silent>', '<Alt><F10>', ':Telescope live_grep search_dirs={"%:p"} vimgrep_arguments=rg,--color=never,--no-heading,--with-filename,--line-number,--column,--smart-case,--fixed-strings<CR>')
 else
 call AddMapping("File", "Grep...", 'Grep...', '', '<F10>', ':<C-U>Grep ')
 call AddMapping("File", "Rrep...", 'Recursive Grep...', '', '<Alt><F10>', ':<C-U>Rgrep ')
