@@ -1,15 +1,4 @@
-if has('nvim')
-lua << EOF
-	require'lspconfig'.clangd.setup {
-		cmd = {
-			"clangd",
-			"--background-index",
-			"--pch-storage=memory",
-		},
-		filetypes = {"c", "cpp", "objc", "objcpp"},
-	}
-EOF
-else
+if !has('nvim')
 	let g:lsp_diagnostics_echo_cursor = 1		" Echo of diagnostic error for current line to status
 	let g:lsp_settings = {
 		\ 'clangd': {
