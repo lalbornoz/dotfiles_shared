@@ -26,8 +26,15 @@ filet plugin indent on|		" Enable loading indent file for specific file types
 " Source set of run-command Vim files in order, local additions, and
 " post-initialisation finalisation additions, if any.
 "
+if has('nvim')
+	let vimrc_options_nvim_d = glob("~/.vim/options.nvim.d/*.vim", 0, 1)
+else
+	let vimrc_options_nvim_d = []
+endif
 for f in
+	\ glob("~/.vim/options.defaults.d/*.vim", 0, 1) +
 	\ glob("~/.vim/options.d/*.vim", 0, 1) +
+	\ vimrc_options_nvim_d +
 	\ glob("~/.vim/commands.d/*.vim", 0, 1) +
 	\ glob("~/.vim/mappings.d/*.vim", 0, 1) +
 	\ glob("~/.vim/quickui.d/*.vim", 0, 1) +
@@ -37,7 +44,7 @@ for f in
 	if filereadable(f)
 		execute("source " . f)
 	endif
-endfor | unlet f
+endfor | unlet f vimrc_options_nvim_d
 
 " Install QuickUI menus.
 call InstallMenus()
