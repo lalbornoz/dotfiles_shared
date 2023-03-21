@@ -73,3 +73,6 @@
 [submodule ".vim/bundle.nvim/telescope-menufacture"]
 	path = .vim/bundle.nvim/telescope-menufacture
 	url = https://github.com/molecule-man/telescope-menufacture
+[submodule ".vim/bundle.nvim/nvim-terminal.lua"]
+	path = .vim/bundle.nvim/nvim-terminal.lua
+	url = https://github.com/norcalli/nvim-terminal.lua
