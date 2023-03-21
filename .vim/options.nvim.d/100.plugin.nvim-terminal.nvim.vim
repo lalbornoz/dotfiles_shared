@@ -1,5 +1,5 @@
-if has('nvim')
 lua << EOF
 require'terminal'.setup()
 EOF
-endif
+
+" vim:filetype=vim noexpandtab sw=8 ts=8 tw=0

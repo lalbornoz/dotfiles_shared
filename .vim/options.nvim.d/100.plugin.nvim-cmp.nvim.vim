@@ -1,4 +1,3 @@
-if has('nvim')
 lua << EOF
 	-- Set up nvim-cmp.
 	local cmp = require'cmp'
@@ -38,6 +37,5 @@ lua << EOF
 		capabilities = capabilities
 	}
 EOF
-endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0

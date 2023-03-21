@@ -1,4 +1,3 @@
-if has('nvim')
 lua << EOF
 require("telescope").setup { 
 }
@@ -7,4 +6,5 @@ require("telescope").setup {
 -- you need to call load_extension:
 require('telescope').load_extension 'menufacture'
 EOF
-endif
+
+" vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
