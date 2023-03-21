@@ -79,3 +79,6 @@
 [submodule ".vim/bundle.nvim/sidebar-nvim"]
 	path = .vim/bundle.nvim/sidebar-nvim
 	url = https://github.com/sidebar-nvim/sidebar.nvim
+[submodule ".vim/bundle.nvim/telescope-menufacture"]
+	path = .vim/bundle.nvim/telescope-menufacture
+	url = https://github.com/molecule-man/telescope-menufacture
