@@ -3,6 +3,16 @@ local telescope = require("telescope")
 
 telescope.setup { 
 	defaults = {
+		mappings = {
+			i = {
+				["<C-Down>"] = require('telescope.actions').cycle_history_next,
+				["<C-Up>"] = require('telescope.actions').cycle_history_prev,
+			},
+			n = {
+				["<C-Down>"] = require('telescope.actions').cycle_history_next,
+				["<C-Up>"] = require('telescope.actions').cycle_history_prev,
+			},
+		},
 		path_display = { shorten = 3, },
 		sorting_strategy = "ascending",
 	},
