@@ -31,9 +31,6 @@
 [submodule ".vim/bundle/rust.vim"]
 	path = .vim/bundle/rust.vim
 	url = https://github.com/rust-lang/rust.vim
-[submodule ".vim/bundle/vim-crunch"]
-	path = .vim/bundle/vim-crunch
-	url = https://github.com/arecarn/vim-crunch
 [submodule ".vim/bundle/vim-quickui"]
 	path = .vim/bundle/vim-quickui
 	url = https://github.com/skywind3000/vim-quickui
