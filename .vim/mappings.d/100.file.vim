@@ -9,7 +9,7 @@ if has('nvim')
 call AddTMapping("File", "Exit terminal mode", 'Exit terminal mode', '', '<Esc>', '<C-\><C-n>')
 endif
 call AddMapping("File", "Next buffer", "Go to next buffer in buffer list", '<silent>', '<Shift><Tab>', ':<C-U>bn<CR>')
-call AddMapping("File", "Previous buffer", "Go to previous buffer in buffer list", '<silent>', '<Ctrl><Shift><Tab>', ':<C-U>bn<CR>')
+call AddMapping("File", "Previous buffer", "Go to previous buffer in buffer list", '<silent>', '<Ctrl><Shift><Tab>', ':<C-U>bp<CR>')
 call AddSeparator("File")
 call AddNMapping("File", "Filter file...", "Filter entire file through program w/ tab-complete from favourites prompt", '', '<F9>', ':FPC ')
 call AddVMapping("File", "Filter range...", "Filter visual range through program w/ tab-complete from favourites prompt", '', '<F9>', ':FPCR ')
