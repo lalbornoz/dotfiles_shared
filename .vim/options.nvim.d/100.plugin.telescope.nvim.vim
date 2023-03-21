@@ -1,6 +1,7 @@
 lua << EOF
 require("telescope").setup { 
 	defaults = {
+		path_display = { shorten = 5, },
 		sorting_strategy = "ascending",
 	},
 }
