@@ -1,1 +1,0 @@
-../bundle/rust.vim/
