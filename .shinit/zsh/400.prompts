@@ -43,6 +43,6 @@ esac
 PROMPT_PERCENT=yes;
 
 # Primary prompt string
-PS1='%{%F{213}%}%n%{%F{201}%}@%{%F{213}%}%m:%{%F{201}%}(%{%F{123}%}%2~%{%F{213}%}%{%F{201}%})%{%F{201}%}> %{%F{123}%}%(!.#.$) %f';
+PS1='%{%F{213}%}%n%{%F{201}%}@%{%F{213}%}%m:%{%F{201}%}(%{%F{118}%}%2~%{%F{213}%}%{%F{201}%})%{%F{201}%}> %{%F{123}%}%(!.#.$) %f';
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
