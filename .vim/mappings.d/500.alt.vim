@@ -2,12 +2,16 @@
 " [Mappings] <Alt> key sequences and menu mappings
 "
 
-call AddMenu("<Alt>", 550)
+call AddMenu("<Alt>", 500)
 call AddMapping("<Alt>", "Set mark x", "Set mark x at cursor position", '<silent>', '<Alt>:', 'mx')
 call AddMapping("<Alt>", "Execute register q", "Execute contents of register q", '<silent>', '<Alt>@', ':normal! @q<CR>')
 call AddMapping("<Alt>", "Jump to mark x", "Jump to mark x in the current buffer", '<silent>', '<Alt>~', "'x")
 call AddMapping("<Alt>", "Open C/C++ source module header", 'Open C/C++ source module header', '<silent>', '<Alt>H', ':<C-U>COpenHeader<CR>')
 call AddSeparator("<Alt>")
+call AddMapping("<Alt>", "Decrement number", 'Decrement number under cursor', '<silent>', '<Alt>-', '<C-X>')
+call AddMapping("<Alt>", "Increment number", 'Increment number under cursor', '<silent>', '<Alt>=', '<C-A>')
+call AddMapping("<Alt>", "Invert case of word", 'Invert case of word under cursor', '<silent>', '<Alt>c', 'g~w')
+call AddMapping("<Alt>", "Invert case of line", 'Invert case of line under cursor', '<silent>', '<Alt>C', 'g~~')
 call AddMapping("<Alt>", "Insert date (LC_ALL=C)", 'Insert date (LC_ALL=C)', '<silent>', '<Alt>d', ':<C-U>:r!env LC_ALL=C date<CR>')
 call AddMapping("<Alt>", "Insert date (RFC 2822/2322)", "Insert date in RFC 2822/5322 format", '<silent>', '<Alt>D', ':<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>')
 call AddMapping("<Alt>", "Convert to prototype", 'Convert to prototype', '<silent>', '<Alt>p', 'J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>')
