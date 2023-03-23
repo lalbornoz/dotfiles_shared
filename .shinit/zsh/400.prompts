@@ -2,7 +2,7 @@
 # Zsh-specific prompt strings
 #
 
-_shorten_ifTooLong() {
+shinit_shortenifTooLong() {
 	local _string_long="${1}";
 	if [ "${#_string_long}" -gt 15 ]; then
 		printf "%s.." "${_string_long:0:15}";
@@ -11,7 +11,7 @@ _shorten_ifTooLong() {
 	fi;
 };
 
-_shorten_path_ifTooLong() {
+shinit_shortenpath_ifTooLong() {
 	local _path_long="$(print -Pn "%~")";
 	if [ "${#_path_long}" -gt 25 ]; then
 		printf "..%s" "${_path_long:$((${#_path_long} - 25))}";
@@ -28,20 +28,21 @@ case "${TERM}" in
 	#	semantics and differences between what is passed
 	#	to preexec() in the positional parameters.
 [abmEwxX][tT]erm*|putty*)
-		precmd()  { print -Pn "]0;%n@%m:$(_shorten_path_ifTooLong)$\a"; }
-		preexec() { set -- "${2}"; print -Pn "]0;%n@%m:$(_shorten_path_ifTooLong)$ "; print -n "$(_shorten_ifTooLong "${(q)1}")\a"; }
+		precmd()  { print -Pn "]0;%n@%m:$(shinit_shortenpath_ifTooLong)$\a"; }
+		preexec() { set -- "${2}"; print -Pn "]0;%n@%m:$(shinit_shortenpath_ifTooLong)$ "; print -n "$(shinit_shortenifTooLong "${(q)1}")\a"; }
 		;;
 
-screen*)	precmd() { print -PnR "k%n@%m:$(_shorten_path_ifTooLong)$\\"; }
-		preexec() { set -- "${2}"; print -PnR "k%n@%m:$(_shorten_path_ifTooLong)$ "; print -n "$(_shorten_ifTooLong "${(q)1}")\\"; }
+screen*)	precmd() { print -PnR "k%n@%m:$(shinit_shortenpath_ifTooLong)$\\"; }
+		preexec() { set -- "${2}"; print -PnR "k%n@%m:$(shinit_shortenpath_ifTooLong)$ "; print -n "$(shinit_shortenifTooLong "${(q)1}")\\"; }
 		;;
 
 *)		;;
 esac
 
-PROMPT_PERCENT=yes;		# Expand '%'-prefixed escape
-				# sequences in the prompt strings
-PS1='%n@%m:(%2~)> %(!.#.$) ';	# Primary prompt string:
-				# /<user>@<hname>:(<path>)> {#,$} /
+# Expand '%'-prefixed escape sequences in the prompt strings
+PROMPT_PERCENT=yes;
+
+# Primary prompt string
+PS1='%{%F{213}%}%n%{%F{201}%}@%{%F{213}%}%m:%{%F{201}%}(%{%F{123}%}%2~%{%F{213}%}%{%F{201}%})%{%F{201}%}> %{%F{123}%}%(!.#.$) %f';
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
