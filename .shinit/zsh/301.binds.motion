@@ -1,0 +1,37 @@
+#
+# Zsh-specific motion key bindings
+#
+
+bindkey '^[[1;2D'		backward-word;		# <SHIFT> <LEFT>
+bindkey '^[[1;3D'		backward-word;		# <ALT> <LEFT>
+bindkey '^[[1;4D'		backward-word;		# <ALT> <SHIFT> <LEFT>
+bindkey '^[[1;5D'		backward-word;		# <CTRL> <LEFT>
+bindkey '^[[1;6D'		backward-word;		# <CTRL> <SHIFT> <LEFT>
+bindkey '^[[1;7D'		backward-word;		# <CTRL> <ALT> <LEFT>
+bindkey '^[[1;8D'		backward-word;		# <CTRL> <ALT> <SHIFT> <LEFT>
+
+bindkey -M vicmd '^[[1;2D'	backward-word;		# <SHIFT> <LEFT>
+bindkey -M vicmd '^[[1;3D'	backward-word;		# <ALT> <LEFT>
+bindkey -M vicmd '^[[1;4D'	backward-word;		# <ALT> <SHIFT> <LEFT>
+bindkey -M vicmd '^[[1;5D'	backward-word;		# <CTRL> <LEFT>
+bindkey -M vicmd '^[[1;6D'	backward-word;		# <CTRL> <SHIFT> <LEFT>
+bindkey -M vicmd '^[[1;7D'	backward-word;		# <CTRL> <ALT> <LEFT>
+bindkey -M vicmd '^[[1;8D'	backward-word;		# <CTRL> <ALT> <SHIFT> <LEFT>
+
+bindkey '^[[1;2C'		forward-word;		# <SHIFT> <RIGHT>
+bindkey '^[[1;3C'		forward-word;		# <ALT> <RIGHT>
+bindkey '^[[1;4C'		forward-word;		# <ALT> <SHIFT> <RIGHT>
+bindkey '^[[1;5C'		forward-word;		# <CTRL> <RIGHT>
+bindkey '^[[1;6C'		forward-word;		# <CTRL> <SHIFT> <RIGHT>
+bindkey '^[[1;7C'		forward-word;		# <CTRL> <ALT> <RIGHT>
+bindkey '^[[1;8C'		forward-word;		# <CTRL> <ALT> <SHIFT> <RIGHT>
+
+bindkey -M vicmd '^[[1;2C'	vi-forward-word;	# <SHIFT> <RIGHT
+bindkey -M vicmd '^[[1;3C'	vi-forward-word;	# <ALT> <RIGHT>
+bindkey -M vicmd '^[[1;4C'	vi-forward-word;	# <ALT> <SHIFT> <RIGHT>
+bindkey -M vicmd '^[[1;5C'	vi-forward-word;	# <CTRL> <RIGHT>
+bindkey -M vicmd '^[[1;6C'	vi-forward-word;	# <CTRL> <SHIFT> <RIGHT>
+bindkey -M vicmd '^[[1;7C'	vi-forward-word;	# <CTRL> <ALT> <RIGHT>
+bindkey -M vicmd '^[[1;8C'	vi-forward-word;	# <CTRL> <ALT> <SHIFT> <RIGHT>
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
