@@ -21,6 +21,9 @@ call AddMapping("<Alt>", "Toggle search match highlighting", 'Toggle search matc
 call AddMapping("<Alt>", "Toggle case-sensitivity", 'Toggle case-sensitivity', '<silent>', '<Alt>n', ':<C-U>set invignorecase<CR>')
 call AddMapping("<Alt>", "Set filetype=terminal", 'Set filetype=terminal', '<silent>', '<Alt>r', ':<C-U>set filetype=terminal<CR>')
 call AddSeparator("<Alt>")
+if has('nvim')
+call AddMapping("<Alt>", "Telescope git_files...", "Telescope git_files...", '<silent>', '<Alt>g', ':lua require("telescope").extensions.menufacture.git_files()<CR>')
+endif
 call AddMapping("<Alt>", "Diff w/ horizontal split", "Diff against direct ancestors, split horizontally", '<silent>', '<Alt>I', ':<C-U>Ghdiffsplit<CR>')
 call AddMapping("<Alt>", "Print Git diff", "Print global Git diff into new scratch window", '<silent>', '<Alt>i', ':<C-U>call ReadNewScratch("git diff", "git")<CR>\|zR')
 call AddMapping("<Alt>", "Print Git log", "Print Git log into new scratch window", '<silent>', '<Alt>l', ':<C-U>call ReadNewScratch("git log", "git")<CR>')
