@@ -2,6 +2,7 @@
 " [Options] Defaults (display)
 "
 
+set shortmess+=S		" Always show "search hit BOTTOM, continuing at TOP" message
 set cursorcolumn cursorline	" Highlight the screen {column,line} of the cursor
 set ignorecase			" Ignore case when searching
 set incsearch nohlsearch	" Incremental search, no match highlighting
