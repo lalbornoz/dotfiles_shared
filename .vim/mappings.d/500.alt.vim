@@ -27,6 +27,9 @@ endif
 call AddMapping("<Alt>", "Diff w/ horizontal split", "Diff against direct ancestors, split horizontally", '<silent>', '<Alt>I', ':<C-U>Ghdiffsplit<CR>')
 call AddMapping("<Alt>", "Print Git diff", "Print global Git diff into new scratch window", '<silent>', '<Alt>i', ':<C-U>call ReadNewScratch("git diff", "git")<CR>\|zR')
 call AddMapping("<Alt>", "Print Git log", "Print Git log into new scratch window", '<silent>', '<Alt>l', ':<C-U>call ReadNewScratch("git log", "git")<CR>')
+if has('nvim')
+call AddMapping("<Alt>", "Telescope git_commits...", "Telescope git_commits...", '<silent>', '<Alt>L', ':Telescope git_commits<CR>')
+endif
 call AddMapping("<Alt>", "Print Git status", "Bring up summary window akin to git-status", '<silent>', '<Alt>s', ':<C-U>Git<CR>')
 call AddSeparator("<Alt>")
 call AddMapping("<Alt>", "Reload Vim configuration file", 'Reload Vim configuration file', '<silent>', '<Alt>v', ':<C-U>source ~/.vimrc\|exec "set filetype=" . &filetype<CR>')
