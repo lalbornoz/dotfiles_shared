@@ -79,3 +79,6 @@
 [submodule ".vim/bundle.nvim/hex.nvim"]
 	path = .vim/bundle.nvim/hex.nvim
 	url = https://github.com/RaafatTurki/hex.nvim
+[submodule ".vim/bundle.nvim/mason.nvim"]
+	path = .vim/bundle.nvim/mason.nvim
+	url = https://github.com/williamboman/mason.nvim
