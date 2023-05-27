@@ -1,5 +1,6 @@
 [include]
 	path = ~/.gitconfig.alias
+	path = ~/.gitconfig.local
 [commit]
 	gpgsign = True
 	verbose = True
