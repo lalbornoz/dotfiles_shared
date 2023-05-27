@@ -3,6 +3,7 @@
 	pullall = !git pull --all
 	pushall = !git remote | xargs -L1 git push --all
 	submodule-pull = !git submodule foreach git pull origin master
+	todo = "grep -e\"FIXME TODO XXX\""
 	wgetam = "!wgetam() { wget -qO- \"${1}\" | git am -s; }; wgetam"
 [commit]
 	gpgsign = True
