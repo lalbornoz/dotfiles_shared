@@ -2,7 +2,6 @@
 	path = ~/.gitconfig.alias
 	path = ~/.gitconfig.local
 [commit]
-	gpgsign = True
 	verbose = True
 [credential]
 	helper = store
