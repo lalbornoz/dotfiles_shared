@@ -8,6 +8,13 @@ require'lspconfig'.clangd.setup {
 	filetypes = {"c", "cpp", "objc", "objcpp"},
 }
 
+require'lspconfig'.rust_analyzer.setup{
+	settings = {
+		['rust-analyzer'] = {
+		}
+	}
+}
+
 require'lspconfig'.omnisharp.setup {
 	cmd = {
 		"dotnet",
