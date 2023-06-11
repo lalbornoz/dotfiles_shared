@@ -82,3 +82,6 @@
 [submodule ".vim/bundle.nvim/mason.nvim"]
 	path = .vim/bundle.nvim/mason.nvim
 	url = https://github.com/williamboman/mason.nvim
+[submodule ".vim/bundle.nvim/edgy.nvim"]
+	path = .vim/bundle.nvim/edgy.nvim
+	url = https://github.com/folke/edgy.nvim
