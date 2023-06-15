@@ -30,8 +30,10 @@ call AddTMapping("Tabs", "Go to next tab (terminal)", "Go to next tab page w/ wr
 call AddTMapping("Tabs", "Go to next tab (terminal)", "Go to next tab page w/ wraparound (terminal job mode)", '<silent>', '<Alt><Shift><Right>', '<C-T>:tabnext<CR>')
 endif
 call AddSeparator("Tabs")
-call AddMapping("Tabs", "Open a new tab page", '', '<silent>', '<F8>', ':<C-U>tabnew<CR>')
-call AddMapping("Tabs", "Close current tab", '', '<silent>', '<S-F8>', ':<C-U>close<CR>')
+call AddMapping("Tabs", "Open a new tab page", "Open a new tab page", '<silent>', '<F8>', ':<C-U>tabnew<CR>')
+call AddMapping("Tabs", "Close current tab", "Close current tab", '<silent>', '<S-F8>', ':<C-U>close<CR>')
 call AddMapping("Tabs", "Move window to new tab", "Move window to new tab page", '<silent>', '<Alt>t', ':<C-U>wincmd T<CR>')
+call AddMapping("Tabs", "Move current tab to the left", "Move current tab to the left", '<silent>', '<Alt>j', ':<C-U>tabmove -1<CR>')
+call AddMapping("Tabs", "Move current tab to the right", "Move current tab to the right", '<silent>', '<Alt>k', ':<C-U>tabmove +1<CR>')
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
