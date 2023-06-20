@@ -39,7 +39,7 @@ call AddMapping("<Alt>", "Edit Vim configuration...", "Edit Vim configuration fi
 call AddMapping("<Alt>", "Toggle line-wrap", "Toggle wrapping of lines longer than window width", "<silent>", '<Alt>w', ':<C-U>set invwrap<CR>')
 call AddMapping("<Alt>", "Reset folding", "Reset folding", '<silent>', '<Alt>x', ':<C-U>set foldmethod=marker<CR>')
 if has('nvim')
-call AddMapping("<Alt>", "Toggle hex editing", "Toggle hex editing", '<silent>', '<Alt>X', ':lua require "hex".toggle()<CR>')
+call AddMapping("<Alt>", "Toggle hex editing", "Toggle hex editing", '<silent>', '<Alt>X', ':<C-U>Hexmode<CR>')
 endif
 call AddMapping("<Alt>", "Reset syntax highlighting", "Reset syntax highlighting", '<silent>', '<Alt>y', ':<C-U>syntax on<CR>')
 
