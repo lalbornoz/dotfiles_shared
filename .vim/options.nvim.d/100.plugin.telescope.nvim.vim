@@ -52,4 +52,4 @@ telescope.extensions.menufacture.live_grep_menu['toggle wrap'] = telescope.exten
 telescope.extensions.menufacture.git_files_menu['toggle wrap'] = telescope.extensions.menufacture.find_files_menu['toggle wrap']
 EOF
 
-" vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
+" vim:filetype=lua noexpandtab sw=8 ts=8 tw=0
