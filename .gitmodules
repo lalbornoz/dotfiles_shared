@@ -85,3 +85,6 @@
 [submodule ".vim/bundle.nvim/edgy.nvim"]
 	path = .vim/bundle.nvim/edgy.nvim
 	url = https://github.com/folke/edgy.nvim
+[submodule ".vim/bundle.nvim/rosetta.nvim"]
+	path = .vim/bundle.nvim/rosetta.nvim
+	url = https://github.com/mcookly/rosetta.nvim
