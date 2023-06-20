@@ -16,6 +16,8 @@ call AddMapping("<Alt>", "Insert date (LC_ALL=C)", 'Insert date (LC_ALL=C)', '<s
 call AddMapping("<Alt>", "Insert date (RFC 2822/2322)", "Insert date in RFC 2822/5322 format", '<silent>', '<Alt>D', ':<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>')
 call AddMapping("<Alt>", "Convert to prototype", 'Convert to prototype', '<silent>', '<Alt>p', 'J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>')
 call AddSeparator("<Alt>")
+call AddMapping("<Alt>", "Enable bidirectionality", 'Enable bidirectionality', '<silent>', '<Alt>b', ':<C-U>BidiEnable<CR>:KeyboardAutoEnable<CR>')
+call AddMapping("<Alt>", "Disable bidirectionality", 'Disable bidirectionality', '<silent>', '<Alt>B', ':<C-U>BidiDisable<CR>:KeyboardAutoDisable<CR>')
 call AddMapping("<Alt>", "Toggle foldmethod", 'Toggle between foldmethod=marker and foldmethod=indent', '<silent>', '<Alt>f', ':<C-U>ToggleFoldMethod<CR>')
 call AddMapping("<Alt>", "Toggle search match highlighting", 'Toggle search match highlighting', '<silent>', '<Alt>h', ':<C-U>set invhlsearch<CR>')
 call AddMapping("<Alt>", "Toggle case-sensitivity", 'Toggle case-sensitivity', '<silent>', '<Alt>n', ':<C-U>set invignorecase<CR>')
