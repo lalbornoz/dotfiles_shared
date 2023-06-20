@@ -76,9 +76,6 @@
 [submodule ".vim/bundle.nvim/nvim-terminal.lua"]
 	path = .vim/bundle.nvim/nvim-terminal.lua
 	url = https://github.com/norcalli/nvim-terminal.lua
-[submodule ".vim/bundle.nvim/hex.nvim"]
-	path = .vim/bundle.nvim/hex.nvim
-	url = https://github.com/RaafatTurki/hex.nvim
 [submodule ".vim/bundle.nvim/mason.nvim"]
 	path = .vim/bundle.nvim/mason.nvim
 	url = https://github.com/williamboman/mason.nvim
@@ -88,3 +85,6 @@
 [submodule ".vim/bundle.nvim/rosetta.nvim"]
 	path = .vim/bundle.nvim/rosetta.nvim
 	url = https://github.com/mcookly/rosetta.nvim
+[submodule ".vim/bundle/hexmode"]
+	path = .vim/bundle/hexmode
+	url = https://github.com/fidian/hexmode
