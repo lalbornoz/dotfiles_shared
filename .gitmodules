@@ -91,3 +91,6 @@
 [submodule ".vim/bundle.nvim/nvim-treesitter"]
 	path = .vim/bundle.nvim/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule ".vim/bundle.nvim/gruvbox-baby"]
+	path = .vim/bundle.nvim/gruvbox-baby
+	url = https://github.com/luisiacc/gruvbox-baby
