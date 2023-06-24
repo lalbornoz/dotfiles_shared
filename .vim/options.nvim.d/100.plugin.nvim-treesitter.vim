@@ -3,7 +3,21 @@ autocmd VimEnter * :silent TSUpdate
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "bash", "c", "comment", "javascript", "lua", "perl", "python", "query", "vim", "vimdoc" },
+  ensure_installed = {
+    "bash",
+    "c",
+    "comment",
+    "cpp",
+    "gitcommit",
+    "gitignore",
+    "javascript",
+    "lua",
+    "perl",
+    "python",
+    "query",
+    "vim",
+    "vimdoc",
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
