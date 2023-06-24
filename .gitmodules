@@ -91,3 +91,6 @@
 [submodule ".vim/bundle.nvim/gruvbox-baby"]
 	path = .vim/bundle.nvim/gruvbox-baby
 	url = https://github.com/luisiacc/gruvbox-baby
+[submodule ".vim/bundle.nvim/telescope.nvim"]
+	path = .vim/bundle.nvim/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
