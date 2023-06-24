@@ -9,8 +9,6 @@ if has("quickfix")	| set errorformat^=%+G/tmp/%.%# |
 if has("statusline")	| set ruler | set rulerformat=%15(%l,%c%V\ %P%)		| endif
 if !has("nvim")
 if has("syntax")	| syntax on | colors gruvbox | set background=dark	| endif
-else
-if has("syntax")	| syntax on | colors gruvbox-baby | set background=dark	| endif
 endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
