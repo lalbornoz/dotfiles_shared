@@ -88,3 +88,6 @@
 [submodule ".vim/bundle/hexmode"]
 	path = .vim/bundle/hexmode
 	url = https://github.com/fidian/hexmode
+[submodule ".vim/bundle.nvim/nvim-treesitter"]
+	path = .vim/bundle.nvim/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
