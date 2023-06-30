@@ -56,6 +56,8 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+vim.opt.smartindent = false
 EOF
 
 " vim:filetype=lua noexpandtab sw=8 ts=8 tw=0
