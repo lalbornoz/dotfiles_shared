@@ -169,6 +169,7 @@ return {
         { key = 'Copy', mods = 'NONE', action = wezterm.action.DisableDefaultAssignment },
         { key = 'Paste', mods = 'NONE', action = wezterm.action.DisableDefaultAssignment },
         -- }}}
+        { key = 'Enter', mods = 'ALT', action = wezterm.action.ToggleFullScreen },
         { key = 'PageDown', mods = 'SHIFT', action = wezterm.action.ScrollByPage(1) },
         { key = 'PageUp', mods = 'SHIFT', action = wezterm.action.ScrollByPage(-1) },
         { key = '-', mods = 'CTRL', action = wezterm.action.SendKey { key = '_', mods = 'SHIFT|CTRL' } },
