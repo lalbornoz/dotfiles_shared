@@ -290,6 +290,16 @@ return {
                 wezterm.action.SendKey { key = 'c', mods = 'CTRL' },
             }
         },
+        {
+            event = { Down = { streak = 1, button = 'Left' } },
+            mods = 'SHIFT',
+            action = wezterm.action.SelectTextAtMouseCursor('Block'),
+        },
+        {
+            event = { Drag = { streak = 1, button = 'Left' } },
+            mods = 'SHIFT',
+            action = wezterm.action.ExtendSelectionToMouseCursor('Block'),
+        },
         -- }}}
     },
 
