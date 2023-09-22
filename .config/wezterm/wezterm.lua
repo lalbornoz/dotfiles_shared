@@ -255,6 +255,7 @@ return {
 
     mouse_bindings = {
         -- {{{ mouse_bindings {}
+        -- {{{ <CTRL> Wheel{Up,Down}: {in,de}crease font size
         {
             event = { Down = { streak = 1, button = { WheelUp = 1 } } },
             mods = 'CTRL',
@@ -265,6 +266,8 @@ return {
             mods = 'CTRL',
             action = wezterm.action.DecreaseFontSize,
         },
+        -- }}}
+        -- {{{ <SHIFT> Wheel{Up,Down}: scroll {up,down} by 1 page
         {
             event = { Down = { streak = 1, button = { WheelUp = 1 } } },
             mods = 'SHIFT',
@@ -275,6 +278,8 @@ return {
             mods = 'SHIFT',
             action = wezterm.action.SendKey { key = 'PageDown', mods = '' },
         },
+        -- }}}
+        -- {{{ <CTRL> Middle: send <CTRL> a [
         {
             event = { Down = { streak = 1, button = 'Middle' } },
             mods = 'CTRL',
@@ -283,6 +288,8 @@ return {
                 wezterm.action.SendKey { key = '[', mods = '' },
             }
         },
+        -- }}}
+        -- {{{ <SHIFT> Middle: send <CTRL> c
         {
             event = { Down = { streak = 1, button = 'Middle' } },
             mods = 'SHIFT',
@@ -290,6 +297,8 @@ return {
                 wezterm.action.SendKey { key = 'c', mods = 'CTRL' },
             }
         },
+        -- }}}
+        -- {{{ <SHIFT> Left: block select
         {
             event = { Down = { streak = 1, button = 'Left' } },
             mods = 'SHIFT',
@@ -300,6 +309,14 @@ return {
             mods = 'SHIFT',
             action = wezterm.action.ExtendSelectionToMouseCursor('Block'),
         },
+        -- }}}
+        -- {{{ <CTRL> Right: paste from clipboard
+        {
+            event = { Down = { streak = 1, button = 'Right' } },
+            mods = 'CTRL',
+            action = wezterm.action.PasteFrom('Clipboard'),
+        },
+        -- }}}
         -- }}}
     },
 
