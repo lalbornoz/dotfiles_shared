@@ -1,0 +1,25 @@
+include "%L"						# locale specific Compose file (i.e., "/usr/share/X11/locale/<localename>/Compose")
+include "%H/.XCompose.emoji"				# <Multi_key> <e> <m> <o> *
+
+
+<Multi_key> <3> <apostrophe>				: "ʔ"	U0294 # LATIN LETTER GLOTTAL STOP
+<Multi_key> <3> <3>					: "ʕ"	U0295 # LATIN LETTER PHARYNGEAL VOICED FRICATIVE
+<Multi_key> <underscore> <H>				: "Ḫ"	U1E2A # LATIN CAPITAL LETTER H WITH BREVE BELOW
+<Multi_key> <underscore> <h>				: "ḫ"	U1E2B # LATIN SMALL LETTER H WITH BREVE BELOW
+
+#
+# <Multi_key> <e> <m> <o> <c> *
+#
+<Multi_key> <e> <m> <o> <c> <parenright>		: "😺"
+<Multi_key> <e> <m> <o> <c> <D>				: "😸"
+<Multi_key> <e> <m> <o> <c> <apostrophe> <D>		: "😹"
+<Multi_key> <e> <m> <o> <c> <3>				: "😻"
+<Multi_key> <e> <m> <o> <c> <greater>			: "😼"
+<Multi_key> <e> <m> <o> <c> <x>				: "😽"
+<Multi_key> <e> <m> <o> <c> <apostrophe> <parenleft>	: "😿"
+<Multi_key> <e> <m> <o> <c> <parenleft>			: "😾"
+<Multi_key> <e> <m> <o> <c> <a> <a> <a>			: "🙀"
+<Multi_key> <e> <m> <o> <c> <a> <t>			: "🐈"
+<Multi_key> <e> <m> <o> <c> <l>				: "🦁"
+
+# vim:ft=sh
