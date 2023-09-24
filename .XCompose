@@ -1,6 +1,6 @@
 include "%L"			# locale specific Compose file (i.e., "/usr/share/X11/locale/<localename>/Compose")
+# <https://gist.githubusercontent.com/natema/136d4c7a4f3c0ea448b3b2f768831a43/raw/30fc6ce182e447bd9b6ca6ba8b03a1bc9e753061/.XCompose>
 include "%H/.XCompose.emoji"	# <Multi_key> <colon> *
-				# <https://gist.githubusercontent.com/natema/136d4c7a4f3c0ea448b3b2f768831a43/raw/30fc6ce182e447bd9b6ca6ba8b03a1bc9e753061/.XCompose>
 
 <Multi_key> <3> <apostrophe>				: "ʔ"	U0294 # LATIN LETTER GLOTTAL STOP
 <Multi_key> <3> <3>					: "ʕ"	U0295 # LATIN LETTER PHARYNGEAL VOICED FRICATIVE
@@ -21,5 +21,23 @@ include "%H/.XCompose.emoji"	# <Multi_key> <colon> *
 <Multi_key> <colon> <c> <a> <a> <a>			: "🙀"
 <Multi_key> <colon> <c> <a> <t>				: "🐈"
 <Multi_key> <colon> <c> <l>				: "🦁"
+
+#
+# <Multi_key> <colon> <less> <3> *
+#
+<Multi_key> <colon> <less> <3> <r>			: "❤"
+<Multi_key> <colon> <less> <3> <slash>			: "💔"
+<Multi_key> <colon> <less> <3> <g>			: "💚"
+<Multi_key> <colon> <less> <3> <o>			: "🧡"
+<Multi_key> <colon> <less> <3> <y>			: "💛"
+<Multi_key> <colon> <less> <3> <p>			: "💜"
+<Multi_key> <colon> <less> <3> <greater>		: "💓"
+<Multi_key> <colon> <less> <3> <less>			: "💘"
+<Multi_key> <colon> <less> <3> <equal>			: "💗"
+<Multi_key> <colon> <less> <3> <b>			: "💙"
+<Multi_key> <colon> <less> <3> <c>			: "🩵"
+<Multi_key> <colon> <less> <3> <w>			: "🤍"
+<Multi_key> <colon> <less> <3> <b>			: "🖤"
+<Multi_key> <colon> <less> <3> <B>			: "🤎"
 
 # vim:ft=sh
