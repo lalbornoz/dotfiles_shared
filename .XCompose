@@ -7,6 +7,8 @@ include "%H/.XCompose.emoji"	# <Multi_key> <colon> *
 <Multi_key> <underscore> <H>				: "Ḫ"	U1E2A # LATIN CAPITAL LETTER H WITH BREVE BELOW
 <Multi_key> <underscore> <h>				: "ḫ"	U1E2B # LATIN SMALL LETTER H WITH BREVE BELOW
 
+<Multi_key> <colon> <r> <i> <p>				: "💀"
+
 #
 # <Multi_key> <colon> <c> *
 #
