@@ -1,5 +1,3 @@
-include "%L"
-
 # Emoji
 # http://unicode.org/emoji/charts/full-emoji-list.html
 
@@ -83,4 +81,4 @@ include "%L"
 <Multi_key> <colon> <w> <o> <o>                        : "🎉"
 
 <Multi_key> <colon> <b> <i> <k>                        : "🚴"
-<Multi_key> <colon> <b> <o> <o>                        : "📙"
+<Multi_key> <colon> <b> <o> <k>                        : "📙"
