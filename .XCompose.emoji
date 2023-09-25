@@ -30,7 +30,7 @@
 <Multi_key> <colon> <x> <parenleft>                    : "😣"
 <Multi_key> <colon> <apostrophe> <colon> <parenleft>   : "😥"
 <Multi_key> <colon> <colon> <o>                        : "😮"
-<Multi_key> <colon> <colon> <numbersing>               : "🤐"
+<Multi_key> <colon> <colon> <numbersign>               : "🤐"
 <Multi_key> <colon> <colon> <O>                        : "😯"
 # missing 😪, 😫
 <Multi_key> <colon> <z> <z> <z>                        : "😴"
@@ -45,7 +45,7 @@
 <Multi_key> <colon> <colon> <Down>                     : "😔"
 <Multi_key> <colon> <colon> <slash>                    : "😕"
 <Multi_key> <colon> <parenleft> <colon>                : "🙃"
-<Multi_key> <colon> <colon> <$>                        : "🤑"
+<Multi_key> <colon> <colon> <dollar>                   : "🤑"
 <Multi_key> <colon> <w> <o> <w>                        : "😲"
 <Multi_key> <colon> <d> <colon>                        : "☹"
 <Multi_key> <colon> <colon> <parenleft>                : "🙁"
