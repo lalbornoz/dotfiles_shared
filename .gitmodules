@@ -81,7 +81,7 @@
 	url = https://github.com/folke/edgy.nvim
 [submodule ".vim/bundle.nvim/rosetta.nvim"]
 	path = .vim/bundle.nvim/rosetta.nvim
-	url = https://github.com/mcookly/rosetta.nvim
+	url = https://github.com/lalbornoz/rosetta.nvim
 [submodule ".vim/bundle/hexmode"]
 	path = .vim/bundle/hexmode
 	url = https://github.com/fidian/hexmode
