@@ -98,6 +98,9 @@ include "%L"			# locale specific Compose file (i.e., "/usr/share/X11/locale/<loc
 <Multi_key> <colon> <r> <i> <p>				: "💀"
 
 <Multi_key> <colon> <o> <underscore> <O>		: "🤨"
+
+<Multi_key> <colon> <n> <o> <t> <e> <1>			: "🎵"
+<Multi_key> <colon> <n> <o> <t> <e> <2>			: "🎶"
 # }}}
 # {{{ <Multi_key> <colon> <c> *: feline emojis
 <Multi_key> <colon> <c> <parenright>			: "😺"
