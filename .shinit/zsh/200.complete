@@ -2,10 +2,10 @@
 # Zsh completion system commands and styles
 #
 
-autoload -U compinit;		# {auto,zmod}load(1) the Zsh completion system
-zmodload zsh/complist;		# (zshcompsys(1)) aswell as additional completion
-compinit -d "$HOME/.zcompdump";	# listing methods and initialise the former from
-				# previously dumped configuration
+autoload -U compinit;				# {auto,zmod}load(1) the Zsh completion system
+zmodload zsh/complist;				# (zshcompsys(1)) aswell as additional completion
+compinit -d "$HOME/.zcompdump" >/dev/null;	# listing methods and initialise the former from
+						# previously dumped configuration
 
 zstyle ':completion:*' completer _complete;
 zstyle ':completion:*' list-colors "";

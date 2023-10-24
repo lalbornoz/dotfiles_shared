@@ -52,8 +52,11 @@ fi
 # details.)
 #
 
+IFS0="${IFS}"; IFS="
+";
 _SCRIPTS="${HOME}/.shinit/common"                        # common/minimal set
-_SCRIPTS="${_SCRIPTS} ${_SHELL:+${HOME}/.shinit/${_SHELL}}"  # shell-specific
+_SCRIPTS="${_SCRIPTS}
+${_SHELL:+${HOME}/.shinit/${_SHELL}}"  # shell-specific
 for _DIR in ${_SCRIPTS}
 do
 	[ -x "${_DIR}" ] && {
@@ -61,6 +64,7 @@ do
 			[ -r "${_SCRIPT}" ] && { . "${_SCRIPT}" ; }; done
 	};
 done
+IFS="${IFS0}"; unset IFS0;
 
 #
 # Source the generic login script in case of a login shell
