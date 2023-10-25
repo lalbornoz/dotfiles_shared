@@ -34,11 +34,11 @@ endif
 call AddSeparator("Project")
 call AddMapping("Project", "Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>')
 if has('nvim')
-call AddMapping("Project", "Go to next diagnostic", "Go to next diagnostic in file", "<silent>", '<Alt><F5>', '<Cmd>lua vim.diagnostic.goto_next()<CR>')
-call AddMapping("Project", "Go to previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<Alt><Shift><F5>', '<Cmd>lua vim.diagnostic.goto_prev()<CR>')
+call AddMapping("Project", "Go to next diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', '<Cmd>lua vim.diagnostic.goto_next()<CR>')
+call AddMapping("Project", "Go to previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev()<CR>')
 else
-call AddMapping("Project", "Go to next diagnostic", "Go to next diagnostic in file", "<silent>", '<Alt><F5>', ':<C-U>LspNextDiagnostic<CR>')
-call AddMapping("Project", "Go to previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<Alt><Shift><F5>', ':<C-U>LspPreviousDiagnostic<CR>')
+call AddMapping("Project", "Go to next diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', ':<C-U>LspNextDiagnostic<CR>')
+call AddMapping("Project", "Go to previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', ':<C-U>LspPreviousDiagnostic<CR>')
 endif
 call AddSeparator("Project")
 call AddMapping("Project", "Display manual page...", "Display manual page...", '', '<F6>', ':<C-U>Man ')
