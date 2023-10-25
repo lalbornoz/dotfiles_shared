@@ -12,7 +12,7 @@ lua << EOF
 		sections = { "git", "diagnostics", "symbols", },
 		side = "left",
 		symbols = { icon = "ƒ", },
-		update_interval = 1000,
+		update_interval = 100,
 	})
 
 	local git = require("sidebar-nvim.builtin.git")
