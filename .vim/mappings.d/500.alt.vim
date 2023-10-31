@@ -7,6 +7,7 @@ call AddMapping("<Alt>", "Set mark x", "Set mark x at cursor position", "<silent
 call AddMapping("<Alt>", "Execute register q", "Execute contents of register q", "<silent>", '<Alt>@', ':normal! @q<CR>')
 call AddMapping("<Alt>", "Jump to mark x", "Jump to mark x in the current buffer", "<silent>", '<Alt>~', "'x")
 call AddMapping("<Alt>", "Open C/C++ source module header", "Open C/C++ source module header", '<silent>', '<Alt>H', ':<C-U>COpenHeader<CR>')
+call AddMapping("<Alt>", "Edit file under cursor", "Edit the file whose name is under or after the cursor", '<silent>', '<Alt>J', 'gf<CR>')
 call AddSeparator("<Alt>")
 call AddMapping("<Alt>", "Decrement number", "Decrement number under cursor", '<silent>', '<Alt>-', '<C-X>')
 call AddMapping("<Alt>", "Increment number", "Increment number under cursor", '<silent>', '<Alt>=', '<C-A>')
