@@ -34,7 +34,11 @@ call AddMapping("File", "Open terminal...", "Open a new terminal window", "<sile
 call AddMapping("File", "Open terminal tab...", "Open a new terminal tab", '', '<S-F11>', ':<C-U>tab terminal<CR>')
 endif
 call AddSeparator("File")
-call AddMapping("File", "Toggle NerdTree", "Toggle NerdTree window", "<silent>", '<F12>', ':<C-U>NERDTreeToggle<CR>')
+if has('nvim')
+call AddMapping("File", "Toggle nvim-tree", "Toggle nvim-tree window", "<silent>", '<F12>', ':<C-U>NvimTreeToggle<CR>')
+else
+call AddMapping("File", "Toggle NERDTree", "Toggle NERDTree window", "<silent>", '<F12>', ':<C-U>NERDTreeToggle<CR>')
+endif
 if has('nvim')
 call AddMapping("File", "Toggle sidebar", "Toggle sidebar", "<silent>", '<Ctrl><F12>', ':lua require("sidebar-nvim").toggle({focus=true})<CR>')
 call AddMapping("File", "Telescope files...", "Telescope files...", "<silent>", '<S-F12>', ':lua require("telescope").extensions.menufacture.find_files()<CR>')
