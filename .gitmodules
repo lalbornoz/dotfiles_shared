@@ -94,3 +94,6 @@
 [submodule ".vim/bundle.nvim/telescope.nvim"]
 	path = .vim/bundle.nvim/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim
+[submodule ".vim/bundle.nvim/nvim-tree.lua"]
+	path = .vim/bundle.nvim/nvim-tree.lua
+	url = https://github.com/nvim-tree/nvim-tree.lua
