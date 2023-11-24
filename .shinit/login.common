@@ -29,6 +29,27 @@ _lc_which faillog && [ -r /var/log/faillog ] && faillog;
 # Force sane stty settings.
 _lc_which stty && stty sane;
 
+#
+# Eval/run ssh-pageant(1) and eval ~/.ssh/agent.env on Cygwin
+_lc_ssh_pageant() {
+	if [ -e "${HOME}/.ssh/agent.env" ]; then
+		. "${HOME}/.ssh/agent.env";
+		if ! [ -d "/proc/${SSH_PAGEANT_PID:--1}/" ]; then
+			rm -f "${HOME}/.ssh/agent.env";
+			ssh-pageant > "${HOME}/.ssh/agent.env";
+			. "${HOME}/.ssh/agent.env";
+		fi;
+	fi;
+};
+
+if _lc_which uname	\
+&& [ "$(uname -o 2>/dev/null)" = "Cygwin" ]; then
+	_lc_ssh_pageant;
+fi;
+
+unset -f _lc_ssh_pageant;
+
+
 unset -f _lc_which;
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
