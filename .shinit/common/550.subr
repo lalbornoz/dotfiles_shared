@@ -2,6 +2,9 @@
 # Common platform-independent subroutines
 #
 
+if _shinit_which fzf; then
+	rfzf() { local _cmd="${1}" _pname="$(fzf)"; shift; "${_cmd}" "${@}" "${_pname}"; };
+fi;
 if _shinit_which diff; then
 	mdiff() { for _fname in "$@"; do diff -Nru "${_fname}.orig" "${_fname}"; done };
 fi;
