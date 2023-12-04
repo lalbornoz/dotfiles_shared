@@ -33,12 +33,12 @@ _lc_which stty && stty sane;
 # Eval/run ssh-pageant(1) and eval ~/.ssh/agent.env on Cygwin
 _lc_ssh_pageant() {
 	if [ -e "${HOME}/.ssh/agent.env" ]; then
-		. "${HOME}/.ssh/agent.env";
+		. "${HOME}/.ssh/agent.env" >/dev/null;
 		if ! [ -d "/proc/${SSH_PAGEANT_PID:--1}/" ]; then
 			rm -f "${HOME}/.ssh/agent.env";
 			ssh-pageant > "${HOME}/.ssh/agent.env";
-			. "${HOME}/.ssh/agent.env";
 		fi;
+		. "${HOME}/.ssh/agent.env";
 	fi;
 };
 
