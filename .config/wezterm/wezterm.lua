@@ -3,6 +3,7 @@ local wezterm = require "wezterm"
 return {
     bidi_enabled = false,
     check_for_updates = false,
+    font_size = 14,
     max_fps = 60,
 
     -- {{{ background {}
