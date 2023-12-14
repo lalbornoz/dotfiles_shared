@@ -9,6 +9,11 @@ include "%L"			# locale specific Compose file (i.e., "/usr/share/X11/locale/<loc
 <Multi_key> <underscore> <D>				: "Ḏ"   U1E6E # LATIN CAPITAL LETTER D WITH LINE BELOW
 <Multi_key> <underscore> <d>				: "ḏ"   U1E6F # LATIN SMALL LETTER D WITH LINE BELOW
 
+<Multi_key> <Left> <Left>				: "←" leftarrow
+<Multi_key> <Up> <Up>					: "↑" uparrow
+<Multi_key> <Right> <Right>				: "→" rightarrow
+<Multi_key> <Down> <Down>				: "↓" downarrow
+
 # {{{ <Multi> <colon> *: emojis
 # (based on <https://gist.githubusercontent.com/natema/136d4c7a4f3c0ea448b3b2f768831a43/raw/30fc6ce182e447bd9b6ca6ba8b03a1bc9e753061/.XCompose>)
 
