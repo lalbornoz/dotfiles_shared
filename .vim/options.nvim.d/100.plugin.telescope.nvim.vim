@@ -36,7 +36,7 @@ telescope.setup {
 	extensions = {
 		menufacture = {
 			mappings = {
-				main_menu = { [{ 'i', 'n' }] = '<C-m>' },
+				main_menu = { [{ 'i', 'n' }] = '<C-n>' },
 			},
 		},
 	},
