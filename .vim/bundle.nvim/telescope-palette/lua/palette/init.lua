@@ -1,3 +1,7 @@
+--
+-- Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
+--
+
 local palette = {}
 palette.config = {}
 
