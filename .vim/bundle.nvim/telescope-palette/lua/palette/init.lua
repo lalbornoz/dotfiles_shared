@@ -91,6 +91,8 @@ palette.palette = function(opts)
         if not (selection == nil) then
           if selection.rhs:sub(1, 1) == ':' then
             vim.cmd(tostring(selection.rhs:gsub('^:', ''):gsub('<C%-U>', ''):gsub('<CR>$', '')))
+          elseif selection.rhs:sub(1, 5) == '<Cmd>' then
+            vim.cmd(tostring(selection.rhs:gsub('^<Cmd>', ''):gsub('<CR>$', '')))
           else
             vim.cmd.normal(selection.rhs)
           end
