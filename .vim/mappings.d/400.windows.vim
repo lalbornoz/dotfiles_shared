@@ -10,7 +10,9 @@ call AddMapping("Windows", "Split window", "Split current window in two", "<sile
 call AddSeparator("Windows")
 call AddMapping("Windows", "QuickFix window...", "Toggle the QuickFix window given recognised errors", "<silent>", '<Alt><F8>', ':<C-U>ToggleQuickFix<CR>')
 call AddMapping("Windows", "QuickUI menu...", "Open QuickUI menu", '<silent>', '<Alt>m', ':<C-U>call quickui#menu#open()<CR>')
+if has('nvim')
 call AddMapping("Windows", "Command palette...", "Command palette", '<silent>', '<Ctrl>p', ':<C-U>Telescope palette<CR>')
+endif
 call AddSeparator("Windows")
 call AddMapping("Windows", "Decrease window height", "Decrease current window height by 3", "<silent>", '<Alt><Shift><Down>', ':<C-U>resize -3<CR>')
 call AddMapping("Windows", "Increase window height", "Increase current window height by 3", "<silent>", '<Alt><Shift><Up>', ':<C-U>resize +3<CR>')
