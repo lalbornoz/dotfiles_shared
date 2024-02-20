@@ -1,5 +1,5 @@
-local mappings = {}
-mappings.config = {}
+local palette = {}
+palette.config = {}
 
 local has_telescope, telescope = pcall(require, 'telescope')
 if not has_telescope then
@@ -78,13 +78,13 @@ function spairs(t, order)
 end
 -- }}}
 
-mappings.mappings = function(opts)
+palette.palette = function(opts)
   menu_keys = get_menu_keys()
   opts = opts or {}
 
   pickers.new(opts, {
-    -- {{{ attach_mappings = ...
-    attach_mappings = function(_, map)
+    -- {{{ attach_palette = ...
+    attach_palette = function(_, map)
       actions.select_default:replace(function(prompt_bufnr)
         local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
@@ -127,10 +127,10 @@ mappings.mappings = function(opts)
     sorter = conf.generic_sorter(opts),
     -- }}}
 
-    prompt_title = "Mappings",
+    results_title = "Command palette",
   }):find()
 end
 
-return mappings
+return palette
 
 -- vim:expandtab sw=2 ts=2
