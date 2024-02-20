@@ -1,13 +1,13 @@
-local mappings = require('mappings')
+local palette = require('palette')
 
 return require('telescope').register_extension {
   exports = {
-    mappings = mappings.mappings
+    palette = palette.palette
   },
 
   setup = function(ext_config, _config)
     for k, v in pairs(ext_config) do
-      mappings.config[k] = v
+      palette.config[k] = v
     end
   end,
 }

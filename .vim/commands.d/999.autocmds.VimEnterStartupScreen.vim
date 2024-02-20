@@ -70,7 +70,7 @@ fun! VimEnterStartupScreen()
 	\ '[40m[37m[40m[37m    [100m[90m [0m[97m [0m[37m [100m[90m [0m[37m    [103m[30m\[103m[33m  [103m[30mb[103m[33m   [103m[30m)___|[103m[33m [103m[30m|[0m[37m       [0m[93m▜[103m[30m\ rie ) [103m[36m▒[103m[30m_|[103m[33m [103m[30m|[0m[93m▙ [0m[36m▒[0m[37m        [47m[37m [0m[37m  [47m[37m [0m[0m',
 	\ '[40m[37m[40m[37m    [100m[90m [0m[97m  [100m[90m [0m[37m   [103m[30m(_____/__)))))))[0m[37m       [103m[30m([4m     /  ))))))[24m[0m[37m         [47m[37m [0m[37m  [47m[37m [0m[0m',
 	\ '',
-	\ '    Press <Alt>m for mappings menu, <Alt>F to search mappings']
+	\ '    Press <Alt>m for mappings menu, <Ctrl>p for command palette']
 	" }}}
 
 	"
