@@ -35,6 +35,7 @@ function get_menu_keys()
           lhs = item["lhs"],
           menu = menu,
           ordinal = item["title"],
+          rhs = item["rhs"],
           title = item["title"],
           value = nil,
         }
@@ -76,13 +77,13 @@ palette.palette = function(opts)
   opts = opts or {}
 
   pickers.new(opts, {
-    -- {{{ attach_palette = ...
-    attach_palette = function(_, map)
+    -- {{{ attach_mappings = ...
+    attach_mappings = function(_, map)
       actions.select_default:replace(function(prompt_bufnr)
         local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
         if not (selection == nil) then
-          print(selection.lhs)
+          vim.cmd.normal(selection.rhs)
         end
       end)
       return true
