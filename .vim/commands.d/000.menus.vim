@@ -4,9 +4,21 @@
 
 let g:menus = {}
 
-" {{{ fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs, pseudofl)
-fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs, pseudofl)
-	let l:map_line = [a:type]
+" {{{ fun! AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
+fun! AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
+	if a:mode == "insert"
+		let l:map_line = ["inoremap"]
+	elseif a:mode == "normal"
+		let l:map_line = ["nnoremap"]
+	elseif a:mode == "nvo"
+		let l:map_line = ["noremap"]
+	elseif a:mode == "terminal"
+		let l:map_line = ["tnoremap"]
+	elseif a:mode == "visual"
+		let l:map_line = ["vnoremap"]
+	else
+		echoerr "Invalid mode " . a:mode . " for mapping: " . lhs
+	endif
 
 	let lhs_map = a:lhs
 	if has('nvim') || has('gui_running')
@@ -45,6 +57,7 @@ fun! AddMapping_(noaddfl, menu, title, type, descr, silent, lhs, rhs, pseudofl)
 		let g:menus[a:menu]['items'] += [{
 			\ 'descr': l:descr,
 			\ 'lhs': a:lhs,
+			\ 'mode': a:mode,
 			\ 'rhs': a:rhs,
 			\ 'silent': a:silent,
 			\ 'title': a:title,
@@ -60,33 +73,33 @@ endfun
 
 " {{{ fun! AddMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! AddMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return AddMapping_(0, a:menu, a:title, 'noremap', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return AddMapping_(0, a:menu, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
 endfun
 " }}}
 " {{{ fun! AddIMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! AddIMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return AddMapping_(0, a:menu, a:title, 'inoremap', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return AddMapping_(0, a:menu, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
 endfun
 " }}}
 " {{{ fun! AddINVOMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! AddINVOMapping(menu, title, descr, silent, lhs, rhs, ...)
-	call AddMapping_(0, a:menu, a:title, 'noremap', a:descr, a:silent, a:lhs, a:rhs)
-	return AddMapping_(1, a:menu, a:title, 'inoremap', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	call AddMapping_(0, a:menu, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs)
+	return AddMapping_(1, a:menu, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
 endfun
 " }}}
 " {{{ fun! AddNMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! AddNMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return AddMapping_(0, a:menu, a:title, 'nnoremap', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return AddMapping_(0, a:menu, a:title, 'normal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
 endfun
 " }}}
 " {{{ fun! AddTMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! AddTMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return AddMapping_(0, a:menu, a:title, 'tnoremap', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return AddMapping_(0, a:menu, a:title, 'terminal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
 endfun
 " }}}
 " {{{ fun! AddVMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! AddVMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return AddMapping_(0, a:menu, a:title, 'vnoremap', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return AddMapping_(0, a:menu, a:title, 'visual', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
 endfun
 " }}}
 " {{{ fun! AddMenu(title, priority)

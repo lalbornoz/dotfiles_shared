@@ -34,6 +34,7 @@ function get_menu_keys()
           display = menu .. ": " .. item["title"],
           lhs = item["lhs"],
           menu = menu,
+          mode = item["mode"],
           ordinal = item["title"],
           rhs = item["rhs"],
           title = item["title"],
@@ -71,6 +72,11 @@ function spairs(t, order)
   end
 end
 -- }}}
+-- {{{ function toTitle(str)
+function toTitle(str)
+  return (str:gsub("^%l", string.upper))
+end
+-- }}}
 
 palette.palette = function(opts)
   menu_keys = get_menu_keys()
@@ -83,7 +89,11 @@ palette.palette = function(opts)
         local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
         if not (selection == nil) then
-          vim.cmd.normal(selection.rhs)
+          if selection.rhs:sub(1, 1) == ':' then
+            vim.cmd(tostring(selection.rhs:gsub('^:', ''):gsub('<C%-U>', ''):gsub('<CR>$', '')))
+          else
+            vim.cmd.normal(selection.rhs)
+          end
         end
       end)
       return true
@@ -111,6 +121,12 @@ palette.palette = function(opts)
             "",
             "Mapping:",
             entry.lhs,
+            "",
+            "Right-hand side:",
+            entry.rhs,
+            "",
+            "Mode:",
+            toTitle((entry.mode == "nvo") and ("Normal, Visual, Operator-pending") or entry.mode),
           }
         end
         vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
@@ -128,3 +144,4 @@ end
 return palette
 
 -- vim:expandtab sw=2 ts=2
+
