@@ -19,6 +19,8 @@ fun! VESSAppendBufCentred(lines)
 
 	let center_w = (buf_w - lines_w) / 2
 	let center_h = (buf_h - lines_h) / 2
+	let center_w = (center_w > 0) ? center_w : 0
+	let center_h = (center_h > 0) ? center_h : 0
 
 	for line in range(center_h)
 	    call append('$', '')
@@ -53,6 +55,7 @@ fun! VimEnterStartupScreen()
 		\ norelativenumber
 
 	" {{{ let lines = [...]
+	if has("nvim")
 	let lines = [
 	\ '[40m[37m[40m[37m      [46m[36m [0m[0m',
 	\ '[40m[37m[40m[37m     [46m[36m   [0m[0m',
@@ -71,6 +74,10 @@ fun! VimEnterStartupScreen()
 	\ '[40m[37m[40m[37m    [100m[90m [0m[97m  [100m[90m [0m[37m   [103m[30m(_____/__)))))))[0m[37m       [103m[30m([4m     /  ))))))[24m[0m[37m         [47m[37m [0m[37m  [47m[37m [0m[0m',
 	\ '',
 	\ '    Press <Alt>m for mappings menu, <Ctrl>p for command palette']
+	else
+	let lines = [
+	\ '    Press <Alt>m for mappings menu']
+	endif
 	" }}}
 
 	"
