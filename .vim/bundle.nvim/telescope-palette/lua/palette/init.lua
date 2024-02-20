@@ -26,23 +26,12 @@ function get_menu_keys()
     return t[b]["priority"] > t[a]["priority"]
   end
   for menu, _ in spairs(vim.g.menus, order_fn) do
-    n = n + 1
-    menu_keys[n] = {
-      descr = nil,
-      display = string.upper(menu) .. ":",
-      lhs = nil,
-      menu = menu,
-      ordinal = string.upper(menu) .. ":",
-      title = string.upper(menu) .. ":",
-      value = nil,
-    }
-
     for _, item in pairs(vim.g.menus[menu]["items"]) do
       if not (item["title"] == "--") then
         n = n + 1
         menu_keys[n] = {
           descr = item["descr"],
-          display = item["title"],
+          display = menu .. ": " .. item["title"],
           lhs = item["lhs"],
           menu = menu,
           ordinal = item["title"],
