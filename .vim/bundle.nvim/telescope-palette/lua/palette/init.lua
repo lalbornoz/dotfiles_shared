@@ -113,22 +113,23 @@ palette.palette = function(opts)
         local lines = {}
         if not (entry.lhs == nil) then
           lines = {
-            "Menu:",
+            "[1mMenu[0m:",
             entry.menu,
             "",
-            "Description:",
+            "[1mDescription[0m:",
             entry.descr,
             "",
-            "Mapping:",
+            "[1mMapping[0m:",
             entry.lhs,
             "",
-            "Right-hand side:",
+            "[1mRight-hand side[0m:",
             entry.rhs,
             "",
-            "Mode:",
+            "[1mMode[0m:",
             toTitle((entry.mode == "nvo") and ("Normal, Visual, Operator-pending") or entry.mode),
           }
         end
+        vim.api.nvim_buf_set_option(self.state.bufnr, "filetype", "terminal")
         vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
       end,
     },
