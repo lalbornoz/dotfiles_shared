@@ -100,3 +100,6 @@
 [submodule ".vim/bundle.nvim/workspaces.nvim"]
 	path = .vim/bundle.nvim/workspaces.nvim
 	url = https://github.com/natecraddock/workspaces.nvim
+[submodule ".vim/bundle.nvim/nvim-spectre"]
+	path = .vim/bundle.nvim/nvim-spectre
+	url = https://github.com/nvim-pack/nvim-spectre
