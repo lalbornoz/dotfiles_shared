@@ -97,3 +97,6 @@
 [submodule ".vim/bundle.nvim/nvim-tree.lua"]
 	path = .vim/bundle.nvim/nvim-tree.lua
 	url = https://github.com/nvim-tree/nvim-tree.lua
+[submodule ".vim/bundle.nvim/workspaces.nvim"]
+	path = .vim/bundle.nvim/workspaces.nvim
+	url = https://github.com/natecraddock/workspaces.nvim
