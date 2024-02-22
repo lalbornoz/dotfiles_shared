@@ -34,6 +34,9 @@ endif
 call AddSeparator("Project")
 call AddMapping("Project", "Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>')
 if has('nvim')
+call AddMapping("Project", "Add workspace...", "Add workspace from current path", "<silent>", '<S-F5>', ':<C-U>WorkspacesAddDir<CR>')
+call AddMapping("Project", "Remove workspace...", "Remove workspace at current path", "<silent>", '<Alt><F5>', ':<C-U>WorkspacesRemoveDir<CR>')
+call AddMapping("Project", "Rename workspace...", "Rename workspace", "<silent>", '<Ctrl><F5>', ':<C-U>WorkspacesRename ')
 call AddMapping("Project", "Go to next diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', '<Cmd>lua vim.diagnostic.goto_next()<CR>')
 call AddMapping("Project", "Go to previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev()<CR>')
 else

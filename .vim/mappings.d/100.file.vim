@@ -43,6 +43,7 @@ if has('nvim')
 call AddMapping("File", "Toggle sidebar", "Toggle sidebar", "<silent>", '<Ctrl><F12>', ':lua require("sidebar-nvim").toggle({focus=true})<CR>')
 call AddMapping("File", "Telescope files...", "Telescope files...", "<silent>", '<S-F12>', ':lua require("telescope").extensions.menufacture.find_files()<CR>')
 call AddMapping("File", "Telescope buffers...", "Telescope buffers...", "<silent>", '<Alt><F12>', ':lua require("telescope.builtin").buffers()<CR>')
+call AddMapping("File", "Telescope workspaces...", "Telescope workspaces...", "<silent>", '<Ctrl><S-F12>', ':Telescope workspaces<CR>')
 endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
