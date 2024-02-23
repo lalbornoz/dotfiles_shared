@@ -88,15 +88,7 @@ palette.palette = function(opts)
       actions.select_default:replace(function(prompt_bufnr)
         local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
-        if not (selection == nil) then
-          if selection.rhs:sub(1, 1) == ':' then
-            vim.cmd(tostring(selection.rhs:gsub('^:', ''):gsub('<C%-U>', ''):gsub('<CR>$', '')))
-          elseif selection.rhs:sub(1, 5) == '<Cmd>' then
-            vim.cmd(tostring(selection.rhs:gsub('^<Cmd>', ''):gsub('<CR>$', '')))
-          else
-            vim.cmd.normal(selection.rhs)
-          end
-        end
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes(selection.lhs, true, true, true))
       end)
       return true
     end,
