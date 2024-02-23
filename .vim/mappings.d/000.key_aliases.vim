@@ -1,10 +1,8 @@
 "
-" [Mappings] Key aliases (assuming XTerm-compatible terminal)
+" [Mappings] Legacy non-GUI Vim key aliases (assuming XTerm-compatible terminal)
 "
 
 if !has('nvim') && !has('gui_running')
-
-map <Esc>[1;5Z		<Ctrl><Shift><Tab>
 
 " {{{ <https://github.com/vim/vim/issues/9009>
 " Enable modified arrow keys, see  :help xterm-modifier-keys
@@ -13,41 +11,43 @@ execute "silent! set <xDown>=\<Esc>[@;*B"
 execute "silent! set <xRight>=\<Esc>[@;*C"
 execute "silent! set <xLeft>=\<Esc>[@;*D"
 " }}}
-" {{{ Cursor keys w/ modifiers
-map <Esc>[1;2A		<Shift><Up>
-map <Esc>[1;2B		<Shift><Down>
-map <Esc>[1;2C		<Shift><Right>
-map <Esc>[1;2D		<Shift><Left>
 
-map <Esc>[1;3A		<Alt><Up>
-map <Esc>[1;3B		<Alt><Down>
-map <Esc>[1;3C		<Alt><Right>
-map <Esc>[1;3D		<Alt><Left>
+" {{{ <Shift> cursor keys w/ modifiers
+map <Esc>[1;2A		<S-Up>
+map <Esc>[1;2B		<S-Down>
+map <Esc>[1;2C		<S-Right>
+map <Esc>[1;2D		<S-Left>
+" }}}
+" {{{ <Alt>, <Alt><Shift> cursor keys w/ modifiers
+map <Esc>[1;3A		<M-Up>
+map <Esc>[1;3B		<M-Down>
+map <Esc>[1;3C		<M-Right>
+map <Esc>[1;3D		<M-Left>
+map <Esc>[1;4A		<M-S-Up>
+map <Esc>[1;4B		<M-S-Down>
+map <Esc>[1;4C		<M-S-Right>
+map <Esc>[1;4D		<M-S-Left>
+" }}}
+" {{{ <Ctrl>, <Ctrl><Shift> cursor keys w/ modifiers
+map <Esc>[1;5A		<C-Up>
+map <Esc>[1;5B		<C-Down>
+map <Esc>[1;5C		<C-Right>
+map <Esc>[1;5D		<C-Left>
+map <Esc>[1;6A		<C-S-Up>
+map <Esc>[1;6B		<C-S-Down>
+map <Esc>[1;6C		<C-S-Right>
+map <Esc>[1;6D		<C-S-Left>
+" }}}
+" {{{ <Ctrl><Alt>, <Ctrl><Alt><Shift> cursor keys w/ modifiers
+map <Esc>[1;7A		<M-C-Up>
+map <Esc>[1;7B		<M-C-Down>
+map <Esc>[1;7C		<M-C-Right>
+map <Esc>[1;7D		<M-C-Left>
 
-map <Esc>[1;4A		<Alt><Shift><Up>
-map <Esc>[1;4B		<Alt><Shift><Down>
-map <Esc>[1;4C		<Alt><Shift><Right>
-map <Esc>[1;4D		<Alt><Shift><Left>
-
-map <Esc>[1;5A		<Ctrl><Up>
-map <Esc>[1;5B		<Ctrl><Down>
-map <Esc>[1;5C		<Ctrl><Right>
-map <Esc>[1;5D		<Ctrl><Left>
-
-map <Esc>[1;6A		<Ctrl><Shift><Up>
-map <Esc>[1;6B		<Ctrl><Shift><Down>
-map <Esc>[1;6C		<Ctrl><Shift><Right>
-map <Esc>[1;6D		<Ctrl><Shift><Left>
-
-map <Esc>[1;7A		<Ctrl><Alt><Up>
-map <Esc>[1;7B		<Ctrl><Alt><Down>
-map <Esc>[1;7C		<Ctrl><Alt><Right>
-map <Esc>[1;7D		<Ctrl><Alt><Left>
-
-map <Esc>[1;8A		<Ctrl><Alt><Shift><Up>
-map <Esc>[1;8B		<Ctrl><Alt><Shift><Down>
-map <Esc>[1;8C		<Ctrl><Alt><Shift><Right>
-map <Esc>[1;8D		<Ctrl><Alt><Shift><Left>
+map <Esc>[1;8A		<M-C-S-Up>
+map <Esc>[1;8B		<M-C-S-Down>
+map <Esc>[1;8C		<M-C-S-Right>
+map <Esc>[1;8D		<M-C-S-Left>
 " }}}
 
 " {{{ Function key pseudo-mappings
@@ -79,61 +79,63 @@ map <Esc>[23;2~		<S-F11>
 map <Esc>[24;2~		<S-F12>
 " }}}
 " {{{ <Alt> function key pseudo-mappings
-map <Esc>[1;3P		<Alt><F1>
-map <Esc>[1;3Q		<Alt><F2>
-map <Esc>[1;3R		<Alt><F3>
-map <Esc>[1;3S		<Alt><F4>
-map <Esc>[15;3~		<Alt><F5>
-map <Esc>[17;3~		<Alt><F6>
-map <Esc>[18;3~		<Alt><F7>
-map <Esc>[19;3~		<Alt><F8>
-map <Esc>[20;3~		<Alt><F9>
-map <Esc>[21;3~		<Alt><F10>
-map <Esc>[23;3~		<Alt><F11>
-map <Esc>[24;3~		<Alt><F12>
+map <Esc>[1;3P		<M-F1>
+map <Esc>[1;3Q		<M-F2>
+map <Esc>[1;3R		<M-F3>
+map <Esc>[1;3S		<M-F4>
+map <Esc>[15;3~		<M-F5>
+map <Esc>[17;3~		<M-F6>
+map <Esc>[18;3~		<M-F7>
+map <Esc>[19;3~		<M-F8>
+map <Esc>[20;3~		<M-F9>
+map <Esc>[21;3~		<M-F10>
+map <Esc>[23;3~		<M-F11>
+map <Esc>[24;3~		<M-F12>
 " }}}
 " {{{ <Alt><Shift> function key pseudo-mappings
-map <Esc>[1;4P		<Alt><Shift><F1>
-map <Esc>[1;4Q		<Alt><Shift><F2>
-map <Esc>[1;4R		<Alt><Shift><F3>
-map <Esc>[1;4S		<Alt><Shift><F4>
-map <Esc>[15;4~		<Alt><Shift><F5>
-map <Esc>[17;4~		<Alt><Shift><F6>
-map <Esc>[18;4~		<Alt><Shift><F7>
-map <Esc>[19;4~		<Alt><Shift><F8>
-map <Esc>[20;4~		<Alt><Shift><F9>
-map <Esc>[21;4~		<Alt><Shift><F10>
-map <Esc>[23;4~		<Alt><Shift><F11>
-map <Esc>[24;4~		<Alt><Shift><F12>
+map <Esc>[1;4P		<M-S-F1>
+map <Esc>[1;4Q		<M-S-F2>
+map <Esc>[1;4R		<M-S-F3>
+map <Esc>[1;4S		<M-S-F4>
+map <Esc>[15;4~		<M-S-F5>
+map <Esc>[17;4~		<M-S-F6>
+map <Esc>[18;4~		<M-S-F7>
+map <Esc>[19;4~		<M-S-F8>
+map <Esc>[20;4~		<M-S-F9>
+map <Esc>[21;4~		<M-S-F10>
+map <Esc>[23;4~		<M-S-F11>
+map <Esc>[24;4~		<M-S-F12>
 " }}}
 " {{{ <Ctrl> function key pseudo-mappings
-map <Esc>[1;5P		<Ctrl><F1>
-map <Esc>[1;5Q		<Ctrl><F2>
-map <Esc>[1;5R		<Ctrl><F3>
-map <Esc>[1;5S		<Ctrl><F4>
-map <Esc>[15;5~		<Ctrl><F5>
-map <Esc>[17;5~		<Ctrl><F6>
-map <Esc>[18;5~		<Ctrl><F7>
-map <Esc>[19;5~		<Ctrl><F8>
-map <Esc>[20;5~		<Ctrl><F9>
-map <Esc>[21;5~		<Ctrl><F10>
-map <Esc>[23;5~		<Ctrl><F11>
-map <Esc>[24;5~		<Ctrl><F12>
+map <Esc>[1;5P		<C-F1>
+map <Esc>[1;5Q		<C-F2>
+map <Esc>[1;5R		<C-F3>
+map <Esc>[1;5S		<C-F4>
+map <Esc>[15;5~		<C-F5>
+map <Esc>[17;5~		<C-F6>
+map <Esc>[18;5~		<C-F7>
+map <Esc>[19;5~		<C-F8>
+map <Esc>[20;5~		<C-F9>
+map <Esc>[21;5~		<C-F10>
+map <Esc>[23;5~		<C-F11>
+map <Esc>[24;5~		<C-F12>
 " }}}
 " {{{ <Ctrl><Shift> function key pseudo-mappings
-map <Esc>[1;6P		<Ctrl><Shift><F1>
-map <Esc>[1;6Q		<Ctrl><Shift><F2>
-map <Esc>[1;6R		<Ctrl><Shift><F3>
-map <Esc>[1;6S		<Ctrl><Shift><F4>
-map <Esc>[15;6~		<Ctrl><Shift><F5>
-map <Esc>[17;6~		<Ctrl><Shift><F6>
-map <Esc>[18;6~		<Ctrl><Shift><F7>
-map <Esc>[19;6~		<Ctrl><Shift><F8>
-map <Esc>[20;6~		<Ctrl><Shift><F9>
-map <Esc>[21;6~		<Ctrl><Shift><F10>
-map <Esc>[23;6~		<Ctrl><Shift><F11>
-map <Esc>[24;6~		<Ctrl><Shift><F12>
+map <Esc>[1;6P		<C-S-F1>
+map <Esc>[1;6Q		<C-S-F2>
+map <Esc>[1;6R		<C-S-F3>
+map <Esc>[1;6S		<C-S-F4>
+map <Esc>[15;6~		<C-S-F5>
+map <Esc>[17;6~		<C-S-F6>
+map <Esc>[18;6~		<C-S-F7>
+map <Esc>[19;6~		<C-S-F8>
+map <Esc>[20;6~		<C-S-F9>
+map <Esc>[21;6~		<C-S-F10>
+map <Esc>[23;6~		<C-S-F11>
+map <Esc>[24;6~		<C-S-F12>
 " }}}
+
+map <Esc>[1;5Z		<C-S-Tab>
 
 endif
 
