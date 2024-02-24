@@ -26,24 +26,25 @@ function get_menu_keys()
     return t[b]["priority"] > t[a]["priority"]
   end
   for menu, _ in spairs(vim.g.menus, order_fn) do
-    for _, item in pairs(vim.g.menus[menu]["items"]) do
-      if not (item["title"] == "--") then
-        n = n + 1
-        menu_keys[n] = {
-          descr = item["descr"],
-          display = menu .. ": " .. item["title"],
-          lhs = item["lhs"],
-          menu = menu,
-          mode = item["mode"],
-          ordinal = item["title"],
-          rhs = item["rhs"],
-          title = item["title"],
-          value = nil,
-        }
+    if vim.g.menus[menu]["ignore_in_palette"] == 0 then
+      for _, item in pairs(vim.g.menus[menu]["items"]) do
+        if not (item["title"] == "--") then
+          n = n + 1
+          menu_keys[n] = {
+            descr = item["descr"],
+            display = menu .. ": " .. item["title"],
+            lhs = item["lhs"],
+            menu = menu,
+            mode = item["mode"],
+            ordinal = item["title"],
+            rhs = item["rhs"],
+            title = item["title"],
+            value = nil,
+          }
+        end
       end
     end
   end
-
   return menu_keys
 end
 -- }}}

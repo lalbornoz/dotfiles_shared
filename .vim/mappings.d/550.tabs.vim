@@ -2,7 +2,7 @@
 " [Mappings] Windows menu mappings
 "
 
-call roarie_menu#AddMenu("Tabs", 450)
+call roarie_menu#AddMenu("Tabs", 550)
 call roarie_menu#AddMapping("Tabs", "Go to tab #1", '', '<silent>', '<M-1>', '1gt')
 call roarie_menu#AddMapping("Tabs", "Go to tab #2", '', '<silent>', '<M-2>', '2gt')
 call roarie_menu#AddMapping("Tabs", "Go to tab #3", '', '<silent>', '<M-3>', '3gt')
@@ -31,7 +31,9 @@ call roarie_menu#AddTMapping("Tabs", "Go to next tab (terminal)", "Go to next ta
 endif
 call roarie_menu#AddSeparator("Tabs")
 call roarie_menu#AddMapping("Tabs", "Open a new tab page", "Open a new tab page", "<silent>", '<F8>', ':<C-U>tabnew<CR>')
+call roarie_menu#AddMapping("<Fn>", "Open a new tab page", "Open a new tab page", "<silent>", '<F8>', ':<C-U>tabnew<CR>', 1)
 call roarie_menu#AddMapping("Tabs", "Close current tab", "Close current tab", "<silent>", '<S-F8>', ':<C-U>close<CR>')
+call roarie_menu#AddMapping("<Fn>", "Close current tab", "Close current tab", "<silent>", '<S-F8>', ':<C-U>close<CR>', 1)
 call roarie_menu#AddMapping("Tabs", "Move window to new tab", "Move window to new tab page", "<silent>", '<M-t>', ':<C-U>wincmd T<CR>')
 call roarie_menu#AddMapping("Tabs", "Move current tab to the left", "Move current tab to the left", "<silent>", '<M-j>', ':<C-U>tabmove -1<CR>')
 call roarie_menu#AddMapping("Tabs", "Move current tab to the right", "Move current tab to the right", "<silent>", '<M-k>', ':<C-U>tabmove +1<CR>')

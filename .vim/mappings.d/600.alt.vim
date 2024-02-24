@@ -2,7 +2,7 @@
 " [Mappings] <M- >key sequences and menu mappings
 "
 
-call roarie_menu#AddMenu("<Alt>", 500)
+call roarie_menu#AddMenu("<Alt>", 600)
 call roarie_menu#AddMapping("<Alt>", "Set mark x", "Set mark x at cursor position", "<silent>", '<M-:>', 'mx')
 call roarie_menu#AddMapping("<Alt>", "Execute register q", "Execute contents of register q", "<silent>", '<M-@>', ':normal! @q<CR>')
 call roarie_menu#AddMapping("<Alt>", "Jump to mark x", "Jump to mark x in the current buffer", "<silent>", '<M-~>', "'x")

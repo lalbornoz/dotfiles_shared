@@ -100,11 +100,18 @@ fun! roarie_menu#AddVMapping(menu, title, descr, silent, lhs, rhs, ...)
 	return roarie_menu#AddMapping_(0, a:menu, a:title, 'visual', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddMenu(title, priority)
-fun! roarie_menu#AddMenu(title, priority)
+
+" {{{ fun! roarie_menu#AddMenu(title, priority, ...)
+fun! roarie_menu#AddMenu(title, priority, ...)
 	let g:menus[a:title] = {}
 	let g:menus[a:title]['items'] = []
 	let g:menus[a:title]['priority'] = a:priority
+	let ignore_in_palette = get(a:, 0, 0)
+	if ignore_in_palette == 1
+		let g:menus[a:title]['ignore_in_palette'] = 1
+	else
+		let g:menus[a:title]['ignore_in_palette'] = 0
+	endif
 endfun
 " }}}
 " {{{ fun! roarie_menu#AddSeparator(menu)
