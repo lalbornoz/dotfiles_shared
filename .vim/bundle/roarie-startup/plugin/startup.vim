@@ -1,5 +1,5 @@
 "
-" [AutoCmds] VimEnterStartupScreen
+" Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 "
 
 " {{{ let g:startup_screen_lines = [...]
