@@ -2,7 +2,7 @@
 " [Mappings] Motion menu mappings
 "
 
-call roarie_menu#AddMenu("Motion", 200)
+call roarie_menu#AddMenu("Motion", 300)
 call roarie_menu#AddMapping("Motion", "Go to previous word", "Go to previous word", '', '<C-Left>', 'b')
 call roarie_menu#AddMapping("Motion", "Go to previous WORD", "Go to previous WORD", '', '<C-S-Left>', 'B')
 call roarie_menu#AddMapping("Motion", "Go to next word", "Go to next word", '', '<C-Right>', 'w')
