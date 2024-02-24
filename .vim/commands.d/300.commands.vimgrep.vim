@@ -1,5 +1,5 @@
 "
-" [Commands] General
+" [Commands] vimgrep
 "
 
 command! -nargs=+	Cv vimgrep <args> % | wincmd p
