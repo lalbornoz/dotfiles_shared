@@ -13,6 +13,34 @@ let s:mod_order = [
 \ 'M-C-S-',
 \ ]
 
+" {{{ fun! PopulateFnMenu()
+fun! PopulateFnMenu(src_items, dst_title, key_to, sep_each)
+	let item_idx = 0
+	let key_last = 0
+
+	for item_idx in range(len(a:src_items))
+		let item = a:src_items[item_idx]
+		let key_cur = str2nr(matchstr(item["lhs"], '^<\([MCS]-\)*F\zs[0-9]\+\ze'))
+
+		if key_cur > a:key_to
+			break
+		else
+			if key_last == 0
+				let key_last = key_cur
+			elseif (key_cur != key_last) && (((key_cur - 1) % a:sep_each) == 0)
+				let key_last = key_cur
+				call roarie_menu#AddSeparator(a:dst_title)
+			endif
+			let g:menus[a:dst_title]["items"] += [item]
+		endif
+	endfor
+
+	if item_idx > 0
+		unlet a:src_items[:item_idx]
+	endif
+	return a:src_items
+endfun
+" }}}
 " {{{ fun! SortFnMenu(lhs, rhs)
 fun! SortFnMenu(lhs, rhs)
 	let lhs_key = str2nr(matchstr(a:lhs["lhs"], '^<\([MCS]-\)*F\zs[0-9]\+\ze'))
@@ -38,18 +66,10 @@ endfun
 " }}}
 
 let menu_items = sort(g:menus["<Fn>"]["items"], function("SortFnMenu"))
-let g:menus["<Fn>"]["items"] = []
-let key_last = 0
-
-for item in menu_items
-	let key_cur = str2nr(matchstr(item["lhs"], '^<\([MCS]-\)*F\zs[0-9]\+\ze'))
-	if key_last == 0
-		let key_last = key_cur
-	elseif (key_cur != key_last) && (((key_cur - 1) % 4) == 0)
-		let key_last = key_cur
-		call roarie_menu#AddSeparator("<Fn>")
-	endif
-	let g:menus["<Fn>"]["items"] += [item]
-endfor
+unlet g:menus["<Fn>"]
+call roarie_menu#AddMenu("<F1-8>", 100, 1)
+let menu_items = PopulateFnMenu(menu_items, "<F1-8>", 8, 4)
+call roarie_menu#AddMenu("<F9-12>", 150, 1)
+let menu_items = PopulateFnMenu(menu_items, "<F9-12>", 12, 2)
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
