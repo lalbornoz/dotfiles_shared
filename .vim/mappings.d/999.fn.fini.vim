@@ -45,7 +45,7 @@ for item in menu_items
 	let key_cur = str2nr(matchstr(item["lhs"], '^<\([MCS]-\)*F\zs[0-9]\+\ze'))
 	if key_last == 0
 		let key_last = key_cur
-	elseif key_cur != key_last
+	elseif (key_cur != key_last) && (((key_cur - 1) % 4) == 0)
 		let key_last = key_cur
 		call roarie_menu#AddSeparator("<Fn>")
 	endif
