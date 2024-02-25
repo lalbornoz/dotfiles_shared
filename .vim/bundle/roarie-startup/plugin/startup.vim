@@ -59,18 +59,27 @@ fun! VESSStartupBufSet(bufno, winnr)
 
 	let centre = VESSStartupBufCentre(g:startup_screen_lines, a:winnr)
 
-	setlocal modifiable modified
+	let winid_old = win_getid(winnr())
+	call win_gotoid(win_getid(a:winnr))
+	let bufno_old = bufnr("%")
 	silent execute "buffer" a:bufno
-	silent execute ":%delete _"
 
-	for line in range(centre[1])
-	    call appendbufline(a:bufno, '$', '')
-	endfor
-	for line in g:startup_screen_lines
-	    call appendbufline(a:bufno, '$', repeat(' ', centre[0]) . line)
-	endfor
+	try
+		setlocal modifiable modified
+		silent execute ":%delete _"
 
-	setlocal nomodifiable nomodified
+		for line in range(centre[1])
+		    call appendbufline(a:bufno, '$', '')
+		endfor
+		for line in g:startup_screen_lines
+		    call appendbufline(a:bufno, '$', repeat(' ', centre[0]) . line)
+		endfor
+
+		setlocal nomodifiable nomodified
+	finally
+		silent execute "buffer" bufno_old
+		call win_gotoid(winid_old)
+	endtry
 endfun
 " }}}
 " {{{ fun! VESSStartupExit()
