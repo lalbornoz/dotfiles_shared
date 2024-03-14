@@ -16,10 +16,20 @@ if ! _shinit_which ps2 && _shinit_which grep; then
 fi;
 if _shinit_which awk openssl; then
 	randpw() {
-		_rp_len="${1:-22}";
+		local _rp_len="${1:-22}";
 		openssl rand -base64 "${_rp_len}"				|\
 		awk "{lines = lines \$0} END {print substr(lines, 0, ${_rp_len})}";
-		unset _rp_len;
+	};
+fi;
+if _shinit_which sed shuf tr; then
+	randwords() {
+		local _nwords="${1:-5}" _word="" _words="";
+		while [ "${_nwords}" -gt 0 ]; do
+			_word="$(shuf -n 1 /usr/share/dict/words | sed "s/'//g" | tr A-Z a-z)";
+			_words="${_words:+${_words}}${_word}";
+			: $((_nwords-=1));
+		done;
+		printf "%s\n" "${_words}";
 	};
 fi;
 if ! _shinit_which tac && _shinit_which sed; then
