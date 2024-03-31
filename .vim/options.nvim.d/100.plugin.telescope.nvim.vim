@@ -40,6 +40,12 @@ telescope.setup {
 			},
 		},
 	},
+
+	pickers = {
+		find_files = { prompt_title = "Find Files (press <C-^> for options)", },
+		grep_string = { prompt_title = "Find Word (press <C-^> for options)", },
+		live_grep = { prompt_title = "Live Grep (press <C-^> for options)", },
+	},
 }
 EOF
 
