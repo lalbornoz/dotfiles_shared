@@ -24,17 +24,6 @@ call roarie_menu#AddMapping("<Alt>", "Toggle search match highlighting", "Toggle
 call roarie_menu#AddMapping("<Alt>", "Toggle case-sensitivity", "Toggle case-sensitivity", '<silent>', '<M-n>', ':<C-U>set invignorecase<CR>')
 call roarie_menu#AddMapping("<Alt>", "Set filetype=terminal", "Set filetype=terminal", '<silent>', '<M-r>', ':<C-U>set filetype=terminal<CR>')
 call roarie_menu#AddSeparator("<Alt>")
-if has('nvim')
-call roarie_menu#AddMapping("<Alt>", "Telescope git_files...", "Telescope git_files...", "<silent>", '<M-g>', ':lua require("telescope").extensions.menufacture.git_files()<CR>')
-endif
-call roarie_menu#AddMapping("<Alt>", "Diff w/ horizontal split", "Diff against direct ancestors, split horizontally", "<silent>", '<M-I>', ':<C-U>Ghdiffsplit<CR>')
-call roarie_menu#AddMapping("<Alt>", "Print Git diff", "Print global Git diff into new scratch window", "<silent>", '<M-i>', ':<C-U>call ReadNewScratch("git diff", "git")<CR>\|zR')
-call roarie_menu#AddMapping("<Alt>", "Print Git log", "Print Git log into new scratch window", "<silent>", '<M-l>', ':<C-U>call ReadNewScratch("git log", "git")<CR>')
-if has('nvim')
-call roarie_menu#AddMapping("<Alt>", "Telescope git_commits...", "Telescope git_commits...", "<silent>", '<M-L>', ':Telescope git_commits<CR>')
-endif
-call roarie_menu#AddMapping("<Alt>", "Print Git status", "Bring up summary window akin to git-status", "<silent>", '<M-s>', ':<C-U>Git<CR>')
-call roarie_menu#AddSeparator("<Alt>")
 call roarie_menu#AddMapping("<Alt>", "Reload Vim configuration file", "Reload Vim configuration file", '<silent>', '<M-v>', ':<C-U>source ~/.vimrc\|exec "set filetype=" . &filetype<CR>')
 call roarie_menu#AddMapping("<Alt>", "Edit Vim configuration...", "Edit Vim configuration file in new window", "<silent>", '<M-V>', ':<C-U>tabnew\|e ~/.vimrc<CR>')
 call roarie_menu#AddMapping("<Alt>", "Toggle line-wrap", "Toggle wrapping of lines longer than window width", "<silent>", '<M-w>', ':<C-U>set invwrap<CR>')

@@ -48,6 +48,10 @@ call roarie_menu#AddMapping("<Fn>", "Display hover information", "Get hover info
 call roarie_menu#AddMapping("Project", "Code action...", "Code action...", "<silent>", '<S-F4>', ':<C-U>LspCodeAction<CR>')
 call roarie_menu#AddMapping("<Fn>", "Code action...", "Code action...", "<silent>", '<S-F4>', ':<C-U>LspCodeAction<CR>', 1)
 endif
+call roarie_menu#AddMapping("Project", "Display manual page...", "Display manual page...", '', '<C-F4>', ':<C-U>Man ')
+call roarie_menu#AddMapping("<Fn>", "Display manual page...", "Display manual page...", '', '<C-F4>', ':<C-U>Man ', 1)
+call roarie_menu#AddMapping("Project", "Display manual page", "Display manual page from current word", "<silent>", '<C-S-F4>', '"zyiw:exe "Man ".@z.""<CR>')
+call roarie_menu#AddMapping("<Fn>", "Display manual page", "Display manual page from current word", "<silent>", '<C-S-F4>', '"zyiw:exe "Man ".@z.""<CR>', 1)
 call roarie_menu#AddSeparator("Project")
 call roarie_menu#AddMapping("Project", "Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>')
 call roarie_menu#AddMapping("<Fn>", "Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', 1)
@@ -65,11 +69,19 @@ call roarie_menu#AddMapping("Project", "Go to next diagnostic", "Go to next diag
 call roarie_menu#AddMapping("Project", "Go to previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', ':<C-U>LspPreviousDiagnostic<CR>')
 endif
 call roarie_menu#AddSeparator("Project")
-call roarie_menu#AddMapping("Project", "Display manual page...", "Display manual page...", '', '<F6>', ':<C-U>Man ')
-call roarie_menu#AddMapping("<Fn>", "Display manual page...", "Display manual page...", '', '<F6>', ':<C-U>Man ', 1)
-call roarie_menu#AddMapping("Project", "Display manual page", "Display manual page from current word", "<silent>", '<S-F6>', '"zyiw:exe "Man ".@z.""<CR>')
-call roarie_menu#AddMapping("<Fn>", "Display manual page", "Display manual page from current word", "<silent>", '<S-F6>', '"zyiw:exe "Man ".@z.""<CR>', 1)
-call roarie_menu#AddMapping("Project", "Git commit...", "Git commit prompt...", '', '<C-F6>', ':<C-U>Git commit ')
-call roarie_menu#AddMapping("<Fn>", "Git commit...", "Git commit prompt...", '', '<C-F6>', ':<C-U>Git commit ', 1)
+call roarie_menu#AddMapping("Project", "Git commit...", "Git commit prompt...", '', '<F6>', ':<C-U>Git commit ')
+call roarie_menu#AddMapping("<Fn>", "Git commit...", "Git commit prompt...", '', '<F6>', ':<C-U>Git commit ', 1)
+if has('nvim')
+call roarie_menu#AddMapping("Project", "Telescope git_commits...", "Telescope git_commits prompt...", '', '<S-F6>', ':<C-U>Telescope git_commits<CR>')
+call roarie_menu#AddMapping("<Fn>", "Telescope git_commits...", "Telescope git_commits prompt...", '', '<S-F6>', ':<C-U>Telescope git_commits<CR>', 1)
+endif
+call roarie_menu#AddMapping("Project", "Git status", "Bring up summary window akin to git-status", "<silent>", '<C-F6>', ':<C-U>Git<CR>')
+call roarie_menu#AddMapping("<Fn>", "Git status", "Bring up summary window akin to git-status", "<silent>", '<C-F6>', ':<C-U>Git<CR>', 1)
+call roarie_menu#AddMapping("Project", "Git log", "Git log", "<silent>", '<C-S-F6>', ':<C-U>Git log<CR>')
+call roarie_menu#AddMapping("<Fn>", "Git log", "Git log", "<silent>", '<C-S-F6>', ':<C-U>Git log<CR>', 1)
+call roarie_menu#AddMapping("Project", "Git diff", "Print global Git diff into new scratch window", "<silent>", '<M-F6>', ':<C-U>Git diff<CR>')
+call roarie_menu#AddMapping("<Fn>", "Git diff", "Print global Git diff into new scratch window", "<silent>", '<M-F6>', ':<C-U>Git diff<CR>', 1)
+call roarie_menu#AddMapping("Project", "Git diff...", "Git diff prompt...", "<silent>", '<M-S-F6>', ':<C-U>Git diff ')
+call roarie_menu#AddMapping("<Fn>", "Git diff...", "Git diff prompt...", "<silent>", '<M-S-F6>', ':<C-U>Git diff ', 1)
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0

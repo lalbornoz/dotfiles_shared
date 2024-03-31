@@ -67,9 +67,9 @@ endfun
 
 let menu_items = sort(g:menus["<Fn>"]["items"], function("SortFnMenu"))
 unlet g:menus["<Fn>"]
-call roarie_menu#AddMenu("<F1-8>", 100, 1)
-let menu_items = PopulateFnMenu(menu_items, "<F1-8>", 8, 4)
-call roarie_menu#AddMenu("<F9-12>", 150, 1)
-let menu_items = PopulateFnMenu(menu_items, "<F9-12>", 12, 2)
+call roarie_menu#AddMenu("<F1-6>", 100, 1)
+let menu_items = PopulateFnMenu(menu_items, "<F1-6>", 6, 2)
+call roarie_menu#AddMenu("<F7-12>", 150, 1)
+let menu_items = PopulateFnMenu(menu_items, "<F7-12>", 12, 2)
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
