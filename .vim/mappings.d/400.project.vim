@@ -69,5 +69,7 @@ call roarie_menu#AddMapping("Project", "Display manual page...", "Display manual
 call roarie_menu#AddMapping("<Fn>", "Display manual page...", "Display manual page...", '', '<F6>', ':<C-U>Man ', 1)
 call roarie_menu#AddMapping("Project", "Display manual page", "Display manual page from current word", "<silent>", '<S-F6>', '"zyiw:exe "Man ".@z.""<CR>')
 call roarie_menu#AddMapping("<Fn>", "Display manual page", "Display manual page from current word", "<silent>", '<S-F6>', '"zyiw:exe "Man ".@z.""<CR>', 1)
+call roarie_menu#AddMapping("Project", "Git commit...", "Git commit prompt...", '', '<C-F6>', ':<C-U>Git commit ')
+call roarie_menu#AddMapping("<Fn>", "Git commit...", "Git commit prompt...", '', '<C-F6>', ':<C-U>Git commit ', 1)
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
