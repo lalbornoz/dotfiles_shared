@@ -2,9 +2,12 @@
 " Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 "
 
+let g:roarie_startup_hl_groups = has_key(g:, "roarie_startup_hl_groups") ? g:roarie_startup_hl_groups : []
+let g:roarie_startup_hl_matches = has_key(g:, "roarie_startup_hl_matches") ? g:roarie_startup_hl_matches : []
+let g:roarie_startup_screen_lines = has_key(g:, "roarie_startup_screen_lines") ? g:roarie_startup_screen_lines : []
 
-" {{{ fun! VESSStartupBufCentre(lines, winnr)
-fun! VESSStartupBufCentre(lines, winnr)
+" {{{ fun! s:CentreBuffer(lines, winnr)
+fun! s:CentreBuffer(lines, winnr)
 	let buf_w = winwidth(a:winnr)
 	let buf_h = winheight(a:winnr)
 	let lines_w = 0
@@ -26,13 +29,24 @@ fun! VESSStartupBufCentre(lines, winnr)
 	return [centre_w, centre_h]
 endfun
 " }}}
-" {{{ fun! VESSStartupBufSet(bufno, winnr)
-fun! VESSStartupBufSet(bufno, winnr)
+" {{{ fun! s:ExitBuffer()
+fun! s:ExitBuffer()
+	augroup StartupScreen
+		autocmd!
+	augroup END
+	augroup! StartupScreen
+
+	bdelete
+	enew
+endfun
+" }}}
+" {{{ fun! s:SetBuffer(bufno, winnr)
+fun! s:SetBuffer(bufno, winnr)
 	if bufwinnr(a:bufno) == -1
 		return
 	endif
 
-	let centre = VESSStartupBufCentre(g:roarie_startup_screen_lines, a:winnr)
+	let centre = s:CentreBuffer(g:roarie_startup_screen_lines, a:winnr)
 
 	let winid_old = win_getid(winnr())
 	call win_gotoid(win_getid(a:winnr))
@@ -50,6 +64,15 @@ fun! VESSStartupBufSet(bufno, winnr)
 		    call appendbufline(a:bufno, '$', repeat(' ', centre[0]) . line)
 		endfor
 
+		for hl_group in g:roarie_startup_hl_groups
+			execute "hi" join(hl_group, " ")
+		endfor
+		for hl_match in g:roarie_startup_hl_matches
+			call matchadd(hl_match[0], hl_match[1])
+		endfor
+
+		"silent! setl nonu nornu nobl acd ft=dashboard bh=wipe bt=nofile
+
 		setlocal nomodifiable nomodified
 	finally
 		silent execute "buffer" bufno_old
@@ -57,20 +80,10 @@ fun! VESSStartupBufSet(bufno, winnr)
 	endtry
 endfun
 " }}}
-" {{{ fun! VESSStartupExit()
-fun! VESSStartupExit()
-	augroup StartupScreen
-		autocmd!
-	augroup END
-	augroup! StartupScreen
 
-	bdelete
-	enew
-endfun
-" }}}
-" {{{ fun! VimEnterStartupScreen()
+" {{{ fun! s:EnterStartupScreen()
 " <https://vi.stackexchange.com/questions/627/how-can-i-change-vims-start-or-intro-screen>
-fun! VimEnterStartupScreen()
+fun! s:EnterStartupScreen()
 	" Don't run if: we have commandline arguments, we don't have an empty
 	" buffer, if we've not invoked as vim or gvim, or if we'e start in insert mode
 	if argc() || line2byte('$') != -1 || v:progname !~? '^[-gmnq]\=[n]\=vim\=x\=\%[\.exe]$' || &insertmode
@@ -98,28 +111,28 @@ fun! VimEnterStartupScreen()
 	"
 	let bufno = bufnr("%")
 	let winnr = winnr()
-	call VESSStartupBufSet(bufno, winnr)
+	call s:SetBuffer(bufno, winnr)
 
 	" When we go to insert mode start a new buffer, and start insert
-	nnoremap <buffer><silent> e :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> h :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> j :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> k :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> l :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> <Left> :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> <Down> :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> <Up> :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> <Right> :call VESSStartupExit()<CR>
-	nnoremap <buffer><silent> i :call VESSStartupExit() <bar> startinsert<CR>
-	nnoremap <buffer><silent> o :call VESSStartupExit() <bar> startinsert<CR>
+	nnoremap <buffer><silent> e :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> h :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> j :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> k :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> l :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> <Left> :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> <Down> :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> <Up> :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> <Right> :call <SID>ExitBuffer()<CR>
+	nnoremap <buffer><silent> i :call <SID>ExitBuffer() <bar> startinsert<CR>
+	nnoremap <buffer><silent> o :call <SID>ExitBuffer() <bar> startinsert<CR>
 
 	augroup StartupScreen
-		execute 'autocmd VimResized * call VESSStartupBufSet(' . bufno . ', ' . winnr . ')'
+		execute 'autocmd VimResized * call s:SetBuffer(' . bufno . ', ' . winnr . ')'
 	augroup END
 endfun
 " }}}
 
 " Run after "doing all the startup stuff"
-autocmd VimEnter * call VimEnterStartupScreen()
+autocmd VimEnter * call <SID>EnterStartupScreen()
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
