@@ -51,8 +51,8 @@ endif
 call roarie_menu#AddMapping("Project", "Display manual page", "Display manual page from current word", "<silent>", '<C-F4>', '"zyiw:exe "Man ".@z.""<CR>')
 call roarie_menu#AddMapping("<Fn>", "Display manual page", "Display manual page from current word", "<silent>", '<C-F4>', '"zyiw:exe "Man ".@z.""<CR>', 1)
 if has('nvim')
-call roarie_menu#AddMapping("Project", "Display manual page...", "Display manual page...", '<silent>', '<C-S-F4>', ':<C-U>lua require("telescope.builtin").man_pages({sections = {"ALL"}})<CR>')
-call roarie_menu#AddMapping("<Fn>", "Display manual page...", "Display manual page...", '<silent>', '<C-S-F4>', ':<C-U>lua require("telescope.builtin").man_pages({sections = {"ALL"}})<CR>', 1)
+call roarie_menu#AddMapping("Project", "Telescope man_pages...", "Telescope man_pages...", '<silent>', '<C-S-F4>', ':<C-U>lua require("telescope.builtin").man_pages({sections = {"ALL"}})<CR>')
+call roarie_menu#AddMapping("<Fn>", "Telescope man_pages...", "Telescope man_pages...", '<silent>', '<C-S-F4>', ':<C-U>lua require("telescope.builtin").man_pages({sections = {"ALL"}})<CR>', 1)
 else
 call roarie_menu#AddMapping("Project", "Display manual page...", "Display manual page...", '', '<C-S-F4>', ':<C-U>Man ')
 call roarie_menu#AddMapping("<Fn>", "Display manual page...", "Display manual page...", '', '<C-S-F4>', ':<C-U>Man ', 1)
