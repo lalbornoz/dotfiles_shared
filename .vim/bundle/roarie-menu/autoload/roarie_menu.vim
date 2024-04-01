@@ -2,7 +2,6 @@
 " Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 "
 
-let g:roarie_fn_menu = "<Fn>"
 let g:roarie_menus = {}
 let g:roarie_mod_order = [
 	\ '',
@@ -15,41 +14,20 @@ let g:roarie_mod_order = [
 	\ 'M-C-S-',
 	\ ]
 
+let s:fn_tmp_menu = "<Fn>"
+
 " {{{ fun! s:AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
 fun! s:AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
-	if a:mode == "insert"
-		let l:map_line = ["inoremap"]
-	elseif a:mode == "normal"
-		let l:map_line = ["nnoremap"]
-	elseif a:mode == "nvo"
-		let l:map_line = ["noremap"]
-	elseif a:mode == "terminal"
-		let l:map_line = ["tnoremap"]
-	elseif a:mode == "visual"
-		let l:map_line = ["vnoremap"]
-	else
-		echoerr "Invalid mode " . a:mode . " for mapping: " . lhs
-	endif
-
-	let lhs_map = a:lhs
-	if !has('nvim')
-		let lhs_map = substitute(lhs_map, '^<M-S-\(F[0-9]\+\|Tab\|Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<M-S-\(F[0-9]\+\|Tab\|Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<M-S-\(F[0-9]\+\|Tab\|Down\|Left\|Right\|Up\)>$', '<M-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<M-S-\([a-z0-9]\)>$', '<M-S-\1>', 'g')
-		let lhs_map = substitute(lhs_map, '^<M-\([a-z0-9]\)>$', '<Esc>\1', 'g')
-	endif
-
-	if len(a:silent) > 0
-		let l:map_line += ['<silent>']
-	endif
-	if len(a:descr) == 0
-		let l:descr = a:title
-	else
-		let l:descr = a:descr
-	endif
+	let l:map_line = [s:GetMappingMode(a:mode, a:lhs)]
+	let lhs_map = s:FixMapping(a:lhs)
 
 	if a:noaddfl == 0
+		if len(a:descr) == 0
+			let l:descr = a:title
+		else
+			let l:descr = a:descr
+		endif
+
 		let g:roarie_menus[a:menu]['items'] += [{
 			\ 'descr': l:descr,
 			\ 'lhs': a:lhs,
@@ -61,14 +39,54 @@ fun! s:AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl
 	endif
 
 	if !(a:pseudofl is "<pseudo>")
+		if len(a:silent) > 0
+			let l:map_line += ['<silent>']
+		endif
+
 		let l:map_line += [lhs_map, a:rhs]
 		execute join(l:map_line, ' ')
 	endif
+
 	if a:pseudofl is "<fnalias>"
-		call s:AddMapping_(a:noaddfl, g:roarie_fn_menu, a:title, a:mode, a:descr, a:silent, a:lhs, a:rhs, "<pseudo>")
+		if !has_key(g:roarie_menus, s:fn_tmp_menu)
+			call roarie_menu#AddMenu(s:fn_tmp_menu, 0, 1)
+		endif
+
+		call s:AddMapping_(a:noaddfl, s:fn_tmp_menu, a:title, a:mode, a:descr, a:silent, a:lhs, a:rhs, "<pseudo>")
 	endif
 endfun
 " }}}
+" {{{ fun! s:FixMappingLhs(lhs)
+fun! s:FixMapping(lhs)
+	let lhs = a:lhs
+	if !has('nvim')
+		let lhs = substitute(lhs, '^<M-S-\(F[0-9]\+\|Tab\|Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
+		let lhs = substitute(lhs, '^<M-S-\(F[0-9]\+\|Tab\|Down\|Left\|Right\|Up\)>$', '<M-S-\1>', 'g')
+		let lhs = substitute(lhs, '^<M-S-\(F[0-9]\+\|Tab\|Down\|Left\|Right\|Up\)>$', '<M-\1>', 'g')
+		let lhs = substitute(lhs, '^<M-S-\([a-z0-9]\)>$', '<M-S-\1>', 'g')
+		let lhs = substitute(lhs, '^<M-\([a-z0-9]\)>$', '<Esc>\1', 'g')
+	endif
+	return lhs
+endfun
+" }}}
+" {{{ fun! s:GetMappingMode(mode, lhs)
+fun! s:GetMappingMode(mode, lhs)
+	if a:mode == "insert"
+		return "inoremap"
+	elseif a:mode == "normal"
+		return "nnoremap"
+	elseif a:mode == "nvo"
+		return "noremap"
+	elseif a:mode == "terminal"
+		return "tnoremap"
+	elseif a:mode == "visual"
+		return "vnoremap"
+	else
+		echoerr "Invalid mode " . a:mode . " for mapping: " . lhs
+	endif
+endfun
+" }}}
+
 " {{{ fun! s:PopulateFnMenu(src_items, dst_title, key_to, sep_each)
 fun! s:PopulateFnMenu(src_items, dst_title, key_to, sep_each)
 	let item_idx = 0
@@ -122,7 +140,7 @@ endfun
 " }}}
 " {{{ fun! s:SortFnMenu()
 fun! s:SortFnMenu()
-	return sort(g:roarie_menus[g:roarie_fn_menu]["items"], function("s:SortFnMenu_"))
+	return sort(g:roarie_menus[s:fn_tmp_menu]["items"], function("s:SortFnMenu_"))
 endfun
 " }}}
 " {{{ fun! s:SortMenus(lhs, rhs)
@@ -219,7 +237,7 @@ endfun
 "" {{{ fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
 fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
 	let menu_items = s:SortFnMenu()
-	unlet g:roarie_menus[g:roarie_fn_menu]
+	unlet g:roarie_menus[s:fn_tmp_menu]
 	for idx in range(len(a:lpriority))
 		call roarie_menu#AddMenu(a:ltitle[idx], a:lpriority[idx], 1)
 		let menu_items = s:PopulateFnMenu(menu_items, a:ltitle[idx], a:lkey_to[idx], a:lsep_each[idx])
