@@ -68,6 +68,8 @@ call roarie_menu#AddMapping("File", "Telescope files...", "Telescope files...", 
 call roarie_menu#AddMapping("<Fn>", "Telescope files...", "Telescope files...", "<silent>", '<S-F12>', ':lua require("telescope").extensions.menufacture.find_files()<CR>', 1)
 call roarie_menu#AddMapping("File", "Telescope buffers...", "Telescope buffers...", "<silent>", '<M-F12>', ':lua require("telescope.builtin").buffers()<CR>')
 call roarie_menu#AddMapping("<Fn>", "Telescope buffers...", "Telescope buffers...", "<silent>", '<M-F12>', ':lua require("telescope.builtin").buffers()<CR>', 1)
+call roarie_menu#AddMapping("File", "Telescope git_commits...", "Telescope git_commits...", '', '<M-S-F12>', ':<C-U>Telescope git_commits<CR>')
+call roarie_menu#AddMapping("<Fn>", "Telescope git_commits...", "Telescope git_commits...", '', '<M-S-F12>', ':<C-U>Telescope git_commits<CR>', 1)
 call roarie_menu#AddMapping("File", "Telescope workspaces...", "Telescope workspaces...", "<silent>", '<C-S-F12>', ':Telescope workspaces<CR>')
 call roarie_menu#AddMapping("<Fn>", "Telescope workspaces...", "Telescope workspaces...", "<silent>", '<C-S-F12>', ':Telescope workspaces<CR>', 1)
 endif

@@ -76,10 +76,8 @@ endif
 call roarie_menu#AddSeparator("Project")
 call roarie_menu#AddMapping("Project", "Git commit...", "Git commit prompt...", '', '<F6>', ':<C-U>Git commit ')
 call roarie_menu#AddMapping("<Fn>", "Git commit...", "Git commit prompt...", '', '<F6>', ':<C-U>Git commit ', 1)
-if has('nvim')
-call roarie_menu#AddMapping("Project", "Telescope git_commits...", "Telescope git_commits...", '', '<S-F6>', ':<C-U>Telescope git_commits<CR>')
-call roarie_menu#AddMapping("<Fn>", "Telescope git_commits...", "Telescope git_commits...", '', '<S-F6>', ':<C-U>Telescope git_commits<CR>', 1)
-endif
+call roarie_menu#AddMapping("Project", "Git push...", "Git push prompt...", '', '<S-F6>', ':<C-U>Git push ')
+call roarie_menu#AddMapping("<Fn>", "Git push...", "Git push prompt...", '', '<S-F6>', ':<C-U>Git push ', 1)
 call roarie_menu#AddMapping("Project", "Git status", "Bring up summary window akin to git-status", "<silent>", '<C-F6>', ':<C-U>Git<CR>')
 call roarie_menu#AddMapping("<Fn>", "Git status", "Bring up summary window akin to git-status", "<silent>", '<C-F6>', ':<C-U>Git<CR>', 1)
 call roarie_menu#AddMapping("Project", "Git log", "Git log", "<silent>", '<C-S-F6>', ':<C-U>Git log<CR>')
