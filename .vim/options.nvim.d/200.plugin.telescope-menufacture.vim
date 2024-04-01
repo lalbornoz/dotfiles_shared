@@ -6,7 +6,7 @@ local telescope = require("telescope")
 telescope.load_extension 'menufacture'
 
 telescope.extensions.menufacture.mappings = {
-	main_menu = { [{ 'i', 'n' }] = '<C-x>' },
+	main_menu = { [{ 'i', 'n' }] = '<C-^>' },
 }
 
 telescope.extensions.menufacture.find_files_menu['toggle wrap'] =
