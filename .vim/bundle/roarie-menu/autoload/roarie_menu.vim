@@ -2,10 +2,21 @@
 " Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 "
 
-let g:menus = {}
+let g:roarie_fn_menu = "<Fn>"
+let g:roarie_menus = {}
+let g:roarie_mod_order = [
+	\ '',
+	\ 'S-',
+	\ 'C-',
+	\ 'C-S-',
+	\ 'M-',
+	\ 'M-S-',
+	\ 'M-C-',
+	\ 'M-C-S-',
+	\ ]
 
-" {{{ fun! roarie_menu#AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
-fun! roarie_menu#AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
+" {{{ fun! s:AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
+fun! s:AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
 	if a:mode == "insert"
 		let l:map_line = ["inoremap"]
 	elseif a:mode == "normal"
@@ -39,7 +50,7 @@ fun! roarie_menu#AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs
 	endif
 
 	if a:noaddfl == 0
-		let g:menus[a:menu]['items'] += [{
+		let g:roarie_menus[a:menu]['items'] += [{
 			\ 'descr': l:descr,
 			\ 'lhs': a:lhs,
 			\ 'mode': a:mode,
@@ -49,74 +60,133 @@ fun! roarie_menu#AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs
 			\ }]
 	endif
 
-	if a:pseudofl == 0
+	if !(a:pseudofl is "<pseudo>")
 		let l:map_line += [lhs_map, a:rhs]
 		execute join(l:map_line, ' ')
 	endif
+	if a:pseudofl is "<fnalias>"
+		call s:AddMapping_(a:noaddfl, g:roarie_fn_menu, a:title, a:mode, a:descr, a:silent, a:lhs, a:rhs, "<pseudo>")
+	endif
 endfun
 " }}}
-" {{{ fun! roarie_menu#SortMenus(lhs, rhs)
-fun! roarie_menu#SortMenus(lhs, rhs)
-  let lhs_item = g:menus[a:lhs]
-  let rhs_item = g:menus[a:rhs]
-  if lhs_item['priority'] < rhs_item['priority']
-    return -1
-  elseif lhs_item['priority'] > rhs_item['priority']
-    return 1
-  else
-    return 0
-  endif
+" {{{ fun! s:PopulateFnMenu(src_items, dst_title, key_to, sep_each)
+fun! s:PopulateFnMenu(src_items, dst_title, key_to, sep_each)
+	let item_idx = 0
+	let key_last = 0
+
+	for item_idx in range(len(a:src_items))
+		let item = a:src_items[item_idx]
+		let key_cur = str2nr(matchstr(item["lhs"], '^<\([MCS]-\)*F\zs[0-9]\+\ze'))
+
+		if key_cur > a:key_to
+			break
+		else
+			if key_last == 0
+				let key_last = key_cur
+			elseif (key_cur != key_last) && (((key_cur - 1) % a:sep_each) == 0)
+				let key_last = key_cur
+				call roarie_menu#AddSeparator(a:dst_title)
+			endif
+			let g:roarie_menus[a:dst_title]["items"] += [item]
+		endif
+	endfor
+
+	if item_idx > 0
+		unlet a:src_items[:item_idx]
+	endif
+	return a:src_items
+endfun
+" }}}
+" {{{ fun! s:SortFnMenu_(lhs, rhs)
+fun! s:SortFnMenu_(lhs, rhs)
+	let lhs_key = str2nr(matchstr(a:lhs["lhs"], '^<\([MCS]-\)*F\zs[0-9]\+\ze'))
+	let rhs_key = str2nr(matchstr(a:rhs["lhs"], '^<\([MCS]-\)*F\zs[0-9]\+\ze'))
+	if lhs_key < rhs_key
+		return -1
+	elseif lhs_key > rhs_key
+		return 1
+	else
+		let lhs_mod = matchstr(a:lhs["lhs"], '^<\zs\([MCS-]\)*\ze')
+		let lhs_priority = index(g:roarie_mod_order, lhs_mod)
+		let rhs_mod = matchstr(a:rhs["lhs"], '^<\zs\([MCS-]\)*\ze')
+		let rhs_priority = index(g:roarie_mod_order, rhs_mod)
+		if lhs_priority < rhs_priority
+			return -1
+		elseif lhs_priority > rhs_priority
+			return 1
+		else
+			return 0
+		endif
+	endif
+endfun
+" }}}
+" {{{ fun! s:SortFnMenu()
+fun! s:SortFnMenu()
+	return sort(g:roarie_menus[g:roarie_fn_menu]["items"], function("s:SortFnMenu_"))
+endfun
+" }}}
+" {{{ fun! s:SortMenus(lhs, rhs)
+fun! s:SortMenus(lhs, rhs)
+	let lhs_item = g:roarie_menus[a:lhs]
+	let rhs_item = g:roarie_menus[a:rhs]
+	if lhs_item['priority'] < rhs_item['priority']
+		return -1
+	elseif lhs_item['priority'] > rhs_item['priority']
+		return 1
+	else
+		return 0
+	endif
 endfun
 " }}}
 
 " {{{ fun! roarie_menu#AddMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! roarie_menu#AddMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return roarie_menu#AddMapping_(0, a:menu, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return s:AddMapping_(0, a:menu, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
 " {{{ fun! roarie_menu#AddIMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! roarie_menu#AddIMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return roarie_menu#AddMapping_(0, a:menu, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return s:AddMapping_(0, a:menu, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
 " {{{ fun! roarie_menu#AddINVOMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! roarie_menu#AddINVOMapping(menu, title, descr, silent, lhs, rhs, ...)
-	call roarie_menu#AddMapping_(0, a:menu, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs)
-	return roarie_menu#AddMapping_(1, a:menu, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	call s:AddMapping_(0, a:menu, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs)
+	return s:AddMapping_(1, a:menu, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
 " {{{ fun! roarie_menu#AddNMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! roarie_menu#AddNMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return roarie_menu#AddMapping_(0, a:menu, a:title, 'normal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return s:AddMapping_(0, a:menu, a:title, 'normal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
 " {{{ fun! roarie_menu#AddTMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! roarie_menu#AddTMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return roarie_menu#AddMapping_(0, a:menu, a:title, 'terminal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return s:AddMapping_(0, a:menu, a:title, 'terminal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
 " {{{ fun! roarie_menu#AddVMapping(menu, title, descr, silent, lhs, rhs, ...)
 fun! roarie_menu#AddVMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return roarie_menu#AddMapping_(0, a:menu, a:title, 'visual', a:descr, a:silent, a:lhs, a:rhs, get(a:, 0, 0))
+	return s:AddMapping_(0, a:menu, a:title, 'visual', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
 
 " {{{ fun! roarie_menu#AddMenu(title, priority, ...)
 fun! roarie_menu#AddMenu(title, priority, ...)
-	let g:menus[a:title] = {}
-	let g:menus[a:title]['items'] = []
-	let g:menus[a:title]['priority'] = a:priority
-	let ignore_in_palette = get(a:, 0, 0)
+	let g:roarie_menus[a:title] = {}
+	let g:roarie_menus[a:title]['items'] = []
+	let g:roarie_menus[a:title]['priority'] = a:priority
+	let ignore_in_palette = get(a:, 1, 0)
 	if ignore_in_palette == 1
-		let g:menus[a:title]['ignore_in_palette'] = 1
+		let g:roarie_menus[a:title]['ignore_in_palette'] = 1
 	else
-		let g:menus[a:title]['ignore_in_palette'] = 0
+		let g:roarie_menus[a:title]['ignore_in_palette'] = 0
 	endif
 endfun
 " }}}
 " {{{ fun! roarie_menu#AddSeparator(menu)
 fun! roarie_menu#AddSeparator(menu)
-	let g:menus[a:menu]['items'] += [{
+	let g:roarie_menus[a:menu]['items'] += [{
 		\ 'descr': '',
 		\ 'lhs': '',
 		\ 'rhs': '',
@@ -129,10 +199,10 @@ endfun
 " {{{ fun! roarie_menu#InstallMenus()
 fun! roarie_menu#InstallMenus()
 	call quickui#menu#reset()
-	let menu_keys = sort(keys(g:menus), function("roarie_menu#SortMenus"))
+	let menu_keys = sort(keys(g:roarie_menus), function("s:SortMenus"))
 	for l:menu in menu_keys
 		let l:menu_items = []
-		for l:menu_item in g:menus[l:menu]['items']
+		for l:menu_item in g:roarie_menus[l:menu]['items']
 			let l:keys = l:menu_item['lhs']
 			let l:keys = substitute(l:keys, '<Leader>', g:mapleader, '')
 			let l:keys = substitute(l:keys, '<', '\\<', '')
@@ -142,7 +212,17 @@ fun! roarie_menu#InstallMenus()
 			endif
 			let l:menu_items += [[l:title, ':call feedkeys("'. l:keys .'")', '']]
 		endfor
-		call quickui#menu#install(l:menu, l:menu_items, g:menus[l:menu]['priority'])
+		call quickui#menu#install(l:menu, l:menu_items, g:roarie_menus[l:menu]['priority'])
+	endfor
+endfun
+" }}}
+"" {{{ fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
+fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
+	let menu_items = s:SortFnMenu()
+	unlet g:roarie_menus[g:roarie_fn_menu]
+	for idx in range(len(a:lpriority))
+		call roarie_menu#AddMenu(a:ltitle[idx], a:lpriority[idx], 1)
+		let menu_items = s:PopulateFnMenu(menu_items, a:ltitle[idx], a:lkey_to[idx], a:lsep_each[idx])
 	endfor
 endfun
 " }}}
