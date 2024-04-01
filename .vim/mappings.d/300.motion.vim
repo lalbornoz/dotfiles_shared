@@ -25,7 +25,7 @@ call roarie_menu#AddMapping("Motion", "Go to bottom of window", "Go to bottom of
 call roarie_menu#AddSeparator("Motion")
 call roarie_menu#AddMapping("Motion", "Go to previous cursor position", "Go to previous cursor position in jump list", '', '<S-Left>', '<C-O>')
 call roarie_menu#AddMapping("Motion", "Go to next cursor position", "Go to next cursor position in jump list", '', '<S-Right>', '<C-I>')
-call roarie_menu#AddMapping("Motion", "Go to previous occurence", "Go to previous occurence of the word nearest to the cursor", '', '<S-Up>', '#')
-call roarie_menu#AddMapping("Motion", "Go to next occurence", "Go to next occurence of the word nearest to the cursor", '', '<S-Down>', '*')
+call roarie_menu#AddMapping("Motion", "Go to previous occurrence", "Go to previous occurrence of the word nearest to the cursor", '', '<S-Up>', '#')
+call roarie_menu#AddMapping("Motion", "Go to next occurrence", "Go to next occurrence of the word nearest to the cursor", '', '<S-Down>', '*')
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
