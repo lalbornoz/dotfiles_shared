@@ -2,8 +2,35 @@
 " Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 "
 
+let g:roarie_startup_exit_on = has_key(g:, "roarie_startup_exit_on") ? g:roarie_startup_exit_on : [
+	\ "h", "j", "k", "l",
+	\ "<Left>", "<Down>", "<Up>", "<Right>",
+	\ "b", "B", "e", "E",
+	\ ]
+let g:roarie_startup_exit_startinsert_on = has_key(g:, "roarie_startup_exit_startinsert_on") ? g:roarie_startup_exit_startinsert_on : [
+	\ "i", "o",
+	\ ]
+
 let g:roarie_startup_hl_groups = has_key(g:, "roarie_startup_hl_groups") ? g:roarie_startup_hl_groups : []
 let g:roarie_startup_hl_matches = has_key(g:, "roarie_startup_hl_matches") ? g:roarie_startup_hl_matches : []
+
+let g:roarie_startup_options = has_key(g:, "roarie_startup_options") ? g:roarie_startup_options : [
+	\ "bufhidden=wipe",
+	\ "buftype=nofile",
+	\ "filetype=terminal",
+	\ "nobuflisted",
+	\ "nocursorcolumn",
+	\ "nocursorline",
+	\ "nolist",
+	\ "nomodifiable",
+	\ "nomodified",
+	\ "nonumber",
+	\ "norelativenumber",
+	\ "noswapfile",
+	\ ]
+
+let g:roarie_startup_progname_filter = '^[-gmnq]\=[n]\=vim\=x\=\%[\.exe]$'
+
 let g:roarie_startup_screen_lines = has_key(g:, "roarie_startup_screen_lines") ? g:roarie_startup_screen_lines : []
 
 " {{{ fun! s:CentreBuffer(lines, winnr)
@@ -31,10 +58,14 @@ endfun
 " }}}
 " {{{ fun! s:ExitBuffer()
 fun! s:ExitBuffer()
-	augroup StartupScreen
+	"
+	" Delete autocmd group that resizes the buffer whenever the editor is
+	" resized, delete the startup screen buffer, and create a new, empty buffer.
+	"
+	augroup StartupScreenResize
 		autocmd!
 	augroup END
-	augroup! StartupScreen
+	augroup! StartupScreenResize
 
 	bdelete
 	enew
@@ -46,8 +77,9 @@ fun! s:SetBuffer(bufno, winnr)
 		return
 	endif
 
-	let centre = s:CentreBuffer(g:roarie_startup_screen_lines, a:winnr)
-
+	"
+	" Temporarily switch to the window and buffer of the startup screen.
+	"
 	let winid_old = win_getid(winnr())
 	call win_gotoid(win_getid(a:winnr))
 	let bufno_old = bufnr("%")
@@ -57,13 +89,9 @@ fun! s:SetBuffer(bufno, winnr)
 		setlocal modifiable modified
 		silent execute ":%delete _"
 
-		for line in range(centre[1])
-		    call appendbufline(a:bufno, '$', '')
-		endfor
-		for line in g:roarie_startup_screen_lines
-		    call appendbufline(a:bufno, '$', repeat(' ', centre[0]) . line)
-		endfor
-
+		"
+		" Apply highlight groups and add patterns to be highlighted.
+		"
 		for hl_group in g:roarie_startup_hl_groups
 			execute "hi" join(hl_group, " ")
 		endfor
@@ -71,10 +99,23 @@ fun! s:SetBuffer(bufno, winnr)
 			call matchadd(hl_match[0], hl_match[1])
 		endfor
 
-		"silent! setl nonu nornu nobl acd ft=dashboard bh=wipe bt=nofile
+		"
+		" Pre-append empty lines to horizontally startup screen lines,
+		" if required, and append startup screen lines to buffer.
+		"
+		let centre = s:CentreBuffer(g:roarie_startup_screen_lines, a:winnr)
+		for line in range(centre[1])
+		    call appendbufline(a:bufno, '$', '')
+		endfor
+		for line in g:roarie_startup_screen_lines
+		    call appendbufline(a:bufno, '$', repeat(' ', centre[0]) . line)
+		endfor
 
 		setlocal nomodifiable nomodified
 	finally
+		"
+		" Restore the original buffer and window.
+		"
 		silent execute "buffer" bufno_old
 		call win_gotoid(winid_old)
 	endtry
@@ -84,51 +125,46 @@ endfun
 " {{{ fun! s:EnterStartupScreen()
 " <https://vi.stackexchange.com/questions/627/how-can-i-change-vims-start-or-intro-screen>
 fun! s:EnterStartupScreen()
-	" Don't run if: we have commandline arguments, we don't have an empty
-	" buffer, if we've not invoked as vim or gvim, or if we'e start in insert mode
-	if argc() || line2byte('$') != -1 || v:progname !~? '^[-gmnq]\=[n]\=vim\=x\=\%[\.exe]$' || &insertmode
+	"
+	" Don't run if: we have command line arguments, we don't have an empty
+	" buffer, if we're invoked w/ a progname not matching g:roarie_startup_progname_filter,
+	" or if we start in insert mode.
+	"
+	if   argc()
+	\ || line2byte('$') != -1
+	\ || v:progname !~? g:roarie_startup_progname_filter
+	\ || &insertmode
 		return
 	endif
 
-	" Start a new buffer and set some options for it
+	"
+	" Start a new buffer, set local options for it, set the startup screen
+	" within the buffer, and setup an autocommand to re-set the startup screen
+	" within the buffer whenever the editor is resized.
+	"
 	enew
-	setlocal
-		\ bufhidden=wipe
-		\ buftype=nofile
-		\ filetype=terminal
-		\ nobuflisted
-		\ nocursorcolumn
-		\ nocursorline
-		\ nolist
-		\ nomodifiable
-		\ nomodified
-		\ nonumber
-		\ norelativenumber
-		\ noswapfile
-
-	"
-	" Now we can just write to the buffer, whatever you want.
-	"
-	let bufno = bufnr("%")
-	let winnr = winnr()
+	execute "setlocal" join(g:roarie_startup_options, " ")
+	let bufno = bufnr("%") | let winnr = winnr()
 	call s:SetBuffer(bufno, winnr)
-
-	" When we go to insert mode start a new buffer, and start insert
-	nnoremap <buffer><silent> e :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> h :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> j :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> k :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> l :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> <Left> :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> <Down> :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> <Up> :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> <Right> :call <SID>ExitBuffer()<CR>
-	nnoremap <buffer><silent> i :call <SID>ExitBuffer() <bar> startinsert<CR>
-	nnoremap <buffer><silent> o :call <SID>ExitBuffer() <bar> startinsert<CR>
-
-	augroup StartupScreen
+	augroup StartupScreenResize
 		execute 'autocmd VimResized * call s:SetBuffer(' . bufno . ', ' . winnr . ')'
 	augroup END
+
+	"
+	" Setup mappings to exit startup screen as per g:roarie_startup_exit_on;
+	" exit startup screen on insert and start insert mode within a new buffer
+	" as per g:roarie_startup_exit_startinsert_on.
+	"
+	for exit_on in g:roarie_startup_exit_on
+		execute
+			\ "nnoremap <buffer><silent>" exit_on
+			\ ":call <SID>ExitBuffer()<CR>"
+	endfor
+	for exit_startinsert_on in g:roarie_startup_exit_startinsert_on
+		execute
+			\ "nnoremap <buffer><silent>" exit_startinsert_on
+			\ ":call <SID>ExitBuffer() <bar> startinsert<CR>"
+	endfor
 endfun
 " }}}
 
