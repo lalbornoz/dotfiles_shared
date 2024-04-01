@@ -25,9 +25,9 @@ function get_menu_keys()
   order_fn = function(t, a, b)
     return t[b]["priority"] > t[a]["priority"]
   end
-  for menu, _ in spairs(vim.g.menus, order_fn) do
-    if vim.g.menus[menu]["ignore_in_palette"] == 0 then
-      for _, item in pairs(vim.g.menus[menu]["items"]) do
+  for menu, _ in spairs(vim.g.roarie_menus, order_fn) do
+    if vim.g.roarie_menus[menu]["ignore_in_palette"] == 0 then
+      for _, item in pairs(vim.g.roarie_menus[menu]["items"]) do
         if not (item["title"] == "--") then
           n = n + 1
           menu_keys[n] = {
