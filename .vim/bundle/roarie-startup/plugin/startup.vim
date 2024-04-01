@@ -32,9 +32,10 @@ let g:roarie_startup_options = has_key(g:, "roarie_startup_options") ? g:roarie_
 let g:roarie_startup_progname_filter = '^[-gmnq]\=[n]\=vim\=x\=\%[\.exe]$'
 
 let g:roarie_startup_screen_lines = has_key(g:, "roarie_startup_screen_lines") ? g:roarie_startup_screen_lines : []
+let g:roarie_startup_screen_offset_x = has_key(g:, "roarie_startup_screen_offset_x") ? g:roarie_startup_screen_offset_x : 0
 
-" {{{ fun! s:CentreBuffer(lines, winnr)
-fun! s:CentreBuffer(lines, winnr)
+" {{{ fun! s:CentreBuffer(lines, offset_x, winnr)
+fun! s:CentreBuffer(lines, offset_x, winnr)
 	let buf_w = winwidth(a:winnr)
 	let buf_h = winheight(a:winnr)
 	let lines_w = 0
@@ -53,7 +54,7 @@ fun! s:CentreBuffer(lines, winnr)
 	let centre_w = (centre_w > 0) ? centre_w : 0
 	let centre_h = (centre_h > 0) ? centre_h : 0
 
-	return [centre_w, centre_h]
+	return [centre_w + a:offset_x, centre_h]
 endfun
 " }}}
 " {{{ fun! s:ExitBuffer()
@@ -103,7 +104,10 @@ fun! s:SetBuffer(bufno, winnr)
 		" Pre-append empty lines to horizontally startup screen lines,
 		" if required, and append startup screen lines to buffer.
 		"
-		let centre = s:CentreBuffer(g:roarie_startup_screen_lines, a:winnr)
+		let centre = s:CentreBuffer(
+			\ g:roarie_startup_screen_lines,
+			\ g:roarie_startup_screen_offset_x,
+			\ a:winnr)
 		for line in range(centre[1])
 		    call appendbufline(a:bufno, '$', '')
 		endfor

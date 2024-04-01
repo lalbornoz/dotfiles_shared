@@ -33,6 +33,7 @@ let g:roarie_startup_hl_matches = [
 
 if has("nvim")
 
+let g:roarie_startup_screen_offset_x = 23
 let g:roarie_startup_screen_lines = [
 	\ '             [40m[37m              [40m[34m▃▃▃▃[0m',
 	\ '             [40m[37m           [40m[34m▟[44m[94m        [40m[34m▙[0m',
