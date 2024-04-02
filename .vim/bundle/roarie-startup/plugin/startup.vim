@@ -42,7 +42,7 @@ fun! s:CentreBuffer(lines, offset_x, winnr)
 	let lines_h = len(a:lines)
 
 	for line in a:lines
-		let line_ = substitute(line, '\[[0-9]\+m', "", "g")
+		let line_ = substitute(line, '\[[0-9;]\+m', "", "g")
 		let line_w = strchars(line_)
 		if line_w > lines_w
 			let lines_w = line_w
