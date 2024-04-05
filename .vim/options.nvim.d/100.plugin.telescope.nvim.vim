@@ -1,7 +1,7 @@
 lua << EOF
 local telescope = require("telescope")
 
-telescope.setup { 
+telescope.setup {
 	defaults = {
 		mappings = {
 			i = {
