@@ -2,6 +2,7 @@
 " Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 "
 
+let g:roarie_commands = {}
 let g:roarie_menus = {}
 let g:roarie_mod_order = [
 	\ '',
@@ -16,43 +17,44 @@ let g:roarie_mod_order = [
 
 let s:fn_tmp_menu = "<Fn>"
 
-" {{{ fun! s:AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
-fun! s:AddMapping_(noaddfl, menu, title, mode, descr, silent, lhs, rhs, pseudofl)
+" {{{ fun! s:AddMapping_(noaddfl, menu, id, title, mode, descr, silent, lhs, rhs, pseudofl)
+fun! s:AddMapping_(noaddfl, menu, id, title, mode, descr, silent, lhs, rhs, pseudofl)
 	let l:map_line = [s:GetMappingMode(a:mode, a:lhs)]
 	let lhs_map = s:FixMapping(a:lhs)
 
 	if a:noaddfl == 0
-		if len(a:descr) == 0
-			let l:descr = a:title
-		else
-			let l:descr = a:descr
-		endif
-
-		let g:roarie_menus[a:menu]['items'] += [{
+		let l:descr = (len(a:descr) == 0) ? a:title : a:descr
+		let l:menu_item = {
 			\ 'descr': l:descr,
+			\ 'id': a:id,
 			\ 'lhs': a:lhs,
 			\ 'mode': a:mode,
 			\ 'rhs': a:rhs,
 			\ 'silent': a:silent,
 			\ 'title': a:title,
-			\ }]
+			\ }
+
+		if !has_key(g:roarie_commands, a:id)
+			let g:roarie_commands[a:id] = []
+		endif
+
+		let g:roarie_commands[a:id] += [menu_item]
+		let g:roarie_menus[a:menu]['items'] += [menu_item]
 	endif
 
-	if !(a:pseudofl is "<pseudo>")
+	if a:pseudofl is ""
 		if len(a:silent) > 0
 			let l:map_line += ['<silent>']
 		endif
 
 		let l:map_line += [lhs_map, a:rhs]
 		execute join(l:map_line, ' ')
-	endif
-
-	if a:pseudofl is "<fnalias>"
+	elseif a:pseudofl is "<fnalias>"
 		if !has_key(g:roarie_menus, s:fn_tmp_menu)
 			call roarie_menu#AddMenu(s:fn_tmp_menu, 0, 1)
 		endif
 
-		call s:AddMapping_(a:noaddfl, s:fn_tmp_menu, a:title, a:mode, a:descr, a:silent, a:lhs, a:rhs, "<pseudo>")
+		call s:AddMapping_(a:noaddfl, s:fn_tmp_menu, a:id, a:title, a:mode, a:descr, a:silent, a:lhs, a:rhs, "<pseudo>")
 	endif
 endfun
 " }}}
@@ -157,35 +159,35 @@ fun! s:SortMenus(lhs, rhs)
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#AddMapping(menu, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return s:AddMapping_(0, a:menu, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
+" {{{ fun! roarie_menu#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	return s:AddMapping_(0, a:menu, a:id, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddIMapping(menu, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddIMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return s:AddMapping_(0, a:menu, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
+" {{{ fun! roarie_menu#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	return s:AddMapping_(0, a:menu, a:id, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddINVOMapping(menu, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddINVOMapping(menu, title, descr, silent, lhs, rhs, ...)
-	call s:AddMapping_(0, a:menu, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs)
-	return s:AddMapping_(1, a:menu, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
+" {{{ fun! roarie_menu#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	call s:AddMapping_(0, a:menu, a:id, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs)
+	return s:AddMapping_(1, a:menu, a:id, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddNMapping(menu, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddNMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return s:AddMapping_(0, a:menu, a:title, 'normal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
+" {{{ fun! roarie_menu#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	return s:AddMapping_(0, a:menu, a:id, a:title, 'normal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddTMapping(menu, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddTMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return s:AddMapping_(0, a:menu, a:title, 'terminal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
+" {{{ fun! roarie_menu#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	return s:AddMapping_(0, a:menu, a:id, a:title, 'terminal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddVMapping(menu, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddVMapping(menu, title, descr, silent, lhs, rhs, ...)
-	return s:AddMapping_(0, a:menu, a:title, 'visual', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
+" {{{ fun! roarie_menu#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	return s:AddMapping_(0, a:menu, a:id, a:title, 'visual', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
 

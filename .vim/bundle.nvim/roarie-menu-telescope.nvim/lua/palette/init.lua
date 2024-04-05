@@ -33,10 +33,11 @@ function get_menu_keys()
           menu_keys[n] = {
             descr = item["descr"],
             display = menu .. ": " .. item["title"],
+            id = item["id"],
             lhs = item["lhs"],
             menu = menu,
             mode = item["mode"],
-            ordinal = item["title"],
+            ordinal = item["title"] .. " " .. item["id"],
             rhs = item["rhs"],
             title = item["title"],
             value = nil,
@@ -110,6 +111,9 @@ palette.palette = function(opts)
           lines = {
             "Menu:",
             entry.menu,
+            "",
+            "Id:",
+            entry.id,
             "",
             "Description:",
             entry.descr,
