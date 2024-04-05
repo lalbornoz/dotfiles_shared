@@ -42,19 +42,24 @@ fun! s:AddMapping_(noaddfl, menu, id, title, mode, descr, silent, lhs, rhs, pseu
 		let g:roarie_menus[a:menu]['items'] += [menu_item]
 	endif
 
-	if a:pseudofl is ""
+	if a:pseudofl is "<fnalias>"
+		if !has_key(g:roarie_menus, s:fn_tmp_menu)
+			call roarie_menu#AddMenu(s:fn_tmp_menu, 0, 1)
+		endif
+
+		call s:AddMapping_(
+			\ a:noaddfl, s:fn_tmp_menu, a:id, a:title,
+			\ a:mode, a:descr, a:silent, a:lhs, a:rhs,
+			\ "<pseudo>")
+	endif
+
+	if !(a:pseudofl is "<pseudo>")
 		if len(a:silent) > 0
 			let l:map_line += ['<silent>']
 		endif
 
 		let l:map_line += [lhs_map, a:rhs]
 		execute join(l:map_line, ' ')
-	elseif a:pseudofl is "<fnalias>"
-		if !has_key(g:roarie_menus, s:fn_tmp_menu)
-			call roarie_menu#AddMenu(s:fn_tmp_menu, 0, 1)
-		endif
-
-		call s:AddMapping_(a:noaddfl, s:fn_tmp_menu, a:id, a:title, a:mode, a:descr, a:silent, a:lhs, a:rhs, "<pseudo>")
 	endif
 endfun
 " }}}
