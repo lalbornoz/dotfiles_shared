@@ -28,6 +28,7 @@ fun! s:AddMapping_(noaddfl, menu, id, title, mode, descr, silent, lhs, rhs, pseu
 			\ 'descr': l:descr,
 			\ 'id': a:id,
 			\ 'lhs': a:lhs,
+			\ 'menu': a:menu,
 			\ 'mode': a:mode,
 			\ 'rhs': a:rhs,
 			\ 'silent': a:silent,
@@ -218,6 +219,19 @@ fun! roarie_menu#AddSeparator(menu)
 		\ 'silent': '',
 		\ 'title': '--',
 		\ }]
+endfun
+" }}}
+
+" {{{ fun! roarie_menu#GetMapping(menu, id)
+fun! roarie_menu#GetMapping(menu, id)
+	if has_key(g:roarie_commands, a:id)
+		for cmd in g:roarie_commands[a:id]
+			if cmd["menu"] is a:menu
+				return cmd
+			endif
+		endfor
+	endif
+	return nil
 endfun
 " }}}
 
