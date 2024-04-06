@@ -16,18 +16,17 @@ local conf = require("telescope.config").values
 local finders = require "telescope.finders"
 local pickers = require "telescope.pickers"
 local previewers = require "telescope.previewers"
+local roarie_menu = require("roarie-menu")
 
 -- {{{ function get_menu_keys()
 function get_menu_keys()
   local menu_keys = {}
   local n = 0
 
-  order_fn = function(t, a, b)
-    return t[b]["priority"] > t[a]["priority"]
-  end
-  for menu, _ in spairs(vim.g.roarie_menus, order_fn) do
-    if vim.g.roarie_menus[menu]["ignore_in_palette"] == 0 then
-      for _, item in pairs(vim.g.roarie_menus[menu]["items"]) do
+  for menu, _ in roarie_menu.GetMenuTitles() do
+    local menu_ = roarie_menu.GetMenu(menu)
+    if menu_["ignore_in_palette"] == 0 then
+      for _, item in pairs(menu_["items"]) do
         if not (item["title"] == "--") then
           n = n + 1
           menu_keys[n] = {
@@ -47,31 +46,6 @@ function get_menu_keys()
     end
   end
   return menu_keys
-end
--- }}}
--- {{{ function spairs(t, order)
--- <https://stackoverflow.com/questions/15706270/sort-a-table-in-lua>
-function spairs(t, order)
-  -- collect the keys
-  local keys = {}
-  for k in pairs(t) do keys[#keys+1] = k end
-
-  -- if order function given, sort by it by passing the table and keys a, b,
-  -- otherwise just sort the keys
-  if order then
-    table.sort(keys, function(a,b) return order(t, a, b) end)
-  else
-    table.sort(keys)
-  end
-
-  -- return the iterator function
-  local i = 0
-  return function()
-    i = i + 1
-    if keys[i] then
-      return keys[i], t[keys[i]]
-    end
-  end
 end
 -- }}}
 -- {{{ function toTitle(str)

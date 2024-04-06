@@ -2,6 +2,91 @@
 " Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 "
 
+if has('nvim')
+
+" {{{ fun! roarie_menu#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	call luaeval(
+		\ 'require("roarie-menu").AddMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
+		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
+endfun
+" }}}
+" {{{ fun! roarie_menu#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	call luaeval(
+		\ 'require("roarie-menu").AddIMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
+		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
+endfun
+" }}}
+" {{{ fun! roarie_menu#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	call luaeval(
+		\ 'require("roarie-menu").AddINVOMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
+		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
+endfun
+" }}}
+" {{{ fun! roarie_menu#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	call luaeval(
+		\ 'require("roarie-menu").AddNMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
+		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
+endfun
+" }}}
+" {{{ fun! roarie_menu#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	call luaeval(
+		\ 'require("roarie-menu").AddTMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
+		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
+endfun
+" }}}
+" {{{ fun! roarie_menu#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_menu#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+	call luaeval(
+		\ 'require("roarie-menu").AddVMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
+		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
+endfun
+" }}}
+
+" {{{ fun! roarie_menu#AddMenu(title, priority, ...)
+fun! roarie_menu#AddMenu(title, priority, ...)
+	call luaeval(
+		\ 'require("roarie-menu").AddMenu(_A[1], _A[2], _A[3])',
+		\ [a:title, a:priority, get(a:, 1, 0)])
+endfun
+" }}}
+" {{{ fun! roarie_menu#AddSeparator(menu)
+fun! roarie_menu#AddSeparator(menu)
+	call luaeval(
+		\ 'require("roarie-menu").AddSeparator(_A[1])',
+		\ [a:menu])
+endfun
+" }}}
+
+" {{{ fun! roarie_menu#GetMapping(menu, id)
+fun! roarie_menu#GetMapping(menu, id)
+	call luaeval(
+		\ 'require("roarie-menu").GetMapping(_A[1], _A[2])',
+		\ [a:menu, a:id])
+endfun
+" }}}
+
+" {{{ fun! roarie_menu#InstallMenus()
+fun! roarie_menu#InstallMenus()
+	call luaeval(
+		\ 'require("roarie-menu").InstallMenus()'
+		\ )
+endfun
+" }}}
+"" {{{ fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
+fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
+	call luaeval(
+		\ 'require("roarie-menu").SetupFnMenus(_A[1], _A[2], _A[3], _A[4])',
+		\ [a:ltitle, a:lpriority, a:lkey_to, a:lsep_each])
+endfun
+" }}}
+
+else
+
 let g:roarie_commands = {}
 let g:roarie_menus = {}
 let g:roarie_mod_order = [
@@ -265,5 +350,7 @@ fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
 	endfor
 endfun
 " }}}
+
+endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
