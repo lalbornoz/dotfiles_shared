@@ -17,7 +17,7 @@ local finders = require "telescope.finders"
 local pickers = require "telescope.pickers"
 local previewers = require "telescope.previewers"
 local roarie_menu = require("roarie-menu")
-local utils = require("roarie-menu.utils")
+local utils = require("roarie-utils")
 
 -- {{{ function get_menu_keys()
 function get_menu_keys()
@@ -113,4 +113,3 @@ end
 return palette
 
 -- vim:expandtab sw=2 ts=2
-

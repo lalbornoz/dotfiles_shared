@@ -18,7 +18,7 @@ local mod_order = {
 local fn_tmp_menu = "<Fn>"
 
 local ui = require("roarie-menu.ui")
-local utils = require("roarie-menu.utils")
+local utils = require("roarie-utils")
 
 local M = {}
 
@@ -255,12 +255,12 @@ M.GetMenuTitles = function()
 end
 -- }}}
 
--- {{{ M.InstallMenus = function()
-M.InstallMenus = function()
-	ui.ResetMenus()
+-- {{{ M.Install = function()
+M.Install = function()
+	ui.Reset()
 	local menu_keys = vim.fn.sort(utils.get_keys(menus), SortMenus)
 	for _, menu in ipairs(menu_keys) do
-		ui.InstallMenus(menu, menus[menu].items, menus[menu]['priority'])
+		ui.Install(menu, menus[menu].items, menus[menu]['priority'])
 	end
 end
 -- }}}

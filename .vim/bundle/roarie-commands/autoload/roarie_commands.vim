@@ -4,89 +4,89 @@
 
 if has('nvim')
 
-" {{{ fun! roarie_menu#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	call luaeval(
 		\ 'require("roarie-menu").AddMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
 		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	call luaeval(
 		\ 'require("roarie-menu").AddIMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
 		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	call luaeval(
 		\ 'require("roarie-menu").AddINVOMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
 		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	call luaeval(
 		\ 'require("roarie-menu").AddNMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
 		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	call luaeval(
 		\ 'require("roarie-menu").AddTMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
 		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	call luaeval(
 		\ 'require("roarie-menu").AddVMapping(_A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8])',
 		\ [a:menu, a:id, a:title, a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, "")])
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#AddMenu(title, priority, ...)
-fun! roarie_menu#AddMenu(title, priority, ...)
+" {{{ fun! roarie_commands#AddMenu(title, priority, ...)
+fun! roarie_commands#AddMenu(title, priority, ...)
 	call luaeval(
 		\ 'require("roarie-menu").AddMenu(_A[1], _A[2], _A[3])',
 		\ [a:title, a:priority, get(a:, 1, 0)])
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddSeparator(menu)
-fun! roarie_menu#AddSeparator(menu)
+" {{{ fun! roarie_commands#AddSeparator(menu)
+fun! roarie_commands#AddSeparator(menu)
 	call luaeval(
 		\ 'require("roarie-menu").AddSeparator(_A[1])',
 		\ [a:menu])
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#GetMapping(menu, id)
-fun! roarie_menu#GetMapping(menu, id)
+" {{{ fun! roarie_commands#GetMapping(menu, id)
+fun! roarie_commands#GetMapping(menu, id)
 	call luaeval(
 		\ 'require("roarie-menu").GetMapping(_A[1], _A[2])',
 		\ [a:menu, a:id])
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#InstallMenus()
-fun! roarie_menu#InstallMenus()
+" {{{ fun! roarie_commands#Install()
+fun! roarie_commands#Install()
 	call luaeval(
-		\ 'require("roarie-menu").InstallMenus()'
+		\ 'require("roarie-menu").Install()'
 		\ )
 endfun
 " }}}
-"" {{{ fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
-fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
+"" {{{ fun! roarie_commands#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
+fun! roarie_commands#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
 	call luaeval(
 		\ 'require("roarie-menu").SetupFnMenus(_A[1], _A[2], _A[3], _A[4])',
 		\ [a:ltitle, a:lpriority, a:lkey_to, a:lsep_each])
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#OpenMenu()
-fun! roarie_menu#OpenMenu()
+" {{{ fun! roarie_commands#OpenMenu()
+fun! roarie_commands#OpenMenu()
 	lua require("roarie-menu.ui").OpenMenu()
 endfun
 " }}}
@@ -136,7 +136,7 @@ fun! s:AddMapping_(noaddfl, menu, id, title, mode, descr, silent, lhs, rhs, pseu
 
 	if a:pseudofl is "<fnalias>"
 		if !has_key(g:roarie_menus, s:fn_tmp_menu)
-			call roarie_menu#AddMenu(s:fn_tmp_menu, 0, 1)
+			call roarie_commands#AddMenu(s:fn_tmp_menu, 0, 1)
 		endif
 
 		call s:AddMapping_(
@@ -202,7 +202,7 @@ fun! s:PopulateFnMenu(src_items, dst_title, key_to, sep_each)
 				let key_last = key_cur
 			elseif (key_cur != key_last) && (((key_cur - 1) % a:sep_each) == 0)
 				let key_last = key_cur
-				call roarie_menu#AddSeparator(a:dst_title)
+				call roarie_commands#AddSeparator(a:dst_title)
 			endif
 			let g:roarie_menus[a:dst_title]["items"] += [item]
 		endif
@@ -256,40 +256,40 @@ fun! s:SortMenus(lhs, rhs)
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	return s:AddMapping_(0, a:menu, a:id, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddIMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	return s:AddMapping_(0, a:menu, a:id, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddINVOMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	call s:AddMapping_(0, a:menu, a:id, a:title, 'nvo', a:descr, a:silent, a:lhs, a:rhs)
 	return s:AddMapping_(1, a:menu, a:id, a:title, 'insert', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddNMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	return s:AddMapping_(0, a:menu, a:id, a:title, 'normal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddTMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	return s:AddMapping_(0, a:menu, a:id, a:title, 'terminal', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
-fun! roarie_menu#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+" {{{ fun! roarie_commands#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
+fun! roarie_commands#AddVMapping(menu, id, title, descr, silent, lhs, rhs, ...)
 	return s:AddMapping_(0, a:menu, a:id, a:title, 'visual', a:descr, a:silent, a:lhs, a:rhs, get(a:, 1, ""))
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#AddMenu(title, priority, ...)
-fun! roarie_menu#AddMenu(title, priority, ...)
+" {{{ fun! roarie_commands#AddMenu(title, priority, ...)
+fun! roarie_commands#AddMenu(title, priority, ...)
 	let g:roarie_menus[a:title] = {}
 	let g:roarie_menus[a:title]['items'] = []
 	let g:roarie_menus[a:title]['priority'] = a:priority
@@ -301,8 +301,8 @@ fun! roarie_menu#AddMenu(title, priority, ...)
 	endif
 endfun
 " }}}
-" {{{ fun! roarie_menu#AddSeparator(menu)
-fun! roarie_menu#AddSeparator(menu)
+" {{{ fun! roarie_commands#AddSeparator(menu)
+fun! roarie_commands#AddSeparator(menu)
 	let g:roarie_menus[a:menu]['items'] += [{
 		\ 'descr': '',
 		\ 'lhs': '',
@@ -313,8 +313,8 @@ fun! roarie_menu#AddSeparator(menu)
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#GetMapping(menu, id)
-fun! roarie_menu#GetMapping(menu, id)
+" {{{ fun! roarie_commands#GetMapping(menu, id)
+fun! roarie_commands#GetMapping(menu, id)
 	if has_key(g:roarie_commands, a:id)
 		for cmd in g:roarie_commands[a:id]
 			if cmd["menu"] is a:menu
@@ -326,8 +326,8 @@ fun! roarie_menu#GetMapping(menu, id)
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#InstallMenus()
-fun! roarie_menu#InstallMenus()
+" {{{ fun! roarie_commands#Install()
+fun! roarie_commands#Install()
 	call quickui#menu#reset()
 	let menu_keys = sort(keys(g:roarie_menus), function("s:SortMenus"))
 	for l:menu in menu_keys
@@ -346,19 +346,19 @@ fun! roarie_menu#InstallMenus()
 	endfor
 endfun
 " }}}
-"" {{{ fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
-fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
+"" {{{ fun! roarie_commands#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
+fun! roarie_commands#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
 	let menu_items = s:SortFnMenu()
 	unlet g:roarie_menus[s:fn_tmp_menu]
 	for idx in range(len(a:lpriority))
-		call roarie_menu#AddMenu(a:ltitle[idx], a:lpriority[idx], 1)
+		call roarie_commands#AddMenu(a:ltitle[idx], a:lpriority[idx], 1)
 		let menu_items = s:PopulateFnMenu(menu_items, a:ltitle[idx], a:lkey_to[idx], a:lsep_each[idx])
 	endfor
 endfun
 " }}}
 
-" {{{ fun! roarie_menu#OpenMenu()
-fun! roarie_menu#OpenMenu()
+" {{{ fun! roarie_commands#OpenMenu()
+fun! roarie_commands#OpenMenu()
 	call quickui#menu#open()
 endfun
 " }}}
