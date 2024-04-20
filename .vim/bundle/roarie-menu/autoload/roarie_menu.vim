@@ -1,4 +1,4 @@
-"
+	"
 " Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 "
 
@@ -82,6 +82,12 @@ fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
 	call luaeval(
 		\ 'require("roarie-menu").SetupFnMenus(_A[1], _A[2], _A[3], _A[4])',
 		\ [a:ltitle, a:lpriority, a:lkey_to, a:lsep_each])
+endfun
+" }}}
+
+" {{{ fun! roarie_menu#OpenMenu()
+fun! roarie_menu#OpenMenu()
+	lua require("roarie-menu.ui").OpenMenu()
 endfun
 " }}}
 
@@ -348,6 +354,12 @@ fun! roarie_menu#SetupFnMenus(ltitle, lpriority, lkey_to, lsep_each)
 		call roarie_menu#AddMenu(a:ltitle[idx], a:lpriority[idx], 1)
 		let menu_items = s:PopulateFnMenu(menu_items, a:ltitle[idx], a:lkey_to[idx], a:lsep_each[idx])
 	endfor
+endfun
+" }}}
+
+" {{{ fun! roarie_menu#OpenMenu()
+fun! roarie_menu#OpenMenu()
+	call quickui#menu#open()
 endfun
 " }}}
 
