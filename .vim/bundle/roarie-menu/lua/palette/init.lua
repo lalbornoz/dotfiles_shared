@@ -17,6 +17,7 @@ local finders = require "telescope.finders"
 local pickers = require "telescope.pickers"
 local previewers = require "telescope.previewers"
 local roarie_menu = require("roarie-menu")
+local utils = require("roarie-menu.utils")
 
 -- {{{ function get_menu_keys()
 function get_menu_keys()
@@ -31,10 +32,10 @@ function get_menu_keys()
           n = n + 1
           menu_keys[n] = {
             descr = item["descr"],
-            display = menu .. ": " .. item["title"],
+            display = menu:gsub("&", "") .. ": " .. item["title"],
             id = item["id"],
             lhs = item["lhs"],
-            menu = menu,
+            menu = menu:gsub("&", ""),
             mode = item["mode"],
             ordinal = item["title"] .. " " .. item["id"],
             rhs = item["rhs"],
@@ -46,11 +47,6 @@ function get_menu_keys()
     end
   end
   return menu_keys
-end
--- }}}
--- {{{ function toTitle(str)
-function toTitle(str)
-  return (str:gsub("^%l", string.upper))
 end
 -- }}}
 
@@ -99,7 +95,7 @@ palette.palette = function(opts)
             entry.rhs,
             "",
             "Mode:",
-            toTitle((entry.mode == "nvo") and ("Normal, Visual, Operator-pending") or entry.mode),
+            utils.to_title((entry.mode == "nvo") and ("Normal, Visual, Operator-pending") or entry.mode),
           }
         end
         vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)

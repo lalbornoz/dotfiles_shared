@@ -17,86 +17,10 @@ local mod_order = {
 
 local fn_tmp_menu = "<Fn>"
 
+local ui = require("roarie-menu.ui")
+local utils = require("roarie-menu.utils")
+
 local M = {}
-
--- {{{ function array_to_vim_array(t)
-function array_to_vim_array(t)
-	local array = '['
-	for idx, v in ipairs(t) do
-		local v_ = nil
-		if type(v) == "number" then
-			v_ = v
-		elseif type(v) == "string" then
-			v_ = "'" .. v .. "'"
-		elseif type(v) == "table" then
-			v_ = array_to_vim_array(v)
-		else
-			vim.api.nvim_err_writeln("Unknown type " .. type(v) .. " for item #" .. idx)
-		end
-		if v_ ~= nil then
-			array = array .. v_ .. ', '
-		end
-	end
-	array = array .. ']'
-	return array
-end
--- }}}
--- {{{ function dict_to_vim_dict(t)
-function dict_to_vim_dict(t)
-	local dict = '{'
-	for k, v in pairs(t) do
-		local v_ = nil
-		if type(v) == "number" then
-			v_ = v
-		elseif type(v) == "string" then
-			v_ = "'" .. v .. "'"
-		elseif type(v) == "table" then
-			v_ = array_to_vim_array(v)
-		else
-			vim.api.nvim_err_writeln("Unknown type " .. type(v) .. " for item: " .. k)
-		end
-		if v_ ~= nil then
-			dict = dict .. "'" .. k .. "'" .. ':' .. v_ .. ', '
-		end
-	end
-	dict = dict .. '}'
-	return dict
-end
--- }}}
--- {{{ function get_keys(t)
-function get_keys(t)
-	local keys = {}
-	for key, _ in pairs(t) do
-		table.insert(keys, key)
-	end
-	return keys
-end
--- }}}
--- {{{ function spairs(t, order)
--- <https://stackoverflow.com/questions/15706270/sort-a-table-in-lua>
-function spairs(t, order)
-  -- collect the keys
-  local keys = {}
-  for k in pairs(t) do keys[#keys+1] = k end
-
-  -- if order function given, sort by it by passing the table and keys a, b,
-  -- otherwise just sort the keys
-  if order then
-    table.sort(keys, function(a,b) return order(t, a, b) end)
-  else
-    table.sort(keys)
-  end
-
-  -- return the iterator function
-  local i = 0
-  return function()
-    i = i + 1
-    if keys[i] then
-      return keys[i], t[keys[i]]
-    end
-  end
-end
--- }}}
 
 -- {{{ function AddMapping_(noaddfl, menu, id, title, mode, descr, silent, lhs, rhs, pseudofl)
 function AddMapping_(noaddfl, menu, id, title, mode, descr, silent, lhs, rhs, pseudofl)
@@ -106,8 +30,23 @@ function AddMapping_(noaddfl, menu, id, title, mode, descr, silent, lhs, rhs, ps
 		if descr:len() == 0 then
 			descr = title
 		end
+
+		local display = nil
+		local keys = lhs
+		keys = vim.fn.substitute(keys, '<Leader>', vim.g.mapleader, '')
+		keys = vim.fn.substitute(keys, '<', '\\\\<', '')
+		local action = ':call feedkeys("' .. keys .. '")'
+
+		if title ~= "--" then
+			display = title .. "\t" .. lhs
+		else
+			display = "--"
+		end
+
 		local menu_item = {
+			action=action,
 			descr=descr,
+			display=display,
 			id=id,
 			lhs=lhs,
 			menu=menu,
@@ -278,7 +217,9 @@ end
 -- {{{ M.AddSeparator = function(menu)
 M.AddSeparator = function(menu)
 	table.insert(menus[menu]['items'], {
+		action=nil,
 		descr='',
+		display='--',
 		lhs='',
 		rhs='',
 		silent='',
@@ -309,32 +250,17 @@ M.GetMenuTitles = function()
 	order_fn = function(t, a, b)
 		return t[b]["priority"] > t[a]["priority"]
 	end
-	return spairs(menus, order_fn)
+	return utils.spairs(menus, order_fn)
 
 end
 -- }}}
 
 -- {{{ M.InstallMenus = function()
 M.InstallMenus = function()
-	vim.fn.execute('call quickui#menu#reset()')
-	local menu_keys = vim.fn.sort(get_keys(menus), SortMenus)
+	ui.ResetMenus()
+	local menu_keys = vim.fn.sort(utils.get_keys(menus), SortMenus)
 	for _, menu in ipairs(menu_keys) do
-		local menu_items = {}
-		for _, menu_item in ipairs(menus[menu]['items']) do
-			local keys = menu_item['lhs']
-			keys = vim.fn.substitute(keys, '<Leader>', vim.g.mapleader, '')
-			keys = vim.fn.substitute(keys, '<', '\\\\<', '')
-			local title = menu_item['title']
-			if title ~= "--" then
-				title = title .. "\t" .. menu_item['lhs']
-			end
-			table.insert(menu_items, {title, ':call feedkeys("' .. keys .. '")', ''})
-		end
-		vim.fn.execute('call quickui#menu#install('
-			.. '"' .. menu .. '"' .. ', '
-			.. array_to_vim_array(menu_items) .. ', '
-			.. menus[menu]['priority']
-			.. ')')
+		ui.InstallMenus(menu, menus[menu].items, menus[menu]['priority'])
 	end
 end
 -- }}}
