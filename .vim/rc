@@ -1,5 +1,39 @@
+"
+" Neovim:
+" Set Neovim runtime and package paths, enable experimental Lua module loader
+" to slightly decrease startup time, and load all Neovim and Vim plugins w/
+" lazy.nvim, possibly lazily.
+"
+" Vim:
+" Load all Vim plugins w/ pathogen.vim.
+"
 if has('nvim')
-	execute pathogen#infect('bundle.nvim/{}')
+	set runtimepath^=~/.vim runtimepath+=~/.vim/after
+	let &packpath = &runtimepath
+	lua vim.loader.enable()
+
+lua <<EOF
+	vim.opt.rtp:prepend("~/.vim/bundle.nvim/lazy.nvim")
+	local lazy = require("lazy")
+	local plugins = {}
+	for _, plugin in ipairs(vim.fn.glob("~/.vim/bundle.nvim/*", 0, 1)) do
+		local i, j = string.find(plugin, ".lazy$")
+		if i == nil then
+			if vim.fn.getftype(plugin) == "link" then
+				plugin = vim.fn.resolve(plugin)
+			end
+			local lazy = false
+			if vim.fn.filereadable(plugin .. ".lazy") > 0 then
+				lazy = true
+			end
+			table.insert(plugins, {dir=plugin, lazy=lazy})
+		end
+	end
+	lazy.setup(plugins, {
+		root="~/.vim/bundle.nvim",
+	})
+EOF
+	source ~/.vim/autoload/lightline/colorscheme/roarie.vim
 else
 	execute pathogen#infect('bundle/{}')
 endif
@@ -46,7 +80,9 @@ for f in
 	endif
 endfor | unlet f vimrc_options_nvim_d
 
+"
 " Install commands.
+"
 call roarie_commands#Install()
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
