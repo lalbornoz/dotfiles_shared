@@ -18,6 +18,8 @@ if has('nvim')
 call roarie_commands#AddMapping("&Project", "telescope_document_symbols", "Telescope document_symbols...", "Telescope document_symbols...", "<silent>", '<F3>', '<Cmd>Telescope lsp_document_symbols<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "telescope_workspace_symbols", "Telescope workspace_symbols...", "Telescope workspace_symbols...", "<silent>", '<S-F3>', '<Cmd>Telescope lsp_workspace_symbols<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "find_all_refs", "Find all references", "Find all LSP references", "<silent>", '<M-F3>', '<Cmd>lua vim.lsp.buf.references()<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "toggle_aerial", "Toggle Aerial sidebar", "Toggle Aerial sidebar", "<silent>", '<C-S-F3>', ':<C-U>AerialToggle<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "toggle_aerial_nav", "Toggle Aerial nav window", "Toggle Aerial nav window", "<silent>", '<M-S-F3>', ':<C-U>AerialNavToggle<CR>', "<fnalias>")
 else
 call roarie_commands#AddMapping("&Project", "search_document_symbols", "Search document symbols...", "Search the symbols for the current document and navigate", "<silent>", '<F3>', ':<C-U>LspDocumentSymbolSearch<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "search_workspace_symbols", "Search workspace symbols...", "Search the workspace symbols for all servers and navigate using quickpick", "<silent>", '<S-F3>', ':<C-U>LspWorkspaceSymbolSearch<CR>', "<fnalias>")
