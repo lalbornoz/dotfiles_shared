@@ -99,6 +99,12 @@ palette.palette = function(opts)
           }
         end
         vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
+        vim.schedule(function()
+          vim.api.nvim_buf_call(self.state.bufnr, function()
+            vim.fn.matchadd("RoariePaletteHeading", '^\\zs.*\\ze:$')
+            vim.fn.matchadd("RoariePaletteMapping", '\\zs<.*>\\ze')
+          end)
+        end)
       end,
     },
     -- }}}
@@ -109,6 +115,9 @@ palette.palette = function(opts)
     results_title = "Command palette",
   }):find()
 end
+
+vim.cmd [[ high! RoariePaletteHeading gui=underline guifg=#7acaca ]]
+vim.cmd [[ high! RoariePaletteMapping gui=bold ]]
 
 return palette
 
