@@ -16,13 +16,27 @@ lua <<EOF
 	vim.opt.rtp:prepend("~/.vim/bundle.nvim/lazy.nvim")
 	local lazy = require("lazy")
 	local plugins = {}
+
+	lazy_plugins = {}
+
+	for _, fn in ipairs(vim.fn.glob("~/.vim/options.nvim.d/*.vim", 0, 1)) do
+		vim.cmd("source " .. fn)
+	end
+
 	for _, plugin in ipairs(vim.fn.glob("~/.vim/bundle.nvim/*", 0, 1)) do
 		local i, j = string.find(plugin, ".lazy$")
 		local i_, j_ = string.find(plugin, ".verylazy$")
 		if (i == nil) and (i_ == nil) then
+			local init_fn = nil
 			if vim.fn.getftype(plugin) == "link" then
-				plugin = vim.fn.resolve(plugin)
+				init_fn, plugin = nil, vim.fn.resolve(plugin)
+			else
+				local plugin_name = string.gsub(plugin, "^.*/", "")
+				if lazy_plugins[plugin_name] ~= nil then
+					init_fn = lazy_plugins[plugin_name].init
+				end
 			end
+
 			local lazy = false
 			if vim.fn.filereadable(plugin .. ".lazy") > 0 then
 				event, lazy = nil, true
@@ -30,7 +44,13 @@ lua <<EOF
 			if vim.fn.filereadable(plugin .. ".verylazy") > 0 then
 				event, lazy = "VeryLazy", true
 			end
-			table.insert(plugins, {dir=plugin, event=event, lazy=lazy})
+
+			table.insert(plugins, {
+				dir=plugin,
+				event=event,
+				init=init_fn,
+				lazy=lazy,
+			})
 		end
 	end
 	lazy.setup(plugins, {
@@ -64,15 +84,9 @@ filet plugin indent on|		" Enable loading indent file for specific file types
 " Source set of run-command Vim files in order, local additions, and
 " post-initialisation finalisation additions, if any.
 "
-if has('nvim')
-	let vimrc_options_nvim_d = glob("~/.vim/options.nvim.d/*.vim", 0, 1)
-else
-	let vimrc_options_nvim_d = []
-endif
 for f in
 	\ glob("~/.vim/options.defaults.d/*.vim", 0, 1) +
 	\ glob("~/.vim/options.d/*.vim", 0, 1) +
-	\ vimrc_options_nvim_d +
 	\ glob("~/.vim/commands.d/*.vim", 0, 1) +
 	\ glob("~/.vim/mappings.d/*.vim", 0, 1) +
 	\ glob("~/.vim/quickui.d/*.vim", 0, 1) +
@@ -82,7 +96,7 @@ for f in
 	if filereadable(f)
 		execute("source " . f)
 	endif
-endfor | unlet f vimrc_options_nvim_d
+endfor | unlet f
 
 "
 " Install commands.

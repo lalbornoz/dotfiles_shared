@@ -1,4 +1,6 @@
 lua << EOF
+lazy_plugins["sidebar-nvim"] = {
+init = function()
 	local sidebar = require("sidebar-nvim")
 	sidebar.setup({
 		bindings = nil,
@@ -23,6 +25,7 @@ lua << EOF
 
 	local symbols = require("sidebar-nvim.builtin.symbols")
 	symbols.bindings["<Enter>"] = symbols.bindings["e"]
+end }
 EOF
 
 " vim:filetype=lua noexpandtab sw=8 ts=8 tw=0

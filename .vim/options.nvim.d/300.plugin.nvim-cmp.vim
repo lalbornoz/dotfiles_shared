@@ -1,4 +1,6 @@
 lua << EOF
+lazy_plugins["nvim-cmp"] = {
+init = function()
 	-- Set up nvim-cmp.
 	local cmp = require'cmp'
 
@@ -36,6 +38,7 @@ lua << EOF
 	require('lspconfig')['clangd'].setup {
 		capabilities = capabilities
 	}
+end }
 EOF
 
 " vim:filetype=lua noexpandtab sw=8 ts=8 tw=0
