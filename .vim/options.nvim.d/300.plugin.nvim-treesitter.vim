@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["nvim-treesitter"] = {
-config = function()
+init = function()
 	vim.cmd [[ autocmd VimEnter * :silent TSUpdate ]]
 
 	require'nvim-treesitter.configs'.setup {
