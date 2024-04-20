@@ -103,3 +103,9 @@
 [submodule ".vim/bundle.nvim/nvim-spectre"]
 	path = .vim/bundle.nvim/nvim-spectre
 	url = https://github.com/nvim-pack/nvim-spectre
+[submodule ".vim/bundle.nvim/telescope-emoji.nvim"]
+	path = .vim/bundle.nvim/telescope-emoji.nvim
+	url = https://github.com/xiyaowong/telescope-emoji.nvim
+[submodule ".vim/bundle.nvim/telescope-glyph.nvim"]
+	path = .vim/bundle.nvim/telescope-glyph.nvim
+	url = https://github.com/ghassan0/telescope-glyph.nvim
