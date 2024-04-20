@@ -18,15 +18,19 @@ lua <<EOF
 	local plugins = {}
 	for _, plugin in ipairs(vim.fn.glob("~/.vim/bundle.nvim/*", 0, 1)) do
 		local i, j = string.find(plugin, ".lazy$")
-		if i == nil then
+		local i_, j_ = string.find(plugin, ".verylazy$")
+		if (i == nil) and (i_ == nil) then
 			if vim.fn.getftype(plugin) == "link" then
 				plugin = vim.fn.resolve(plugin)
 			end
 			local lazy = false
 			if vim.fn.filereadable(plugin .. ".lazy") > 0 then
-				lazy = true
+				event, lazy = nil, true
 			end
-			table.insert(plugins, {dir=plugin, lazy=lazy})
+			if vim.fn.filereadable(plugin .. ".verylazy") > 0 then
+				event, lazy = "VeryLazy", true
+			end
+			table.insert(plugins, {dir=plugin, event=event, lazy=lazy})
 		end
 	end
 	lazy.setup(plugins, {
