@@ -61,8 +61,12 @@ lua <<EOF
 		root="~/.vim/bundle.nvim",
 	})
 EOF
-	source ~/.vim/autoload/lightline/colorscheme/roarie.vim
 else
+	for f in glob("~/.vim/autoload.vim/*.vim", 0, 1)
+		if filereadable(f)
+			execute("source " . f)
+		endif
+	endfor | unlet f
 	execute pathogen#infect('bundle/{}')
 endif
 
