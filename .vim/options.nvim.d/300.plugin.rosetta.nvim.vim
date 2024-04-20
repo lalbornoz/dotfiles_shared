@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["rosetta.nvim"] = {
-init = function()
+config = function()
 	require("rosetta").setup({
 		bidi = {
 			enabled = true,

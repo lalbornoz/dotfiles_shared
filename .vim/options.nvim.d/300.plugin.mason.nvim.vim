@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["mason.nvim"] = {
-init = function()
+config = function()
 	require("mason").setup()
 end }
 EOF

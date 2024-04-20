@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["workspaces.nvim"] = {
-init = function()
+config = function()
 	require("workspaces").setup({
 	    -- path to a file to store workspaces data in
 	    -- on a unix system this would be ~/.local/share/nvim/workspaces

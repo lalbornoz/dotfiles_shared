@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["sidebar-nvim"] = {
-init = function()
+config = function()
 	local sidebar = require("sidebar-nvim")
 	sidebar.setup({
 		bindings = nil,

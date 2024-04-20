@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["nvim-spectre"] = {
-init = function()
+config = function()
 	-- <https://github.com/nvim-pack/nvim-spectre#customization>
 	require('spectre').setup({
 })

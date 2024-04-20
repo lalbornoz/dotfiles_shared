@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["nvim-lspconfig"] = {
-init = function()
+config = function()
 	require'lspconfig'.clangd.setup {
 		cmd = {
 			"clangd",

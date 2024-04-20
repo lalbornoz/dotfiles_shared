@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["telescope-menufacture"] = {
-init = function()
+config = function()
 	local telescope = require("telescope")
 
 	-- To get telescope-menufacture loaded and working with telescope,
