@@ -10,7 +10,10 @@
 if has('nvim')
 	set runtimepath^=~/.vim runtimepath+=~/.vim/after
 	let &packpath = &runtimepath
-	lua vim.loader.enable()
+
+	if has('nvim-0.9')
+		lua vim.loader.enable()
+	endif
 
 lua <<EOF
 	vim.opt.rtp:prepend("~/.vim/bundle.nvim/lazy.nvim")
