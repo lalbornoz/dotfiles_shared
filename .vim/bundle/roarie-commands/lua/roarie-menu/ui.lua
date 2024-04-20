@@ -282,6 +282,12 @@ M.ResetMenus = function(menu, items, priority)
 end
 -- }}}
 
+vim.cmd [[
+	hi! QuickBG	ctermfg=251 ctermbg=236 guifg=#c6c6c6 guibg=#303030
+	hi! QuickSel	ctermfg=236 ctermbg=251 guifg=#303030 guibg=#c6c6c6
+	hi! QuickKey	term=bold ctermfg=179 gui=bold guifg=#d7af5f
+]]
+
 return M
 
 -- vim:filetype=lua noexpandtab sw=8 ts=8 tw=0
