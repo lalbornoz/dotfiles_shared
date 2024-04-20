@@ -46,7 +46,7 @@ for f in
 	endif
 endfor | unlet f vimrc_options_nvim_d
 
-" Install QuickUI menus.
-call roarie_menu#InstallMenus()
+" Install commands.
+call roarie_commands#Install()
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0

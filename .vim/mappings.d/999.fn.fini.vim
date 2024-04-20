@@ -2,7 +2,7 @@
 " [Mappings] <Fn> key menu mappings pseudo-menu
 "
 
-call roarie_menu#SetupFnMenus(
+call roarie_commands#SetupFnMenus(
 	\ ["<F1-6>", "<F7-12>"],
 	\ [100, 150],
 	\ [6, 12], [2, 2])

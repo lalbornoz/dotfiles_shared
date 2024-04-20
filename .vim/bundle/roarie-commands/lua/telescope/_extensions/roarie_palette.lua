@@ -2,11 +2,11 @@
 -- Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 --
 
-local palette = require('palette')
+local palette = require('roarie-palette')
 
 return require('telescope').register_extension {
   exports = {
-    palette = palette.palette
+    roarie_palette = palette.palette
   },
 
   setup = function(ext_config, _config)
