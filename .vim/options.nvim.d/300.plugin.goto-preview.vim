@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["goto-preview"] = {
-init = function()
+config = function()
 	require('goto-preview').setup {
 		dismiss_on_move = true;
 		focus_on_open = false;

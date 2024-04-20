@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["nvim-terminal.lua"] = {
-init = function()
+config = function()
 	require'terminal'.setup()
 end }
 EOF

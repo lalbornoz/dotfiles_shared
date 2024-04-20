@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["nvim-cmp"] = {
-init = function()
+config = function()
 	-- Set up nvim-cmp.
 	local cmp = require'cmp'
 

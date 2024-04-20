@@ -1,6 +1,6 @@
 lua << EOF
 lazy_plugins["telescope.nvim"] = {
-init = function()
+config = function()
 	local telescope = require("telescope")
 
 	telescope.setup {
