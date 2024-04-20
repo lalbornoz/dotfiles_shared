@@ -2,6 +2,8 @@
 # Common platform-independent subroutines
 #
 
+
+
 if _shinit_which fzf; then
 	rfzf() { local _cmd="${1}" _pname="$(fzf)"; shift; "${_cmd}" "${@}" "${_pname}"; };
 fi;
@@ -30,6 +32,14 @@ if _shinit_which sed shuf tr; then
 			: $((_nwords-=1));
 		done;
 		printf "%s\n" "${_words}";
+	};
+fi;
+if _shinit_which pdf2ps; then
+	shrinkpdf() {
+		local _fname="${1:?usage: shrinkpdf fname.pdf}";
+		pdf2ps -dLanguageLevel=3 "${_fname}" "${_fname}.ps" || return "${?}";
+		ps2pdf -dPDFSETTINGS=/ebook "${_fname}.ps" "${_fname%.pdf}.new.pdf" || return "${?}";
+		rm -f "${_fname}.ps";
 	};
 fi;
 if ! _shinit_which tac && _shinit_which sed; then
