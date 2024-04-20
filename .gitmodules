@@ -112,3 +112,6 @@
 [submodule ".vim/bundle.nvim/lazy.nvim"]
 	path = .vim/bundle.nvim/lazy.nvim
 	url = https://github.com/folke/lazy.nvim
+[submodule ".vim/bundle.nvim/aerial.nvim"]
+	path = .vim/bundle.nvim/aerial.nvim
+	url = https://github.com/stevearc/aerial.nvim
