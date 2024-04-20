@@ -109,6 +109,3 @@
 [submodule ".vim/bundle.nvim/telescope-glyph.nvim"]
 	path = .vim/bundle.nvim/telescope-glyph.nvim
 	url = https://github.com/ghassan0/telescope-glyph.nvim
-[submodule ".vim/bundle.nvim/impatient.nvim"]
-	path = .vim/bundle.nvim/impatient.nvim
-	url = https://github.com/lewis6991/impatient.nvim
