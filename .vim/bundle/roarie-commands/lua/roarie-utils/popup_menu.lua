@@ -67,6 +67,26 @@ M.select_item = function(direction, menu, menu_popup)
 
 	if direction.idx ~= nil then
 		dirty, menu_popup.idx = true, direction.idx
+	elseif direction.next ~= nil then
+		if direction.step < 0 then
+			while menu_popup.idx < (menu_popup.h - 2) do
+				if menu.items[menu.idx].items[menu_popup.idx].display == direction.next then
+					dirty, menu_popup.idx = true, menu_popup.idx + 1
+					break
+				else
+					dirty, menu_popup.idx = true, menu_popup.idx + 1
+				end
+			end
+		elseif direction.step > 0 then
+			while menu_popup.idx > 1 do
+				if menu.items[menu.idx].items[menu_popup.idx].display == direction.next then
+					dirty, menu_popup.idx = true, menu_popup.idx - 1
+					break
+				else
+					dirty, menu_popup.idx = true, menu_popup.idx - 1
+				end
+			end
+		end
 	elseif direction.step < 0 then
 		while menu_popup.idx < (menu_popup.h - 2) do
 			dirty, menu_popup.idx = true, menu_popup.idx + 1
