@@ -47,7 +47,8 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 	then
 		loop_status, menu_popup_idx = false, menu_popup.idx
 	elseif (((ch >= "a") and (ch <= "z"))
-	    or  ((ch >= "A") and (ch <= "Z")))
+	    or  ((ch >= "A") and (ch <= "Z"))
+	    or  ((ch >= "0") and (ch <= "9")))
 	then
 		_, menu_popup = utils_menu.open(menu, menu_popup, ch)
 	elseif (code == termcodes.Left) or (code == termcodes.Right) then
@@ -73,15 +74,14 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 		elseif (code == termcodes.Down) or (code == termcodes.Space) then
 			_, menu_popup = utils_menu.open(menu, menu_popup, nil)
 		end
-	elseif menu_popup.open
-	   and ((code == termcodes.PageDown) or (code == termcodes.End)
-	    or  (code == termcodes.PageUp) or (code == termcodes.Home))
-	then
-		if (code == termcodes.PageDown) or (code == termcodes.End) then
-			utils_popup_menu.select_item({idx=(menu_popup.h - 2)}, menu, menu_popup)
-		else
-			utils_popup_menu.select_item({idx=1}, menu, menu_popup)
-		end
+	elseif menu_popup.open and (code == termcodes.PageDown) then
+		utils_popup_menu.select_item({next="--", step=-1}, menu, menu_popup)
+	elseif menu_popup.open and (code == termcodes.PageUp) then
+		utils_popup_menu.select_item({next="--", step=1}, menu, menu_popup)
+	elseif menu_popup.open and (code == termcodes.Home) then
+		utils_popup_menu.select_item({idx=1}, menu, menu_popup)
+	elseif menu_popup.open and (code == termcodes.End) then
+		utils_popup_menu.select_item({idx=(menu_popup.h - 2)}, menu, menu_popup)
 	end
 
 	vim.o.guicursor = guicursor_old
