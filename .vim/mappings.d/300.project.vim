@@ -52,11 +52,11 @@ call roarie_commands#AddMapping("&Project", "goto_diag_next", "Go to next diagno
 call roarie_commands#AddMapping("&Project", "goto_diag_prev", "Go to previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', ':<C-U>LspPreviousDiagnostic<CR>')
 endif
 call roarie_commands#AddSeparator("&Project")
-call roarie_commands#AddMapping("&Project", "git_commit", "Git commit...", "Git commit prompt...", '', '<F6>', ':<C-U>Git commit ', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_push", "Git push...", "Git push prompt...", '', '<S-F6>', ':<C-U>Git push ', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_status", "Git status", "Bring up summary window akin to git-status", "<silent>", '<C-F6>', ':<C-U>Git<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_log", "Git log", "Git log", "<silent>", '<C-S-F6>', ':<C-U>Git log<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_diff", "Git diff", "Print global Git diff into new scratch window", "<silent>", '<M-F6>', ':<C-U>Git diff<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_diff_prompt", "Git diff...", "Git diff prompt...", "", '<M-S-F6>', ':<C-U>Git diff ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_status", "Git status", "Bring up summary window akin to git-status", "<silent>", '<F6>', ':<C-U>Git<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_log", "Git log", "Git log", "<silent>", '<S-F6>', ':<C-U>Git log<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_diff", "Git diff", "Print global Git diff into new scratch window", "<silent>", '<C-F6>', ':<C-U>Git diff<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_diff_prompt", "Git diff...", "Git diff prompt...", "", '<C-S-F6>', ':<C-U>Git diff ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_commit", "Git commit...", "Git commit prompt...", '', '<M-F6>', ':<C-U>Git commit ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_push", "Git push...", "Git push prompt...", '', '<M-S-F6>', ':<C-U>Git push ', "<fnalias>")
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
