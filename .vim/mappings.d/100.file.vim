@@ -46,7 +46,6 @@ if has('nvim')
 call roarie_commands#AddMapping("&File", "toggle_sidebar", "Toggle sidebar", "Toggle sidebar", "<silent>", '<C-F12>', ':lua require("sidebar-nvim").toggle({focus=true})<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&File", "telescope_files", "Telescope files...", "Telescope files...", "<silent>", '<S-F12>', ':lua require("telescope").extensions.menufacture.find_files()<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&File", "telescope_buffers", "Telescope buffers...", "Telescope buffers...", "<silent>", '<M-F12>', ':lua require("telescope.builtin").buffers()<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&File", "telescope_git_commits", "Telescope git_commits...", "Telescope git_commits...", '', '<M-S-F12>', ':<C-U>Telescope git_commits<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&File", "telescope_workspaces", "Telescope workspaces...", "Telescope workspaces...", "<silent>", '<C-S-F12>', ':Telescope workspaces<CR>', "<fnalias>")
 endif
 
