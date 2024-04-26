@@ -72,45 +72,6 @@ M.get = function(menus)
 	return menu
 end
 -- }}}
--- {{{ M.open = function(menus, menu_popup, key_char)
-M.open = function(menus, menu_popup, key_char)
-	local textlist = {}
-	local w, h = 4, 2
-
-	if not find_menu(key_char, menus) then
-		return nil, menu_popup
-	end
-
-	for _, item in ipairs(menus.items[menus.idx].items) do
-		if item["display"] ~= "--" then
-			if string.match(item["display"], "\t") ~= nil then
-				local display_ = {unpack(utils.split(item["display"], "[^\t]+"), 1, 2)}
-				w = math.max(w, 2 + display_[1]:len() + 3 + display_[2]:len() + 2)
-			else
-				w = math.max(w, 2 + item["display"]:len() + 2)
-			end
-		end
-		h = h + 1
-	end
-
-	for _, item in ipairs(menus.items[menus.idx].items) do
-		if item["display"] ~= "--" then
-			if string.match(item["display"], "\t") ~= nil then
-				local display_ = {unpack(utils.split(item["display"], "[^\t]+"), 1, 2)}
-				local spacing = math.max(w - 2 - display_[1]:len() - display_[2]:len() - 2, 3)
-				table.insert(textlist, " " .. display_[1] .. string.rep(" ", spacing) .. display_[2] .. " ")
-			else
-				table.insert(textlist, " " .. item["display"] .. " ")
-			end
-		else
-			table.insert(textlist, "--")
-		end
-	end
-
-	menu_popup = utils_popup_menu.open(menus, textlist, w, h, menu_popup)
-	return nil, menu_popup
-end
--- }}}
 -- {{{ M.update = function(winid, menu_idx, menu_items, menu_size, menu_state)
 M.update = function(winid, menu_idx, menu_items, menu_size, menu_state)
 	if menu_state == 0 then
