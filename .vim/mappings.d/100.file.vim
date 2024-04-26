@@ -17,11 +17,10 @@ call roarie_commands#AddMapping("&File", "read_program", "Read from program...",
 call roarie_commands#AddMapping("&File", "read_program_buffer", "Read from program into buffer...", "Read from program prompt into current buffer", '', '<M-S-F9>', ':<C-U>r!', "<fnalias>")
 call roarie_commands#AddSeparator("&File")
 if has('nvim')
-call roarie_commands#AddMapping("&File", "telescope_live_grep", "Telescope live_grep...", "Telescope live_grep...", "<silent>", '<F10>', ':lua require("telescope").extensions.menufacture.live_grep()<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&File", "telescope_grep_string", "Telescope grep_string...", "Telescope grep_string...", "<silent>", '<S-F10>', ':lua require("telescope").extensions.menufacture.grep_string()<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&File", "telescope_live_grep_buffer", "Telescope live_grep buffer...", "Telescope live_grep buffer...", "<silent>", '<M-F10>', ':lua require("telescope").extensions.menufacture.live_grep({path_display="hidden", search_dirs={"%:p"}})<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&File", "telescope_live_grep", "Telescope live_grep...", "Telescope live_grep...", "<silent>", '<F10>', ':lua require("telescope").extensions.menufacture.defaults.live_grep()<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&File", "telescope_live_grep_buffer", "Telescope live_grep buffer...", "Telescope live_grep buffer...", "<silent>", '<S-F10>', ':lua require("telescope").extensions.menufacture.defaults.live_grep_buffer()<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&File", "spectre_toggle", "Toggle spectre", "Toggle spectre", "<silent>", '<C-F10>', '<Cmd>lua require("spectre").toggle()<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&File", "spectre_search_word", "Spectre search word", "Spectre search word", "<silent>", '<C-S-F10>', '<Cmd>lua require("spectre").open_visual({select_word=true})<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&File", "spectre_search_word", "Spectre search word", "Spectre search word", "<silent>", '<M-F10>', '<Cmd>lua require("spectre").open_visual({select_word=true})<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&File", "spectre_search_file", "Spectre search in file", "Spectre search in file", "<silent>", '<M-S-F10>', '<Cmd>lua require("spectre").open_file_search({select_word=true})<CR>', "<fnalias>")
 else
 call roarie_commands#AddMapping("&File", "grep", "Grep...", "Grep...", '', '<F10>', ':<C-U>Grep ', "<fnalias>")
@@ -43,10 +42,10 @@ else
 call roarie_commands#AddMapping("&File", "toggle_nerdtree", "Toggle NERDTree", "Toggle NERDTree window", "<silent>", '<F12>', ':<C-U>NERDTreeToggle<CR>', "<fnalias>")
 endif
 if has('nvim')
+call roarie_commands#AddMapping("&File", "telescope_files", "Telescope files...", "Telescope files...", "<silent>", '<S-F12>', ':lua require("telescope").extensions.menufacture.defaults.find_files()<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&File", "toggle_sidebar", "Toggle sidebar", "Toggle sidebar", "<silent>", '<C-F12>', ':lua require("sidebar-nvim").toggle({focus=true})<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&File", "telescope_files", "Telescope files...", "Telescope files...", "<silent>", '<S-F12>', ':lua require("telescope").extensions.menufacture.find_files()<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&File", "telescope_buffers", "Telescope buffers...", "Telescope buffers...", "<silent>", '<M-F12>', ':lua require("telescope.builtin").buffers()<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&File", "telescope_workspaces", "Telescope workspaces...", "Telescope workspaces...", "<silent>", '<C-S-F12>', ':Telescope workspaces<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&File", "telescope_workspaces", "Telescope workspaces...", "Telescope workspaces...", "<silent>", '<M-S-F12>', ':Telescope workspaces<CR>', "<fnalias>")
 endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
