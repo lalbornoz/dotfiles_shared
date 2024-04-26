@@ -50,9 +50,8 @@ config = function()
 		-- }}}
 		-- {{{ pickers = {}
 		pickers = {
-			find_files = { prompt_title = "Find Files (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-p>: wrap)", },
-			grep_string = { prompt_title = "Find Word (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-p>: wrap)", },
-			live_grep = { prompt_title = "Live Grep (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-p>: wrap)", },
+			find_files = { prompt_title = "Files (<C-^>: options <C-d>: dir <C-h>: hidden <C-[xtv]>: open)", },
+			live_grep = { prompt_title = "Grep (<C-^>: options <C-d>: dir <C-h>: hidden <C-[xtv]>: open)", },
 		},
 		-- }}}
 	}
