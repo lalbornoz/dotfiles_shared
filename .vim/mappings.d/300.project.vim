@@ -55,8 +55,8 @@ call roarie_commands#AddSeparator("&Project")
 call roarie_commands#AddMapping("&Project", "git_status", "Git status", "Bring up summary window akin to git-status", "<silent>", '<F6>', ':<C-U>Git<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "git_log", "Git log", "Git log", "<silent>", '<S-F6>', ':<C-U>Git log<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "git_diff", "Git diff", "Print global Git diff into new scratch window", "<silent>", '<C-F6>', ':<C-U>Git diff<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_diff_prompt", "Git diff...", "Git diff prompt...", "", '<C-S-F6>', ':<C-U>Git diff ', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_commit", "Git commit...", "Git commit prompt...", '', '<M-F6>', ':<C-U>Git commit ', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_push", "Git push...", "Git push prompt...", '', '<M-S-F6>', ':<C-U>Git push ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_diffsplit", "Git diffsplit", "Git diff of current file w/ split window", "<silent>", '<C-S-F6>', ':<C-U>Gdiffsplit<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_prompt", "Git prompt...", "Git prompt...", '', '<M-F6>', ':<C-U>Git ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "telescope_git_commits", "Telescope git_commits...", "Telescope git_commits...", '', '<M-S-F6>', ':<C-U>Telescope git_commits<CR>', "<fnalias>")
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
