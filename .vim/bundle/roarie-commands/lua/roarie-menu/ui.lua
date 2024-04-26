@@ -32,6 +32,8 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 	guicursor_old, hl_cursor_old = utils_menu.update(winid, menu.idx, menu.items, menu.size, menu.state)
 	vim.cmd [[redraw]]
 
+	print("Access top-level menus with <SHIFT> + <highlighted key>, menu items with <highlighted lower case key>")
+
 	local menu_popup_idx = nil
 
 	local rc, code = pcall(vim.fn.getchar)
@@ -46,11 +48,13 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 	   and ((ch == " ") or (ch == "\r"))
 	then
 		loop_status, menu_popup_idx = false, menu_popup.idx
-	elseif (((ch >= "a") and (ch <= "z"))
-	    or  ((ch >= "A") and (ch <= "Z"))
-	    or  ((ch >= "0") and (ch <= "9")))
-	then
-		_, menu_popup = utils_menu.open(menu, menu_popup, ch)
+	elseif (ch >= "a") and (ch <= "z") then
+		if menu_popup.open then
+			utils_popup_menu.select_item({key=ch}, menu, menu_popup)
+		end
+	elseif ((ch >= "A") and (ch <= "Z"))
+	   or  ((ch >= "0") and (ch <= "9")) then
+		_, menu_popup = utils_popup_menu.open(menu, menu_popup, string.lower(ch))
 	elseif (code == termcodes.Left) or (code == termcodes.Right) then
 		if code == termcodes.Left then
 			if menu.idx > 1 then menu.idx = menu.idx - 1 else menu.idx = menu.size end
@@ -60,19 +64,19 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 
 		if menu_popup.open then
 			menu_popup = utils_popup_menu.close(menu_popup, false)
-			_, menu_popup = utils_menu.open(menu, menu_popup, nil)
+			_, menu_popup = utils_popup_menu.open(menu, menu_popup, nil)
 		else
 			menu_popup = utils_popup_menu.close(menu_popup, true)
 		end
 	elseif (code == termcodes.Down) or (code == termcodes.Up) or (code == termcodes.Space) then
 		if menu_popup.open then
 			if code == termcodes.Down then
-				utils_popup_menu.select_item({step=-1}, menu, menu_popup)
-			else
 				utils_popup_menu.select_item({step=1}, menu, menu_popup)
+			else
+				utils_popup_menu.select_item({step=-1}, menu, menu_popup)
 			end
 		elseif (code == termcodes.Down) or (code == termcodes.Space) then
-			_, menu_popup = utils_menu.open(menu, menu_popup, nil)
+			_, menu_popup = utils_popup_menu.open(menu, menu_popup, nil)
 		end
 	elseif menu_popup.open and (code == termcodes.PageDown) then
 		utils_popup_menu.select_item({next="--", step=-1}, menu, menu_popup)
