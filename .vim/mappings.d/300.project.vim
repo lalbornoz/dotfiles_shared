@@ -33,11 +33,10 @@ else
 call roarie_commands#AddMapping("&Project", "display_hover", "Display hover information", "Get hover information & display in preview-window", "<silent>", '<F4>', ':<C-U>LspHover<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "code_action", "Code action...", "Code action...", "<silent>", '<S-F4>', ':<C-U>LspCodeAction<CR>', "<fnalias>")
 endif
-call roarie_commands#AddMapping("&Project", "display_man", "Display manual page", "Display manual page from current word", "<silent>", '<C-F4>', '"zyiw:exe "Man ".@z.""<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "display_man_prompt", "Display manual page...", "Display manual page prompt", "", '<C-F4>', ':<C-U>Man ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "display_man", "Display manual page", "Display manual page from current word", "<silent>", '<C-S-F4>', '"zyiw:exe "Man ".@z.""<CR>', "<fnalias>")
 if has('nvim')
-call roarie_commands#AddMapping("&Project", "telescope_man_pages", "Telescope man_pages...", "Telescope man_pages...", '<silent>', '<C-S-F4>', ':<C-U>lua require("telescope.builtin").man_pages({sections = {"ALL"}})<CR>', "<fnalias>")
-else
-call roarie_commands#AddMapping("&Project", "display_man", "Display manual page...", "Display manual page...", '', '<C-S-F4>', ':<C-U>Man ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "telescope_man_pages", "Telescope man_pages...", "Telescope man_pages...", '<silent>', '<M-S-F4>', ':<C-U>lua require("telescope.builtin").man_pages({sections = {"ALL"}})<CR>', "<fnalias>")
 endif
 call roarie_commands#AddSeparator("&Project")
 call roarie_commands#AddMapping("&Project", "build", "Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
