@@ -4,12 +4,12 @@
 
 call roarie_commands#AddMenu("&Windows", 500)
 call roarie_commands#AddMapping("&Windows", "create_window", "&Create new window", "Create new window", '<silent>', '<F7>', ':<C-U>new<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Windows", "create_window_vertical", "Create new &vertically split window", "Create new vertically split window", '<silent>', '<S-F7>', ':<C-U>vnew<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Windows", "close_current_window", "C&lose current window", "Close current window", '<silent>', '<S-F8>', ':<C-U>close<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Windows", "create_window_vertical", "&Create new vertically split window", "Create new vertically split window", '<silent>', '<S-F7>', ':<C-U>vnew<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Windows", "close_current_window", "&Close current window", "Close current window", '<silent>', '<S-F8>', ':<C-U>close<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Windows", "split_window", "&Split window", "Split current window in two", "<silent>", '<C-t>', ':<C-U>wincmd s<CR>')
 call roarie_commands#AddSeparator("&Windows")
 call roarie_commands#AddMapping("&Windows", "quickfix_window", "&QuickFix window...", "Toggle the QuickFix window given recognised errors", "<silent>", '<M-F8>', ':<C-U>ToggleQuickFix<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Windows", "open_menu", "&Open menu...", "Open menu...", '<silent>', '<M-m>', ':<C-U>call roarie_commands#OpenMenu()<CR>')
+call roarie_commands#AddMapping("&Windows", "open_menu", "Open &menu...", "Open menu...", '<silent>', '<M-m>', ':<C-U>call roarie_commands#OpenMenu()<CR>')
 if has('nvim')
 call roarie_commands#AddMapping("&Windows", "command_palette", "Command &palette...", "Command palette", '<silent>', '<C-p>', ':<C-U>Telescope roarie_palette<CR>')
 endif

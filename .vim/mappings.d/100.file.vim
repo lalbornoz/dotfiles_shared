@@ -8,11 +8,11 @@ call roarie_commands#AddIMapping("&File", "exit_insert", "E&xit insert mode", "E
 if has('nvim')
 call roarie_commands#AddTMapping("&File", "terminal_exit", "E&xit terminal mode", "Exit terminal mode", '', '<Esc>', '<C-\><C-n>')
 endif
-call roarie_commands#AddMapping("&File", "buffer_next", "&Next buffer", "Go to next buffer in buffer list", "<silent>", '<S-Tab>', ':<C-U>bn<CR>')
-call roarie_commands#AddMapping("&File", "buffer_prev", "&Previous buffer", "Go to previous buffer in buffer list", "<silent>", '<C-S-Tab>', ':<C-U>bp<CR>')
+call roarie_commands#AddMapping("&File", "buffer_next", "Next &buffer", "Go to next buffer in buffer list", "<silent>", '<S-Tab>', ':<C-U>bn<CR>')
+call roarie_commands#AddMapping("&File", "buffer_prev", "Previous &buffer", "Go to previous buffer in buffer list", "<silent>", '<C-S-Tab>', ':<C-U>bp<CR>')
 call roarie_commands#AddSeparator("&File")
-call roarie_commands#AddNMapping("&File", "filter_file", "Filter f&ile...", "Filter entire file through program w/ tab-complete from favourites prompt", '', '<F9>', ':FPC ', "<fnalias>")
-call roarie_commands#AddVMapping("&File", "filter_range", "Filter &range...", "Filter visual range through program w/ tab-complete from favourites prompt", '', '<F9>', ':FPCR ', "<fnalias>")
+call roarie_commands#AddNMapping("&File", "filter_file", "&Filter file...", "Filter entire file through program w/ tab-complete from favourites prompt", '', '<F9>', ':FPC ', "<fnalias>")
+call roarie_commands#AddVMapping("&File", "filter_range", "&Filter range...", "Filter visual range through program w/ tab-complete from favourites prompt", '', '<F9>', ':FPCR ', "<fnalias>")
 call roarie_commands#AddMapping("&File", "read_program", "&Read from program...", "Read from program prompt into new scratch window", '', '<M-F9>', ':<C-U>CReadNewScratch ', "<fnalias>")
 call roarie_commands#AddMapping("&File", "read_program_buffer", "&Read from program into buffer...", "Read from program prompt into current buffer", '', '<M-S-F9>', ':<C-U>r!', "<fnalias>")
 call roarie_commands#AddSeparator("&File")
@@ -42,9 +42,9 @@ else
 call roarie_commands#AddMapping("&File", "toggle_nerdtree", "Toggle NERDTr&ee", "Toggle NERDTree window", "<silent>", '<F12>', ':<C-U>NERDTreeToggle<CR>', "<fnalias>")
 endif
 if has('nvim')
-call roarie_commands#AddMapping("&File", "telescope_files", "Telescope &files...", "Telescope files...", "<silent>", '<S-F12>', ':lua require("telescope").extensions.menufacture.defaults.find_files()<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&File", "toggle_sidebar", "Toggle side&bar", "Toggle sidebar", "<silent>", '<C-F12>', ':lua require("sidebar-nvim").toggle({focus=true})<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&File", "telescope_buffers", "Telescope &buffers...", "Telescope buffers...", "<silent>", '<M-F12>', ':lua require("telescope.builtin").buffers()<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&File", "telescope_files", "Telescope fil&es...", "Telescope files...", "<silent>", '<S-F12>', ':lua require("telescope").extensions.menufacture.defaults.find_files()<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&File", "toggle_sidebar", "Toggle sideb&ar", "Toggle sidebar", "<silent>", '<C-F12>', ':lua require("sidebar-nvim").toggle({focus=true})<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&File", "telescope_buffers", "Telescope b&uffers...", "Telescope buffers...", "<silent>", '<M-F12>', ':lua require("telescope.builtin").buffers()<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&File", "telescope_workspaces", "Telescope &workspaces...", "Telescope workspaces...", "<silent>", '<M-S-F12>', ':Telescope workspaces<CR>', "<fnalias>")
 endif
 
