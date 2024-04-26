@@ -32,7 +32,7 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 	guicursor_old, hl_cursor_old = utils_menu.update(winid, menu.idx, menu.items, menu.size, menu.state)
 	vim.cmd [[redraw]]
 
-	print("Access top-level menus with <SHIFT> + <highlighted key>, menu items with <highlighted lower case key>")
+	print("<{S-[a-z0-9],Down,Space}>, <{Left,Right}>: open/select menu, [a-z0-9], <{Page,}Down,Up,Home,End>: select menu items, <{Space,Enter}>: activate menu item")
 
 	local menu_popup_idx = nil
 
