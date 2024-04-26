@@ -76,9 +76,6 @@
 [submodule ".vim/bundle.nvim/mason.nvim"]
 	path = .vim/bundle.nvim/mason.nvim
 	url = https://github.com/williamboman/mason.nvim
-[submodule ".vim/bundle.nvim/edgy.nvim"]
-	path = .vim/bundle.nvim/edgy.nvim
-	url = https://github.com/folke/edgy.nvim
 [submodule ".vim/bundle.nvim/rosetta.nvim"]
 	path = .vim/bundle.nvim/rosetta.nvim
 	url = https://github.com/lalbornoz/rosetta.nvim
