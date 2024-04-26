@@ -4,6 +4,7 @@ config = function()
 	local telescope = require("telescope")
 
 	telescope.setup {
+		-- {{{ defaults = {}
 		defaults = {
 			mappings = {
 				i = {
@@ -34,20 +35,26 @@ config = function()
 			path_display = { shorten = 3, },
 			sorting_strategy = "ascending",
 		},
-
+		-- }}}
+		-- {{{ extensions = {}
 		extensions = {
 			menufacture = {
 				mappings = {
-					main_menu = { [{ 'i', 'n' }] = '<C-n>' },
+					main_menu = { [{ 'i', 'n' }] = '<C-^>' },
+					search_in_directory = { i = '<C-d>' },
+					toggle_hidden = { i = '<C-h>' },
+					toggle_wrap = { i = '<C-w>' },
 				},
 			},
 		},
-
+		-- }}}
+		-- {{{ pickers = {}
 		pickers = {
-			find_files = { prompt_title = "Find Files (press <C-^> for options)", },
-			grep_string = { prompt_title = "Find Word (press <C-^> for options)", },
-			live_grep = { prompt_title = "Live Grep (press <C-^> for options)", },
+			find_files = { prompt_title = "Find Files (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-w>: wrap)", },
+			grep_string = { prompt_title = "Find Word (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-w>: wrap)", },
+			live_grep = { prompt_title = "Live Grep (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-w>: wrap)", },
 		},
+		-- }}}
 	}
 end }
 EOF
