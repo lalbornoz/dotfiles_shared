@@ -4,12 +4,11 @@
 --
 
 local utils = require("roarie-utils")
-local utils_popup_menu = require("roarie-utils.popup_menu")
 
 local M = {}
 
--- {{{ function find_menu(key_char, menus)
-function find_menu(key_char, menus)
+-- {{{ M.find = function(key_char, menus)
+M.find = function(key_char, menus)
 	if key_char ~= nil then
 		local found = false
 		key_char = string.lower(key_char)
@@ -27,7 +26,6 @@ function find_menu(key_char, menus)
 	end
 end
 -- }}}
-
 -- {{{ M.get = function(menus)
 M.get = function(menus)
 	local menu = {
@@ -43,14 +41,7 @@ M.get = function(menus)
 	end
 	local x = 0
 	for priority, menu_ in utils.spairs(menus, order_fn) do
-		local key_pos = vim.fn.match(menu_.name, "&")
-		local key_char = nil
-
-		if key_pos >= 0 then
-			key_pos = key_pos + 1
-			key_char = string.sub(menu_.name, key_pos + 1, key_pos + 1)
-		end
-
+		local _, key_char, key_pos = M.get_key(nil, menu_.name, -1)
 		local name = menu_.name:gsub("&", "")
 		local w = name:len() + 2
 
@@ -61,8 +52,7 @@ M.get = function(menus)
 			key_pos=key_pos,
 			name=name,
 			text=" " .. name .. " ",
-			x=x,
-			w=w,
+			x=x, w=w,
 		})
 
 		x = x + w + 2
@@ -70,6 +60,21 @@ M.get = function(menus)
 	menu.size = table.getn(menu.items)
 
 	return menu
+end
+-- }}}
+-- {{{ M.get_key = function(cmdlist, display, y)
+M.get_key = function(cmdlist, display, y)
+	local key_pos = vim.fn.match(display, "&")
+	local key_char = nil
+	if key_pos >= 0 then
+		key_pos = key_pos + 1
+		key_char = string.lower(string.sub(display, key_pos + 1, key_pos + 1))
+		if cmdlist ~= nil then
+			local x = key_pos + 2
+			table.insert(cmdlist, utils.highlight_region('QuickKey', y, x, y, x + 1, true))
+		end
+	end
+	return display:gsub("&", ""), key_char, key_pos
 end
 -- }}}
 -- {{{ M.update = function(winid, menu_idx, menu_items, menu_size, menu_state)
@@ -85,17 +90,14 @@ M.update = function(winid, menu_idx, menu_items, menu_size, menu_state)
 	for _, item in ipairs(menu_items) do
 		if item.key_pos >= 0 then
 			local x = item.key_pos + item.x + 1
-			local cmd = utils.highlight_region('QuickKey', 1, x, 1, x + 1, 1, false)
-			table.insert(cmdlist, cmd[1])
+			table.insert(cmdlist, utils.highlight_region('QuickKey', 1, x, 1, x + 1, true))
 		end
 	end
 
-	local idx = menu_idx
-	if (idx >= 1) and (idx <= menu_size) then
-		local x = menu_items[idx].x + 1
-		local e = x + menu_items[idx].w
-		local cmd = utils.highlight_region('QuickSel', 1, x, 1, e, 1, false)
-		table.insert(cmdlist, cmd[1])
+	if (menu_idx >= 1) and (menu_idx <= menu_size) then
+		local x0 = menu_items[menu_idx].x + 1
+		local x1 = x0 + menu_items[menu_idx].w
+		table.insert(cmdlist, utils.highlight_region('QuickSel', 1, x0, 1, x1, true))
 	end
 
 	utils.win_execute(winid, cmdlist, 0)

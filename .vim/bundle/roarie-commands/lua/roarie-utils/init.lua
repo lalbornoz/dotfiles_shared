@@ -5,6 +5,21 @@
 
 local M = {}
 
+M.termcodes = {
+	ETX=0x03,
+	ESC=0x1b,
+	Enter=0x0d,
+	Space=0x20,
+	Left=vim.api.nvim_replace_termcodes('<Left>', true, false, true),
+	Right=vim.api.nvim_replace_termcodes('<Right>', true, false, true),
+	Down=vim.api.nvim_replace_termcodes('<Down>', true, false, true),
+	Up=vim.api.nvim_replace_termcodes('<Up>', true, false, true),
+	PageDown=vim.api.nvim_replace_termcodes('<PageDown>', true, false, true),
+	PageUp=vim.api.nvim_replace_termcodes('<PageUp>', true, false, true),
+	Home=vim.api.nvim_replace_termcodes('<Home>', true, false, true),
+	End=vim.api.nvim_replace_termcodes('<End>', true, false, true),
+}
+
 -- {{{ M.get_keys = function(t)
 M.get_keys = function(t)
 	local keys = {}
@@ -12,6 +27,15 @@ M.get_keys = function(t)
 		table.insert(keys, key)
 	end
 	return keys
+end
+-- }}}
+-- {{{ M.getchar = function()
+M.getchar = function()
+	local rc, code = pcall(vim.fn.getchar)
+	if not rc then
+		if code == "Keyboard interrupt" then code = M.termcodes.ETX else error(rc) end
+	end
+	return code, vim.fn.nr2char(code)
 end
 -- }}}
 -- {{{ M.serialise_table = function(val, name, skipnewlines, depth)
@@ -100,22 +124,14 @@ M.to_title = function(str)
 end
 -- }}}
 
--- {{{ M.highlight_region = function(name, srow, scol, erow, ecol, virtual, clear_syn)
-M.highlight_region = function(name, srow, scol, erow, ecol, virtual, clear_syn)
+-- {{{ M.highlight_region = function(name, srow, scol, erow, ecol, virtual)
+M.highlight_region = function(name, srow, scol, erow, ecol, virtual)
 	local sep = ''
-	if virtual == 0 then
-		sep = 'c'
-	else
-		sep = 'v'
-	end
+	if not virtual then sep = 'c' else sep = 'v' end
 	local cmd = 'syn region ' .. name .. ' '
 	cmd = cmd .. ' start=/\\%' .. srow .. 'l\\%' .. scol .. sep .. '/'
 	cmd = cmd .. ' end=/\\%' .. erow .. 'l\\%' .. ecol .. sep .. '/'
-	if clear_syn then
-		return {"syn clear", cmd}
-	else
-		return {cmd}
-	end
+	return cmd
 end
 -- }}}
 

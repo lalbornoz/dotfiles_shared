@@ -10,57 +10,53 @@ local utils_buffer = require("roarie-utils.buffer")
 local utils_menu = require("roarie-utils.menu")
 local utils_popup_menu = require("roarie-utils.popup_menu")
 
-local termcodes = {
-	ETX=0x03,
-	ESC=0x1b,
-	Enter=0x0d,
-	Space=0x20,
-	Left=vim.api.nvim_replace_termcodes('<Left>', true, false, true),
-	Right=vim.api.nvim_replace_termcodes('<Right>', true, false, true),
-	Down=vim.api.nvim_replace_termcodes('<Down>', true, false, true),
-	Up=vim.api.nvim_replace_termcodes('<Up>', true, false, true),
-	PageDown=vim.api.nvim_replace_termcodes('<PageDown>', true, false, true),
-	PageUp=vim.api.nvim_replace_termcodes('<PageUp>', true, false, true),
-	Home=vim.api.nvim_replace_termcodes('<Home>', true, false, true),
-	End=vim.api.nvim_replace_termcodes('<End>', true, false, true),
-}
-
 local M = {}
 
--- {{{ function menu_loop(loop_status, menu, menu_popup, winid)
-function menu_loop(loop_status, menu, menu_popup, winid)
-	guicursor_old, hl_cursor_old = utils_menu.update(winid, menu.idx, menu.items, menu.size, menu.state)
-	vim.cmd [[redraw]]
-
+-- {{{ function menu_help()
+function menu_help()
 	print(
 		   "<{Esc,C-C}>                                  Exit menu mode\n"
 		.. "<{S-[a-z0-9],Down,Space}>, <{Left,Right}>    Open/select menu\n"
 		.. "[a-z0-9], <{Page,}Down,Up,Home,End>          Select menu items\n"
 		.. "<{Space,Enter}>                              Activate menu item")
+end
+-- }}}
+-- {{{ function menu_loop(loop_status, menu, menu_popup, winid)
+function menu_loop(loop_status, menu, menu_popup, winid)
+	guicursor_old, hl_cursor_old =
+		utils_menu.update(
+			winid, menu.idx, menu.items,
+			menu.size, menu.state)
+	vim.cmd [[redraw]]
+	menu_help()
 
 	local menu_popup_idx = nil
+	local code, ch = utils.getchar()
 
-	local rc, code = pcall(vim.fn.getchar)
-	if not rc then
-		if code == "Keyboard interrupt" then code = termcodes.ETX else error(rc) end
-	end
-	local ch = vim.fn.nr2char(code)
-
-	if (code == termcodes.ETX) or (code == termcodes.ESC) then
+	-- {{{ if (code == utils.termcodes.ETX) or (code == utils.termcodes.ESC) then
+	if (code == utils.termcodes.ETX) or (code == utils.termcodes.ESC) then
 		loop_status = false
-	elseif menu_popup.open
-	   and ((ch == " ") or (ch == "\r"))
+	-- }}}
+	-- {{{ elseif ((ch == " ") or (ch == "\r")) ...
+	elseif ((ch == " ") or (ch == "\r"))
+	   and menu_popup.open
 	then
 		loop_status, menu_popup_idx = false, menu_popup.idx
+	-- }}}
+	-- {{{ elseif (ch >= "a") and (ch <= "z") then
 	elseif (ch >= "a") and (ch <= "z") then
 		if menu_popup.open then
-			utils_popup_menu.select_item({key=ch}, menu, menu_popup)
+			utils_popup_menu.select_item_key(ch, menu, menu_popup)
 		end
+	-- }}}
+	-- {{{ elseif ((ch >= "A") and (ch <= "Z")) ...
 	elseif ((ch >= "A") and (ch <= "Z"))
 	   or  ((ch >= "0") and (ch <= "9")) then
-		_, menu_popup = utils_popup_menu.open(menu, menu_popup, string.lower(ch))
-	elseif (code == termcodes.Left) or (code == termcodes.Right) then
-		if code == termcodes.Left then
+		menu_popup = utils_popup_menu.open(menu, menu_popup, string.lower(ch))
+	-- }}}
+	-- {{{ elseif (code == utils.termcodes.Left) or (code == utils.termcodes.Right) then
+	elseif (code == utils.termcodes.Left) or (code == utils.termcodes.Right) then
+		if code == utils.termcodes.Left then
 			if menu.idx > 1 then menu.idx = menu.idx - 1 else menu.idx = menu.size end
 		else
 			if menu.idx < menu.size then menu.idx = menu.idx + 1 else menu.idx = 1 end
@@ -68,28 +64,35 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 
 		if menu_popup.open then
 			menu_popup = utils_popup_menu.close(menu_popup, false)
-			_, menu_popup = utils_popup_menu.open(menu, menu_popup, nil)
+			menu_popup = utils_popup_menu.open(menu, menu_popup, nil)
 		else
 			menu_popup = utils_popup_menu.close(menu_popup, true)
 		end
-	elseif (code == termcodes.Down) or (code == termcodes.Up) or (code == termcodes.Space) then
+	-- }}}
+	-- {{{ elseif (code == utils.termcodes.Down) or (code == utils.termcodes.Up) or (code == utils.termcodes.Space) then
+	elseif (code == utils.termcodes.Down) or (code == utils.termcodes.Up) or (code == utils.termcodes.Space) then
 		if menu_popup.open then
-			if code == termcodes.Down then
-				utils_popup_menu.select_item({step=1}, menu, menu_popup)
+			if code == utils.termcodes.Down then
+				utils_popup_menu.select_item_step(1, menu, menu_popup)
 			else
-				utils_popup_menu.select_item({step=-1}, menu, menu_popup)
+				utils_popup_menu.select_item_step(-1, menu, menu_popup)
 			end
-		elseif (code == termcodes.Down) or (code == termcodes.Space) then
-			_, menu_popup = utils_popup_menu.open(menu, menu_popup, nil)
+		elseif (code == utils.termcodes.Down) or (code == utils.termcodes.Space) then
+			menu_popup = utils_popup_menu.open(menu, menu_popup, nil)
 		end
-	elseif menu_popup.open and (code == termcodes.PageDown) then
-		utils_popup_menu.select_item({next="--", step=-1}, menu, menu_popup)
-	elseif menu_popup.open and (code == termcodes.PageUp) then
-		utils_popup_menu.select_item({next="--", step=1}, menu, menu_popup)
-	elseif menu_popup.open and (code == termcodes.Home) then
-		utils_popup_menu.select_item({idx=1}, menu, menu_popup)
-	elseif menu_popup.open and (code == termcodes.End) then
-		utils_popup_menu.select_item({idx=(menu_popup.h - 2)}, menu, menu_popup)
+	-- }}}
+	-- {{{ elseif menu_popup.open and (code == utils.termcodes.Page{Down,Up}) then
+	elseif menu_popup.open and (code == utils.termcodes.PageDown) then
+		utils_popup_menu.select_item_after("--", -1, menu, menu_popup)
+	elseif menu_popup.open and (code == utils.termcodes.PageUp) then
+		utils_popup_menu.select_item_after("--", 1, menu, menu_popup)
+	-- }}}
+	-- {{{ elseif menu_popup.open and (code == utils.termcodes.{Home,End}) then
+	elseif menu_popup.open and (code == utils.termcodes.Home) then
+		utils_popup_menu.select_item_idx(1, menu, menu_popup)
+	elseif menu_popup.open and (code == utils.termcodes.End) then
+		utils_popup_menu.select_item_idx(menu_popup.idx_max, menu, menu_popup)
+	-- }}}
 	end
 
 	vim.o.guicursor = guicursor_old
