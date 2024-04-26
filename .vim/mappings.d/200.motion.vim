@@ -3,10 +3,10 @@
 "
 
 call roarie_commands#AddMenu("&Motion", 300)
-call roarie_commands#AddMapping("&Motion", "motion_word_prev", "Go to &previous word", "Go to previous word", '', '<C-Left>', 'b')
-call roarie_commands#AddMapping("&Motion", "motion_WORD_prev", "Go to &previous WORD", "Go to previous WORD", '', '<C-S-Left>', 'B')
-call roarie_commands#AddMapping("&Motion", "motion_word_next", "Go to &next word", "Go to next word", '', '<C-Right>', 'w')
-call roarie_commands#AddMapping("&Motion", "motion_WORD_next", "Go to &next WORD", "Go to next WORD", '', '<C-S-Right>', 'W')
+call roarie_commands#AddMapping("&Motion", "motion_word_prev", "Go to previous &word", "Go to previous word", '', '<C-Left>', 'b')
+call roarie_commands#AddMapping("&Motion", "motion_WORD_prev", "Go to previous &WORD", "Go to previous WORD", '', '<C-S-Left>', 'B')
+call roarie_commands#AddMapping("&Motion", "motion_word_next", "Go to next &word", "Go to next word", '', '<C-Right>', 'w')
+call roarie_commands#AddMapping("&Motion", "motion_WORD_next", "Go to next &WORD", "Go to next WORD", '', '<C-S-Right>', 'W')
 call roarie_commands#AddSeparator("&Motion")
 call roarie_commands#AddMapping("&Motion", "motion_word_end_prev", "Go to &end of previous word", "Go to end of previous word", '', '<M-C-Left>', 'ge')
 call roarie_commands#AddMapping("&Motion", "motion_WORD_end_prev", "Go to &end of previous WORD", "Go to end of previous WORD", '', '<M-C-S-Left>', 'gE')
