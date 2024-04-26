@@ -43,16 +43,16 @@ config = function()
 					main_menu = { [{ 'i', 'n' }] = '<C-^>' },
 					search_in_directory = { i = '<C-d>' },
 					toggle_hidden = { i = '<C-h>' },
-					toggle_wrap = { i = '<C-w>' },
+					toggle_wrap = { i = '<C-p>' },
 				},
 			},
 		},
 		-- }}}
 		-- {{{ pickers = {}
 		pickers = {
-			find_files = { prompt_title = "Find Files (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-w>: wrap)", },
-			grep_string = { prompt_title = "Find Word (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-w>: wrap)", },
-			live_grep = { prompt_title = "Live Grep (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-w>: wrap)", },
+			find_files = { prompt_title = "Find Files (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-p>: wrap)", },
+			grep_string = { prompt_title = "Find Word (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-p>: wrap)", },
+			live_grep = { prompt_title = "Live Grep (<C-^>: options, <C-d>: dir, <C-h>: hidden, <C-p>: wrap)", },
 		},
 		-- }}}
 	}

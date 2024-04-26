@@ -168,16 +168,16 @@ config = function()
 	menufacture.defaults.find_files = function()
 		menufacture.find_files({
 			hidden=false,
-			max_depth=2,
-			find_command={ "rg", "--files", "--color", "never", "--max-depth=2", },
+			max_depth=nil,
+			find_command={ "rg", "--files", "--color", "never", },
 		})
 	end
 	menufacture.defaults.live_grep = function()
 		menufacture.live_grep({
-			additional_args={'--hidden', '--max-depth=2'},
+			additional_args={'--hidden'},
 			['flag_additional_args--hidden']=true,
 			hidden=true,
-			max_depth=2,
+			max_depth=nil,
 		})
 	end
 	menufacture.defaults.live_grep_buffer = function()
