@@ -128,7 +128,7 @@ M.open = function(menus, menu_popup, key_char)
 	}
 
 	menu_popup.cmdlist = cmdlist
-	menu_popup.idx, menu_popup.idx_max = 0, h - 2
+	menu_popup.idx, menu_popup.idx_max = 1, h - 2
 	menu_popup.keys = keys
 	menu_popup.w, menu_popup.h = w, h
 	menu_popup = M.close(menu_popup, true)
@@ -142,8 +142,7 @@ M.open = function(menus, menu_popup, key_char)
 
 	vim.api.nvim_win_set_option(menu_popup.winid, 'winhl', 'Normal:QuickBG')
 	utils.win_execute(menu_popup.winid, cmdlist, 0)
-
-	print(keys["N"])
+	M.select_item({idx=1}, menus, menu_popup)
 
 	return nil, menu_popup
 end
