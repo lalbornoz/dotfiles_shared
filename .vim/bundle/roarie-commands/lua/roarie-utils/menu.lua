@@ -26,8 +26,23 @@ M.find = function(key_char, menus)
 	end
 end
 -- }}}
--- {{{ M.get = function(menus)
-M.get = function(menus)
+-- {{{ M.get_key = function(cmdlist, display, y)
+M.get_key = function(cmdlist, display, y)
+	local key_pos = vim.fn.match(display, "&")
+	local key_char = nil
+	if key_pos >= 0 then
+		key_pos = key_pos + 1
+		key_char = string.lower(string.sub(display, key_pos + 1, key_pos + 1))
+		if cmdlist ~= nil then
+			local x = key_pos + 2
+			table.insert(cmdlist, utils.highlight_region('QuickKey', y, x, y, x + 1, true))
+		end
+	end
+	return display:gsub("&", ""), key_char, key_pos
+end
+-- }}}
+-- {{{ M.init = function(menus)
+M.init = function(menus)
 	local menu = {
 		idx=1,
 		items={},
@@ -59,27 +74,18 @@ M.get = function(menus)
 	end
 	menu.size = table.getn(menu.items)
 
+	local help_text = "Press ? for help"
+	menu.text =
+		   menu.text
+		.. string.rep(" ", (vim.fn.winwidth(menus.winid) - menu.text:len() - help_text:len() - 1))
+		.. help_text
+
 	return menu
 end
 -- }}}
--- {{{ M.get_key = function(cmdlist, display, y)
-M.get_key = function(cmdlist, display, y)
-	local key_pos = vim.fn.match(display, "&")
-	local key_char = nil
-	if key_pos >= 0 then
-		key_pos = key_pos + 1
-		key_char = string.lower(string.sub(display, key_pos + 1, key_pos + 1))
-		if cmdlist ~= nil then
-			local x = key_pos + 2
-			table.insert(cmdlist, utils.highlight_region('QuickKey', y, x, y, x + 1, true))
-		end
-	end
-	return display:gsub("&", ""), key_char, key_pos
-end
--- }}}
--- {{{ M.update = function(winid, menu_idx, menu_items, menu_size, menu_state)
-M.update = function(winid, menu_idx, menu_items, menu_size, menu_state)
-	if menu_state == 0 then
+-- {{{ M.update = function(menu)
+M.update = function(menu)
+	if menu.state == 0 then
 		return -1
 	end
 
@@ -87,20 +93,20 @@ M.update = function(winid, menu_idx, menu_items, menu_size, menu_state)
 	local hl_cursor_old = vim.api.nvim_get_hl(0, {name="Cursor"})
 	local cmdlist = {"hi Cursor blend=100", "set guicursor+=a:Cursor/lCursor", "syn clear"}
 
-	for _, item in ipairs(menu_items) do
+	for _, item in ipairs(menu.items) do
 		if item.key_pos >= 0 then
 			local x = item.key_pos + item.x + 1
 			table.insert(cmdlist, utils.highlight_region('QuickKey', 1, x, 1, x + 1, true))
 		end
 	end
 
-	if (menu_idx >= 1) and (menu_idx <= menu_size) then
-		local x0 = menu_items[menu_idx].x + 1
-		local x1 = x0 + menu_items[menu_idx].w
+	if (menu.idx >= 1) and (menu.idx <= menu.size) then
+		local x0 = menu.items[menu.idx].x + 1
+		local x1 = x0 + menu.items[menu.idx].w
 		table.insert(cmdlist, utils.highlight_region('QuickSel', 1, x0, 1, x1, true))
 	end
 
-	utils.win_execute(winid, cmdlist, 0)
+	utils.win_execute(menu.winid, cmdlist, 0)
 	return guicursor_old, hl_cursor_old
 end
 -- }}}

@@ -18,17 +18,14 @@ function menu_help()
 		   "<{Esc,C-C}>                                  Exit menu mode\n"
 		.. "<{S-[a-z0-9],Down,Space}>, <{Left,Right}>    Open/select menu\n"
 		.. "[a-z0-9], <{Page,}Down,Up,Home,End>          Select menu items\n"
-		.. "<{Space,Enter}>                              Activate menu item")
+		.. "<{Space,Enter}>                              Activate menu item\n")
+	vim.cmd [[redraw]]
 end
 -- }}}
 -- {{{ function menu_loop(loop_status, menu, menu_popup, winid)
-function menu_loop(loop_status, menu, menu_popup, winid)
-	guicursor_old, hl_cursor_old =
-		utils_menu.update(
-			winid, menu.idx, menu.items,
-			menu.size, menu.state)
+function menu_loop(loop_status, menu, menu_popup)
+	guicursor_old, hl_cursor_old = utils_menu.update(menu)
 	vim.cmd [[redraw]]
-	menu_help()
 
 	local menu_popup_idx = nil
 	local code, ch = utils.getchar()
@@ -36,6 +33,10 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 	-- {{{ if (code == utils.termcodes.ETX) or (code == utils.termcodes.ESC) then
 	if (code == utils.termcodes.ETX) or (code == utils.termcodes.ESC) then
 		loop_status = false
+	-- }}}
+	-- {{{ elseif (ch == "?") then
+	elseif (ch == "?") then
+		menu_help()
 	-- }}}
 	-- {{{ elseif ((ch == " ") or (ch == "\r")) ...
 	elseif ((ch == " ") or (ch == "\r"))
@@ -97,7 +98,7 @@ function menu_loop(loop_status, menu, menu_popup, winid)
 
 	vim.o.guicursor = guicursor_old
 	vim.api.nvim_set_hl(0, "Cursor", hl_cursor_old)
-	return loop_status, nil, menu_popup, menu_popup_idx, winid
+	return loop_status, menu_popup_idx
 end
 -- }}}
 
@@ -113,8 +114,7 @@ end
 -- {{{ M.OpenMenu = function()
 M.OpenMenu = function()
 	local loop_status = true
-	local menu = utils_menu.get(menus)
-	local menu_popup = utils_popup_menu.init()
+	local menu, menu_popup = utils_menu.init(menus), utils_popup_menu.init()
 	local opts = {
 		col=0, row=0,
 		focusable=1,
@@ -125,16 +125,15 @@ M.OpenMenu = function()
 	}
 
 	local bid = utils_buffer.create_scratch("menu", menu.text)
-	local winid = vim.api.nvim_open_win(bid, 0, opts)
-	vim.api.nvim_win_set_option(winid, 'winhl', 'Normal:' .. 'QuickBG')
+	menu.winid = vim.api.nvim_open_win(bid, 0, opts)
+	vim.api.nvim_win_set_option(menu.winid, 'winhl', 'Normal:' .. 'QuickBG')
 
 	while loop_status do
-		loop_status, _, menu_popup, menu_popup_idx, winid =
-			menu_loop(loop_status, menu, menu_popup, winid)
+		loop_status, menu_popup_idx = menu_loop(loop_status, menu, menu_popup)
 	end
 
 	menu_popup = utils_popup_menu.close(menu_popup, true)
-	vim.api.nvim_win_close(winid, 0)
+	vim.api.nvim_win_close(menu.winid, 0)
 	vim.cmd [[redraw | echo "" | redraw]]
 
 	if menu_popup_idx ~= nil then
