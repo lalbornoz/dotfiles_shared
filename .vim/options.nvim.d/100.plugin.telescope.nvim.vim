@@ -36,8 +36,8 @@ config = function()
 			sorting_strategy = "ascending",
 		},
 		-- }}}
-		-- {{{ extensions = {}
 		extensions = {
+			-- {{{ extensions.menufacture = {}
 			menufacture = {
 				max_depth_initial = 4,
 				mappings = {
@@ -49,8 +49,21 @@ config = function()
 					toggle_wrap = { i = '<C-p>' },
 				},
 			},
+			-- }}}
+			-- {{{ extensions.file_browser = {}
+			file_browser = {
+				theme = "ivy",
+
+				-- disables netrw and use telescope-file-browser in its place
+				hijack_netrw = true,
+
+				mappings = {
+					["i"] = {},
+					["n"] = {},
+				},
+			},
+			-- }}}
 		},
-		-- }}}
 		-- {{{ pickers = {}
 		pickers = {
 			find_files = { prompt_title = "Files (<C-/> help <C-^> opts <C-d> cd dir <C-h> hidden <M-[-+]> depth <C-[xtv]> go)", },
