@@ -114,7 +114,7 @@ function PopulateFnMenu(src_items, dst_title, key_to, sep_each)
 
 		if key_cur > key_to then
 			if item_idx > 1 then
-				for idx=1,item_idx do
+				for idx=1,(item_idx-1) do
 					table.remove(src_items, 1)
 				end
 			end
