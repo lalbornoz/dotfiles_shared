@@ -41,10 +41,6 @@ endif
 call roarie_commands#AddSeparator("&Project")
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
 if has('nvim')
-call roarie_commands#AddMapping("&Project", "workspace_add", "Add &workspace...", "Add workspace from current path", "<silent>", '<S-F5>', ':<C-U>WorkspacesAddDir<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "workspace_remove", "Remove &workspace...", "Remove workspace at current path", "<silent>", '<M-F5>', ':<C-U>WorkspacesRemoveDir<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "workspace_rename", "Rename &workspace...", "Rename workspace", "<silent>", '<C-F5>', ':<C-U>WorkspacesRename ', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "telescope_workspaces", "Telescope &workspaces...", "Telescope workspaces...", "<silent>", '<M-S-F5>', ':Telescope workspaces<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "goto_diag_next", "Go to next &diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', '<Cmd>lua vim.diagnostic.goto_next()<CR>')
 call roarie_commands#AddMapping("&Project", "goto_diag_prev", "Go to previous &diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev()<CR>')
 else
