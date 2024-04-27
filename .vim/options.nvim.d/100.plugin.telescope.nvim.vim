@@ -32,7 +32,7 @@ config = function()
 					["<M-Right>"] = require('telescope.actions').results_scrolling_right,
 				},
 			},
-			path_display = { shorten = 3, },
+			path_display = { shorten = 6, },
 			sorting_strategy = "ascending",
 		},
 		-- }}}
