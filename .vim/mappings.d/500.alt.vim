@@ -7,7 +7,6 @@ call roarie_commands#AddMapping("<&Alt>", "mark_set_x", "Set mark &x", "Set mark
 call roarie_commands#AddMapping("<&Alt>", "exec_register_q", "Execute register &q", "Execute contents of register q", "<silent>", '<M-@>', ':normal! @q<CR>')
 call roarie_commands#AddMapping("<&Alt>", "mark_jump_x", "Jump to mark &x", "Jump to mark x in the current buffer", "<silent>", '<M-~>', "'x")
 call roarie_commands#AddMapping("<&Alt>", "open_c_header", "&Open C/C++ source module header", "Open C/C++ source module header", '<silent>', '<M-H>', ':<C-U>COpenHeader<CR>')
-call roarie_commands#AddMapping("<&Alt>", "edit_file_under_cursor", "Edit &file under cursor", "Edit the file whose name is under or after the cursor", '<silent>', '<M-j>', 'gf<CR>')
 call roarie_commands#AddSeparator("<&Alt>")
 call roarie_commands#AddMapping("<&Alt>", "num_decr", "Decrement &number", "Decrement number under cursor", '<silent>', '<M-->', '<C-X>')
 call roarie_commands#AddMapping("<&Alt>", "num_incr", "Increment &number", "Increment number under cursor", '<silent>', '<M-=>', '<C-A>')
