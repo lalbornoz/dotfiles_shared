@@ -145,6 +145,43 @@ config = function()
 		text = 'change into directory',
 	}
 	menufacture.find_files_menu["change into directory"] = menufacture.menu_actions.change_into_directory
+	menufacture.live_grep_menu["change into directory"] = menufacture.menu_actions.change_into_directory
+	-- }}}
+	-- {{{ menufacture.find_files_menu['decrease maximum depth']
+	menufacture.menu_actions.decrease_maximum_depth = {
+		action = function(opts, callback)
+			if opts.max_depth == nil then
+				opts.max_depth = menufacture.config.max_depth_initial
+			else
+				if opts.max_depth > 1 then
+					opts.max_depth = opts.max_depth - 1
+				end
+			end
+			print("New maximum depth: " .. opts.max_depth)
+			update_find_command(opts, "--max-depth=" .. opts.max_depth, "max_depth", '^--max%-depth=%d+$', (opts.max_depth ~= nil))
+			callback(opts)
+		end,
+		action_name = "decrease_maximum_depth",
+		text = 'decrease maximum depth',
+	}
+	menufacture.find_files_menu["decrease maximum depth"] = menufacture.menu_actions.decrease_maximum_depth
+	-- }}}
+	-- {{{ menufacture.find_files_menu['increase maximum depth']
+	menufacture.menu_actions.increase_maximum_depth = {
+		action = function(opts, callback)
+			if opts.max_depth == nil then
+				opts.max_depth = menufacture.config.max_depth_initial
+			else
+				opts.max_depth = opts.max_depth + 1
+			end
+			print("New maximum depth: " .. opts.max_depth)
+			update_find_command(opts, "--max-depth=" .. opts.max_depth, "max_depth", '^--max%-depth=%d+$', (opts.max_depth ~= nil))
+			callback(opts)
+		end,
+		action_name = "increase_maximum_depth",
+		text = 'increase maximum depth',
+	}
+	menufacture.find_files_menu["increase maximum depth"] = menufacture.menu_actions.increase_maximum_depth
 	-- }}}
 	-- {{{ menufacture.{find_files,live_grep}_menu['set maximum depth']
 	menufacture.find_files_menu['set maximum depth'] =

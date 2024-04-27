@@ -39,9 +39,12 @@ config = function()
 		-- {{{ extensions = {}
 		extensions = {
 			menufacture = {
+				max_depth_initial = 4,
 				mappings = {
 					main_menu = { [{ 'i', 'n' }] = '<C-^>' },
 					change_into_directory = { i = '<C-d>' },
+					decrease_maximum_depth = { i = '<M-->' },
+					increase_maximum_depth = { i = '<M-=>' },
 					toggle_hidden = { i = '<C-h>' },
 					toggle_wrap = { i = '<C-p>' },
 				},
@@ -50,8 +53,8 @@ config = function()
 		-- }}}
 		-- {{{ pickers = {}
 		pickers = {
-			find_files = { prompt_title = "Files (<C-^>: options <C-d>: cd into dir <C-h>: hidden <C-[xtv]>: open)", },
-			live_grep = { prompt_title = "Grep (<C-^>: options <C-d>: cd into dir <C-h>: hidden <C-[xtv]>: open)", },
+			find_files = { prompt_title = "Files (<C-^> opts <C-d> cd dir <C-h> hidden <M-[-=]> depth <C-[xtv]> go)", },
+			live_grep = { prompt_title = "Grep (<C-^> opts <C-d> cd dir <C-h> hidden <C-[xtv]> go)", },
 		},
 		-- }}}
 	}
