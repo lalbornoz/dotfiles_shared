@@ -8,6 +8,7 @@ call roarie_commands#AddMapping("&Project", "peek_define", "Peek de&finition", "
 call roarie_commands#AddMapping("&Project", "find_all_refs", "Find all &references", "Find all LSP references", "<silent>", '<C-F1>', '<Cmd>lua vim.lsp.buf.references()<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "goto_define", "Go to de&finition", "Go to definition", "<silent>", '<F2>', '<Cmd>lua vim.lsp.buf.definition()<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "goto_decl", "Go to de&claration", "Go to declaration", "<silent>", '<S-F2>', '<Cmd>lua vim.lsp.buf.declaration()<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "edit_file_under_cursor", "Go &to file under cursor", "Edit the file whose name is under or after the cursor", '<silent>', '<C-F2>', 'gf<CR>', "<fnalias>")
 else
 call roarie_commands#AddMapping("&Project", "peek_define", "Peek de&finition", "Peek definition", "<silent>", '<F1>', ':<C-U>LspPeekDefinition<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "find_all_refs", "Find all &references", "Find all LSP references", "<silent>", '<C-F1>', ':<C-U>LspReferences<CR>', "<fnalias>")
