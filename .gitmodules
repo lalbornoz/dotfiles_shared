@@ -112,3 +112,6 @@
 [submodule ".vim/bundle.nvim/aerial.nvim"]
 	path = .vim/bundle.nvim/aerial.nvim
 	url = https://github.com/stevearc/aerial.nvim
+[submodule ".vim/bundle.nvim/telescope-file-browser.nvim"]
+	path = .vim/bundle.nvim/telescope-file-browser.nvim
+	url = https://github.com/nvim-telescope/telescope-file-browser.nvim
