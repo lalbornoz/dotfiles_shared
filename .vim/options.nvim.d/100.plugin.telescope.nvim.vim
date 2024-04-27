@@ -32,7 +32,7 @@ config = function()
 					["<M-Right>"] = require('telescope.actions').results_scrolling_right,
 				},
 			},
-			path_display = { shorten = 6, },
+			path_display = { shorten = 10, },
 			sorting_strategy = "ascending",
 		},
 		-- }}}
@@ -41,7 +41,7 @@ config = function()
 			menufacture = {
 				mappings = {
 					main_menu = { [{ 'i', 'n' }] = '<C-^>' },
-					search_in_directory = { i = '<C-d>' },
+					change_into_directory = { i = '<C-d>' },
 					toggle_hidden = { i = '<C-h>' },
 					toggle_wrap = { i = '<C-p>' },
 				},
@@ -50,8 +50,8 @@ config = function()
 		-- }}}
 		-- {{{ pickers = {}
 		pickers = {
-			find_files = { prompt_title = "Files (<C-^>: options <C-d>: dir <C-h>: hidden <C-[xtv]>: open)", },
-			live_grep = { prompt_title = "Grep (<C-^>: options <C-d>: dir <C-h>: hidden <C-[xtv]>: open)", },
+			find_files = { prompt_title = "Files (<C-^>: options <C-d>: cd into dir <C-h>: hidden <C-[xtv]>: open)", },
+			live_grep = { prompt_title = "Grep (<C-^>: options <C-d>: cd into dir <C-h>: hidden <C-[xtv]>: open)", },
 		},
 		-- }}}
 	}
