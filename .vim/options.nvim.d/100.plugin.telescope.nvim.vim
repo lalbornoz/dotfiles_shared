@@ -53,8 +53,8 @@ config = function()
 		-- }}}
 		-- {{{ pickers = {}
 		pickers = {
-			find_files = { prompt_title = "Files (<C-^> opts <C-d> cd dir <C-h> hidden <M-[-=]> depth <C-[xtv]> go)", },
-			live_grep = { prompt_title = "Grep (<C-^> opts <C-d> cd dir <C-h> hidden <C-[xtv]> go)", },
+			find_files = { prompt_title = "Files (<C-/> help <C-^> opts <C-d> cd dir <C-h> hidden <M-[-+]> depth <C-[xtv]> go)", },
+			live_grep = { prompt_title = "Grep (<C-/> help <C-^> opts <C-d> cd dir <C-h> hidden <C-[xtv]> go)", },
 		},
 		-- }}}
 	}

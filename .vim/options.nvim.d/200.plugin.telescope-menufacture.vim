@@ -222,6 +222,8 @@ config = function()
 	menufacture.live_grep_menu['toggle wrap'] = menufacture.find_files_menu['toggle wrap']
 	-- }}}
 
+	-- TODO add "toggle ignore .git/"
+
 	-- {{{ menufacture.defaults = {}
 	menufacture.defaults = {}
 	menufacture.defaults.find_files = function()
