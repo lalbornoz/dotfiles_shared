@@ -12,7 +12,7 @@ local M = {}
 
 -- {{{ M.alloc = function()
 M.alloc = function()
-	local idx = table.getn(buffer_array)
+	local bid, idx = nil, table.getn(buffer_array)
 	if idx > 0 then
 		bid = buffer_array[idx]
 		table.remove(buffer_array, idx)

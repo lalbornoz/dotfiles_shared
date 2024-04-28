@@ -4,9 +4,15 @@
 --
 
 local utils = require("roarie-utils")
+local utils_buffer = require("roarie-utils.buffer")
 
 local M = {}
 
+-- {{{ M.close = function(menu)
+M.close = function(menu)
+	vim.api.nvim_win_close(menu.winid, 0)
+end
+-- }}}
 -- {{{ M.find = function(key_char, menus)
 M.find = function(key_char, menus)
 	if key_char ~= nil then
@@ -44,6 +50,7 @@ end
 -- {{{ M.init = function(menus)
 M.init = function(menus)
 	local menu = {
+		bid=nil, winid=nil,
 		idx=1,
 		items={},
 		size=-1,
@@ -80,33 +87,50 @@ M.init = function(menus)
 		.. string.rep(" ", (vim.fn.winwidth(menus.winid) - menu.text:len() - help_text:len() - 1))
 		.. help_text
 
+	local opts = {
+		col=0, row=0,
+		focusable=1,
+		noautocmd=1,
+		relative='editor',
+		style='minimal',
+		width=vim.o.columns, height=1,
+	}
+
+	menu.bid = utils_buffer.create_scratch("menu", menu.text)
+	menu.winid = vim.api.nvim_open_win(menu.bid, 0, opts)
+	vim.api.nvim_win_set_option(menu.winid, 'winhl', 'Normal:QuickBG,CursorColumn:QuickBG,CursorLine:QuickBG')
+
 	return menu
 end
 -- }}}
--- {{{ M.update = function(menu)
-M.update = function(menu)
-	if menu.state == 0 then
+-- {{{ M.update = function(menus)
+M.update = function(menus)
+	if menus.state == 0 then
 		return -1
 	end
 
 	local guicursor_old = vim.o.guicursor
 	local hl_cursor_old = vim.api.nvim_get_hl(0, {name="Cursor"})
-	local cmdlist = {"hi Cursor blend=100", "set guicursor+=a:Cursor/lCursor", "syn clear"}
+	local cmdlist = {
+		"hi Cursor blend=100",
+		"set guicursor+=a:Cursor/lCursor",
+		"set nocursorline",
+		"syn clear"}
 
-	for _, item in ipairs(menu.items) do
+	for _, item in ipairs(menus.items) do
 		if item.key_pos >= 0 then
 			local x = item.key_pos + item.x + 1
 			table.insert(cmdlist, utils.highlight_region('QuickKey', 1, x, 1, x + 1, true))
 		end
 	end
 
-	if (menu.idx >= 1) and (menu.idx <= menu.size) then
-		local x0 = menu.items[menu.idx].x + 1
-		local x1 = x0 + menu.items[menu.idx].w
+	if (menus.idx >= 1) and (menus.idx <= menus.size) then
+		local x0 = menus.items[menus.idx].x + 1
+		local x1 = x0 + menus.items[menus.idx].w
 		table.insert(cmdlist, utils.highlight_region('QuickSel', 1, x0, 1, x1, true))
 	end
 
-	utils.win_execute(menu.winid, cmdlist, 0)
+	utils.win_execute(menus.winid, cmdlist, false)
 	return guicursor_old, hl_cursor_old
 end
 -- }}}

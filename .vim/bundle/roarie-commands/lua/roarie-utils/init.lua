@@ -137,22 +137,11 @@ end
 
 -- {{{ M.win_execute = function(winid, command, silent)
 M.win_execute = function(winid, command, silent)
-	local current = vim.api.nvim_get_current_win()
-	vim.cmd("keepalt call nvim_set_current_win(" .. winid .. ")")
 	if type(command) == "string" then
-		if silent == 0 then
-			vim.fn.execute(command)
-		else
-			vim.cmd("silent exec " .. command)
-		end
+		vim.fn.win_execute(winid, command, silent)
 	elseif type(command) == "table" then
-		if silent == 0 then
-			vim.fn.execute(table.concat(command, "\n"))
-		else
-			vim.cmd("silent exec " .. table.concat(command, "\n"))
-		end
+		vim.fn.win_execute(winid, table.concat(command, "\n"), silent)
 	end
-	vim.cmd("keepalt call nvim_set_current_win(" .. current .. ")")
 end
 -- }}}
 
