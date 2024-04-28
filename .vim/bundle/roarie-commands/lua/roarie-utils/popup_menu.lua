@@ -102,12 +102,12 @@ function select_item(idx_new, menu_popup, menus)
 			table.insert(cmdlist, utils.highlight_region(
 				'QuickSel',
 				menu_popup.idx + 1, 2,
-				menu_popup.idx + 1, map_x0 + 1,
+				menu_popup.idx + 1, map_x0 + 2,
 				true))
 			table.insert(cmdlist, utils.highlight_region(
 				'QuickSelMap',
-				menu_popup.idx + 1, map_x0 + 1,
-				menu_popup.idx + 1, map_x1 + 4,
+				menu_popup.idx + 1, map_x0 + 2,
+				menu_popup.idx + 1, map_x1 + 3,
 				true))
 		else
 			table.insert(cmdlist, utils.highlight_region(
