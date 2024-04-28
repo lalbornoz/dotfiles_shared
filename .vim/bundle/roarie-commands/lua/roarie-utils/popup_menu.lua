@@ -48,15 +48,22 @@ function get_keys(keys, cmdlist, menus, textlist, w)
 			if string.match(item["display"], "\t") ~= nil then
 				local display = item["display"]
 				display, key_char = utils_menu.get_key(cmdlist, display, y)
-				local display_ = {unpack(utils.split(display, "[^\t]+"), 1, 2)}
-				local spacing = math.max(w - 2 - display_[1]:len() - display_[2]:len() - 2, 3)
-				table.insert(textlist, " " .. display_[1]:gsub("&", "") .. string.rep(" ", spacing) .. display_[2] .. " ")
 				add_key(keys, key_char, item_idx)
+
+				display = {unpack(utils.split(display, "[^\t]+"), 1, 2)}
+				local spacing = math.max(w - 2 - display[1]:len() - display[2]:len() - 2, 3)
+				display = display[1]:gsub("&", "") .. string.rep(" ", spacing) .. display[2]
+
+				menus.items[menus.idx].items[item_idx].menu_text = display
+				table.insert(textlist, " " .. display .. " ")
+
 			else
 				local display = item["display"]
 				display, key_char = utils_menu.get_key(cmdlist, display)
-				table.insert(textlist, " " .. display .. " ")
 				add_key(keys, key_char, item_idx)
+
+				menus.items[menus.idx].items[item_idx].menu_text = display
+				table.insert(textlist, " " .. display .. " ")
 			end
 		else
 			table.insert(textlist, "--")
@@ -64,8 +71,25 @@ function get_keys(keys, cmdlist, menus, textlist, w)
 	end
 end
 -- }}}
--- {{{ function select_item(idx_new, menu_popup)
-function select_item(idx_new, menu_popup)
+-- {{{ function highlight_border(menu_popup, menus)
+function highlight_border(menu_popup, menus)
+	local cmdlist = {}
+	table.insert(cmdlist, utils.highlight_region('QuickBorder', 1, 1, 1, menu_popup.w + 1, true))
+	for y=2,(menu_popup.h-1) do
+		table.insert(cmdlist, utils.highlight_region('QuickBorder', y, 1, y, 2, true))
+		table.insert(cmdlist, utils.highlight_region('QuickBorder', y, menu_popup.w, y, menu_popup.w + 1, true))
+	end
+	table.insert(cmdlist, utils.highlight_region('QuickBorder', menu_popup.h, 1, menu_popup.h, menu_popup.w + 1, true))
+	for item_idx, item in ipairs(menus.items[menus.idx].items) do
+		if item["display"] == "--" then
+			table.insert(cmdlist, utils.highlight_region('QuickBorder', item_idx + 1, 1, item_idx + 1, menu_popup.w + 1, true))
+		end
+	end
+	utils.win_execute(menu_popup.winid, cmdlist, false)
+end
+-- }}}
+-- {{{ function select_item(idx_new, menu_popup, menus)
+function select_item(idx_new, menu_popup, menus)
 	if idx_new ~= menu_popup.idx then
 		menu_popup.idx = idx_new
 
@@ -73,12 +97,28 @@ function select_item(idx_new, menu_popup)
 		for _, cmd in ipairs(menu_popup.cmdlist) do
 			table.insert(cmdlist, cmd)
 		end
-		table.insert(cmdlist, utils.highlight_region(
-			'QuickSel',
-			menu_popup.idx + 1, 2,
-			menu_popup.idx + 1, menu_popup.w,
-			true))
-		utils.win_execute(menu_popup.winid, cmdlist, 0)
+		local map_x0, map_x1 = menus.items[menus.idx].items[idx_new].menu_text:find('<[^>]+>$')
+		if map_x0 ~= nil then
+			table.insert(cmdlist, utils.highlight_region(
+				'QuickSel',
+				menu_popup.idx + 1, 2,
+				menu_popup.idx + 1, map_x0 + 1,
+				true))
+			table.insert(cmdlist, utils.highlight_region(
+				'QuickSelMap',
+				menu_popup.idx + 1, map_x0 + 1,
+				menu_popup.idx + 1, map_x1 + 4,
+				true))
+		else
+			table.insert(cmdlist, utils.highlight_region(
+				'QuickSel',
+				menu_popup.idx + 1, 2,
+				menu_popup.idx + 1, menu_popup.w,
+				true))
+
+		end
+		utils.win_execute(menu_popup.winid, cmdlist, false)
+		highlight_border(menu_popup, menus)
 	end
 end
 -- }}}
@@ -89,7 +129,7 @@ M.close = function(popup, redraw)
 		vim.api.nvim_win_close(popup.winid, 0)
 		popup.winid = nil
 		if redraw then
-			vim.cmd [[redraw | echo "" | redraw]]
+			vim.cmd [[redraw]]
 		end
 	end
 	popup.open = false
@@ -123,6 +163,7 @@ M.open = function(menus, menu_popup, key_char)
 		w, h = get_dimensions(menus, w, h)
 		get_keys(keys, cmdlist, menus, textlist, w)
 		textlist = utils_buffer.frame(textlist, w, h, nil)
+		menu_popup = M.close(menu_popup, true)
 	end
 
 	local opts = {
@@ -137,27 +178,29 @@ M.open = function(menus, menu_popup, key_char)
 	menu_popup.cmdlist = cmdlist
 	menu_popup.idx, menu_popup.idx_max = 0, h - 2
 	menu_popup.keys = keys
-	menu_popup.w, menu_popup.h = w, h
-	menu_popup = M.close(menu_popup, true)
 	menu_popup.open = true
+	menu_popup.w, menu_popup.h = w, h
+
 	menu_popup.bid = utils_buffer.create_scratch("context", textlist)
-	menu_popup.winid = vim.api.nvim_open_win(bid, 0, opts)
+	menu_popup.winid = vim.api.nvim_open_win(menu_popup.bid, 0, opts)
 
 	vim.api.nvim_set_current_win(menu_popup.winid)
-	vim.api.nvim_win_set_option(menu_popup.winid, 'winhl', 'Normal:QuickBG')
-	utils.win_execute(menu_popup.winid, cmdlist, 0)
-	M.select_item_idx(1, menus, menu_popup)
+	utils.win_execute(menu_popup.winid, cmdlist, false)
+	vim.api.nvim_win_set_option(menu_popup.winid, 'winhl', 'Normal:QuickBG,CursorColumn:QuickBG,CursorLine:QuickBG')
+	M.select_item_idx(1, menu_popup, menus)
+
+	highlight_border(menu_popup, menus)
 
 	return menu_popup
 end
 -- }}}
 
--- {{{ M.select_item_after = function(after, step, menu, menu_popup)
-M.select_item_after = function(after, step, menu, menu_popup)
+-- {{{ M.select_item_after = function(after, step, menu_popup, menus)
+M.select_item_after = function(after, step, menu_popup, menus)
 	local idx_new = menu_popup.idx
 	if step < 0 then
 		while idx_new < menu_popup.idx_max do
-			if menu.items[menu.idx].items[idx_new].display == after then
+			if menus.items[menus.idx].items[idx_new].display == after then
 				idx_new = idx_new + 1
 				break
 			else
@@ -169,7 +212,7 @@ M.select_item_after = function(after, step, menu, menu_popup)
 		end
 	elseif step > 0 then
 		while idx_new > 1 do
-			if menu.items[menu.idx].items[idx_new].display == after then
+			if menus.items[menus.idx].items[idx_new].display == after then
 				idx_new = idx_new - 1
 				break
 			else
@@ -180,16 +223,16 @@ M.select_item_after = function(after, step, menu, menu_popup)
 			idx_new = menu_popup.idx_max
 		end
 	end
-	select_item(idx_new, menu_popup)
+	select_item(idx_new, menu_popup, menus)
 end
 -- }}}
--- {{{ M.select_item_idx = function(idx_new, menu, menu_popup)
-M.select_item_idx = function(idx_new, menu, menu_popup)
-	select_item(idx_new, menu_popup)
+-- {{{ M.select_item_idx = function(idx_new, menu_popup, menus)
+M.select_item_idx = function(idx_new, menu_popup, menus)
+	select_item(idx_new, menu_popup, menus)
 end
 -- }}}
--- {{{ M.select_item_key = function(ch, menu, menu_popup)
-M.select_item_key = function(ch, menu, menu_popup)
+-- {{{ M.select_item_key = function(ch, menu_popup, menus)
+M.select_item_key = function(ch, menu_popup, menus)
 	local idx_new, key = menu_popup.idx, menu_popup.keys[ch]
 	if key ~= nil then
 		if type(key) == "table" then
@@ -198,12 +241,12 @@ M.select_item_key = function(ch, menu, menu_popup)
 			idx_new = menu_popup.keys[ch]
 		end
 	end
-	select_item(idx_new, menu_popup)
+	select_item(idx_new, menu_popup, menus)
 
 end
 -- }}}
--- {{{ M.select_item_step = function(step, menu, menu_popup)
-M.select_item_step = function(step, menu, menu_popup)
+-- {{{ M.select_item_step = function(step, menu_popup, menus)
+M.select_item_step = function(step, menu_popup, menus)
 	local idx_new = menu_popup.idx
 	if step < 0 then
 		if menu_popup.idx == 1 then
@@ -211,7 +254,7 @@ M.select_item_step = function(step, menu, menu_popup)
 		else
 			while idx_new > 1 do
 				idx_new = idx_new - 1
-				if menu.items[menu.idx].items[idx_new].title ~= "--" then
+				if menus.items[menus.idx].items[idx_new].title ~= "--" then
 					break
 				end
 			end
@@ -222,13 +265,13 @@ M.select_item_step = function(step, menu, menu_popup)
 		else
 			while idx_new < menu_popup.idx_max do
 				idx_new = idx_new + 1
-				if menu.items[menu.idx].items[idx_new].title ~= "--" then
+				if menus.items[menus.idx].items[idx_new].title ~= "--" then
 					break
 				end
 			end
 		end
 	end
-	select_item(idx_new, menu_popup)
+	select_item(idx_new, menu_popup, menus)
 end
 -- }}}
 
