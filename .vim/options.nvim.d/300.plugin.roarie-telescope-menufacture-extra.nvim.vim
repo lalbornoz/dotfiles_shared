@@ -1,5 +1,5 @@
 lua << EOF
-lazy_plugins["roarie-telescope-menufacture-extra"] = {
+lazy_plugins["roarie-telescope-menufacture-extra.nvim"] = {
 config = function()
 	require("roarie-telescope-menufacture-extra")
 end }
