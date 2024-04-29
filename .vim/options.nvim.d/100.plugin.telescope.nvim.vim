@@ -43,8 +43,12 @@ config = function()
 				mappings = {
 					main_menu = { [{ 'i', 'n' }] = '<C-^>' },
 					change_into_directory = { i = '<C-d>' },
+					change_into_parent_directory = { i = '<C-p>' },
 					decrease_maximum_depth = { i = '<M-->' },
 					increase_maximum_depth = { i = '<M-=>' },
+					decrease_path_shorten = { i = '<C-[>' },
+					increase_path_shorten = { i = '<C-]>' },
+					live_grep_here = { i = '<C-g>' },
 					toggle_hidden = { i = '<C-h>' },
 					toggle_wrap = { i = '<C-p>' },
 				},
@@ -66,8 +70,8 @@ config = function()
 		},
 		-- {{{ pickers = {}
 		pickers = {
-			find_files = { prompt_title = "Files (<C-/> help <C-^> opts <C-d> cd dir <C-h> hidden <M-[-+]> depth <C-[xtv]> go)", },
-			live_grep = { prompt_title = "Grep (<C-/> help <C-^> opts <C-d> cd dir <C-h> hidden <C-[xtv]> go)", },
+			find_files = { prompt_title = "Files (<C-/> help <C-^> opts)", },
+			live_grep = { prompt_title = "Grep (<C-/> help <C-^> opts)", },
 		},
 		-- }}}
 	}

@@ -147,6 +147,18 @@ config = function()
 	menufacture.find_files_menu["change into directory"] = menufacture.menu_actions.change_into_directory
 	menufacture.live_grep_menu["change into directory"] = menufacture.menu_actions.change_into_directory
 	-- }}}
+	-- {{{ menufacture.{find_files,live_grep}_menu['change into parent directory']
+	menufacture.menu_actions.change_into_parent_directory = {
+		action = function(opts, callback)
+			vim.fn.chdir("..")
+			callback(opts)
+		end,
+		action_name = "change_into_parent_directory",
+		text = 'change into parent directory',
+	}
+	menufacture.find_files_menu["change into parent directory"] = menufacture.menu_actions.change_into_parent_directory
+	menufacture.live_grep_menu["change into parent directory"] = menufacture.menu_actions.change_into_parent_directory
+	-- }}}
 	-- {{{ menufacture.find_files_menu['decrease maximum depth']
 	menufacture.menu_actions.decrease_maximum_depth = {
 		action = function(opts, callback)
@@ -183,6 +195,56 @@ config = function()
 	}
 	menufacture.find_files_menu["increase maximum depth"] = menufacture.menu_actions.increase_maximum_depth
 	-- }}}
+	-- {{{ menufacture.find_files_menu['decrease path shorten']
+	menufacture.menu_actions.decrease_path_shorten = {
+		action = function(opts, callback)
+			if conf.path_display.shorten > 1 then
+				conf.path_display.shorten = conf.path_display.shorten - 1
+			end
+			callback(opts)
+		end,
+		action_name = "decrease_path_shorten",
+		text = 'decrease path shorten',
+	}
+	menufacture.find_files_menu["decrease path shorten"] = menufacture.menu_actions.decrease_path_shorten
+	-- }}}
+	-- {{{ menufacture.find_files_menu['increase path shorten']
+	menufacture.menu_actions.increase_path_shorten = {
+		action = function(opts, callback)
+			conf.path_display.shorten = conf.path_display.shorten + 1
+			callback(opts)
+		end,
+		action_name = "increase_path_shorten",
+		text = 'increase path shorten',
+	}
+	menufacture.find_files_menu["increase path shorten"] = menufacture.menu_actions.increase_path_shorten
+	-- }}}
+	-- {{{ menufacture.{find_files,live_grep}_menu['edit ignore patterns...']
+	menufacture.find_files_menu['edit ignore patterns...'] =
+	function(opts, callback)
+		vim.ui.input({
+			prompt="Ignore patterns in Lua syntax or {}: ",
+			default=vim.inspect(opts.file_ignore_patterns or {}),
+		}, function(input)
+			opts.file_ignore_patterns = load(
+				"return " .. input)()
+		end)
+		callback(opts)
+	end
+
+	menufacture.live_grep_menu['edit ignore patterns...'] = menufacture.find_files_menu['edit ignore patterns...']
+	-- }}}
+	-- {{{ menufacture.{find_files,live_grep}_menu['live grep here...']
+	menufacture.menu_actions.live_grep_here = {
+		action = function(opts, callback)
+			menufacture.defaults.live_grep()
+		end,
+		action_name = "live_grep_here",
+		text = 'live grep here...',
+	}
+	menufacture.find_files_menu["live grep here..."] = menufacture.menu_actions.live_grep_here
+	menufacture.live_grep_menu["live grep here..."] = menufacture.menu_actions.live_grep_here
+	-- }}}
 	-- {{{ menufacture.{find_files,live_grep}_menu['set maximum depth']
 	menufacture.find_files_menu['set maximum depth'] =
 	function(opts, callback)
@@ -213,6 +275,26 @@ config = function()
 		callback(opts)
 	end
 	-- }}}
+	-- {{{ menufacture.{find_files,live_grep}_menu['toggle ignore ^%.git/']
+	menufacture.find_files_menu['toggle ignore ^%.git/'] =
+	function(opts, callback)
+		opts.ignore_gitdir_state = not opts.ignore_gitdir_state
+		if opts.ignore_gitdir_state then
+			opts.file_ignore_patterns = {'^%.git/'}
+		else
+			file_ignore_patterns_new = {}
+			for _, pattern in ipairs(opts.file_ignore_patterns or {}) do
+				if pattern ~= '^%.git/' then
+					table.insert(file_ignore_patterns_new, pattern)
+				end
+			end
+			opts.file_ignore_patterns = file_ignore_patterns_new
+		end
+		callback(opts)
+	end
+
+	menufacture.live_grep_menu['toggle ignore ^%.git/'] = menufacture.find_files_menu['toggle ignore ^%.git/']
+	-- }}}
 	-- {{{ menufacture.{find_files,live_grep}_menu['toggle wrap']
 	menufacture.find_files_menu['toggle wrap'] =
 	function(opts, callback)
@@ -222,8 +304,6 @@ config = function()
 	menufacture.live_grep_menu['toggle wrap'] = menufacture.find_files_menu['toggle wrap']
 	-- }}}
 
-	-- TODO add "toggle ignore .git/"
-
 	-- {{{ menufacture.defaults = {}
 	menufacture.defaults = {}
 	menufacture.defaults.find_files = function()
@@ -231,13 +311,16 @@ config = function()
 			hidden=false,
 			max_depth=nil,
 			find_command=get_find_command({}),
+			ignore_gitdir_state=true,
+			file_ignore_patterns = {'^%.git/'},
 		})
 	end
 	menufacture.defaults.live_grep = function()
 		menufacture.live_grep({
-			additional_args={'--hidden'},
-			['flag_additional_args--hidden']=true,
+			additional_args={'--hidden'}, ['flag_additional_args--hidden']=true,
+			file_ignore_patterns = {'^%.git/'},
 			hidden=true,
+			ignore_gitdir_state=true,
 			max_depth=nil,
 		})
 	end
