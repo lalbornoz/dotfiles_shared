@@ -120,3 +120,6 @@
 	url = https://github.com/lalbornoz/roarie-telescope-menufacture-extra.nvim
 [submodule ".vim/bundle.nvim/roarie-telescope-menufacture-extra.nvim"]
 	url = https://github.com/lalbornoz/roarie-telescope-menufacture-extra.nvim
+[submodule ".vim/bundle/roarie-commands.vim"]
+	path = .vim/bundle/roarie-commands.vim
+	url = https://github.com/lalbornoz/roarie-commands.vim
