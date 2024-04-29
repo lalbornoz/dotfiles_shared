@@ -123,3 +123,6 @@
 [submodule ".vim/bundle/roarie-commands.vim"]
 	path = .vim/bundle/roarie-commands.vim
 	url = https://github.com/lalbornoz/roarie-commands.vim
+[submodule ".vim/bundle/roarie-startup.vim"]
+	path = .vim/bundle/roarie-startup.vim
+	url = https://github.com/lalbornoz/roarie-startup.vim
