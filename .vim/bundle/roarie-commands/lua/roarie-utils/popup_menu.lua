@@ -86,6 +86,7 @@ function highlight_border(menu_popup, menus)
 		end
 	end
 	utils.win_execute(menu_popup.winid, cmdlist, false)
+	vim.api.nvim_win_set_option(menu_popup.winid, 'cursorline', false)
 end
 -- }}}
 -- {{{ function select_item(idx_new, menu_popup, menus)
@@ -186,7 +187,8 @@ M.open = function(menus, menu_popup, key_char)
 
 	vim.api.nvim_set_current_win(menu_popup.winid)
 	utils.win_execute(menu_popup.winid, cmdlist, false)
-	vim.api.nvim_win_set_option(menu_popup.winid, 'winhl', 'Normal:QuickBG,CursorColumn:QuickBG,CursorLine:QuickBG')
+	vim.api.nvim_win_set_option(menu_popup.winid, 'winhl', 'Normal:QuickBG,CursorColumn:QuickBG,CursorLine:QuickBorder')
+	vim.api.nvim_win_set_option(menu_popup.winid, 'cursorline', false)
 	M.select_item_idx(1, menu_popup, menus)
 
 	highlight_border(menu_popup, menus)

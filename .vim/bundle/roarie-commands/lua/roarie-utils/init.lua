@@ -20,6 +20,16 @@ M.termcodes = {
 	End=vim.api.nvim_replace_termcodes('<End>', true, false, true),
 }
 
+-- {{{ M.copy_config = function(config, config_defaults, config_new)
+M.copy_config = function(config, config_defaults, config_new)
+	for k, v in pairs(config_defaults) do
+		if config_new[k] ~= nil then
+			v = config_new[k]
+		end
+		config[k] = v
+	end
+end
+-- }}}
 -- {{{ M.get_keys = function(t)
 M.get_keys = function(t)
 	local keys = {}

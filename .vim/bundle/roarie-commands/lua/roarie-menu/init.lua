@@ -2,21 +2,40 @@
 -- Copyright (c) 2024 Lucía Andrea Illanes Albornoz <lucia@luciaillanes.de>
 --
 
-local commands = {}
-local menus = {}
-local mod_order = {
-	'',
-	'S-',
-	'C-',
-	'C-S-',
-	'M-',
-	'M-S-',
-	'M-C-',
-	'M-C-S-',
+local config_defaults = {
+	help_screen = {
+		"<{Esc,C-C}>                                  Exit menu mode",
+		"<{S-[a-z0-9],Down,Space}>, <{Left,Right}>    Open/select menu",
+		"[a-z0-9], <{Page,}Down,Up,Home,End>          Select menu items",
+		"<{Space,Enter}>                              Activate menu item",
+	},
+	help_text = "Press ? for help",
+
+	highlights = {
+		QuickBG = {ctermfg=251, ctermbg=236, fg="#c6c6c6", bg="#303030"},
+		QuickBorder = {ctermfg=251, ctermbg=236, fg="#0679a5", bg="#303030"},
+		QuickSel = {ctermfg=236, ctermbg=251, fg="#303030", bg="#f5a9b8"},
+		QuickSelMap = {ctermfg=236, ctermbg=251, underline=true, fg="#0679a5", bg="#f5a9b8"},
+		QuickKey = {ctermfg=179, underline=true, fg="#87d7d7"},
+	},
+
+	mod_order = {
+		'',
+		'S-',
+		'C-',
+		'C-S-',
+		'M-',
+		'M-S-',
+		'M-C-',
+		'M-C-S-',
+	},
 }
 
+local commands = {}
 local fn_tmp_menu = "<Fn>"
+local menus = {}
 
+local config = require("roarie-menu.config")
 local ui = require("roarie-menu.ui")
 local utils = require("roarie-utils")
 
@@ -142,9 +161,9 @@ function SortFnMenu_(lhs, rhs)
 		return 1
 	else
 		local lhs_mod = vim.fn.matchstr(lhs["lhs"], '^<\\zs\\([MCS-]\\)*\\ze')
-		local lhs_priority = vim.fn.index(mod_order, lhs_mod)
+		local lhs_priority = vim.fn.index(config.mod_order, lhs_mod)
 		local rhs_mod = vim.fn.matchstr(rhs["lhs"], '^<\\zs\\([MCS-]\\)*\\ze')
-		local rhs_priority = vim.fn.index(mod_order, rhs_mod)
+		local rhs_priority = vim.fn.index(config.mod_order, rhs_mod)
 		if lhs_priority < rhs_priority then
 			return -1
 		elseif lhs_priority > rhs_priority then
@@ -271,6 +290,15 @@ M.SetupFnMenus = function(ltitle, lpriority, lkey_to, lsep_each)
 	for idx=1,table.getn(lpriority) do
 		M.AddMenu(ltitle[idx], lpriority[idx], 1)
 		menu_items = PopulateFnMenu(menu_items, ltitle[idx], lkey_to[idx], lsep_each[idx])
+	end
+end
+-- }}}
+
+-- {{{ M.setup = function(opts)
+M.setup = function(opts)
+	config.setup(opts, config_defaults)
+	for hl_name, hl_val in pairs(config.highlights) do
+		vim.api.nvim_set_hl(0, hl_name, hl_val)
 	end
 end
 -- }}}

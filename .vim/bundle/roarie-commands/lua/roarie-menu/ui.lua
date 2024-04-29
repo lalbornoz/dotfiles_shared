@@ -3,15 +3,9 @@
 -- Partially based on vim-quickui code.
 --
 
-local help_screen = {
-	"<{Esc,C-C}>                                  Exit menu mode",
-	"<{S-[a-z0-9],Down,Space}>, <{Left,Right}>    Open/select menu",
-	"[a-z0-9], <{Page,}Down,Up,Home,End>          Select menu items",
-	"<{Space,Enter}>                              Activate menu item",
-}
-
 local menus = {}
 
+local config = require("roarie-menu.config")
 local utils = require("roarie-utils")
 local utils_help_screen = require("roarie-utils.help_screen")
 local utils_menu = require("roarie-utils.menu")
@@ -19,8 +13,8 @@ local utils_popup_menu = require("roarie-utils.popup_menu")
 
 local M = {}
 
--- {{{ function menu_loop(loop_status, menu_popup, menus)
-function menu_loop(loop_status, menu_popup, menus)
+-- {{{ function menu_loop(loop_status, menu_popup, menus, help_screen)
+function menu_loop(loop_status, menu_popup, menus, help_screen)
 	guicursor_old, hl_cursor_old = utils_menu.update(menus)
 	vim.cmd [[redraw]]
 
@@ -111,12 +105,14 @@ end
 -- {{{ M.OpenMenu = function()
 M.OpenMenu = function()
 	local loop_status = true
-	local menus, menu_popup = utils_menu.init(menus),
+	local menus, menu_popup = utils_menu.init(menus, config.help_text),
 				  utils_popup_menu.init()
 
 	while loop_status do
 		loop_status, menu_popup_idx =
-			menu_loop(loop_status, menu_popup, menus)
+			menu_loop(
+				loop_status, menu_popup,
+				menus, config.help_screen)
 	end
 
 	utils_help_screen.close()
@@ -137,12 +133,6 @@ M.Reset = function()
 	menus = {}
 end
 -- }}}
-
-vim.cmd [[
-	"hi! QuickBG	ctermfg=251 ctermbg=236 guifg=#c6c6c6 guibg=#303030
-	"hi! QuickSel	ctermfg=236 ctermbg=251 guifg=#303030 guibg=#c6c6c6
-	"hi! QuickKey	term=bold ctermfg=179 gui=bold guifg=#d7af5f
-]]
 
 return M
 
