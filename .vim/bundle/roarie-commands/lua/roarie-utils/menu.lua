@@ -47,8 +47,8 @@ M.get_key = function(cmdlist, display, y)
 	return display:gsub("&", ""), key_char, key_pos
 end
 -- }}}
--- {{{ M.init = function(menus)
-M.init = function(menus)
+-- {{{ M.init = function(menus, help_text)
+M.init = function(menus, help_text)
 	local menu = {
 		bid=nil, winid=nil,
 		idx=1,
@@ -81,11 +81,12 @@ M.init = function(menus)
 	end
 	menu.size = table.getn(menu.items)
 
-	local help_text = "Press ? for help"
-	menu.text =
-		   menu.text
-		.. string.rep(" ", (vim.fn.winwidth(menus.winid) - menu.text:len() - help_text:len() - 1))
-		.. help_text
+	if help_text ~= nil then
+		menu.text =
+			   menu.text
+			.. string.rep(" ", (vim.o.columns - menu.text:len() - help_text:len() - 1))
+			.. help_text
+	end
 
 	local opts = {
 		col=0, row=0,

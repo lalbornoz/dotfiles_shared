@@ -32,12 +32,12 @@ lua <<EOF
 			local config_fn, init_fn = nil, nil
 			if vim.fn.getftype(plugin) == "link" then
 				plugin = vim.fn.resolve(plugin)
-			else
-				local plugin_name = string.gsub(plugin, "^.*/", "")
-				if lazy_plugins[plugin_name] ~= nil then
-					config_fn = lazy_plugins[plugin_name].config
-					init_fn = lazy_plugins[plugin_name].init
-				end
+			end
+
+			local plugin_name = string.gsub(plugin, "^.*/", "")
+			if lazy_plugins[plugin_name] ~= nil then
+				config_fn = lazy_plugins[plugin_name].config
+				init_fn = lazy_plugins[plugin_name].init
 			end
 
 			local lazy = false
