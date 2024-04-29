@@ -115,6 +115,8 @@
 [submodule ".vim/bundle.nvim/telescope-file-browser.nvim"]
 	path = .vim/bundle.nvim/telescope-file-browser.nvim
 	url = https://github.com/nvim-telescope/telescope-file-browser.nvim
-[submodule ".vim/bundle.nvim/roarie-telescope-menufacture-extra"]
-	path = .vim/bundle.nvim/roarie-telescope-menufacture-extra
-	url = https://github.com/lalbornoz/roarie-telescope-menufacture-extra
+[submodule ".vim/bundle.nvim/roarie-telescope-menufacture-extra.nvim"]
+	path = .vim/bundle.nvim/roarie-telescope-menufacture-extra.nvim
+	url = https://github.com/lalbornoz/roarie-telescope-menufacture-extra.nvim
+[submodule ".vim/bundle.nvim/roarie-telescope-menufacture-extra.nvim"]
+	url = https://github.com/lalbornoz/roarie-telescope-menufacture-extra.nvim
