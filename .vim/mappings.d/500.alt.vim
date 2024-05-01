@@ -20,7 +20,7 @@ call roarie_commands#AddMapping("<&Alt>", "bidi_disable", "Disable &bidirectiona
 call roarie_commands#AddMapping("<&Alt>", "toggle_foldmethod", "Toggle fold&method", "Toggle between foldmethod=marker and foldmethod=indent", '<silent>', '<M-f>', ':<C-U>ToggleFoldMethod<CR>')
 call roarie_commands#AddMapping("<&Alt>", "toggle_hlsearch", "Toggle &search match highlighting", "Toggle search match highlighting", '<silent>', '<M-h>', ':<C-U>set invhlsearch<CR>')
 call roarie_commands#AddMapping("<&Alt>", "toggle_number", "Toggle &line numbers", "Toggle wrapping of lines longer than window width", "<silent>", '<M-l>', ':<C-U>set invnumber<CR>')
-call roarie_commands#AddMapping("<&Alt>", "toggle_case", "Toggle &case-sensitivity", "Toggle case-sensitivity", '<silent>', '<M-n>', ':<C-U>set invignorecase<CR>')
+call roarie_commands#AddMapping("<&Alt>", "toggle_case", "Toggle &case-sensitivity", "Toggle case-sensitivity", '<silent>', '<M-n>', ':<C-U>set invignorecase<CR>:<C-U>call lightline#update()<CR>')
 call roarie_commands#AddMapping("<&Alt>", "set_filetype_terminal", "Set filetype=&terminal", "Set filetype=terminal", '<silent>', '<M-r>', ':<C-U>set filetype=terminal<CR>')
 call roarie_commands#AddSeparator("<&Alt>")
 call roarie_commands#AddMapping("<&Alt>", "telescope_emoji", "Telescope &emoji", "Telescope emoji", '<silent>', '<M-e>', ':<C-U>Telescope emoji<CR>')
