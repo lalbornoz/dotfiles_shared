@@ -48,7 +48,7 @@ else
 call roarie_commands#AddMapping("&Project", "goto_diag_next", "Go to &next diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', ':<C-U>LspNextDiagnostic<CR>')
 call roarie_commands#AddMapping("&Project", "goto_diag_prev", "Go to &previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', ':<C-U>LspPreviousDiagnostic<CR>')
 endif
-if has('nvim') && executable('lazygit')
+if has('nvim')
 call roarie_commands#AddMapping("&Project", "git_lazygit", "&LazyGit...", "Open LazyGit window...", "<silent>", '<M-F5>', ':<C-U>lua _lazygit_toggle()<CR>', "<fnalias>")
 endif
 call roarie_commands#AddSeparator("&Project")
