@@ -129,3 +129,6 @@
 [submodule ".vim/bundle.nvim/gruvbox.nvim"]
 	path = .vim/bundle.nvim/gruvbox.nvim
 	url = https://github.com/ellisonleao/gruvbox.nvim
+[submodule ".vim/bundle.nvim/toggleterm.nvim"]
+	path = .vim/bundle.nvim/toggleterm.nvim
+	url = https://github.com/akinsho/toggleterm.nvim
