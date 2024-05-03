@@ -41,7 +41,7 @@ call roarie_commands#AddMapping("&File", "terminal_open_tab", "Open &terminal ta
 endif
 call roarie_commands#AddSeparator("&File")
 if has('nvim')
-call roarie_commands#AddMapping("&File", "toggle_nvim_tree", "Toggle nvim-tr&ee", "Toggle nvim-tree window", "<silent>", '<F12>', ':<C-U>NvimTreeToggle<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&File", "toggle_nvim_neo_tree", "Toggle nvim-neo-tr&ee", "Toggle nvim-neo-tree window", "<silent>", '<F12>', ':<C-U>Neotree toggle right<CR>', "<fnalias>")
 else
 call roarie_commands#AddMapping("&File", "toggle_nerdtree", "Toggle NERDTr&ee", "Toggle NERDTree window", "<silent>", '<F12>', ':<C-U>NERDTreeToggle<CR>', "<fnalias>")
 endif
