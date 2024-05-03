@@ -132,3 +132,9 @@
 [submodule ".vim/bundle.nvim/toggleterm.nvim"]
 	path = .vim/bundle.nvim/toggleterm.nvim
 	url = https://github.com/akinsho/toggleterm.nvim
+[submodule ".vim/bundle.nvim/nui.nvim"]
+	path = .vim/bundle.nvim/nui.nvim
+	url = https://github.com/MunifTanjim/nui.nvim
+[submodule ".vim/bundle.nvim/neo-tree.nvim"]
+	path = .vim/bundle.nvim/neo-tree.nvim
+	url = https://github.com/nvim-neo-tree/neo-tree.nvim
