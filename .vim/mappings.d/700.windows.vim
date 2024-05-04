@@ -16,14 +16,17 @@ call roarie_commands#AddMapping("&Windows", "decr_win_width", "&Decrease window 
 call roarie_commands#AddMapping("&Windows", "incr_win_width", "&Increase window width", "Increase current window width by 3", "<silent>", '<M-<>', ':<C-U>vertical resize +3<CR>')
 call roarie_commands#AddSeparator("&Windows")
 call roarie_commands#AddMapping("&Windows", "move_window_above", "Move to tmux or Vim window &above", "Move to 1st tmux pane or Vim window above current", "<silent>", '<M-Up>', ':<C-U>TmuxNavigateUp<CR>')
-if has('nvim')
-call roarie_commands#AddTMapping("&Windows", "move_window_above_terminal", "Move to tmux or Vim window &above (terminal)", "Move to 1st tmux pane or Vim window above current (terminal job mode)", "<silent>", '<M-Up>', '<C-\><C-n>:TmuxNavigateUp<CR>')
-endif
+call roarie_commands#AddMapping("&Windows", "move_window_above", "Move to tmux or Vim window &above", "Move to 1st tmux pane or Vim window above current", "<silent>", '<C-k>', ':<C-U>TmuxNavigateUp<CR>')
 call roarie_commands#AddMapping("&Windows", "move_window_below", "Move to tmux or Vim window &below", "Move to 1st tmux pane or Vim window below current", "<silent>", '<M-Down>', ':<C-U>TmuxNavigateDown<CR>')
-if has('nvim')
-call roarie_commands#AddTMapping("&Windows", "move_window_below_terminal", "Move to tmux or Vim window &below (terminal)", "Move to 1st tmux pane or Vim window below current (terminal job mode)", "<silent>", '<M-Down>', '<C-\><C-n>:TmuxNavigateDown<CR>')
-endif
+call roarie_commands#AddMapping("&Windows", "move_window_below", "Move to tmux or Vim window &below", "Move to 1st tmux pane or Vim window below current", "<silent>", '<C-j>', ':<C-U>TmuxNavigateDown<CR>')
 call roarie_commands#AddMapping("&Windows", "move_window_left", "Move to window to &left", "Move to 1st window left of current", "<silent>", '<M-Left>', ':<C-U>wincmd h<CR>')
 call roarie_commands#AddMapping("&Windows", "move_window_right", "Move to window to &right", "Move to 1st window right of current", "<silent>", '<M-Right>', ':<C-U>wincmd l<CR>')
+call roarie_commands#AddSeparator("&Windows")
+if has('nvim')
+call roarie_commands#AddTMapping("&Windows", "move_window_above_terminal", "Move to tmux or Vim window &above (terminal)", "Move to 1st tmux pane or Vim window above current (terminal job mode)", "<silent>", '<M-Up>', '<C-\><C-n>:TmuxNavigateUp<CR>')
+call roarie_commands#AddTMapping("&Windows", "move_window_above_terminal", "Move to tmux or Vim window &above (terminal)", "Move to 1st tmux pane or Vim window above current (terminal job mode)", "<silent>", '<C-k>', '<C-\><C-n>:TmuxNavigateUp<CR>')
+call roarie_commands#AddTMapping("&Windows", "move_window_below_terminal", "Move to tmux or Vim window &below (terminal)", "Move to 1st tmux pane or Vim window below current (terminal job mode)", "<silent>", '<M-Down>', '<C-\><C-n>:TmuxNavigateDown<CR>')
+call roarie_commands#AddTMapping("&Windows", "move_window_below_terminal", "Move to tmux or Vim window &below (terminal)", "Move to 1st tmux pane or Vim window below current (terminal job mode)", "<silent>", '<C-j>', '<C-\><C-n>:TmuxNavigateDown<CR>')
+endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
