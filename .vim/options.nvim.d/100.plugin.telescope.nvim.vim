@@ -117,8 +117,8 @@ config = function()
 					["<C-Right>"] = actions.preview_scrolling_right,
 					["<C-PageDown>"] = actions.preview_scrolling_down,
 					["<C-PageUp>"] = actions.preview_scrolling_up,
-					["<C-u>"] = "disable",
-					["<C-U>"] = "disable",
+					--["<C-u>"] = "disable",
+					--["<C-U>"] = "disable",
 
 					["<M-Left>"] = actions.results_scrolling_left,
 					["<M-Right>"] = actions.results_scrolling_right,
@@ -131,8 +131,8 @@ config = function()
 					["<C-Right>"] = actions.preview_scrolling_right,
 					["<C-PageDown>"] = actions.preview_scrolling_down,
 					["<C-PageUp>"] = actions.preview_scrolling_up,
-					["<C-u>"] = "disable",
-					["<C-U>"] = "disable",
+					--["<C-u>"] = "disable",
+					--["<C-U>"] = "disable",
 
 					["<M-Left>"] = actions.results_scrolling_left,
 					["<M-Right>"] = actions.results_scrolling_right,
