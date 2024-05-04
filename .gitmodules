@@ -126,3 +126,6 @@
 [submodule ".vim/bundle.nvim/neo-tree.nvim"]
 	path = .vim/bundle.nvim/neo-tree.nvim
 	url = https://github.com/nvim-neo-tree/neo-tree.nvim
+[submodule ".vim/bundle.nvim/nvim-lsp-compl"]
+	path = .vim/bundle.nvim/nvim-lsp-compl
+	url = https://github.com/mfussenegger/nvim-lsp-compl
