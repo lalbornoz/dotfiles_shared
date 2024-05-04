@@ -1,6 +1,15 @@
 lua << EOF
 lazy_plugins["sidebar-nvim"] = {
 config = function()
+	local git = require("sidebar-nvim.builtin.git")
+	git.bindings["<Enter>"] = git.bindings["e"]
+
+	local diagnostics = require("sidebar-nvim.builtin.diagnostics")
+	diagnostics.bindings["<Enter>"] = diagnostics.bindings["e"]
+
+	local symbols = require("sidebar-nvim.builtin.symbols")
+	symbols.bindings["<Enter>"] = symbols.bindings["e"]
+
 	local sidebar = require("sidebar-nvim")
 	sidebar.setup({
 		bindings = nil,
@@ -16,15 +25,6 @@ config = function()
 		symbols = { icon = "ƒ", },
 		update_interval = 100,
 	})
-
-	local git = require("sidebar-nvim.builtin.git")
-	git.bindings["<Enter>"] = git.bindings["e"]
-
-	local diagnostics = require("sidebar-nvim.builtin.diagnostics")
-	diagnostics.bindings["<Enter>"] = diagnostics.bindings["e"]
-
-	local symbols = require("sidebar-nvim.builtin.symbols")
-	symbols.bindings["<Enter>"] = symbols.bindings["e"]
 end }
 EOF
 
