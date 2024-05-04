@@ -1,8 +1,8 @@
 "
-" [Mappings] <M- >key sequences and menu mappings
+" [Mappings] <Alt> menu mappings
 "
 
-call roarie_commands#AddMenu("<&Alt>", 600)
+call roarie_commands#AddMenu("<&Alt>")
 call roarie_commands#AddMapping("<&Alt>", "mark_set_x", "Set &mark x", "Set mark x at cursor position", "<silent>", '<M-:>', 'mx')
 call roarie_commands#AddMapping("<&Alt>", "exec_register_q", "Execute register &q", "Execute contents of register q", "<silent>", '<M-@>', ':normal! @q<CR>')
 call roarie_commands#AddMapping("<&Alt>", "mark_jump_x", "Jump to &mark x", "Jump to mark x in the current buffer", "<silent>", '<M-~>', "'x")

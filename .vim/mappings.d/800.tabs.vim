@@ -1,8 +1,8 @@
 "
-" [Mappings] Windows menu mappings
+" [Mappings] Tabs menu mappings
 "
 
-call roarie_commands#AddMenu("&Tabs", 550)
+call roarie_commands#AddMenu("&Tabs")
 call roarie_commands#AddMapping("&Tabs", "tab_goto1", "&Go to tab #1", '', '<silent>', '<M-1>', '1gt')
 call roarie_commands#AddMapping("&Tabs", "tab_goto2", "&Go to tab #2", '', '<silent>', '<M-2>', '2gt')
 call roarie_commands#AddMapping("&Tabs", "tab_goto3", "&Go to tab #3", '', '<silent>', '<M-3>', '3gt')
@@ -14,14 +14,11 @@ call roarie_commands#AddMapping("&Tabs", "tab_goto8", "&Go to tab #8", '', '<sil
 call roarie_commands#AddMapping("&Tabs", "tab_goto9", "&Go to tab #9", '', '<silent>', '<M-9>', '9gt')
 call roarie_commands#AddSeparator("&Tabs")
 call roarie_commands#AddMapping("&Tabs", "tab_goto_prev", "Go to &previous tab", "Go to previous tab page w/ wraparound", "<silent>", '<M-S-Left>', ':<C-U>tabprev<CR>')
-call roarie_commands#AddMapping("&Tabs", "tab_goto_prev", "Go to &previous tab", "Go to previous tab page w/ wraparound", "<silent>", '<C-f>', ':<C-U>tabprev<CR>')
-call roarie_commands#AddMapping("&Tabs", "tab_goto_next", "Go to &next tab", "Go to next tab page w/ wraparound", "<silent>", '<M-S-Right>', ':<C-U>tabnext<CR>')
-call roarie_commands#AddMapping("&Tabs", "tab_goto_next", "Go to &next tab", "Go to next tab page w/ wraparound", "<silent>", '<C-h>', ':<C-U>tabnext<CR>')
-call roarie_commands#AddSeparator("&Tabs")
 if has('nvim')
-call roarie_commands#AddTMapping("&Tabs", "tab_goto_prev_terminal", "Go to &previous tab (terminal)", "Go to previous tab page w/ wraparound (terminal job mode)", "<silent>", '<C-f>', '<C-\><C-n>:tabprev<CR>')
 call roarie_commands#AddTMapping("&Tabs", "tab_goto_prev_terminal", "Go to &previous tab (terminal)", "Go to previous tab page w/ wraparound (terminal job mode)", "<silent>", '<M-S-Left>', '<C-\><C-n>:tabprev<CR>')
-call roarie_commands#AddTMapping("&Tabs", "tab_goto_next_terminal", "Go to &next tab (terminal)", "Go to next tab page w/ wraparound (terminal job mode)", "<silent>", '<C-h>', '<C-\><C-n>:tabnext<CR>')
+endif
+call roarie_commands#AddMapping("&Tabs", "tab_goto_next", "Go to &next tab", "Go to next tab page w/ wraparound", "<silent>", '<M-S-Right>', ':<C-U>tabnext<CR>')
+if has('nvim')
 call roarie_commands#AddTMapping("&Tabs", "tab_goto_next_terminal", "Go to &next tab (terminal)", "Go to next tab page w/ wraparound (terminal job mode)", "<silent>", '<M-S-Right>', '<C-\><C-n>:tabnext<CR>')
 else
 call roarie_commands#AddTMapping("&Tabs", "tab_goto_prev_terminal", "Go to &previous tab (terminal)", "Go to previous tab page w/ wraparound (terminal job mode)", "<silent>", '<C-f>', '<C-T>:tabprev<CR>')
