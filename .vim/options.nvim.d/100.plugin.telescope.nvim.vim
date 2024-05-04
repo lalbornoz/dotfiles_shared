@@ -35,7 +35,7 @@ config = function()
       ["<C-v>"] = actions.select_vertical,
       ["<C-t>"] = actions.select_tab,
 
-      ["<C-u>"] = actions.preview_scrolling_up,
+      --["<C-u>"] = actions.preview_scrolling_up,
       ["<C-d>"] = actions.preview_scrolling_down,
       ["<C-f>"] = actions.preview_scrolling_left,
       ["<C-k>"] = actions.preview_scrolling_right,
@@ -93,7 +93,7 @@ config = function()
       ["gg"] = actions.move_to_top,
       ["G"] = actions.move_to_bottom,
 
-      ["<C-u>"] = actions.preview_scrolling_up,
+      --["<C-u>"] = actions.preview_scrolling_up,
       ["<C-d>"] = actions.preview_scrolling_down,
       ["<C-f>"] = actions.preview_scrolling_left,
       ["<C-k>"] = actions.preview_scrolling_right,
@@ -117,8 +117,6 @@ config = function()
 					["<C-Right>"] = actions.preview_scrolling_right,
 					["<C-PageDown>"] = actions.preview_scrolling_down,
 					["<C-PageUp>"] = actions.preview_scrolling_up,
-					--["<C-u>"] = "disable",
-					--["<C-U>"] = "disable",
 
 					["<M-Left>"] = actions.results_scrolling_left,
 					["<M-Right>"] = actions.results_scrolling_right,
@@ -131,8 +129,6 @@ config = function()
 					["<C-Right>"] = actions.preview_scrolling_right,
 					["<C-PageDown>"] = actions.preview_scrolling_down,
 					["<C-PageUp>"] = actions.preview_scrolling_up,
-					--["<C-u>"] = "disable",
-					--["<C-U>"] = "disable",
 
 					["<M-Left>"] = actions.results_scrolling_left,
 					["<M-Right>"] = actions.results_scrolling_right,
