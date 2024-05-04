@@ -59,13 +59,12 @@ let g:roarie_startup_screen_lines = [
 	\ '[󰓩  Open a new tab page         <F8>][36;46m   [93;103m    [0m',
 	\ ']  Close current window/tab  <S-F8>[[36;46m    [93;103m  [0m [93;103m [0m',
 	\ '[  Telescope live_grep...     <F10>][36;46m   [94;44m    [93;103m [0m',
-	\ ']  Open terminal              <F11>[   [94;44m [97mDE[94m [0m',
-	\ '[  Toggle neo-tree            <F12>]   [94;44m   [93;103m  [0m',
-	\ ']󰛽  Toggle sidebar           <S-F12>[    [90;100m     [30;40m [0m',
+	\ ']  Open terminal              <F11>[ [36;46m [30;40m [94;44m [97mKA[94m [0m',
+	\ '[  Toggle neo-tree            <F12>]   [94;44m [97mDE[94m [0m',
+	\ ']󰛽  Toggle sidebar           <S-F12>[   [94;44m   [93;103m  [0m',
 	\ '[  Telescope files...       <C-F12>]   [90;100m     [30;40m [0m',
-	\ ']󰨭  Toggle spectre         <M-S-F12>[ [36;46m [30;40m [94;44m [97mKA[94m [0m',
+	\ ']󰨭  Toggle spectre         <M-S-F12>[    [90;100m     [30;40m [0m',
 	\ ]
-
 else
 
 let g:roarie_startup_screen_lines = [
