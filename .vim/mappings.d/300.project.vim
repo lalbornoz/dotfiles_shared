@@ -42,6 +42,8 @@ endif
 call roarie_commands#AddSeparator("&Project")
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
 if has('nvim')
+call roarie_commands#AddMapping("&Project", "gdb_start_prompt", "GD&B start prompt...", "GD&B start prompt...", "", '<S-F5>', ':<C-U>GdbStart ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "gdb_toggle_breakpoint", "Toggle GD&B breakpoint", "Toggle GD&B breakpoint in the cursor line", "<silent>", '<C-F5>', ':<C-U>GdbBreakpointToggle<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "goto_diag_next", "Go to next &diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', '<Cmd>lua vim.diagnostic.goto_next()<CR>')
 call roarie_commands#AddMapping("&Project", "goto_diag_prev", "Go to previous &diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev()<CR>')
 else
