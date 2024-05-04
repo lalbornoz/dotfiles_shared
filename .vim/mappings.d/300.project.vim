@@ -20,7 +20,7 @@ call roarie_commands#AddSeparator("&Project")
 if has('nvim')
 call roarie_commands#AddMapping("&Project", "telescope_document_symbols", "Telescope document_&symbols/aerial...", "Telescope document_symbols/aerial...", "<silent>", '<F3>', ':<C-U>lua if (table.getn(vim.lsp.get_clients({bufnr=vim.api.nvim_get_current_buf()})) == 0) then require("telescope").extensions.aerial.aerial() else require("telescope.builtin").lsp_document_symbols() end<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "telescope_workspace_symbols", "Telescope workspace_&symbols...", "Telescope workspace_symbols...", "<silent>", '<S-F3>', '<Cmd>Telescope lsp_workspace_symbols<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "toggle_aerial", "Toggle &Aerial sidebar", "Toggle Aerial sidebar", "<silent>", '<C-F3>', ':<C-U>AerialToggle<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "toggle_aerial", "Toggle &Aerial sidebar", "Toggle Aerial sidebar", "<silent>", '<C-F3>', ':<C-U>AerialToggle right<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "toggle_aerial_nav", "Toggle &Aerial nav window", "Toggle Aerial nav window", "<silent>", '<C-S-F3>', ':<C-U>AerialNavToggle<CR>', "<fnalias>")
 else
 call roarie_commands#AddMapping("&Project", "search_document_symbols", "Search document &symbols...", "Search the symbols for the current document and navigate", "<silent>", '<F3>', ':<C-U>LspDocumentSymbolSearch<CR>', "<fnalias>")
