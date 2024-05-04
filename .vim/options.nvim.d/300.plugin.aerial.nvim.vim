@@ -3,6 +3,9 @@ lazy_plugins["aerial.nvim"] = {
 config = function()
 	require("aerial").setup({
 	})
+
+	local telescope = require("telescope")
+	telescope.load_extension 'aerial'
 end }
 EOF
 
