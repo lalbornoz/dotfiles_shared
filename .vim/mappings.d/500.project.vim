@@ -4,7 +4,7 @@
 
 call roarie_commands#AddMenu("&Project")
 if has('nvim')
-call roarie_commands#AddMapping("&Project", "build", "&Build...", "Build project w/ BuildMe and .buildme.sh", "<silent>", '<F5>', ':<C-U>BuildMe<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "build", "&Build...", "Build project w/ BuildMe and .buildme.sh", "<silent>", '<F5>', ':<C-U>BuildMe<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Project", "run", "&Run...", "Run project w/ RunMe and .runme.sh", "<silent>", '<S-F5>', ':<C-U>RunMe<CR>', "<fnalias>")
 else
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
@@ -18,14 +18,14 @@ call roarie_commands#AddMapping("&Project", "gdb_frame_up", "&Frame up in GD&B",
 call roarie_commands#AddMapping("&Project", "gdb_frame_down", "&Frame down in GD&B", "Navigate one frame down in GD&B", "<silent>", '<C-S-PageDown>', ':<C-U>GdbFrameDown<CR>', "")
 endif
 call roarie_commands#AddSeparator("&Project")
-call roarie_commands#AddMapping("&Project", "git_status", "&Git status", "Bring up summary window akin to git-status", "<silent>", '<F6>', ':<C-U>Git<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_log", "&Git log", "Git log", "<silent>", '<S-F6>', ':<C-U>Git log<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_diff", "&Git diff", "Print global Git diff into new scratch window", "<silent>", '<C-F6>', ':<C-U>Git diff<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_diffsplit", "&Git diffsplit", "Git diff of current file w/ split window", "<silent>", '<C-S-F6>', ':<C-U>Gdiffsplit<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "git_prompt", "&Git prompt...", "Git prompt...", '', '<M-F6>', ':<C-U>Git ', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "telescope_git_commits", "Telescope &git_commits...", "Telescope git_commits...", '', '<M-S-F6>', ':<C-U>Telescope git_commits<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "git_status", "&Git status", "Bring up summary window akin to git-status", "<silent>", '<F6>', ':<C-U>Git<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&Project", "git_log", "&Git log", "Git log", "<silent>", '<S-F6>', ':<C-U>Git log<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&Project", "git_diff", "&Git diff", "Print global Git diff into new scratch window", "<silent>", '<C-F6>', ':<C-U>Git diff<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&Project", "git_diffsplit", "&Git diffsplit", "Git diff of current file w/ split window", "<silent>", '<C-S-F6>', ':<C-U>Gdiffsplit<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&Project", "git_prompt", "&Git prompt...", "Git prompt...", '', '<M-F6>', ':<C-U>Git ', "<fnalias>", "")
+call roarie_commands#AddMapping("&Project", "telescope_git_commits", "Telescope &git_commits...", "Telescope git_commits...", '', '<M-S-F6>', ':<C-U>Telescope git_commits<CR>', "<fnalias>", "ﰖ")
 if has('nvim')
-call roarie_commands#AddMapping("&Project", "git_lazygit", "&LazyGit...", "Open LazyGit window...", "<silent>", '<C-y>', ':<C-U>lua _lazygit_toggle()<CR>', "")
+call roarie_commands#AddMapping("&Project", "git_lazygit", "&LazyGit...", "Open LazyGit window...", "<silent>", '<C-y>', ':<C-U>lua _lazygit_toggle()<CR>', "")
 endif
 if has('nvim')
 call roarie_commands#AddSeparator("&Project")
