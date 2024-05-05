@@ -132,3 +132,6 @@
 [submodule ".vim/bundle.nvim/nvim-gdb"]
 	path = .vim/bundle.nvim/nvim-gdb
 	url = https://github.com/sakhnik/nvim-gdb
+[submodule ".vim/bundle.nvim/nvim-buildme"]
+	path = .vim/bundle.nvim/nvim-buildme
+	url = https://github.com/lalbornoz/nvim-buildme
