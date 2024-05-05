@@ -3,7 +3,11 @@
 "
 
 call roarie_commands#AddMenu("&Project")
+if has('nvim')
+call roarie_commands#AddMapping("&Project", "build", "&Build...", "Build project w/ BuildMe and .buildme.sh", "<silent>", '<F5>', ':<C-U>BuildMe<CR>', "<fnalias>")
+else
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
+endif
 if has('nvim')
 call roarie_commands#AddMapping("&Project", "gdb_start_prompt", "GD&B start prompt...", "GD&B start prompt...", "", '<S-F5>', ':<C-U>GdbStart ', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "gdb_continue", "Continue in GD&B", "Continue execution in GD&B", "<silent>", '<C-F5>', ':<C-U>GdbContinue<CR>', "<fnalias>")
