@@ -6,7 +6,7 @@ config = function()
 		runfile = '.runme.sh',		-- the run file to execute
 		interpreter = 'bash',		-- the interpreter to use (bash, python, ...)
 		force = '',	 		-- the option to pass when the bang is used
-		wincmd = '',			-- a command to run prior to a build job (split, vsplit, ...)
+		wincmd = 'split',		-- a command to run prior to a build job (split, vsplit, ...)
 	})
 end }
 EOF
