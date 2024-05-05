@@ -4,10 +4,6 @@
 
 if has('nvim')
 
-" <https://github.com/neovim/neovim/issues/14986>
-"autocmd TermClose * if !v:event.status | exe 'bdelete! '..expand('<abuf>') | endif
-autocmd TermClose * :q
-
 " <https://vi.stackexchange.com/questions/3670/how-to-enter-insert-mode-when-entering-neovim-terminal-pane>
 autocmd BufWinEnter,WinEnter term://* startinsert
 
