@@ -135,3 +135,6 @@
 [submodule ".vim/bundle.nvim/cmp-buffer"]
 	path = .vim/bundle.nvim/cmp-buffer
 	url = https://github.com/hrsh7th/cmp-buffer
+[submodule ".vim/bundle.nvim/utf8.nvim"]
+	path = .vim/bundle.nvim/utf8.nvim
+	url = https://github.com/uga-rosa/utf8.nvim
