@@ -3,7 +3,7 @@
 "
 
 call roarie_commands#AddMenu("&Windows")
-call roarie_commands#AddMapping("&Windows", "split_window", "&Split window", "Split current window in two", "<silent>", '<F7>', ':<C-U>wincmd s<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Windows", "create_window", "&Create new window", "Create new window", '<silent>', '<F7>', ':<C-U>new<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Windows", "split_window", "&Split window", "Split current window in two", "<silent>", '<C-t>', ':<C-U>wincmd s<CR>')
 call roarie_commands#AddMapping("&Windows", "create_window_vertical", "&Create new vertically split window", "Create new vertically split window", '<silent>', '<S-F7>', ':<C-U>vnew<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Windows", "rotate_windows_downright", "Rotate &windows down/right", "Rotate windows downwards/rightwards", '<silent>', '<C-F7>', ':<C-U>wincmd r<CR>', "<fnalias>")
