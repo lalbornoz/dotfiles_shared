@@ -5,13 +5,13 @@
 call roarie_commands#AddMenu("&Project")
 if has('nvim')
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Build project w/ BuildMe and .buildme.sh", "<silent>", '<F5>', ':<C-U>BuildMe<CR>', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "run", "&Run...", "Run project w/ RunMe and .runme.sh", "<silent>", '<C-S-F5>', ':<C-U>RunMe<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "run", "&Run...", "Run project w/ RunMe and .runme.sh", "<silent>", '<S-F5>', ':<C-U>RunMe<CR>', "<fnalias>")
 else
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
 endif
 if has('nvim')
-call roarie_commands#AddMapping("&Project", "gdb_start_prompt", "GD&B start prompt...", "GD&B start prompt...", "", '<S-F5>', ':<C-U>GdbStart ', "<fnalias>")
-call roarie_commands#AddMapping("&Project", "gdb_continue", "Continue in GD&B", "Continue execution in GD&B", "<silent>", '<C-F5>', ':<C-U>GdbContinue<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "gdb_start_prompt", "GD&B start prompt...", "GD&B start prompt...", "", '<C-F5>', ':<C-U>GdbStart ', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "gdb_continue", "Continue in GD&B", "Continue execution in GD&B", "<silent>", '<C-S-F5>', ':<C-U>GdbContinue<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "gdb_step_over", "Step over st&atement", "Step over st&atement in GD&B", "<silent>", '<M-F5>', ':<C-U>GdbNext<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "gdb_step_into", "Step into st&atement", "Step into st&atement in GD&B", "<silent>", '<M-S-F5>', ':<C-U>GdbStep<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Project", "gdb_frame_up", "&Frame up in GD&B", "Navigate one frame up in GD&B", "<silent>", '<C-S-PageUp>', ':<C-U>GdbFrameUp<CR>', "")
