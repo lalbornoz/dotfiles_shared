@@ -5,6 +5,7 @@
 call roarie_commands#AddMenu("&Project")
 if has('nvim')
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Build project w/ BuildMe and .buildme.sh", "<silent>", '<F5>', ':<C-U>BuildMe<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Project", "run", "&Run...", "Run project w/ RunMe and .runme.sh", "<silent>", '<C-S-F5>', ':<C-U>RunMe<CR>', "<fnalias>")
 else
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
 endif
