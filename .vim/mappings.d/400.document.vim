@@ -23,9 +23,15 @@ call roarie_commands#AddMapping("&Document", "telescope_workspace_symbols", "Tel
 call roarie_commands#AddMapping("&Document", "toggle_aerial", "Toggle &Aerial sidebar", "Toggle Aerial sidebar", "<silent>", '<C-F3>', ':<C-U>AerialToggle left<CR>', "<fnalias>", "ﯼ")
 call roarie_commands#AddMapping("&Document", "toggle_aerial_nav", "Toggle &Aerial nav window", "Toggle Aerial nav window", "<silent>", '<C-S-F3>', ':<C-U>AerialNavToggle<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Document", "telescope_diagnostics", "Telescope dia&gnostics...", "Telescope diagnostics...", "<silent>", '<M-S-F3>', ':<C-U>Telescope diagnostics<CR>', "<fnalias>", "ﱥ")
+call roarie_commands#AddMapping("&Document", "goto_diag_next", "Go to next diagn&ostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', '<Cmd>lua vim.diagnostic.goto_next({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.WARN}, wrap = true})<CR>', "", "")
+call roarie_commands#AddMapping("&Document", "goto_diag_prev", "Go to previous diagn&ostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.WARN}, wrap = true})<CR>', "", "")
+call roarie_commands#AddMapping("&Document", "goto_error_next", "Go to next &error", "Go to next error in file", "<silent>", '<C-S-PageDown>', '<Cmd>lua vim.diagnostic.goto_next({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.ERROR}, wrap = true})<CR>', "", "")
+call roarie_commands#AddMapping("&Document", "goto_error_prev", "Go to previous &error", "Go to previous error in file", "<silent>", '<C-S-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.ERROR}, wrap = true})<CR>', "", "")
 else
 call roarie_commands#AddMapping("&Document", "search_document_symbols", "Search document &symbols...", "Search the symbols for the current document and navigate", "<silent>", '<F3>', ':<C-U>LspDocumentSymbolSearch<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Document", "search_workspace_symbols", "Search &workspace symbols...", "Search the workspace symbols for all servers and navigate using quickpick", "<silent>", '<S-F3>', ':<C-U>LspWorkspaceSymbolSearch<CR>', "<fnalias>")
+call roarie_commands#AddMapping("&Document", "goto_diag_next", "Go to &next diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', ':<C-U>LspNextDiagnostic<CR>')
+call roarie_commands#AddMapping("&Document", "goto_diag_prev", "Go to &previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', ':<C-U>LspPreviousDiagnostic<CR>')
 endif
 call roarie_commands#AddSeparator("&Document")
 if has('nvim')
@@ -39,15 +45,6 @@ call roarie_commands#AddMapping("&Document", "display_man_prompt", "Display &man
 call roarie_commands#AddMapping("&Document", "display_man", "Display &manual page", "Display manual page from current word", "<silent>", '<C-S-F4>', '"zyiw:exe "Man ".@z.""<CR>', "<fnalias>", "ﲉ")
 if has('nvim')
 call roarie_commands#AddMapping("&Document", "telescope_man_pages", "Telescope &man_pages...", "Telescope man_pages...", '<silent>', '<M-S-F4>', ':<C-U>lua require("telescope.builtin").man_pages({sections = {"ALL"}})<CR>', "<fnalias>", "ﯳ")
-endif
-if has('nvim')
-call roarie_commands#AddMapping("&Document", "goto_diag_next", "Go to next diagn&ostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', '<Cmd>lua vim.diagnostic.goto_next({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.WARN}, wrap = true})<CR>', "", "")
-call roarie_commands#AddMapping("&Document", "goto_diag_prev", "Go to previous diagn&ostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.WARN}, wrap = true})<CR>', "", "")
-call roarie_commands#AddMapping("&Document", "goto_error_next", "Go to next &error", "Go to next error in file", "<silent>", '<C-S-PageDown>', '<Cmd>lua vim.diagnostic.goto_next({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.ERROR}, wrap = true})<CR>', "", "")
-call roarie_commands#AddMapping("&Document", "goto_error_prev", "Go to previous &error", "Go to previous error in file", "<silent>", '<C-S-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.ERROR}, wrap = true})<CR>', "", "")
-else
-call roarie_commands#AddMapping("&Document", "goto_diag_next", "Go to &next diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', ':<C-U>LspNextDiagnostic<CR>')
-call roarie_commands#AddMapping("&Document", "goto_diag_prev", "Go to &previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', ':<C-U>LspPreviousDiagnostic<CR>')
 endif
 if !has('nvim')
 call roarie_commands#AddSeparator("&Document")
