@@ -37,6 +37,7 @@ if has('nvim')
 call roarie_commands#AddMapping("&File", "telescope_buffers", "Telescope b&uffers...", "Telescope buffers...", "<silent>", '<S-F12>', ':lua require("telescope.builtin").buffers()<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&File", "telescope_files", "Telescope fil&es...", "Telescope files...", "<silent>", '<C-F12>', ':lua require("telescope").extensions.menufacture.defaults.find_files()<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&File", "telescope_file_browser", "Telescope fil&e_browser...", "Telescope file_browser...", "<silent>", '<C-S-F12>', ':<C-U>Telescope file_browser<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&File", "telescope_resume", "&Restart last Telescope...", "Restart last Telescope w/ Telescope resume...", "<silent>", '<M-F12>', ':<C-U>Telescope resume<CR>', "<fnalias>", "ﰇ")
 endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
