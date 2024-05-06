@@ -31,12 +31,5 @@ call roarie_commands#AddMapping("&Project", "telescope_git_commits", "Telescope 
 if has('nvim')
 call roarie_commands#AddMapping("&Project", "git_lazygit", "&LazyGit...", "Open LazyGit window...", "<silent>", '<C-y>', ':<C-U>lua _lazygit_toggle()<CR>', "", "")
 endif
-if has('nvim')
-call roarie_commands#AddSeparator("&Project")
-call roarie_commands#AddMapping("&Project", "telescope_workspaces", "Telescope &workspaces...", "Telescope workspaces...", "<silent>", '<C-F11>', ':Telescope workspaces<CR>', "<fnalias>", "")
-call roarie_commands#AddMapping("&Project", "workspace_add", "Add &workspace...", "Add workspace from current path", "<silent>", '<C-S-F11>', ':<C-U>WorkspacesAddDir<CR>', "<fnalias>", "")
-call roarie_commands#AddMapping("&Project", "workspace_remove", "Remove &workspace...", "Remove workspace at current path", "<silent>", '<M-F11>', ':<C-U>WorkspacesRemoveDir<CR>', "<fnalias>", "")
-call roarie_commands#AddMapping("&Project", "workspace_rename", "Rename &workspace...", "Rename workspace", "<silent>", '<M-S-F11>', ':<C-U>WorkspacesRename ', "<fnalias>", "")
-endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0

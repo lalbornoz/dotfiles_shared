@@ -29,6 +29,13 @@ call roarie_commands#AddMapping("&File", "terminal_open", "Open &terminal...", "
 call roarie_commands#AddMapping("&File", "terminal_open_tab", "Open &terminal tab...", "Open a new terminal tab", '', '<S-F11>', ':<C-U>tab terminal<CR>', "<fnalias>")
 endif
 if has('nvim')
+call roarie_commands#AddMapping("&File", "telescope_workspaces", "Telescope &workspaces...", "Telescope workspaces...", "<silent>", '<C-F11>', ':Telescope workspaces<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&File", "workspace_add", "Add &workspace...", "Add workspace from current path", "<silent>", '<C-S-F11>', ':<C-U>WorkspacesAddDir<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&File", "workspace_remove", "Remove &workspace...", "Remove workspace at current path", "<silent>", '<M-F11>', ':<C-U>WorkspacesRemoveDir<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&File", "workspace_rename", "Rename &workspace...", "Rename workspace", "<silent>", '<M-S-F11>', ':<C-U>WorkspacesRename ', "<fnalias>", "")
+endif
+call roarie_commands#AddSeparator("&File")
+if has('nvim')
 call roarie_commands#AddMapping("&File", "toggle_neo_tree", "Toggle neo-tr&ee", "Toggle neo-tree sidebar", "<silent>", '<F12>', ':<C-U>Neotree toggle right<CR>', "<fnalias>", "פּ")
 else
 call roarie_commands#AddMapping("&File", "toggle_nerdtree", "Toggle NERDTr&ee", "Toggle NERDTree sidebar", "<silent>", '<F12>', ':<C-U>NERDTreeToggle<CR>', "<fnalias>")
