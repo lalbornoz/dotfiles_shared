@@ -19,6 +19,7 @@ call roarie_commands#AddMapping("&Project", "gdb_step_into", "Step into st&ateme
 call roarie_commands#AddMapping("&Project", "gdb_step_over", "Step over st&atement", "Step over st&atement in GD&B", "<silent>", '<M-PageDown>', ':<C-U>GdbNext<CR>', "", "")
 call roarie_commands#AddMapping("&Project", "gdb_frame_up", "&Frame up in GD&B", "Navigate one frame up in GD&B", "<silent>", '<M-S-PageUp>', ':<C-U>GdbFrameUp<CR>', "", "")
 call roarie_commands#AddMapping("&Project", "gdb_frame_down", "&Frame down in GD&B", "Navigate one frame down in GD&B", "<silent>", '<M-S-PageDown>', ':<C-U>GdbFrameDown<CR>', "", "")
+call roarie_commands#AddMapping("&Project", "gdb_toggle_breakpoint", "Toggle GD&B breakpoint", "Toggle GD&B breakpoint in the cursor line", "<silent>", '<C-b>', ':<C-U>GdbBreakpointToggle<CR>', "<fnalias>", "")
 endif
 call roarie_commands#AddSeparator("&Project")
 call roarie_commands#AddMapping("&Project", "git_status", "&Git status", "Bring up summary window akin to git-status", "<silent>", '<F6>', ':<C-U>Git<CR>', "<fnalias>", "")

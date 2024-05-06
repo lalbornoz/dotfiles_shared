@@ -22,7 +22,7 @@ call roarie_commands#AddMapping("&Document", "document_symbols", "Document symbo
 call roarie_commands#AddMapping("&Document", "telescope_workspace_symbols", "Telescope workspace_&symbols...", "Telescope workspace_symbols...", "<silent>", '<S-F3>', '<Cmd>Telescope lsp_workspace_symbols<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Document", "toggle_aerial", "Toggle &Aerial sidebar", "Toggle Aerial sidebar", "<silent>", '<C-F3>', ':<C-U>AerialToggle left<CR>', "<fnalias>", "ﯼ")
 call roarie_commands#AddMapping("&Document", "toggle_aerial_nav", "Toggle &Aerial nav window", "Toggle Aerial nav window", "<silent>", '<C-S-F3>', ':<C-U>AerialNavToggle<CR>', "<fnalias>", "")
-call roarie_commands#AddMapping("&Document", "gdb_toggle_breakpoint", "Toggle GD&B breakpoint", "Toggle GD&B breakpoint in the cursor line", "<silent>", '<M-F3>', ':<C-U>GdbBreakpointToggle<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&Document", "telescope_diagnostics", "Telescope dia&gnostics...", "Telescope diagnostics...", "<silent>", '<M-S-F3>', ':<C-U>Telescope diagnostics<CR>', "<fnalias>", "ﱥ")
 else
 call roarie_commands#AddMapping("&Document", "search_document_symbols", "Search document &symbols...", "Search the symbols for the current document and navigate", "<silent>", '<F3>', ':<C-U>LspDocumentSymbolSearch<CR>', "<fnalias>")
 call roarie_commands#AddMapping("&Document", "search_workspace_symbols", "Search &workspace symbols...", "Search the workspace symbols for all servers and navigate using quickpick", "<silent>", '<S-F3>', ':<C-U>LspWorkspaceSymbolSearch<CR>', "<fnalias>")
