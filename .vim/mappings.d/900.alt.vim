@@ -11,10 +11,10 @@ call roarie_commands#AddMapping("<&Alt>", "insert_date", "Insert &date (LC_ALL=C
 call roarie_commands#AddMapping("<&Alt>", "insert_date_rfc2822", "Insert &date (RFC 2822/2322)", "Insert date in RFC 2822/5322 format", "<silent>", '<M-D>', ':<C-U>:r!env LC_ALL=C date +"\%a, \%d \%b \%Y \%T \%z"<CR>', "", "")
 call roarie_commands#AddMapping("<&Alt>", "convert_to_prototype", "Convert to &prototype", "Convert to prototype", '<silent>', '<M-p>', 'J<Esc>:s/\t/ /eg<CR>:s/ \+/ /eg<CR>:s/( /(/<CR>:s/ \* / */eg<CR>:s/$/;/<CR>', "", "")
 call roarie_commands#AddMapping("<&Alt>", "edit_vimrc", "Edit &Vim configuration...", "Edit Vim configuration file in new window", "<silent>", '<M-v>', ':<C-U>tabnew\|e ~/.vimrc<CR>', "", "")
+if has('nvim')
 call roarie_commands#AddSeparator("<&Alt>")
 call roarie_commands#AddMapping("<&Alt>", "telescope_emoji", "Telescope &emoji...", "Telescope emoji...", '<silent>', '<M-e>', ':<C-U>Telescope emoji<CR>', "", "ﲃ")
 call roarie_commands#AddMapping("<&Alt>", "telescope_glyph", "Telescope &glyph...", "Telescope glyph...", '<silent>', '<M-g>', ':<C-U>Telescope glyph<CR>', "", "")
-if has('nvim')
 call roarie_commands#AddMapping("<&Alt>", "telescope_help", "Telescope &help_tags...", "Telescope help_tags...", '<silent>', '<M-/>', ':<C-U>Telescope help_tags<CR>', "", "ﲉ")
 endif
 call roarie_commands#AddSeparator("<&Alt>")

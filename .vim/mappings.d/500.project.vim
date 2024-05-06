@@ -27,8 +27,8 @@ call roarie_commands#AddMapping("&Project", "git_log", "&Git log", "Git log", "<
 call roarie_commands#AddMapping("&Project", "git_diff", "&Git diff", "Print global Git diff into new scratch window", "<silent>", '<C-F6>', ':<C-U>Git diff<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Project", "git_diffsplit", "&Git diffsplit", "Git diff of current file w/ split window", "<silent>", '<C-S-F6>', ':<C-U>Gdiffsplit<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Project", "git_prompt", "&Git prompt...", "Git prompt...", '', '<M-F6>', ':<C-U>Git ', "<fnalias>", "")
-call roarie_commands#AddMapping("&Project", "telescope_git_commits", "Telescope &git_commits...", "Telescope git_commits...", '', '<M-S-F6>', ':<C-U>Telescope git_commits<CR>', "<fnalias>", "ﰖ")
 if has('nvim')
+call roarie_commands#AddMapping("&Project", "telescope_git_commits", "Telescope &git_commits...", "Telescope git_commits...", '', '<M-S-F6>', ':<C-U>Telescope git_commits<CR>', "<fnalias>", "ﰖ")
 call roarie_commands#AddMapping("&Project", "git_lazygit", "&LazyGit...", "Open LazyGit window...", "<silent>", '<C-y>', ':<C-U>lua _lazygit_toggle()<CR>', "", "")
 endif
 
