@@ -5,6 +5,7 @@
 call roarie_commands#AddMenu("&Document")
 if has('nvim')
 call roarie_commands#AddMapping("&Document", "peek_define", "Peek &definition", "Peek definition", "<silent>", '<F1>', '<Cmd>lua require("goto-preview").goto_preview_definition()<CR>', "<fnalias>", "")
+call roarie_commands#AddMapping("&Document", "peek_decl", "Peek &declaration", "Peek declaration", "<silent>", '<S-F1>', '<Cmd>lua require("goto-preview").goto_preview_declaration()<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Document", "find_all_refs", "Find all &references", "Find all LSP references", "<silent>", '<C-F1>', '<Cmd>lua vim.lsp.buf.references()<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Document", "goto_define", "Go to &definition", "Go to definition", "<silent>", '<F2>', '<Cmd>lua vim.lsp.buf.definition()<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Document", "goto_decl", "Go to de&claration", "Go to declaration", "<silent>", '<S-F2>', '<Cmd>lua vim.lsp.buf.declaration()<CR>', "<fnalias>", "")
