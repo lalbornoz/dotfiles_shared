@@ -142,3 +142,6 @@
 [submodule ".vim/bundle.nvim/heirline.nvim"]
 	path = .vim/bundle.nvim/heirline.nvim
 	url = https://github.com/rebelot/heirline.nvim
+[submodule ".vim/bundle.nvim/navigator.lua"]
+	path = .vim/bundle.nvim/navigator.lua
+	url = https://github.com/ray-x/navigator.lua
