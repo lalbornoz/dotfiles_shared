@@ -41,8 +41,10 @@ if has('nvim')
 call roarie_commands#AddMapping("&Document", "telescope_man_pages", "Telescope &man_pages...", "Telescope man_pages...", '<silent>', '<M-S-F4>', ':<C-U>lua require("telescope.builtin").man_pages({sections = {"ALL"}})<CR>', "<fnalias>", "ﯳ")
 endif
 if has('nvim')
-call roarie_commands#AddMapping("&Document", "goto_diag_next", "Go to next diagn&ostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', '<Cmd>lua vim.diagnostic.goto_next()<CR>', "", "")
-call roarie_commands#AddMapping("&Document", "goto_diag_prev", "Go to previous diagn&ostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', "", "")
+call roarie_commands#AddMapping("&Document", "goto_diag_next", "Go to next diagn&ostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', '<Cmd>lua vim.diagnostic.goto_next({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.WARN}, wrap = true})<CR>', "", "")
+call roarie_commands#AddMapping("&Document", "goto_diag_prev", "Go to previous diagn&ostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.WARN}, wrap = true})<CR>', "")
+call roarie_commands#AddMapping("&Document", "goto_error_next", "Go to next &error", "Go to next error in file", "<silent>", '<C-S-PageDown>', '<Cmd>lua vim.diagnostic.goto_next({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.ERROR}, wrap = true})<CR>', "", "")
+call roarie_commands#AddMapping("&Document", "goto_error_prev", "Go to previous &error", "Go to previous error in file", "<silent>", '<C-S-PageUp>', '<Cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.severity.HINT, max=vim.diagnostic.severity.ERROR}, wrap = true})<CR>', "", "")
 else
 call roarie_commands#AddMapping("&Document", "goto_diag_next", "Go to &next diagnostic", "Go to next diagnostic in file", "<silent>", '<C-PageDown>', ':<C-U>LspNextDiagnostic<CR>')
 call roarie_commands#AddMapping("&Document", "goto_diag_prev", "Go to &previous diagnostic", "Go to previous diagnostic in file", "<silent>", '<C-PageUp>', ':<C-U>LspPreviousDiagnostic<CR>')
