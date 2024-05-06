@@ -139,3 +139,6 @@
 	path = .vim/bundle.nvim/utf8.nvim
 	url = https://github.com/uga-rosa/utf8.nvim
 	ignore = dirty
+[submodule ".vim/bundle.nvim/heirline.nvim"]
+	path = .vim/bundle.nvim/heirline.nvim
+	url = https://github.com/rebelot/heirline.nvim
