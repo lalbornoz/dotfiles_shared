@@ -49,9 +49,6 @@
 [submodule ".vim/bundle.nvim/nvim-web-devicons"]
 	path = .vim/bundle.nvim/nvim-web-devicons
 	url = https://github.com/nvim-tree/nvim-web-devicons
-[submodule ".vim/bundle.nvim/sidebar-nvim"]
-	path = .vim/bundle.nvim/sidebar-nvim
-	url = https://github.com/lalbornoz/sidebar.nvim
 [submodule ".vim/bundle.nvim/telescope-menufacture"]
 	path = .vim/bundle.nvim/telescope-menufacture
 	url = https://github.com/lalbornoz/telescope-menufacture
