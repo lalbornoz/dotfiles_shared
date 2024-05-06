@@ -79,9 +79,11 @@
 [submodule ".vim/bundle.nvim/workspaces.nvim"]
 	path = .vim/bundle.nvim/workspaces.nvim
 	url = https://github.com/natecraddock/workspaces.nvim
+	ignore = dirty
 [submodule ".vim/bundle.nvim/nvim-spectre"]
 	path = .vim/bundle.nvim/nvim-spectre
 	url = https://github.com/nvim-pack/nvim-spectre
+	ignore = dirty
 [submodule ".vim/bundle.nvim/telescope-emoji.nvim"]
 	path = .vim/bundle.nvim/telescope-emoji.nvim
 	url = https://github.com/xiyaowong/telescope-emoji.nvim
@@ -111,6 +113,7 @@
 [submodule ".vim/bundle.nvim/toggleterm.nvim"]
 	path = .vim/bundle.nvim/toggleterm.nvim
 	url = https://github.com/akinsho/toggleterm.nvim
+	ignore = dirty
 [submodule ".vim/bundle.nvim/nui.nvim"]
 	path = .vim/bundle.nvim/nui.nvim
 	url = https://github.com/MunifTanjim/nui.nvim
@@ -135,3 +138,4 @@
 [submodule ".vim/bundle.nvim/utf8.nvim"]
 	path = .vim/bundle.nvim/utf8.nvim
 	url = https://github.com/uga-rosa/utf8.nvim
+	ignore = dirty
