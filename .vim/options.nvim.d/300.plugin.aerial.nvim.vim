@@ -43,6 +43,14 @@ config = function()
 		-- This can be a filetype map (see :help aerial-filetype-map)
 		manage_folds = false,
 
+		-- When you fold code with za, zo, or zc, update the aerial tree as well.
+		-- Only works when manage_folds = true
+		link_folds_to_tree = false,
+
+		-- Fold code when you open/collapse symbols in the tree.
+		-- Only works when manage_folds = true
+		link_tree_to_folds = false,
+
 		-- Show box drawing characters for the tree hierarchy
 		show_guides = true,
 
