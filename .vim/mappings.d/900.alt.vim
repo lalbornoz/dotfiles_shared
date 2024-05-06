@@ -30,5 +30,10 @@ if has('nvim')
 call roarie_commands#AddMapping("<&Alt>", "toggle_hexedit", "Toggle he&x editing", "Toggle hex editing", '<silent>', '<M-X>', ':<C-U>Hexmode<CR>', "", "")
 endif
 call roarie_commands#AddMapping("<&Alt>", "reset_syntax", "Reset s&yntax highlighting", "Reset syntax highlighting", '<silent>', '<M-y>', ':<C-U>syntax on<CR>', "", "")
+if has('nvim')
+call roarie_commands#AddMapping("<&Alt>", "helptags", "Regenerate help t&ags", "Regenerate all help tags", '<silent>', '<M-z>', ':<C-U>helptags ALL<CR>', "", "")
+else
+call roarie_commands#AddMapping("<&Alt>", "helptags", "Regenerate help t&ags", "Regenerate all help tags", '<silent>', '<M-z>', ':<C-U>Helptags<CR>')
+endif
 
 " vim:filetype=vim noexpandtab sw=8 ts=8 tw=0
