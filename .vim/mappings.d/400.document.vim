@@ -20,7 +20,7 @@ call roarie_commands#AddSeparator("&Document")
 if has('nvim')
 call roarie_commands#AddMapping("&Document", "document_symbols", "Document symbols...", "Telescope document_symbols/aerial...", "<silent>", '<F3>', ':<C-U>lua if (table.getn(vim.lsp.get_clients({bufnr=vim.api.nvim_get_current_buf()})) == 0) then require("telescope").extensions.aerial.aerial() else require("telescope.builtin").lsp_document_symbols() end<CR>', "<fnalias>", "󱔁")
 call roarie_commands#AddMapping("&Document", "telescope_workspace_symbols", "Telescope workspace_&symbols...", "Telescope workspace_symbols...", "<silent>", '<S-F3>', '<Cmd>Telescope lsp_workspace_symbols<CR>', "<fnalias>", "")
-call roarie_commands#AddMapping("&Document", "toggle_aerial", "Toggle &Aerial sidebar", "Toggle Aerial sidebar", "<silent>", '<C-F3>', ':<C-U>AerialToggle right<CR>', "<fnalias>", "ﯼ")
+call roarie_commands#AddMapping("&Document", "toggle_aerial", "Toggle &Aerial sidebar", "Toggle Aerial sidebar", "<silent>", '<C-F3>', ':<C-U>AerialToggle left<CR>', "<fnalias>", "ﯼ")
 call roarie_commands#AddMapping("&Document", "toggle_aerial_nav", "Toggle &Aerial nav window", "Toggle Aerial nav window", "<silent>", '<C-S-F3>', ':<C-U>AerialNavToggle<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&Document", "gdb_toggle_breakpoint", "Toggle GD&B breakpoint", "Toggle GD&B breakpoint in the cursor line", "<silent>", '<M-F3>', ':<C-U>GdbBreakpointToggle<CR>', "<fnalias>", "")
 else
