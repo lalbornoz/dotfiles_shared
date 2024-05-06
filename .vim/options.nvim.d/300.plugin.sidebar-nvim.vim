@@ -1,6 +1,9 @@
 lua << EOF
 lazy_plugins["sidebar-nvim"] = {
 config = function()
+	local buffers = require("sidebar-nvim.builtin.buffers")
+	buffers.bindings["<Enter>"] = buffers.bindings["e"]
+
 	local git = require("sidebar-nvim.builtin.git")
 	git.bindings["<Enter>"] = git.bindings["e"]
 
@@ -20,7 +23,7 @@ config = function()
 		open = false,
 		section_separator = {"", "-----", ""},
 		section_title_separator = {""},
-		sections = { "git", "diagnostics", "symbols", },
+		sections = { "diagnostics", "symbols", },
 		side = "left",
 		symbols = { icon = "ƒ", },
 		update_interval = 100,
