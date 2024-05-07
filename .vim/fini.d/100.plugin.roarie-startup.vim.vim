@@ -51,7 +51,7 @@ let g:roarie_startup_screen_lines = [
 	\ '[  Complete in insert mode  <S-TAB>]',
 	\ ']  Peek definition             <F1>[',
 	\ '[  Go to definition            <F2>]',
-	\ ']󱔁  Document symbols...         <F3>[     [36;46m [0m',
+	\ ']󱔁  Document symbols picker...  <F3>[     [36;46m [0m',
 	\ '[ﯼ  Toggle symbols sidebar    <C-F3>]    [36;46m   [0m',
 	\ ']󰋖  Display manual page...    <C-F4>[   [36;46m     [0m',
 	\ '[  Build...                    <F5>]  [36;46m [93;103m [30m/[93;103m  [0m',
@@ -59,11 +59,11 @@ let g:roarie_startup_screen_lines = [
 	\ '[  Create new window           <F7>][36;46m   [93;103m    [0m',
 	\ ']󰓩  Open a new tab page         <F8>[[36;46m    [93;103m  [0m [93;103m [0m',
 	\ '[  Close current window/tab  <S-F8>][36;46m   [94;44m    [93;103m [0m',
-	\ ']  Telescope live_grep...     <F10>[ [36;46m [30;40m [94;44m [97mKA[94m [0m',
+	\ ']  Live grep picker..   .     <F10>[ [36;46m [30;40m [94;44m [97mKA[94m [0m',
 	\ '[  Open terminal              <F11>]   [94;44m [97mDE[94m [0m',
-	\ ']  Toggle neo-tree            <F12>[   [94;44m   [93;103m  [0m',
-	\ '[󰛽  Toggle sidebar           <S-F12>]   [90;100m     [30;40m [0m',
-	\ ']  Telescope files...       <C-F12>[    [90;100m     [30;40m [0m',
+	\ ']  Toggle file tree sidebar   <F12>[   [94;44m   [93;103m  [0m',
+	\ '[  Files picker...          <C-F12>]   [90;100m     [30;40m [0m',
+	\ ']ﰇ  Restart last picker...   <M-F12>[    [90;100m     [30;40m [0m',
 	\ ]
 else
 
@@ -81,7 +81,7 @@ let g:roarie_startup_screen_lines = [
 	\ '[  Close current window/tab  <S-F8>]',
 	\ ']  Grep...                    <F10>[',
 	\ '[  Open terminal              <F11>]',
-	\ ']  Toggle NERDTree            <F12>[',
+	\ ']  Toggle file tree sidebar   <F12>[',
 	\ ]
 
 endif
