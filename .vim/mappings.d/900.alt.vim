@@ -13,9 +13,9 @@ call roarie_commands#AddMapping("<&Alt>", "convert_to_prototype", "Convert to &p
 call roarie_commands#AddMapping("<&Alt>", "edit_vimrc", "Edit &Vim configuration...", "Edit Vim configuration file in new window", "<silent>", '<M-v>', ':<C-U>tabnew\|e ~/.vimrc<CR>', "", "")
 if has('nvim')
 call roarie_commands#AddSeparator("<&Alt>")
-call roarie_commands#AddMapping("<&Alt>", "telescope_emoji", "Telescope &emoji...", "Telescope emoji...", '<silent>', '<M-e>', ':<C-U>Telescope emoji<CR>', "", "ﲃ")
-call roarie_commands#AddMapping("<&Alt>", "telescope_glyph", "Telescope &glyph...", "Telescope glyph...", '<silent>', '<M-g>', ':<C-U>Telescope glyph<CR>', "", "")
-call roarie_commands#AddMapping("<&Alt>", "telescope_help", "Telescope &help_tags...", "Telescope help_tags...", '<silent>', '<M-/>', ':<C-U>Telescope help_tags<CR>', "", "ﲉ")
+call roarie_commands#AddMapping("<&Alt>", "telescope_emoji", "&Emoji picker...", "Telescope emoji...", '<silent>', '<M-e>', ':<C-U>Telescope emoji<CR>', "", "ﲃ")
+call roarie_commands#AddMapping("<&Alt>", "telescope_glyph", "&Glyph picker...", "Telescope glyph...", '<silent>', '<M-g>', ':<C-U>Telescope glyph<CR>', "", "")
+call roarie_commands#AddMapping("<&Alt>", "telescope_help", "&Help tags picker...", "Telescope help_tags...", '<silent>', '<M-/>', ':<C-U>Telescope help_tags<CR>', "", "ﲉ")
 endif
 call roarie_commands#AddSeparator("<&Alt>")
 call roarie_commands#AddMapping("<&Alt>", "toggle_foldmethod", "Toggle f&oldmethod", "Toggle between foldmethod=marker and foldmethod=indent", '<silent>', '<M-f>', ':<C-U>ToggleFoldMethod<CR>', "", "")
