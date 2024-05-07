@@ -52,7 +52,7 @@ let g:roarie_startup_screen_lines = [
 	\ ']  Peek definition             <F1>[',
 	\ '[  Go to definition            <F2>]',
 	\ ']󱔁  Document symbols...         <F3>[     [36;46m [0m',
-	\ '[ﯼ  Toggle Aerial sidebar     <C-F3>]    [36;46m   [0m',
+	\ '[ﯼ  Toggle symbols sidebar    <C-F3>]    [36;46m   [0m',
 	\ ']󰋖  Display manual page...    <C-F4>[   [36;46m     [0m',
 	\ '[  Build...                    <F5>]  [36;46m [93;103m [30m/[93;103m  [0m',
 	\ ']  Git status                  <F6>[ [36;46m [93;103m [30m_[30;40m_[30;103m_[30;40m_[30;103m_[0m',
