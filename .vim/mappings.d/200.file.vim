@@ -32,6 +32,7 @@ call roarie_commands#AddMapping("&File", "telescope_buffers", "B&uffers picker..
 call roarie_commands#AddMapping("&File", "telescope_files", "Fil&es picker...", "Telescope files...", "<silent>", '<C-F12>', ':lua require("telescope").extensions.menufacture.defaults.find_files()<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&File", "telescope_file_browser", "Fil&e browser picker...", "Telescope file_browser...", "<silent>", '<C-S-F12>', ':<C-U>Telescope file_browser<CR>', "<fnalias>", "")
 call roarie_commands#AddMapping("&File", "telescope_resume", "&Restart last picker...", "Restart last Telescope picker w/ Telescope resume...", "<silent>", '<M-F12>', ':<C-U>Telescope resume<CR>', "<fnalias>", "ﰇ")
+call roarie_commands#AddMapping("&File", "telescope_builtin", "&Available pickers...", "Telescope builtin picker w/ include_extensions=true", "<silent>", '<M-S-F12>', ':<C-U>Telescope builtin include_extensions=true<CR>', "<fnalias>", "ﰇ")
 endif
 call roarie_commands#AddSeparator("&File")
 call roarie_commands#AddIMapping("&File", "exit_insert", "E&xit insert mode", "Exit insert mode", '', '<C-Q>', '<Esc>', "", "")
