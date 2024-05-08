@@ -102,8 +102,6 @@
 [submodule ".vim/bundle.nvim/roarie-telescope-menufacture-extra.nvim"]
 	path = .vim/bundle.nvim/roarie-telescope-menufacture-extra.nvim
 	url = https://github.com/lalbornoz/roarie-telescope-menufacture-extra.nvim
-[submodule ".vim/bundle.nvim/roarie-telescope-menufacture-extra.nvim"]
-	url = https://github.com/lalbornoz/roarie-telescope-menufacture-extra.nvim
 [submodule ".vim/bundle/roarie-commands.vim"]
 	path = .vim/bundle/roarie-commands.vim
 	url = https://github.com/lalbornoz/roarie-commands.vim
@@ -145,3 +143,6 @@
 [submodule ".vim/bundle.nvim/navigator.lua"]
 	path = .vim/bundle.nvim/navigator.lua
 	url = https://github.com/ray-x/navigator.lua
+[submodule ".vim/bundle/vim-rhubarb"]
+	path = .vim/bundle/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb
