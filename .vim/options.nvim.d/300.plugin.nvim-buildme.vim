@@ -4,6 +4,8 @@ config = function()
 	require("buildme").setup({
 		buildfile = '.buildme.sh',	-- the build file to execute
 		runfile = '.runme.sh',		-- the run file to execute
+		close_build_on_exit = false,	-- close build window on exit; cf. BuildMeToggleAutoClose
+		close_run_on_exit = false,	-- close run window on exit; cf. RunMeToggleAutoClose
 		edit_on_nonexistent = false,	-- edit non-existent build/run file on build/run
 		interpreter = 'bash',		-- the interpreter to use (bash, python, ...)
 		force = '',	 		-- the option to pass when the bang is used
