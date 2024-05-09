@@ -24,7 +24,6 @@ call roarie_commands#AddSubMenuItem("build_submenu", " ", "Set &default run argu
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "Set run &working directory...", ":RunMeEditCwd ")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "&Jump to run buffer", ":RunMeJump")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "&Edit run file", ":RunMeEdit")
-
 call roarie_commands#AddSeparator("&Project")
 else
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
