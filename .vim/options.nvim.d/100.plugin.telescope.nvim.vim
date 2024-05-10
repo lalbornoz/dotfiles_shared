@@ -177,6 +177,12 @@ config = function()
 		},
 		-- }}}
 	}
+
+	vim.cmd('highlight TelescopeBorder guifg=#0679a5 guibg=#30303')
+	vim.cmd('highlight TelescopeMatching gui=underline')
+	vim.cmd('highlight TelescopePromptTitle guifg=#f5a9b8')
+	vim.cmd('highlight TelescopeSelection guifg=#303030 guibg=#f5a9b8')
+	vim.cmd('highlight TelescopeTitle guifg=#f5a9b8')
 end }
 EOF
 
