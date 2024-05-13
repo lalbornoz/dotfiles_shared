@@ -17,7 +17,7 @@ call roarie_commands#AddSubMenuItem("build_submenu", " ", "Current:             
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "Set build &working directory...", ":BuildMeEditCwd ")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "&Jump to build buffer", ":BuildMeJump")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "&Edit build file", ":BuildMeEdit")
-call roarie_commands#AddSubMenuItem("build_submenu", " ", "Toggle auto-&close build window", ":BuildMeToggleAutoClose")
+call roarie_commands#AddSubMenuItem("build_submenu", " ", "Set auto-&close build window...", ":BuildMeSetAutoClose ")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "--", "")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "&Run", ":RunMe")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "Run with &arguments...", ":RunMe ")
@@ -27,7 +27,7 @@ call roarie_commands#AddSubMenuItem("build_submenu", " ", "Current:             
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "Set run &working directory...", ":RunMeEditCwd ")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "&Jump to run buffer", ":RunMeJump")
 call roarie_commands#AddSubMenuItem("build_submenu", " ", "&Edit run file", ":RunMeEdit")
-call roarie_commands#AddSubMenuItem("build_submenu", " ", "Toggle auto-&close run window", ":RunMeToggleAutoClose")
+call roarie_commands#AddSubMenuItem("build_submenu", " ", "Set auto-&close run window...", ":RunMeSetAutoClose ")
 call roarie_commands#AddSeparator("&Project")
 else
 call roarie_commands#AddMapping("&Project", "build", "&Build...", "Run make, open QuickFix window & redraw", "<silent>", '<F5>', ':<C-U>Make<CR>', "<fnalias>")
