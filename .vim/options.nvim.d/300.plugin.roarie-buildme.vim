@@ -1,5 +1,5 @@
 lua << EOF
-lazy_plugins["nvim-buildme"] = {
+lazy_plugins["roarie-buildme"] = {
 config = function()
 	require("roarie-buildme").setup({
 		buildfile = '.buildme.sh',		-- the build file to execute
