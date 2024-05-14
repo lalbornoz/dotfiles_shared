@@ -122,7 +122,7 @@
 	path = .vim/bundle.nvim/nvim-gdb
 	url = https://github.com/sakhnik/nvim-gdb
 [submodule ".vim/bundle.nvim/nvim-buildme"]
-	path = .vim/bundle.nvim/nvim-buildme
+	path = .vim/bundle.nvim/roarie-buildme
 	url = https://github.com/lalbornoz/roarie-buildme
 [submodule ".vim/bundle.nvim/nvim-cmp"]
 	path = .vim/bundle.nvim/nvim-cmp
