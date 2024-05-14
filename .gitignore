@@ -8,5 +8,7 @@
 **/.ssh/known_hosts
 **/__pycache__/
 *.sw[op]
+.vim
+.vimrc
 TODO
 sync.log
