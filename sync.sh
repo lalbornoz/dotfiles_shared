@@ -4,7 +4,7 @@
 # Tunables
 #
 : ${SYNC_DEFAULT_ITEMS:=""};
-: ${SYNC_DEFAULT_TAGS:="dotfiles irssi"};
+: ${SYNC_DEFAULT_TAGS:="dotfiles irssi vim"};
 : ${SYNC_DOTFILES_EXCLUDES:="
 	***/__pycache__/
 	***/*.sw[op]
@@ -19,9 +19,12 @@
 	.irssi*/
 	.mutt/certificates
 	.ssh/known_hosts
-	.ssh/private/"};
+	.ssh/private/
+	.vim
+	.vimrc"};
 : ${SYNC_DOTFILES_LEGEND:="SHARED AND {HOST,USER}-LOCAL DOTFILES"};
 : ${SYNC_IRSSI_LEGEND:="Irssi directories"};
+: ${SYNC_VIM_LEGEND:="SHARED AND {HOST,USER}-LOCAL DOTFILES"};
 : ${SYNC_LOG_FNAME:=""};
 
 # {{{ msgf([--], [$_attrs], [$_fmt], [...])
@@ -263,6 +266,57 @@ process_irssi() {
 			 && git commit						\
 				-m "Automatic irssi dotdir pull from ${_uname}@${_hname} to ${USER}@$(hostname -f)." .irssi* || exit 0);
 		fi;
+	fi;
+};
+# }}}
+# {{{ process_vim($_nflag, $_domain, $_hname, $_uname)
+process_vim() {
+	local	_nflag="${1}" _domain="${2}" _hname="${3}" _uname="${4}"		\
+		_shared_dname=".vim/";
+
+	if [ "${_hname}" = "$(hostname -f | sed -ne '/^[^\.]\+$/s/$/.local/')" ]\
+	&& [ "${_uname}" = "$(id -nu)" ]; then
+		msgf -- "36" "(ignoring attempted transfer from local to local host)\n";
+		return 0;
+	elif [ -e "${_shared_dname}" ]; then
+		case "${_uname}" in
+		[rR][oO][oO][tT])
+			msgf -- "36" "Transfer Vim files into /etc/skel/: "
+			msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
+			process_vim_							\
+				"${_nflag}" "/etc/skel/.vim/" "${_domain}" "${_hname}"	\
+				"${_shared_dname}" "${_uname}";
+			process_vim_							\
+				"${_nflag}" "/etc/skel/" "${_domain}" "${_hname}"	\
+				".vimrc" "${_uname}";
+			;;
+		esac;
+		msgf -- "36" "Transfer shared and {user,host}-local Vim files: ";
+		msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
+		process_vim_								\
+			"${_nflag}" ".vim/" "${_domain}" "${_hname}"			\
+			"${_shared_dname}" "${_uname}";
+		process_vim_								\
+			"${_nflag}" "" "${_domain}" "${_hname}"				\
+			".vimrc" "${_uname}";
+	fi;
+};
+# }}}
+# {{{ process_vim_($_nflag, $_dst, $_domain, $_hname, $shared_dname, $_uname)
+process_vim_() {
+	local	_nflag="${1}" _dst="${2}" _domain="${3}" _hname="${4}" _shared_dname="${5}"	\
+		_uname="${6}" _dname="" _fname="" _include_fname="";
+
+	if _include_fname="$(mktemp -t "${0##*/}.XXXXXX")"; then
+		trap "rm -f \"${_include_fname}\" 2>/dev/null" EXIT HUP INT TERM USR1 USR2;
+		printf "+ *\n" >"${_include_fname}";
+		rsync_push "${_nflag}" "${_uname}" "${_hname}" "${_dst}"		\
+			"${_include_fname}" ""						\
+			"${_shared_dname}";
+		mode_push "${_nflag}" "${_uname}" "${_hname}";
+
+		rm -f "${_include_fname}" 2>/dev/null;
+		trap - EXIT HUP INT TERM USR1 USR2;
 	fi;
 };
 # }}}
