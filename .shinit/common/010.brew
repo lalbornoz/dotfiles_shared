@@ -1,0 +1,9 @@
+#
+# brew environment variables
+#
+
+if [ -r "${HOME}/.profile._brew" ]; then
+	. "${HOME}/.profile._brew";
+fi;
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
