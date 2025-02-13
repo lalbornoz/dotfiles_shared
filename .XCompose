@@ -26,6 +26,7 @@ include "%L"			# locale specific Compose file (i.e., "/usr/share/X11/locale/<loc
 <Multi_key> <colon> <r> <o> <f>				: "🤣"
 <Multi_key> <colon> <u> <h> <m>				: "🤔"
 <Multi_key> <colon> <colon> <Up>			: "🙄"
+<Multi_key> <colon> <o> <o>				: "😳"
 <Multi_key> <colon> <colon> <3>				: "🤭"
 <Multi_key> <colon> <colon> <d>				: "😃"
 <Multi_key> <colon> <x> <parenright>			: "😄"
