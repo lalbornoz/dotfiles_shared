@@ -17,7 +17,7 @@ _lc_which uptime && uptime;
 
 #
 # Print the `TODO' file if present.
-[ -r "${HOME}/TODO" ] && { printf "\nTODO:\n"; cat "${HOME}/TODO"; };
+[ -r "${HOME}/TODO" ] && { printf "\nTODO:\n"; sed -ne '/^vim:/!p' "${HOME}/TODO"; };
 
 #
 # Print listing of the five (5) last logins for the current user and
