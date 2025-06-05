@@ -46,4 +46,11 @@ if _shinit_which tmux; then
 	alias tmux="env TERM=xterm-256color tmux -2";
 fi;
 
+#
+# wrestool
+#
+if _shinit_which wrestool; then
+	alias icoextract="wrestool -x --output=. -t14"
+fi;
+
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
