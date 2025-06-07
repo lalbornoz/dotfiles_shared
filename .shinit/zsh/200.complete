@@ -2,6 +2,14 @@
 # Zsh completion system commands and styles
 #
 
+if [ -d "$HOME/.shinit/zsh.functions" ]; then
+	fpath+="$HOME/.shinit/zsh.functions";
+fi;
+
+if [ -d "$HOME/.shinit/zsh.compdef" ]; then
+	fpath+="$HOME/.shinit/zsh.compdef";
+fi;
+
 autoload -U compinit;				# {auto,zmod}load(1) the Zsh completion system
 zmodload zsh/complist;				# (zshcompsys(1)) aswell as additional completion
 compinit -d "$HOME/.zcompdump" >/dev/null;	# listing methods and initialise the former from
