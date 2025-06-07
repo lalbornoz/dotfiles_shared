@@ -1,0 +1,10 @@
+#compdef _rsync_shorthand_remote_files_complete
+
+_rsync_shorthand_remote_files_complete() {
+	words=(rsync -aiPv "${1}":)
+	_remote_files -h "${1}" -- ssh
+}
+
+_rsync_shorthand_remote_files_complete "$@"
+
+# vim:filetype=zsh foldmethod=marker noexpandtab sw=8 ts=8

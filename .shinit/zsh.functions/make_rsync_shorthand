@@ -1,0 +1,32 @@
+emulate -L zsh;
+
+local _fn_name _host;
+
+case "${#}" in
+2)	_fn_name="${1}"; _host="${2}"; ;;
+1)	_fn_name="rs_${1}"; _host="${1}"; ;;
+*)
+	printf "usage: ${funcstack[1]} [fn_name] host\n" >&2;
+	printf "<fn_name> will default to \`rs_<host>' if unspecified.\n" >&2;
+	return 1; ;;
+esac;
+
+"${_fn_name}"() {
+	local _new_args=();
+
+	if [ "${#}" -ge 2 ]; then
+		while [ "${#}" -gt 1 ]; do
+			_new_args+="${2}:${1}"; shift;
+		done;
+		_new_args+="${1}"; shift;
+
+		rsync -aiPv "${(@)_new_args}";
+	else
+		printf "usage: ${funcstack[1]} [USER@]HOST:SRC... DEST\n" >&2;
+		return 1;
+	fi;
+};
+
+compdef "_rsync_shorthand_remote_files_complete ${1}" rs_"${1}"
+
+# vim:filetype=zsh foldmethod=marker noexpandtab sw=8 ts=8
