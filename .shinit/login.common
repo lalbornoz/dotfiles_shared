@@ -39,6 +39,9 @@ _lc_ssh_pageant() {
 			ssh-pageant > "${HOME}/.ssh/agent.env";
 		fi;
 		. "${HOME}/.ssh/agent.env";
+	else
+		ssh-pageant > "${HOME}/.ssh/agent.env";
+		. "${HOME}/.ssh/agent.env";
 	fi;
 };
 
