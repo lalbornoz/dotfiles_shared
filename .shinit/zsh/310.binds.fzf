@@ -1,0 +1,12 @@
+#
+# fzf-specific key bindings
+#
+
+if _shinit_which fzf; then
+	for _SZBF_SCRIPT in "${HOME}/.shinit/zsh.fzf/"[0-9][0-9][0-9].*; do
+		[ -r "${_SZBF_SCRIPT}" ] && { . "${_SZBF_SCRIPT}" ; };
+	done;
+	unset _SZBF_SCRIPT;
+fi;
+
+# vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
