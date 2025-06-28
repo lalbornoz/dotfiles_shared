@@ -3,6 +3,14 @@
 #
 
 #
+# batcat
+#
+if   _shinit_which batcat\
+&& ! _shinit_which bat; then
+	alias bat="batcat";
+fi;
+
+#
 # gcc
 #
 if _shinit_which gcc; then
