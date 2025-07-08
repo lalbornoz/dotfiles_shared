@@ -24,6 +24,12 @@ case $- in *i*) ;;  *) return;; esac
 [ -n "${_PROFILE_SOURCED}" ] && { unset _PROFILE_SOURCED; return; };
 _PROFILE_SOURCED=1
 
+# If running Zsh and ${HOME}/.zsh_profile_me exists, load the zprof
+# module to facilitate profiling at the end of this script.
+if [ -n "${ZSH_NAME}" ] && [ -r "${HOME}/.zsh_profile_me" ]; then
+	zmodload zsh/zprof;
+fi;
+
 # Fall back to default values for some vital variables.
 [ -z "${HOME}" ] && { HOME="$(pwd)"; export HOME; };
 [ -z "${TERM}" ] && { TERM="unknown"; export TERM; };
@@ -90,5 +96,11 @@ unset _SHELL _SCRIPTS _DIR _SCRIPT
 unset _TMP_HNAME;
 
 . "${HOME}/.shinit/common/_fini";
+
+# If running Zsh and ${HOME}/.zsh_profile_me exists, run the zprof
+# command to print profiling information.
+if [ -n "${ZSH_NAME}" ] && [ -r "${HOME}/.zsh_profile_me" ]; then
+	zprof;
+fi;
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
