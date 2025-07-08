@@ -12,8 +12,18 @@ fi;
 
 autoload -U compinit;				# {auto,zmod}load(1) the Zsh completion system
 zmodload zsh/complist;				# (zshcompsys(1)) aswell as additional completion
-compinit -d "$HOME/.zcompdump" >/dev/null;	# listing methods and initialise the former from
-						# previously dumped configuration
+
+						# listing methods and initialise the former from
+						# previously dumped configuration 
+SHINIT_CACHE_FILE=${HOME}/.zcompdump(N.mh+24);
+if [ -z ${SHINIT_CACHE_FILE} ]; then
+	compinit -D >/dev/null;			# (only recreate cache every 24h as Zsh's mechanism
+						# for detecting if this is necessary is broken, costing
+						# ~500ms startup time)
+else
+	compinit -d "${HOME}/.zcompdump" >/dev/null;
+fi;
+unset SHINIT_CACHE_FILE;
 
 zstyle ':completion:*' completer _complete;
 zstyle ':completion:*' list-colors "";
