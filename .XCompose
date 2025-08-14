@@ -14,12 +14,12 @@ include "%L"			# locale specific Compose file (i.e., "/usr/share/X11/locale/<loc
 <Multi_key> <Right> <Right>				: "→" rightarrow
 <Multi_key> <Down> <Down>				: "↓" downarrow
 
-# {{{ <Multi> <colon> *: emojis
+#
 # (based on <https://gist.githubusercontent.com/natema/136d4c7a4f3c0ea448b3b2f768831a43/raw/30fc6ce182e447bd9b6ca6ba8b03a1bc9e753061/.XCompose>)
+# (full list: http://unicode.org/emoji/charts/full-emoji-list.html)
+#
 
-# Emoji
-# http://unicode.org/emoji/charts/full-emoji-list.html
-
+# {{{ <Multi> <colon> *: emojis
 <Multi_key> <colon> <a> <l> <i>				: "👽"
 <Multi_key> <colon> <a> <n> <g>				: "😠"
 <Multi_key> <colon> <apostrophe> <colon> <parenleft>	: "😥"
@@ -59,6 +59,7 @@ include "%L"			# locale specific Compose file (i.e., "/usr/share/X11/locale/<loc
 <Multi_key> <colon> <D> <colon>				: "😦"
 <Multi_key> <colon> <d> <e> <v>				: "😈"
 <Multi_key> <colon> <d> <r> <o>				: "🤤"
+<Multi_key> <colon> <e> <y> <e>				: "👀"
 <Multi_key> <colon> <f> <u> <c>				: "🖕"
 <Multi_key> <colon> <g> <r> <r>				: "😡"
 <Multi_key> <colon> <h> <u> <g>				: "🤗"
