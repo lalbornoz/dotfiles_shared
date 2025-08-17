@@ -4,7 +4,7 @@
 # Tunables
 #
 : ${SYNC_DEFAULT_ITEMS:=""};
-: ${SYNC_DEFAULT_TAGS:="dotfiles irssi vim"};
+: ${SYNC_DEFAULT_TAGS:="dotfiles deny_senders irssi vim"};
 : ${SYNC_DOTFILES_EXCLUDES:="
 	***/__pycache__/
 	***/*.sw[op]
@@ -23,6 +23,7 @@
 	.vim
 	.vimrc"};
 : ${SYNC_DOTFILES_LEGEND:="SHARED AND {HOST,USER}-LOCAL DOTFILES"};
+: ${SYNC_DENY_SENDERS_LEGEND:="Email deny lists"};
 : ${SYNC_IRSSI_LEGEND:="Irssi directories"};
 : ${SYNC_VIM_LEGEND:="SHARED AND {HOST,USER}-LOCAL DOTFILES"};
 : ${SYNC_LOG_FNAME:=""};
@@ -180,6 +181,31 @@ rsync_push() {
 };
 # }}}
 
+# {{{ process_deny_senders($_nflag, $_domain, $_hname, $_uname)
+process_deny_senders() {
+	local	_nflag="${1}" _domain="${2}" _hname="${3}" _uname="${4}"	\
+		_private_dname="../dotfiles_private/${4}@${3%.}";
+
+	if [ "$(find "${_private_dname}" -maxdepth 1 -mindepth 1 -type f -name .deny_senders\* 2>/dev/null | wc -l)" -gt 0 ]; then
+		msgf -- "36" "Pull user-local Email deny lists: ";
+		msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
+		rsync_pull "${_nflag}" "${_uname}" "${_hname}"			\
+			"${_private_dname%/}/"					\
+			"" ""							\
+			".deny_senders*";
+		if [ "${_nflag}" -eq 0 ]; then
+			msgf -- "36" "Commit to Git repository: ";
+			msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
+			(set +o noglob;						\
+			 cd "${_private_dname}"					\
+			 && git add .deny_senders*					\
+			 && [ $(git status --porcelain .deny_senders* | wc -l) -gt 0 ]\
+			 && git commit						\
+				-m "Automatic Email deny lists pull from ${_uname}@${_hname} to ${USER}@$(hostname -f)." .deny_senders* || exit 0);
+		fi;
+	fi;
+};
+# }}}
 # {{{ process_dotfiles($_nflag, $_domain, $_hname, $_uname)
 process_dotfiles() {
 	local	_nflag="${1}" _domain="${2}" _hname="${3}" _uname="${4}"		\
