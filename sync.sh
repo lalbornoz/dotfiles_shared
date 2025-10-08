@@ -13,6 +13,7 @@
 	***/.directory_optional
 	***/.empty_directory
 	***/.shared_directory
+	.deny_senders*
 	.git/
 	.gitignore
 	.gitmodules
