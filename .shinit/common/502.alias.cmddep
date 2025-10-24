@@ -11,6 +11,17 @@ if   _shinit_which batcat\
 fi;
 
 #
+# curl
+#
+if _shinit_which curl; then
+	imgupload() {
+		local _fname="${1}";
+		curl -v -F "file=@${1}" "https://ballpit.net/" 2>&1 |\
+			sed -ne '/location:/s/^.*location: \(.*\)$/\1/p';
+	};
+fi;
+
+#
 # gcc
 #
 if _shinit_which gcc; then
