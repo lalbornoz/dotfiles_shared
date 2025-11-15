@@ -375,6 +375,11 @@ sync() {
 	while [ "${#}" -gt 0 ]; do
 		_uname="${1%@*}"; _hname="${1##*@}"; _hname="${_hname%.}."; shift;
 		for _tag in ${_tags}; do
+			if ! type "process_${_tag}" >/dev/null 2>&1; then
+				msgf -- "31" "Error: function \`%s' not found, ignoring.\n" "process_${_tag}";
+				continue;
+			fi;
+
 			"process_${_tag}" "${_nflag}" "dotfiles" "${_hname%.}." "${_uname}";
 			_rc=$((${?} ? ${?} : ${_rc}));
 		done;
