@@ -55,6 +55,13 @@ if _shinit_which tmux; then
 fi;
 
 #
+# upower
+#
+if _shinit_which upower; then
+	alias upower_bat="upower -i /org/freedesktop/UPower/devices/battery_BAT0";
+fi;
+
+#
 # wrestool
 #
 if _shinit_which wrestool; then
