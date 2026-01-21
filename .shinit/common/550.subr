@@ -54,5 +54,23 @@ if _shinit_which whois && [ "${_shinit_SNAME%BSD}" = "${_shinit_SNAME}" ]; then
 		fi;
 	};
 fi;
+if _shinit_which keepassxc; then
+	kdbx_update() {
+		local _hname="${1}" _choice="" _fname_dst="" _fname_src="";
+		for _fname_src in "${_hname}"\ \([0-9-]*,\ [0-9a-f]*\).kdbx; do
+			if [ ! -e "${_fname_src}" ]; then
+				continue;
+			fi;
+
+			_fname_dst="${_hname} ($(date +%Y-%m-%d), $(sha256sum "${_fname_src}" | awk '{print $1}')).kdbx";
+			printf "Rename from/to:\n%s\n%s\n(y|N) " "${_fname_src}" "${_fname_dst}";
+			read _choice;
+			case "${_choice}" in [yY]) mv "${_fname_src}" "${_fname_dst}"; ;; esac;
+			printf "Symlink target/link name:\n%s\n%s\n(y|N) " "${_fname_dst}" "${_hname}.kdbx";
+			read _choice;
+			case "${_choice}" in [yY]) ln -fs "${_fname_dst}" "${_hname}.kdbx"; ;; esac;
+		done;
+	};
+fi;
 
 # vim:filetype=sh foldmethod=marker noexpandtab sw=8 ts=8
