@@ -193,13 +193,13 @@ process_deny_senders() {
 		rsync_pull "${_nflag}" "${_uname}" "${_hname}"			\
 			"${_private_dname%/}/"					\
 			"" ""							\
-			".deny_senders*";
+			".deny_senders .deny_senders.domains";
 		if [ "${_nflag}" -eq 0 ]; then
 			msgf -- "36" "Commit to Git repository: ";
 			msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
 			(set +o noglob;						\
 			 cd "${_private_dname}"					\
-			 && git add .deny_senders*					\
+			 && git add .deny_senders .deny_senders.domains		\
 			 && [ $(git status --porcelain .deny_senders* | wc -l) -gt 0 ]\
 			 && git commit						\
 				-m "Automatic Email deny lists pull from ${_uname}@${_hname} to ${USER}@$(hostname -f)." .deny_senders* || exit 0);
