@@ -35,9 +35,12 @@ if _shinit_which keepassxc awk date sha256sum; then
 			fi;
 
 			_fname_dst="${_hname} ($(date +%Y-%m-%d), $(sha256sum "${_fname_src}" | awk '{print $1}')).kdbx";
-			printf "Rename from/to:\n%s\n%s\n(y|N) " "${_fname_src}" "${_fname_dst}";
-			read _choice;
-			case "${_choice}" in [yY]) mv "${_fname_src}" "${_fname_dst}"; ;; esac;
+			if [ "${_fname_dst}" != "${_fname_src}" ]; then
+				printf "Rename from/to:\n%s\n%s\n(y|N) " "${_fname_src}" "${_fname_dst}";
+				read _choice;
+				case "${_choice}" in [yY]) mv "${_fname_src}" "${_fname_dst}"; ;; esac;
+			fi;
+
 			printf "Symlink target/link name:\n%s\n%s\n(y|N) " "${_fname_dst}" "${_hname}.kdbx";
 			read _choice;
 			case "${_choice}" in [yY]) ln -fs "${_fname_dst}" "${_hname}.kdbx"; ;; esac;
