@@ -35,19 +35,6 @@ if _shinit_which less; then
 fi;
 
 #
-# {,n}vim
-#
-if _shinit_which nvim; then
-	alias nvi=nvim;
-	alias vi=nvim vim=nvim;
-elif _shinit_which vim; then
-	alias vi=vim vim=vim;
-fi;
-if _shinit_which nvim-qt; then
-	alias qnvi=nvim-qt qnvim=nvim-qt;
-fi;
-
-#
 # tmux
 #
 if _shinit_which tmux; then
@@ -59,6 +46,13 @@ fi;
 #
 if _shinit_which upower; then
 	alias upower_bat="upower -i /org/freedesktop/UPower/devices/battery_BAT0";
+fi;
+
+#
+# vim
+#
+if _shinit_which vim; then
+	alias vi=vim vim=vim;
 fi;
 
 #
