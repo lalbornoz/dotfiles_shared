@@ -1,0 +1,4 @@
+[pycodestyle]
+ignore = E101, E115, E122, E126, E127, E128, E201, E231, E271, E275, E301, E302, E305, E401, E501, E502, E702, E703, W191
+
+# vim:ft=config
