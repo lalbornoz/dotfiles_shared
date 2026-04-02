@@ -388,3 +388,5 @@ sync() {
 };
 
 set +o errexit -o noglob -o nounset; export LANG=C LC_ALL=C; sync "${@}";
+
+# vim:noexpandtab sw=8 ts=8 tw=0
