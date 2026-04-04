@@ -29,6 +29,31 @@
 : ${SYNC_VIM_LEGEND:="SHARED AND {HOST,USER}-LOCAL DOTFILES"};
 : ${SYNC_LOG_FNAME:=""};
 
+# {{{ get_pname_components($pname)
+get_pname_components() {
+	local _pname="${1}" _count=0;
+	while [ "${_pname:+1}" = 1 ]; do
+		case "$(printf "%.1s" "${_pname}")" in
+		/)	: $((_count+=1)); ;;
+		esac;
+		_pname="${_pname#?}";
+	done;
+	printf "%u\n" "${_count}";
+};
+# }}}
+# {{{ get_pname_depth($pname)
+get_pname_depth() {
+	local _pname="${1}" _depth=0;
+	while [ "${_pname:+1}" = 1 ]; do
+		case "${_pname}" in
+		../*)	: $((_depth+=1)); _pname="${_pname#../}"; ;;
+		..)	: $((_depth+=1)); _pname="${_pname#..}"; ;;
+		*)	_pname="${_pname#?}"; ;;
+		esac;
+	done;
+	printf "%u\n" "${_depth}";
+};
+# }}}
 # {{{ msgf([--], [$_attrs], [$_fmt], [...])
 msgf() {
 	[ "x${1}" = "x--" ] && { local _cflag=1; shift; } || local _cflag=0;
@@ -59,6 +84,22 @@ build_excludes() {
 ";	for _pname in "${@}"; do
 		printf -- "- %s\n" "${_pname}";
 	done; IFS="${_IFS0}";
+};
+# }}}
+# {{{ build_list_symlinks()
+build_list_symlinks() {
+	local	_dname_top="${1}" _rule_pfx="${2}" _dname_rel="" _fname="" _fname_tgt="" IFS;
+	IFS="
+";	for _fname in $(cd "${_dname_top}" && find		\
+			-type l -printf '%P\n');
+	do
+		_fname_tgt="$(readlink "${_dname_top}/${_fname}")";
+		if [ "$(get_pname_depth "${_fname_tgt}")"	\
+		     -gt "$(get_pname_components "${_fname}")" ];
+		then
+			printf -- "%s%s%s\n" "${_rule_pfx}" "${_rule_pfx:+ }" "${_fname}";
+		fi;
+	done;
 };
 # }}}
 # {{{ build_finish()
@@ -159,7 +200,7 @@ rsync_push() {
 		if [ "${#SYNC_LOG_FNAME}" -eq 0 ]; then
 			rsync	-aHiPve ssh						\
 				--delete						\
-				"${_include_fname:+--include-from=${_include_fname}}"	\
+				${_include_fname:+--include-from=${_include_fname}}	\
 				--no-group						\
 				--no-owner						\
 				${_rsync_args_extra}					\
@@ -169,7 +210,7 @@ rsync_push() {
 		else
 			rsync	-aHiPve ssh						\
 				--delete						\
-				"${_include_fname:+--include-from=${_include_fname}}"	\
+				${_include_fname:+--include-from=${_include_fname}}	\
 				--no-group						\
 				--no-owner						\
 				${_rsync_args_extra}					\
@@ -231,6 +272,11 @@ process_dotfiles() {
 		process_dotfiles_							\
 			"${_nflag}" "" "${_domain}" "${_hname}"				\
 			"${_private_dname}" "${_shared_dname}" "${_uname}";
+		msgf -- "36" "Transfer shared and {user,host}-local dotfiles (symlinks): ";
+		msgf "1" "%s@%s\n" "${_uname}" "${_hname}";
+		process_dotfiles_symlinks						\
+			"${_nflag}" "" "${_domain}" "${_hname}"				\
+			"${_private_dname}" "${_shared_dname}" "${_uname}";
 	fi;
 };
 # }}}
@@ -253,6 +299,7 @@ process_dotfiles_() {
 		done;
 
 		if [ -e "${_private_dname}" ]; then
+			build_list_symlinks "${_private_dname}" "-" >>"${_include_fname}";
 			build_includes "${_private_dname}" "" 1 >>"${_include_fname}";
 			build_finish >>"${_include_fname}";
 			rsync_push "${_nflag}" "${_uname}" "${_hname}" "${_dst}"		\
@@ -263,6 +310,26 @@ process_dotfiles_() {
 			rsync_push "${_nflag}" "${_uname}" "${_hname}" "${_dst}"		\
 				"${_include_fname}" ""						\
 				"${_shared_dname}/";
+		fi;
+		mode_push "${_nflag}" "${_uname}" "${_hname}";
+
+		rm -f "${_include_fname}" 2>/dev/null;
+		trap - EXIT HUP INT TERM USR1 USR2;
+	fi;
+};
+# }}}
+# {{{ process_dotfiles_symlinks($_nflag, $_dst, $_domain, $_hname, $_private_dname, $shared_dname, $_uname)
+process_dotfiles_symlinks() {
+	local	_nflag="${1}" _dst="${2}" _domain="${3}" _hname="${4}" _private_dname="${5}"	\
+		_shared_dname="${6}" _uname="${7}" _dname="" _fname="" _include_fname="";
+
+	if _include_fname="$(mktemp -t "${0##*/}.XXXXXX")"; then
+		trap "rm -f \"${_include_fname}\" 2>/dev/null" EXIT HUP INT TERM USR1 USR2;
+		if [ -e "${_private_dname}" ]; then
+			build_list_symlinks "${_private_dname}" "" >>"${_include_fname}";
+			rsync_push "${_nflag}" "${_uname}" "${_hname}" "${_dst}"		\
+				"" "--copy-links --files-from=${_include_fname}"		\
+				"${_private_dname}/";
 		fi;
 		mode_push "${_nflag}" "${_uname}" "${_hname}";
 
