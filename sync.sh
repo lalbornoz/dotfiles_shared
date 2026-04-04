@@ -403,7 +403,8 @@ process_vim_() {
 
 	if _include_fname="$(mktemp -t "${0##*/}.XXXXXX")"; then
 		trap "rm -f \"${_include_fname}\" 2>/dev/null" EXIT HUP INT TERM USR1 USR2;
-		printf "+ *\n" >"${_include_fname}";
+		build_excludes ${SYNC_DOTFILES_EXCLUDES} >>"${_include_fname}";
+		printf "+ *\n" >>"${_include_fname}";
 		rsync_push "${_nflag}" "${_uname}" "${_hname}" "${_dst}"		\
 			"${_include_fname}" ""						\
 			"${_shared_dname}";
