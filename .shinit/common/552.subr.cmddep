@@ -109,6 +109,108 @@ if ! _shinit_which tac && _shinit_which sed; then
 fi;
 
 #
+# vnstat
+#
+if _shinit_which vnstat; then
+	vnstat_median() {
+		local	_period="${1}"					\
+			_max_rx="" _max_total="" _max_tx=""		\
+			_median_rx="" _median_total="" _median_tx=""	\
+			_min_rx="" _min_total="" _min_tx="";
+
+		set -- $(
+			export LC_ALL=C;
+			vnstat "${_period}"					|\
+			sort -k2 -n -r						|\
+			awk '
+				function auc(_data_count, _data_list) {
+					_data_auc = ((_data_count > 1) ? 0	\
+						: ((_data_count > 0) ? _data_list[0] : 0));
+
+					for (_data_idx = 0; (_data_idx + 1) < _data_count; _data_idx++) {
+						_data0 = _data_list[_data_idx + 0];
+						_data1 = _data_list[_data_idx + 1];
+
+						if (_data1 > _data0) {
+							_data_auc += 0.5 * (_data0 + _data1);
+						} else {
+							_data_auc1 = log(_data0) - log(_data1);
+							_data_auc += (_data0 - _data1) / ((_data_auc1 > 0) ? _data_auc1 : 1);
+						}
+					};
+
+					return _data_auc / _data_count;
+				}
+
+				function max(_data_count, _data_list) {
+					_max = 0;
+					for (_data_idx = 0; _data_idx < _data_count; _data_idx++) {
+						if (_data_list[_data_idx] > _max) {
+							_max = _data_list[_data_idx];
+						};
+					};
+					return _max;
+				}
+
+				function min(_data_count, _data_list) {
+					_min = -1;
+					for (_data_idx = 0; _data_idx < _data_count; _data_idx++) {
+						if ((_min == -1) || (_data_list[_data_idx] < _min)) {
+							_min = _data_list[_data_idx];
+						};
+					};
+					return _min;
+				}
+
+				function parse_number(_number, _unit) {
+					if (_unit == "KiB") {return _number / 1024 / 1024}
+					else if (_unit == "MiB") {return _number / 1024}
+					else if (_unit == "TiB") {return _number * 1024}
+					else if (_unit == "PiB") {return _number * 1024 * 1024}
+					else {return _number}
+				}
+
+				BEGIN {
+					count = 0;
+				}
+
+				$1 ~ /^[0-9.-]+$/ {
+					rx[count] = parse_number($2, $3);
+					tx[count] = parse_number($5, $6);
+					total[count] = parse_number($8, $9);
+					count++;
+				}
+
+				END {
+					print auc(count, rx) " " auc(count, tx) " " auc(count, total);
+					print max(count, rx) " " max(count, tx) " " max(count, total);
+					print min(count, rx) " " min(count, tx) " " min(count, total);
+				}');
+
+		_median_rx="${1}"; _median_tx="${2}"; _median_total="${3}";
+		_max_rx="${4}"; _max_tx="${5}"; _max_total="${6}";
+		_min_rx="${7}"; _min_tx="${8}"; _min_total="${9}";
+
+		vnstat "${_period}";
+		printf	"%14.14s %13.13s | %11.11s | %11.11s |\n"	\
+			"median"					\
+			"$(printf "%.2f GiB" "${_median_rx}")"		\
+			"$(printf "%.2f GiB" "${_median_tx}")"		\
+			"$(printf "%.2f GiB" "${_median_total}")";
+		printf	"%14.14s %13.13s | %11.11s | %11.11s |\n"	\
+			"maximum"					\
+			"$(printf "%.2f GiB" "${_max_rx}")"		\
+			"$(printf "%.2f GiB" "${_max_tx}")"		\
+			"$(printf "%.2f GiB" "${_max_total}")";
+		printf	"%14.14s %13.13s | %11.11s | %11.11s |\n"	\
+			"minimum"					\
+			"$(printf "%.2f GiB" "${_min_rx}")"		\
+			"$(printf "%.2f GiB" "${_min_tx}")"		\
+			"$(printf "%.2f GiB" "${_min_total}")";
+	};
+fi;
+
+#
 # whois
 #
 if _shinit_which whois && [ "${_shinit_SNAME%BSD}" = "${_shinit_SNAME}" ]; then
