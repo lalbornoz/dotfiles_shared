@@ -36,14 +36,25 @@ fi;
 #
 if _shinit_which keepassxc awk date sha256sum; then
 	kdbx_update() {
-		local _hname="${1}" _choice="" _fname_dst="" _fname_src="";
+		local	_hname="${1}"			\
+			_choice=""			\
+			_fname_dst="" _fname_src=""	\
+			_hash_current="" _hash_fname="";
+
 		for _fname_src in "${_hname}"\ \([0-9-]*,\ [0-9a-f]*\).kdbx; do
 			if [ ! -e "${_fname_src}" ]; then
 				continue;
 			fi;
 
-			_fname_dst="${_hname} ($(date +%Y-%m-%d), $(sha256sum "${_fname_src}" | awk '{print $1}')).kdbx";
-			if [ "${_fname_dst}" != "${_fname_src}" ]; then
+			_hash_current="$(sha256sum "${_fname_src}" | awk '{print $1}')";
+			_hash_fname="${_fname_src##*\(}";
+			_hash_fname="${_hash_fname##*, }";
+			_hash_fname="${_hash_fname%%\)*}";
+
+			if [ "${_hash_current}" = "${_hash_fname}" ]; then
+				continue;
+			else
+				_fname_dst="${_hname} ($(date +%Y-%m-%d), ${_hash_current}).kdbx";
 				printf "Rename from/to:\n%s\n%s\n(y|N) " "${_fname_src}" "${_fname_dst}";
 				read _choice;
 				case "${_choice}" in [yY]) mv "${_fname_src}" "${_fname_dst}"; ;; esac;
